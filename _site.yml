@@ -7,6 +7,10 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "About"
-      href: about.html
+    - text: "Blog"
+      href: blog
+    - text: "Code"
+      href: code.html
+    - text: "Publications"
+      href: publications
 output: distill::distill_article

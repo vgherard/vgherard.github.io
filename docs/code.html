@@ -86,29 +86,30 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Valerio Gherardi: About this site</title>
+  <title>Valerio Gherardi: Code</title>
 
-  <meta property="description" itemprop="description" content="Some additional details about the website"/>
+  <meta property="description" itemprop="description" content="Valerio Gherardi"/>
 
+  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Valerio Gherardi: About this site"/>
+  <meta property="og:title" content="Valerio Gherardi: Code"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Some additional details about the website"/>
+  <meta property="og:description" content="Valerio Gherardi"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Valerio Gherardi"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Valerio Gherardi: About this site"/>
-  <meta property="twitter:description" content="Some additional details about the website"/>
+  <meta property="twitter:title" content="Valerio Gherardi: Code"/>
+  <meta property="twitter:description" content="Valerio Gherardi"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description"]}},"value":[{"type":"character","attributes":{},"value":["About this site"]},{"type":"character","attributes":{},"value":["Some additional details about the website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","creative_commons"]}},"value":[{"type":"character","attributes":{},"value":["Code"]},{"type":"character","attributes":{},"value":["Valerio Gherardi\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["CC BY-SA"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2053,7 +2054,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"About this site","description":"Some additional details about the website","authors":[]}
+{"title":"Code","description":"Valerio Gherardi","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2065,7 +2066,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="nav-right">
 <a href="index.html">Home</a>
-<a href="about.html">About</a>
+<a href="blog">Blog</a>
+<a href="code.html">Code</a>
+<a href="publications">Publications</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2075,14 +2078,50 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>About this site</h1>
+<h1>Code</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Some additional details about the website</p></p>
+<p><p>Valerio Gherardi</p></p>
 </div>
 
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#r">R</a>
+<ul>
+<li><a href="#r2r"><strong><span><code>{r2r}</code></span></strong></a></li>
+<li><a href="#kgrams"><strong><span><code>{kgrams}</code></span></strong></a></li>
+<li><a href="#sbo"><strong><span><code>{sbo}</code></span></strong></a></li>
+<li><a href="#scribblr"><strong><span><code>{scribblr}</code></span></strong></a></li>
+<li><a href="#fcci"><strong><span><code>{fcci}</code></span></strong></a></li>
+<li><a href="#gsample"><strong><span><code>{gsample}</code></span></strong></a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<h1 id="r">R</h1>
+<p>Below is a selected list of the R packages I have developed. All packages can be installed from <a href="https://vgherard.r-universe.dev/">my R-universe public repository</a>.</p>
+<h3 id="r2r"><strong><a href="https://vgherard.github.io/r2r/"><code>{r2r}</code></a></strong></h3>
+<p><a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a></p>
+<p><em>R-Object to R-Object Hash Maps.</em> Implementation of hash tables (hash sets and hash maps) in R, featuring arbitrary R objects as keys, arbitrary hash and key-comparison functions, and customizable behaviour upon queries of missing keys.</p>
+<h3 id="kgrams"><strong><a href="https://vgherard.github.io/kgrams/"><code>{kgrams}</code></a></strong></h3>
+<p><a href="https://CRAN.R-project.org/package=kgrams"><img src="https://www.r-pkg.org/badges/version/kgrams" alt="CRAN status" /></a></p>
+<p><em>Classical k-gram Language Models.</em> Tools for training and evaluating k-gram language models in R, supporting several probability smoothing techniques, perplexity computations, random text generation and more.</p>
+<h3 id="sbo"><strong><a href="https://vgherard.github.io/sbo/"><code>{sbo}</code></a></strong></h3>
+<p><a href="https://CRAN.R-project.org/package=sbo"><img src="https://www.r-pkg.org/badges/version/sbo" alt="CRAN status" /></a></p>
+<p><em>Text Prediction via Stupid Back-Off N-Gram Models.</em> Utilities for training and evaluating text predictors based on Stupid Back-Off N-gram models <a href="https://www.aclweb.org/anthology/D07-1090/">(Brants et al., 2007)</a>.</p>
+<h3 id="scribblr"><strong><a href=""><code>{scribblr}</code></a></strong></h3>
+<p><a href="https://CRAN.R-project.org/package=scribblr"><img src="https://www.r-pkg.org/badges/version/scribblr" alt="CRAN status" /></a></p>
+<p><em>A Minimalist Notepad Inside RStudio.</em> A minimalist RStudio Addin for taking project-related notes without distractions.</p>
+<h3 id="fcci"><strong><a href="https://vgherard.github.io/fcci/"><code>{fcci}</code></a></strong></h3>
+<p><a href="https://CRAN.R-project.org/package=fcci"><img src="https://www.r-pkg.org/badges/version/fcci" alt="CRAN status" /></a></p>
+<p><em>Feldman-Cousins Confidence Intervals.</em> Provides support for building Feldman-Cousins confidence intervals <a href="doi:10.1103/PhysRevD.57.3873">(G. J. Feldman and R. D. Cousins, 1998)</a>.</p>
+<h3 id="gsample"><strong><a href="https://github.com/vgherard/gsample/"><code>{gsample}</code></a></strong></h3>
+<p><a href="https://CRAN.R-project.org/package=gsample"><img src="https://www.r-pkg.org/badges/version/gsample" alt="CRAN status" /></a></p>
+<p><em>Efficient Weighted Sampling Without Replacement.</em> Sample without replacement using the <a href="https://arxiv.org/pdf/1903.06059.pdf">Gumbel-Max trick</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -2095,7 +2134,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

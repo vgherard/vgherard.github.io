@@ -1,20 +1,20 @@
 {
   "articles": [
     {
-      "path": "about.html",
-      "title": "About this site",
-      "description": "Some additional details about the website",
+      "path": "code.html",
+      "title": "Code",
+      "description": "Valerio Gherardi\n",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-07-03T16:28:58+02:00"
+      "contents": "\n\nContents\nR\n{r2r}\n{kgrams}\n{sbo}\n{scribblr}\n{fcci}\n{gsample}\n\n\nR\nBelow is a selected list of the R packages I have developed. All packages can be installed from my R-universe public repository.\n{r2r}\n\nR-Object to R-Object Hash Maps. Implementation of hash tables (hash sets and hash maps) in R, featuring arbitrary R objects as keys, arbitrary hash and key-comparison functions, and customizable behaviour upon queries of missing keys.\n{kgrams}\n\nClassical k-gram Language Models. Tools for training and evaluating k-gram language models in R, supporting several probability smoothing techniques, perplexity computations, random text generation and more.\n{sbo}\n\nText Prediction via Stupid Back-Off N-Gram Models. Utilities for training and evaluating text predictors based on Stupid Back-Off N-gram models (Brants et al., 2007).\n{scribblr}\n\nA Minimalist Notepad Inside RStudio. A minimalist RStudio Addin for taking project-related notes without distractions.\n{fcci}\n\nFeldman-Cousins Confidence Intervals. Provides support for building Feldman-Cousins confidence intervals (G. J. Feldman and R. D. Cousins, 1998).\n{gsample}\n\nEfficient Weighted Sampling Without Replacement. Sample without replacement using the Gumbel-Max trick.\n\n\n\n",
+      "last_modified": "2021-07-03T18:22:16+02:00"
     },
     {
       "path": "index.html",
       "title": "Valerio Gherardi",
-      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "description": ";)\n",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-07-03T16:28:59+02:00"
+      "last_modified": "2021-07-03T17:17:10+02:00"
     }
   ],
   "collections": []
