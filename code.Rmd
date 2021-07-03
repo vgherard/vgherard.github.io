@@ -11,9 +11,9 @@ creative_commons: CC BY-SA
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# R
+# R packages
 
-Below is a selected list of R packages I have developed. All packages can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/).
+The R packages listed below can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/).
 
 ### **[`{r2r}`](https://vgherard.github.io/r2r/)**
 [![CRAN status](https://www.r-pkg.org/badges/version/r2r)](https://CRAN.R-project.org/package=r2r)
@@ -51,3 +51,18 @@ Provides support for building Feldman-Cousins confidence intervals [(G. J. Feldm
 [![CRAN status](https://www.r-pkg.org/badges/version/gsample)](https://CRAN.R-project.org/package=gsample)
 
 *Efficient Weighted Sampling Without Replacement.* Sample without replacement using the [Gumbel-Max trick](https://arxiv.org/pdf/1903.06059.pdf).
+
+
+# Code excerpts
+
+This Section lists some smaller projects, including code snippets, algorithm implementations and similars.
+
+### **[viterbi](https://github.com/vgherard/viterbi)**
+
+*Optimal paths in Hidden Markov Models.* C++ implementation of Viterbi's dynamic programming algorithm for finding optimal paths in the hidden space of hidden Markov models.
+
+### **[dijkstra](https://github.com/vgherard/dijkstra)**
+
+*Minimum length paths in directed graphs.* C++ implementation of Dijkstra's algorithm for finding minimum length paths in weighted directed graphs.
+
+
