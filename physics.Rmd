@@ -1,0 +1,14 @@
+---
+title: "Physics"
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    toc: true
+creative_commons: CC BY-SA
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### My Scientific Publications

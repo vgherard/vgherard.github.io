@@ -4,13 +4,37 @@ description: |
   Valerio Gherardi
 output_dir: "docs"
 navbar:
-  right:
+  left:
     - text: "Home"
       href: index.html
     - text: "Blog"
       href: blog
     - text: "Code"
       href: code.html
-    - text: "Publications"
-      href: publications
+    - text: "Physics"
+      href: physics.html
+    - text: "About me"
+      href: about.html
+  right:
+    - icon: fab fa-github fa-2x
+      href: https://github.com/vgherard
+    - icon: fab fa-linkedin fa-2x
+      href: https://www.linkedin.com/in/vgherard/
+    - icon: fab fa-twitter fa-2x
+      href: https://twitter.com/ValerioGherardi
+    - text: "Other places"
+      menu:
+        - text: "vgherard @ SISSA-TPP"
+          href: https://www.sissa.it/tpp/members.php?ID=278
+        - text: "vgherard @ iNSPIRE HEP"
+          href: https://inspirehep.net/authors/1728353?ui-citation-summary=true
+        - text: "vgherard @ r-bloggers"
+          href: https://www.r-bloggers.com/author/valerio-gherardi/
+        - text: "vgherard @ datascience+"
+          href: https://datascienceplus.com/author/vgherard/
+        - text: "vgherard @ StackExchange"
+          href: https://stackexchange.com/users/2261006/pppqqq
+
+
+
 output: distill::distill_article

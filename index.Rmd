@@ -1,5 +1,6 @@
 ---
 title: "Valerio Gherardi"
+date: "`r Sys.Date()`"
 description: |
   /!\\ Under Construction /!\\ 
 site: distill::distill_website
