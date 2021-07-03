@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # R
 
-Below is a selected list of the R packages I have developed. All packages can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/).
+Below is a selected list of R packages I have developed. All packages can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/).
 
 ### **[`{r2r}`](https://vgherard.github.io/r2r/)**
 [![CRAN status](https://www.r-pkg.org/badges/version/r2r)](https://CRAN.R-project.org/package=r2r)
