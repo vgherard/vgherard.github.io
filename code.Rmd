@@ -4,14 +4,19 @@ date: "`r Sys.Date()`"
 output:
   distill::distill_article:
     toc: true
-creative_commons: CC BY-SA
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# R packages
+## Overview
+
+My preferred programming languages are [`R`](https://www.r-project.org/) and [`C++`](https://www.cplusplus.com/), and in most of my projects I use a combination of the two (usually via [`{Rcpp}`](http://dirk.eddelbuettel.com/code/rcpp.html)). I also enjoy delving into [`Python`](https://www.python.org/), especially when working with others on machine-learning/deep-learning related projects, either directly or again through its plenty R integrations (*e.g.* [`{reticulate}`](https://rstudio.github.io/reticulate/), [`{tensorflow}`](https://tensorflow.rstudio.com/), [`{keras}`](https://keras.rstudio.com/)).
+
+This page contains a selected list of open-source projects, mostly but not only R packages, I'm working or have worked on.
+
+## R packages
 
 The R packages listed below can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/).
 
