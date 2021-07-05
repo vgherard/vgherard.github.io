@@ -21,6 +21,7 @@ description: |
 favicon: img/favicon.ico
 
 navbar:
+  #type: inverse
   left:
     - text: "Home"
       href: index.html
