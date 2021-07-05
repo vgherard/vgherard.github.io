@@ -40,6 +40,5 @@ navbar:
         - text: "vgherard @ exercism"
           href: https://exercism.io/profiles/vgherard
 
-
-
+google_analytics: "G-LQD2K60RG7"
 output: distill::distill_article
