@@ -1,12 +1,21 @@
 ---
 title: "Valerio Gherardi"
 date: "`r Sys.Date()`"
-description: |
-  /!\\ Under Construction /!\\ 
 site: distill::distill_website
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+<center>
+
+![](img/me-circle-cropped.png){width=33%: style="float: left"}
+
+## Welcome
+Here you can find information about me, my professional and scientific profile,
+and my current work and personal projects.
+
+</center>
+
 

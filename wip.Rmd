@@ -1,0 +1,16 @@
+---
+title: "Work in progress..."
+date: "`r Sys.Date()`"
+site: distill::distill_website
+---
+
+<center>
+`r fontawesome::fa("tools", fill = "orange", width = "13em")`
+<br>
+<br>
+This section of the website is still under construction.
+</center>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+

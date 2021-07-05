@@ -8,7 +8,7 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Blog"
-      href: blog
+      href: wip.html
     - text: "Code"
       href: code.html
     - text: "Physics"
@@ -22,6 +22,9 @@ navbar:
       href: https://www.linkedin.com/in/vgherard/
     - icon: fab fa-twitter fa-2x
       href: https://twitter.com/ValerioGherardi
+    - icon: fa fa-envelope fa-2x
+      href: mailto:vgherard@sissa.it
+
     - text: "Other places"
       menu:
         - text: "vgherard @ SISSA-TPP"
