@@ -18,6 +18,7 @@ name: "vgherard"
 title: "Valerio Gherardi"
 description: |
   Valerio Gherardi
+favicon: img/favicon.ico
 
 navbar:
   left:
