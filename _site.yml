@@ -1,8 +1,24 @@
+base_url: https://vgherard.github.io/
+repository_url: https://github.com/vgherard/vgherard.github.io/
+
+google_analytics: "UA-201349540-1"
+cookie_consent:
+  style: simple
+  type: express
+  palette: light
+  lang: en
+  cookies_policy: url
+
+creative_commons: CC BY-SA
+
+output_dir: "docs"
+output: distill::distill_article
+
 name: "vgherard"
 title: "Valerio Gherardi"
 description: |
   Valerio Gherardi
-output_dir: "docs"
+
 navbar:
   left:
     - text: "Home"
@@ -39,6 +55,3 @@ navbar:
           href: https://stackexchange.com/users/2261006/pppqqq
         - text: "vgherard @ exercism"
           href: https://exercism.io/profiles/vgherard
-
-google_analytics: "UA-201349540-1"
-output: distill::distill_article
