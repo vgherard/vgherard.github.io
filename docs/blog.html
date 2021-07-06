@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
   <meta name="generator" content="distill" />
+  <link rel="alternate" type="application/rss+xml" href="https://vgherard.github.io/blog.xml" />
 
   <style type="text/css">
   /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
@@ -86,31 +87,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Valerio Gherardi: Physics</title>
+  <title>Valerio Gherardi: Blog</title>
 
 
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
-  <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2021-07-06"/>
-  <meta property="article:created" itemprop="dateCreated" content="2021-07-06"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Valerio Gherardi: Physics"/>
+  <meta property="og:title" content="Valerio Gherardi: Blog"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Valerio Gherardi"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Valerio Gherardi: Physics"/>
+  <meta property="twitter:title" content="Valerio Gherardi: Blog"/>
 
   <!--/radix_placeholder_meta_tags-->
-  
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output","bibliography","csl","nocite"]}},"value":[{"type":"character","attributes":{},"value":["Physics"]},{"type":"character","attributes":{},"value":["2021-07-06"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["physical-review-d.csl"]},{"type":"character","attributes":{},"value":["@Feruglio:2021dte, \n@Gherardi:2020qhc, \n@Gherardi:2020det, \n@Gherardi:2020gtv,\n@AlvarengaNogueira:2019zcs,\n@Gherardi:2019zil"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":["Blog"]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["posts"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2379,12 +2376,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 </head>
 
-<body>
+<body class="layout-listing">
 
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Physics","authors":[],"publishedDate":"2021-07-06T00:00:00.000+02:00"}
+{"title":"Blog","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2439,9 +2436,201 @@ Other links
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
+<!--radix_placeholder_article_listing-->
+
+
+<script type="application/javascript">
+
+function init_posts_list() {
+
+  function load_image(img) {
+    var src = $(img).attr('data-src');
+    if (src) {
+      $(img).attr('src', src);
+      $(img).load(function() {
+        img.removeAttribute('data-src');
+      });
+    }
+  }
+
+  function set_posts_visible(posts, visible) {
+    if (visible) {
+
+      // show bottom border by default
+      $(posts).removeClass('post-preview-last');
+
+      // apply limits if need be
+      var max_posts = 25;
+      var apply_limits = $('.posts-container').hasClass('posts-apply-limit');
+      if (apply_limits && posts.length > max_posts) {
+        posts = $(posts).slice(0, max_posts);
+      } else {
+        $('.posts-more a').addClass('hidden');
+      }
+
+      // apply last style
+      $(posts.slice(-1)[0]).addClass('post-preview-last');
+
+      $(posts).removeClass('hidden');
+      $(posts).find('img[data-src]').each(function(i, img) {
+        load_image(img);
+      });
+    } else {
+      $(posts).addClass('hidden');
+    }
+  }
+
+  function apply_hash_filter() {
+
+    // clear active state
+    $('.categories .active').removeClass('active');
+
+    // mark all posts invisible to start
+    set_posts_visible($('.posts-list').children('a'), false);
+
+    // if we have a hash filter
+    if (window.location.hash && window.location.hash.startsWith("#category:")) {
+
+      // mark posts that match the category visible
+      var page_category = window.location.hash.replace(/^#category:/, "");
+      var posts = $('.post-metadata').map(function(idx, script) {
+        var metadata = $.parseJSON($(script).html());
+        var post = null;
+        $.each(metadata.categories, function(idx, category) {
+          category = category.replace(/ /g,"_");
+          if ((page_category || '').toLowerCase() === "articles" || category === page_category) {
+            post = $(script).parent().get();
+            return false;
+          }
+        });
+        return post;
+      });
+      set_posts_visible(posts, true);
+
+      // mark the hash active
+      $('.categories li>a[href="' + window.location.hash + '"]').addClass('active');
+
+      // update the list_caption
+      var list_caption = $('.posts-list-caption');
+      var caption = (page_category || '').toLowerCase() === "articles"
+        ? list_caption.attr('data-caption')
+        : ('Category: ' + page_category.replace(/_/g," "));
+      list_caption.text(caption);
+
+    } else {
+
+      // no hash filter, make all posts visible (subject to max display)
+      set_posts_visible($('.posts-list').children(), true);
+
+      // reset list caption
+      var list_caption = $('.posts-list-caption');
+      list_caption.text(list_caption.attr('data-caption'));
+
+
+    }
+  }
+
+  // more articles
+  function apply_post_limits(apply) {
+    if (apply) {
+      $('.posts-container').addClass('posts-apply-limit');
+      $('.posts-more a').removeClass('hidden');
+    } else {
+      $('.posts-container').removeClass('posts-apply-limit');
+      $('.posts-more a').addClass('hidden');
+    }
+  }
+
+  // click handling for tags
+  $('.dt-tag').click(function(ev) {
+    window.location.hash = '#category:' + $(this).text().replace(/ /g, "_");
+    return false;
+  })
+
+  // hash filter handling
+  apply_hash_filter();
+  $(window).on('hashchange',function() {
+    apply_post_limits(true);
+    apply_hash_filter();
+  });
+
+  // more articles link
+  $('.posts-more a').click(function(e) {
+    e.preventDefault();
+    apply_post_limits(false);
+    apply_hash_filter();
+    return false;
+  });
+
+}
+
+</script>
+
+
+
+<div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
+<div class="posts-list">
+<h1 class="posts-list-caption" data-caption="Blog">Blog</h1>
+<a href="posts/2021-07-06-r2r/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">July 6, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">vgherard</div>
+</div>
+</div>
+<div class="thumbnail">
+<img/>
+</div>
+<div class="description">
+<h2>{r2r} now on CRAN</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Introducing {r2r}, an R implementation of hash tables.</p>
+</div>
+</a>
+<a href="posts/2021-07-06-test-post/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":[]}</script>
+<div class="metadata">
+<div class="publishedDate">July 6, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">vgherard</div>
+</div>
+</div>
+<div class="thumbnail">
+<img/>
+</div>
+<div class="description">
+<h2>Test post</h2>
+<div class="dt-tags"></div>
+<p>A short description of the post.</p>
+</div>
+</a>
+</div>
+<div class="posts-sidebar">
+<div class="sidebar-section categories">
+<h3>Categories</h3>
+<ul>
+<li>
+<a href="#category:Articles">Articles</a>
+<span class="category-count">(2)</span>
+</li>
+<li>
+<a href="#category:R">R</a>
+<span class="category-count">(1)</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="posts-more">
+<a href="#">More articles &raquo;</a>
+</div>
+</div>
+<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>Physics</h1>
+<h1>Blog</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2449,50 +2638,7 @@ Other links
 
 
 <div class="d-article">
-<div class="d-contents d-contents-float">
-<nav class="l-text toc figcaption" id="TOC">
-<h3>Contents</h3>
-<ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#the-standard-model">The Standard Model</a></li>
-<li><a href="#my-scientific-publications">My Scientific Publications</a></li>
-</ul>
-</nav>
-</div>
-<h2 id="overview">Overview</h2>
-<p>I graduated in Physics in 2017, at Università La Sapienza of Rome, and I am about to conclude my PhD in Theoretical Particle Physics (~ October 2021), at the International School for Advanced Studies (SISSA) of Trieste, Italy.</p>
-<p>I have always felt deeply fascinated by the combination of mathematical abstraction and reductivism behind Physical Laws, which find one of their greatest expressions in Particle Physics. For this (and possibly other less conscious) reason(s) I devoted my research to this field and, especially in the last years, to theories Beyond the Standard Model of Particle Physics.</p>
-<p>This page provides an overview of the research topics I have been primarily involved with during these years, and of my personal contributions to the various areas.</p>
-<h2 id="the-standard-model">The Standard Model</h2>
-<p>The <a href="https://home.cern/science/physics/standard-model">Standard Model</a> (SM) of Particle Physics is the scientific theory which subsumes our current understanding of the sub-atomic world. According to it, all observable physical phenomena can be reduced to the interaction of few elementary constituents: quarks, leptons, gauge vectors, and the Higgs boson.</p>
-<figure>
-<img src="img/STDM%20higgs%20and%20field%20D.png" alt="Particles of the Standard Model of particle physics (Image: Daniel Dominguez/CERN)" /><figcaption aria-hidden="true">Particles of the Standard Model of particle physics (Image: Daniel Dominguez/CERN)</figcaption>
-</figure>
-<p>Despite many experimental validations, including the spectacular <a href="https://home.cern/news/news/experiments/atlas-and-cms-publish-observations-new-particle">discovery of the Higgs boson</a> at CERN in 2012, there also exist several pieces of evidence indicating (or requiring) the presence of physics not described by the SM. Some of these hints are purely observational in nature: the existence of <a href="https://home.cern/science/physics/dark-matter">Dark Matter</a>, <a href="https://en.wikipedia.org/wiki/Neutrino">Neutrino Masses</a> and (!) gravity, to cite just a few. In addition, there are several theoretical suggestions and puzzles which strengthen the case for Physics Beyond the SM: for example, explaining the exact numbers and features of the elementary constituents shown in the figure above.</p>
-<p>The SM is one of the greatest intellectual achievements of the last century, and poses a similarly great challenge for the present one: to supersede it.</p>
-<h2 id="my-scientific-publications">My Scientific Publications</h2>
-<p>Below you can find a complete list of my scientific publications on Particle Physics, in inverse chronological order. More details, including full pdfs and citation metrics, can be found at <a href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">my iNSPIRE HEP author page</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<div id="refs" class="references csl-bib-body" role="doc-bibliography">
-<div id="ref-Feruglio:2021dte" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">F. Feruglio, V. Gherardi, A. Romanino, and A. Titov, <em><span class="nocase">Modular invariant dynamics and fermion mass hierarchies around <span class="math inline">\(\tau = i\)</span></span></em>, JHEP <strong>05</strong>, 242 (2021).</div>
-</div>
-<div id="ref-Gherardi:2020qhc" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, and E. Venturini, <em><span class="nocase">Low-energy phenomenology of scalar leptoquarks at one-loop accuracy</span></em>, JHEP <strong>01</strong>, 138 (2021).</div>
-</div>
-<div id="ref-Gherardi:2020det" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, and E. Venturini, <em><span class="nocase">Matching scalar leptoquarks to the SMEFT at one loop</span></em>, JHEP <strong>07</strong>, 225 (2020).</div>
-</div>
-<div id="ref-Gherardi:2020gtv" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">V. Gherardi, <em><span class="nocase">General correlations to <span class="math inline">\(b \to s\mu^+\mu^-\)</span> anomalies from a rank condition</span></em>, Nuovo Cim. C <strong>43</strong>, 45 (2020).</div>
-</div>
-<div id="ref-AlvarengaNogueira:2019zcs" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">J. H. Alvarenga Nogueira, D. Colasante, V. Gherardi, T. Frederico, E. Pace, and G. Salmè, <em><span class="nocase">Solving the Bethe-Salpeter Equation in Minkowski Space for a Fermion-Scalar system</span></em>, Phys. Rev. D <strong>100</strong>, 016021 (2019).</div>
-</div>
-<div id="ref-Gherardi:2019zil" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, M. Nardecchia, and A. Romanino, <em><span class="nocase">Rank-One Flavor Violation and B-meson anomalies</span></em>, JHEP <strong>10</strong>, 112 (2019).</div>
-</div>
-</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2500,22 +2646,11 @@ Other links
 <div class="d-appendix">
 </div>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
 <div class="appendix-bottom">
-<h3 id="references">References</h3>
-<div id="references-listing"></div>
 <h3 id="updates-and-corrections">Corrections</h3>
 <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/vgherard/vgherard.github.io/issues/new">create an issue</a> on the source repository.</p>
 <h3 id="reuse">Reuse</h3>

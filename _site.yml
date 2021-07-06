@@ -21,13 +21,24 @@ description: |
 # favicon: img/favicon.ico
 theme: theme.css
 
+collections:
+  posts:
+    categories: true
+    categories_metadata: true
+    authors_metadata: true
+rss:
+  full_content: true
+  categories:
+    - R
+    - general
+
 navbar:
   type: inverse
   left:
     - text: "Home"
       href: index.html
     - text: "Blog"
-      href: wip.html
+      href: blog.html
     - text: "Code"
       href: code.html
     - text: "Physics"
@@ -61,3 +72,5 @@ navbar:
           href: https://stackexchange.com/users/2261006/pppqqq
         - text: "vgherard @ exercism"
           href: https://exercism.io/profiles/vgherard
+    - icon: fa fa-rss
+      href: blog.xml
