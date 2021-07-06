@@ -30,7 +30,7 @@ rss:
   full_content: true
   categories:
     - R
-    - general
+    - Other
 
 navbar:
   type: inverse

@@ -10,21 +10,12 @@
     <lastBuildDate>Tue, 06 Jul 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>{r2r} now on CRAN</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-06-r2r</link>
       <description>Introducing {r2r}, an R implementation of hash tables.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
       <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Test post</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2021-07-06-test-post</link>
-      <description>A short description of the post.</description>
-      <category>Other</category>
-      <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
-      <pubDate>Mon, 05 Jul 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>
