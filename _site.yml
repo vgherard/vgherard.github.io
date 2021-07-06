@@ -72,5 +72,5 @@ navbar:
           href: https://stackexchange.com/users/2261006/pppqqq
         - text: "vgherard @ exercism"
           href: https://exercism.io/profiles/vgherard
-    - icon: fa fa-rss
-      href: blog.xml
+#    - icon: fa fa-rss
+#      href: blog.xml

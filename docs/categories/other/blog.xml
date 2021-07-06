@@ -12,10 +12,14 @@
       <title>Test post</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-06-test-post</link>
-      <description>A short description of the post.</description>
+      <description>
+
+
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">3adb2f6c51212077077aa7cbee6f3003</distill:md5>
       <category>Other</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
-      <pubDate>Mon, 05 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>
