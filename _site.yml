@@ -19,9 +19,10 @@ title: "Valerio Gherardi"
 description: |
   Valerio Gherardi
 favicon: img/favicon.ico
+theme: theme.css
 
 navbar:
-  #type: inverse
+  type: inverse
   left:
     - text: "Home"
       href: index.html
@@ -33,17 +34,20 @@ navbar:
       href: physics.html
     - text: "About me"
       href: about.html
-  right:
-    - icon: fab fa-github fa-2x
-      href: https://github.com/vgherard
-    - icon: fab fa-linkedin fa-2x
-      href: https://www.linkedin.com/in/vgherard/
-    - icon: fab fa-twitter fa-2x
-      href: https://twitter.com/ValerioGherardi
-    - icon: fa fa-envelope fa-2x
-      href: mailto:vgherard@sissa.it
 
-    - text: "Other places"
+  right:
+    - icon: fab fa-github fa-1x
+      href: https://github.com/vgherard
+    - icon: fab fa-linkedin fa-1x
+      href: https://www.linkedin.com/in/vgherard/
+    - icon: fab fa-twitter fa-1x
+      href: https://twitter.com/ValerioGherardi
+    - icon: fa fa-envelope fa-1x
+      href: mailto:vgherard@sissa.it
+    #- icon: fa fa-address-card fa-2x
+    - text: CV
+      href: cv/cv.pdf
+    - text: "Other links"
       menu:
         - text: "vgherard @ SISSA-TPP"
           href: https://www.sissa.it/tpp/members.php?ID=278
