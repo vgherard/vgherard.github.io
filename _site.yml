@@ -26,6 +26,7 @@ collections:
     categories: true
     categories_metadata: true
     authors_metadata: true
+    subscribe: _subscribe.html
 rss:
   full_content: true
   categories:
