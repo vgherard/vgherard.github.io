@@ -1,7 +1,7 @@
 on:
   push:
     branches: master
-	 schedule:
+  schedule:
     - cron: '59 23 * * *'
 name: Render Code page
 
