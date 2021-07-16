@@ -1,9 +1,7 @@
 on:
-  push:
-    branches: master
   schedule:
     - cron: '59 23 * * *'
-name: Render Code page
+name: Code section midnight update
 
 jobs:
   build:
@@ -22,10 +20,10 @@ jobs:
           install.packages("fontawesome")
         shell: Rscript {0}
 
-      - name: Render Site
+      - name: Render code.Rmd
         run: Rscript -e 'rmarkdown::render("code.Rmd", encoding = "UTF-8")'
       - name: Commit results
         run: |
           git add -A
-          git commit -m 'Rebuild site' || echo "No changes to commit"
+          git commit -m 'Update code.Rmd' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
