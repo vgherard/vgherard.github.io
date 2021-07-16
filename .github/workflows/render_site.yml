@@ -1,8 +1,9 @@
 on:
   push:
     branches: master
-
-name: Render & Deploy Site
+	 schedule:
+    - cron: '59 23 * * *'
+name: Render Code page
 
 jobs:
   build:
@@ -18,10 +19,11 @@ jobs:
         run: |
           install.packages("distill")
           install.packages("jsonlite")
+          install.packages("fontawesome")
         shell: Rscript {0}
 
       - name: Render Site
-        run: Rscript -e 'rmarkdown::render_site(encoding = "UTF-8")'
+        run: Rscript -e 'rmarkdown::render("code.Rmd", encoding = "UTF-8")'
       - name: Commit results
         run: |
           git add -A
