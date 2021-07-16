@@ -20,43 +20,26 @@ This page contains a selected list of open-source projects, mostly but not only 
 
 The R packages listed below can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/).
 
-### **[`{r2r}`](https://vgherard.github.io/r2r/)**
-[![CRAN status](https://www.r-pkg.org/badges/version/r2r)](https://CRAN.R-project.org/package=r2r)
+```{r include=FALSE}
+con <- url("https://vgherard.r-universe.dev/stats/descriptions")
+pkgs <- jsonlite::stream_in(con)
 
-*R-Object to R-Object Hash Maps.*
-Implementation of hash tables (hash sets and hash maps) in R, featuring arbitrary R objects as keys, arbitrary hash and key-comparison functions, and customizable behaviour upon queries of missing keys. 
+txt <- ""
+for (i in seq_len(nrow(pkgs))) {
+	txt <- paste0(
+		txt, 
+		"### [`", pkgs[i, "Package"], "`](", pkgs[i, "RemoteUrl"], ")", "\n",
+		"[![CRAN status](https://www.r-pkg.org/badges/version/", pkgs[i,"Package"],
+		")](https://CRAN.R-project.org/package=",pkgs[i, "Package"], ")",
+		"\n\n",
+		"*", pkgs[i, "Title"], ".* ", pkgs[i, "Description"],
+		"\n\n"
+		)
+}
 
+```
 
-
-### **[`{kgrams}`](https://vgherard.github.io/kgrams/)**
-[![CRAN status](https://www.r-pkg.org/badges/version/kgrams)](https://CRAN.R-project.org/package=kgrams)
-
-*Classical k-gram Language Models.* 
-Tools for training and evaluating k-gram language models in R, supporting several probability smoothing techniques, perplexity computations, random text generation and more.
-
-### **[`{sbo}`](https://vgherard.github.io/sbo/)**
-[![CRAN status](https://www.r-pkg.org/badges/version/sbo)](https://CRAN.R-project.org/package=sbo)
-
-*Text Prediction via Stupid Back-Off N-Gram Models.*
-Utilities for training and evaluating text predictors based on Stupid Back-Off N-gram models [(Brants et al., 2007)](<https://www.aclweb.org/anthology/D07-1090/>).
-
-### **[`{scribblr}`](https://github.com/vgherard/scribblr/)**
-[![CRAN status](https://www.r-pkg.org/badges/version/scribblr)](https://CRAN.R-project.org/package=scribblr)
-
-*A Minimalist Notepad Inside RStudio.*
-A minimalist RStudio Addin for taking project-related notes without distractions.
-
-### **[`{fcci}`](https://vgherard.github.io/fcci/)** 
-[![CRAN status](https://www.r-pkg.org/badges/version/fcci)](https://CRAN.R-project.org/package=fcci)
-
-*Feldman-Cousins Confidence Intervals.*
-Provides support for building Feldman-Cousins confidence intervals [(G. J. Feldman and R. D. Cousins, 1998)](<doi:10.1103/PhysRevD.57.3873>).
-
-### **[`{gsample}`](https://github.com/vgherard/gsample/)**
-[![CRAN status](https://www.r-pkg.org/badges/version/gsample)](https://CRAN.R-project.org/package=gsample)
-
-*Efficient Weighted Sampling Without Replacement.* Sample without replacement using the [Gumbel-Max trick](https://arxiv.org/pdf/1903.06059.pdf).
-
+`r txt`
 
 # Code excerpts
 
