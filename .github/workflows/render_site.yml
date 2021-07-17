@@ -1,7 +1,7 @@
 on:
   schedule:
     - cron: '59 23 * * *'
-name: Code section midnight update
+name: Website re-rendering
 
 jobs:
   build:
@@ -20,8 +20,8 @@ jobs:
           install.packages("fontawesome")
         shell: Rscript {0}
 
-      - name: Render code.Rmd
-        run: Rscript -e 'rmarkdown::render("code.Rmd", encoding = "UTF-8")'
+      - name: Render site
+        run: Rscript -e 'rmarkdown::render_site(encoding = "UTF-8")'
       - name: Commit results
         run: |
           git add -A
