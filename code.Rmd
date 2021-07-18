@@ -18,7 +18,7 @@ This page contains a selected list of open-source projects, mostly but not only 
 
 ## R packages
 
-The R packages listed below can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/). This list is automatically updated every day, round midnight.
+The R packages listed below can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/). This list is automatically updated every day, round midnight (UTC).
 
 *Last update:* `r Sys.time()`
 
