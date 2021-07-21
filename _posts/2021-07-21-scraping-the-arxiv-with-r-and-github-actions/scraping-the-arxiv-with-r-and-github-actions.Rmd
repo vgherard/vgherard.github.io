@@ -1,0 +1,29 @@
+---
+title: "Scraping the arXiv with R and GitHub Actions"
+description: |
+  How to automate arXiv metadata download using R and GitHub Actions (and a little bit of Python.)   
+author:
+  - name: vgherard
+date: 2021-07-21
+output:
+  distill::distill_article:
+    self_contained: false
+    pandoc_args: ["--number-sections"]
+categories:
+  - R
+draft: true
+
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Hi R-bloggers `r emo::ji("wave")` {.unnumbered}
+
+Starting from today, all posts from this blog in the `R` category will also appear on [R-bloggers](https://www.r-bloggers.com/). I would like to thank Tal for aggregating my blog, and say "hi!" to all R-bloggers readers. I'm a particle physicist with a passion for R, Statistics and Machine Learning. If you want to find out something more about me, you can take a look at [my website](https://vgherard.github.io), and links therein.
+
+# Introduction
+
+In this post I explain how to setup a GitHub repository which automatically downloads arXiv metadata  
