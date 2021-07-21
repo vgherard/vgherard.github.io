@@ -10,7 +10,7 @@
     <lastBuildDate>Tue, 20 Jul 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</link>
       <description>
 
@@ -79,27 +79,18 @@ for (i in seq_len(nrow(pkgs))) {
 &lt;p&gt;&lt;a href="https://CRAN.R-project.org/package=fcci"&gt;&lt;img src="https://www.r-pkg.org/badges/version/fcci" alt="CRAN status" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Feldman-Cousins Confidence Intervals.&lt;/em&gt; Provides support for building Feldman-Cousins confidence intervals [G. J. Feldman and R. D. Cousins (1998) &lt;a href="doi:10.1103/PhysRevD.57.3873" class="uri"&gt;doi:10.1103/PhysRevD.57.3873&lt;/a&gt;].&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>2a8bc4376a30e5b65d7efc0f85099967</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">2a8bc4376a30e5b65d7efc0f85099967</distill:md5>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</guid>
       <pubDate>Tue, 20 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>{r2r} now on CRAN</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-06-r2r</link>
       <description>Introducing {r2r}, an R implementation of hash tables.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
-      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Test post</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2021-07-06-test-post</link>
-      <description>A short description of the post.</description>
-      <category>Other</category>
-      <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
       <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>

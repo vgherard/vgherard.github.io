@@ -1485,7 +1485,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <h1 class="unnumbered" id="hi-r-bloggers">Hi R-bloggers 👋</h1>
+<p>Starting from today, all posts from this blog in the <code>R</code> category will also appear on <a href="https://www.r-bloggers.com/">R-bloggers</a>. I would like to thank Tal for aggregating my blog, and say “hi!” to all R-bloggers readers. I’m a particle physicist with a passion for R, Statistics and Machine Learning. If you want to find out something more about me, you can take a look at <a href="https://vgherard.github.io">my website</a>, and links therein.</p>
 <h1 data-number="1" id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>In this post I explain how to setup a GitHub repository which automatically scrapes the <a href="https://arxiv.org">arXiv</a> (downloading metadata such as author, category, title, abstract, etc.) using:</p>
+<ul>
+<li><a href="https://www.r-project.org/">R</a></li>
+<li><a href="https://github.com/features/actions">GitHub Actions</a></li>
+<li>A few extra dependencies to be detailed below.</li>
+</ul>
+<p>I will take as an example my own repository <a href="https://github.com/vgherard/hepscrape/">hepscrape</a>, which holds a dataset of records from the <code>hep-ph</code> arXiv category that is updated on a daily basis. Each night, the repository:</p>
+<ol type="1">
+<li>Checks for new submissions on arXiv.</li>
+<li>Aggregates the newly found records with older ones already present in the dataset.</li>
+<li>Performs/updates a simple analysis on the data (at the time of writing, it creates a word cloud, shown in the README, with popular terms from the last 100 submissions).</li>
+</ol>
+<p>My main purpose with <a href="https://github.com/vgherard/hepscrape/">hepscrape</a> was to create a dataset which I could use for personal fun, but of course you can setup your own workflow using the same techniques I outline in this post.</p>
+<h1 data-number="2" id="retrieving-arxiv-metadata"><span class="header-section-number">2</span> Retrieving arXiv metadata</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
