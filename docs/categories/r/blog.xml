@@ -10,7 +10,7 @@
     <lastBuildDate>Sat, 24 Jul 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>R Client for R-universe APIs</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</link>
       <description>
 
@@ -41,14 +41,14 @@
 &lt;h1 id="conclusion"&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;I hope you find this useful. I have very little experience with web API R packages (this was another personal reason to tackle this), so that if you have any suggestion, or maybe want to collaborate on &lt;code&gt;runiv&lt;/code&gt;, you are welcome to reach out to me through &lt;a href="https://github.com/vgherard/runiv"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>4897591c84994acc2113ed49053749e7</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">4897591c84994acc2113ed49053749e7</distill:md5>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</guid>
       <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</link>
       <description>Create automatic resumes of your R packages using the R-Universe API.</description>
       <category>R</category>
@@ -57,20 +57,11 @@
     </item>
     <item>
       <title>{r2r} now on CRAN</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-06-r2r</link>
       <description>Introducing {r2r}, an R implementation of hash tables.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
-      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Test post</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2021-07-06-test-post</link>
-      <description>A short description of the post.</description>
-      <category>Other</category>
-      <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
       <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>

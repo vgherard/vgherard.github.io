@@ -1,0 +1,64 @@
+---
+title: "R Client for R-universe APIs"
+description: |
+  Introducing W.I.P. {runiv}, an R package to interact with R-universe 
+  repository APIs
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2021-07-25
+output:
+  distill::distill_article:
+    self_contained: false
+categories:
+  - R
+draft: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Following my [previous post](https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/) on how to use your R-universe API to automatically generate a list of the packages on your R-universe, I started working on a simple R client to interact with such APIs.
+
+For those who missed it, [R-universe](https://ropensci.org/r-universe/) is a new project from rOpenSci that allows you to mantain a personal CRAN-like repository, which automatically syncs with the GitHub repositories hosting your projects.
+
+Among other features, each repository has associated a RESTful API with which users can interact for managing and retrieving informations about packages in the repo. Quoting [R-universe](https://ropensci.org/r-universe/):
+
+> The package server provides REST APIs for managing package submissions and querying information about individual packages as well as on the repository level. These data can be accessed programmatically or displayed in a front-end dashboard.
+
+# {runiv}
+
+Since this has already proved to be useful to me (and could hopefully be so 
+also to others), I started playing around to implement an R client for R-universe APIs. The package is called `runiv` and the code is [here](https://github.com/vgherard/runiv). Up to now, only a small subset of the 
+full API features are available. You can peek at the development version from 
+GitHub, using:
+
+``` r
+remotes::install_github("vgherard/runiv")
+```
+
+For instance, the procedure for obtaining your packages DESCRIPTION outlined in 
+my [previous post](https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/) is performed by:
+
+```{r}
+df <- runiv::runiv_descriptions("vgherard") # 'vgherard' is my R-universe name.
+```
+
+`df` is a dataframe containing all the entries of the DESCRIPTION files of my packages:
+
+```{r}
+df[, c("Package", "Title")]
+df[1, "Description"] |> strtrim(60) |> paste("[...]")
+```
+
+# Conclusion
+
+I hope you find this useful. I have very little experience with web API R 
+packages (this was another personal reason to tackle this), so that if you have
+any suggestion, or maybe want to collaborate on `runiv`, you are welcome to reach 
+out to me through [GitHub](https://github.com/vgherard/runiv).
+ 
