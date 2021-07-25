@@ -7,44 +7,16 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 24 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 25 Jul 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>R Client for R-universe APIs</title>
       <dc:creator>vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</link>
-      <description>
-
-
-&lt;h1 id="introduction"&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;Following my &lt;a href="https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/"&gt;previous post&lt;/a&gt; on how to use your R-universe API to automatically generate a list of the packages on your R-universe, I started working on a simple R client to interact with such APIs.&lt;/p&gt;
-&lt;p&gt;For those who missed it, &lt;a href="https://ropensci.org/r-universe/"&gt;R-universe&lt;/a&gt; is a new project from rOpenSci that allows you to mantain a personal CRAN-like repository, which automatically syncs with the GitHub repositories hosting your projects.&lt;/p&gt;
-&lt;p&gt;Among other features, each repository has associated a RESTful API with which users can interact for managing and retrieving informations about packages in the repo. Quoting &lt;a href="https://ropensci.org/r-universe/"&gt;R-universe&lt;/a&gt;:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The package server provides REST APIs for managing package submissions and querying information about individual packages as well as on the repository level. These data can be accessed programmatically or displayed in a front-end dashboard.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id="runiv"&gt;{runiv}&lt;/h1&gt;
-&lt;p&gt;Since this has already proved to be useful to me (and could hopefully be so also to others), I started playing around to implement an R client for R-universe APIs. The package is called &lt;code&gt;runiv&lt;/code&gt; and the code is &lt;a href="https://github.com/vgherard/runiv"&gt;here&lt;/a&gt;. Up to now, only a small subset of the full API features are available. You can peek at the development version from GitHub, using:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;remotes::install_github(&amp;quot;vgherard/runiv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For instance, the procedure for obtaining your packages DESCRIPTION outlined in my &lt;a href="https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/"&gt;previous post&lt;/a&gt; is performed by:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;df &amp;lt;- runiv::runiv_descriptions(&amp;quot;vgherard&amp;quot;) # &amp;#39;vgherard&amp;#39; is my R-universe name.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;df&lt;/code&gt; is a dataframe containing all the entries of the DESCRIPTION files of my packages:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;df[, c(&amp;quot;Package&amp;quot;, &amp;quot;Title&amp;quot;)]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;   Package                                             Title
-1      r2r                    R-Object to R-Object Hash Maps
-2   kgrams                  Classical k-gram Language Models
-3 scribblr                          A Notepad Inside RStudio
-4  gsample   Efficient Weighted Sampling Without Replacement
-5      sbo Text Prediction via Stupid Back-Off N-Gram Models
-6     fcci              Feldman-Cousins Confidence Intervals&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;df[1, &amp;quot;Description&amp;quot;] |&amp;gt; strtrim(60) |&amp;gt; paste(&amp;quot;[...]&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;Implementation of hash tables (hash sets and hash maps) in R [...]&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id="conclusion"&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;I hope you find this useful. I have very little experience with web API R packages (this was another personal reason to tackle this), so that if you have any suggestion, or maybe want to collaborate on &lt;code&gt;runiv&lt;/code&gt;, you are welcome to reach out to me through &lt;a href="https://github.com/vgherard/runiv"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>4897591c84994acc2113ed49053749e7</distill:md5>
+      <description>Introducing W.I.P. {runiv}, an R package to interact with R-universe 
+repository APIs</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</guid>
-      <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 25 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>

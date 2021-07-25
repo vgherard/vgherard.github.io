@@ -58,7 +58,7 @@ navbar:
       href: mailto:vgherard@sissa.it
     #- icon: fa fa-address-card fa-2x
     - text: CV
-      href: cv/cv.pdf
+      href: https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf
     - text: "Other links"
       menu:
         - text: "vgherard @ SISSA-TPP"
