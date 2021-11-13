@@ -13,10 +13,10 @@ knitr::opts_chunk$set(echo = FALSE)
 </center>
 <br>
 <br>
-My name is Valerio. I was born in Italy in 1992 and lived there until 2021, when I decided to move to Spain with my significant other. I'm currently based in Valencia.
+I am Valerio, class 1992, born in Italy and living in Valencia (Spain) with my girlfriend.
 
-I studied [Theoretical Physics](physics.html), and I am close (~ October 2021) to finish my PhD in Particle Physics, but for my future I am actively looking for a career outside of academia, as a Data Scientist / Engineer. My background provides me with a scientific and analytical mindset, which I love being able to apply and transfer to problems and challenges coming from different areas.
-[As a programmer](code.html), I spend most of my coding time in R (with which I 
-manage this website itself) and C++, but I also enjoy delving into Python.
+I am a [Theoretical Physicist](physics.html) turned Data Scientist, currently employed at [Voicemod](https://www.voicemod.net/). I play piano, I enjoy long walks, I dislike closed empty space and empty space in general.
+
+In my day to day work, I mainly program with Python, SQL, R and Bash, to which I couple BI tools such as Tableau, Looker and Amplitude. [For my personal/fun projects](code.html), I spend most of my coding time in R (with which I manage this website itself) and C++, but I also enjoy delving into Python.
 
 If you want to get in touch, you can follow the contact links in the navigation bar above. My CV can be downloaded [here](cv/cv.pdf). 
