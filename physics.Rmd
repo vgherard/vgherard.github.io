@@ -7,6 +7,7 @@ output:
 bibliography: biblio.bib
 csl: physical-review-d.csl
 nocite: | 
+  @Gherardi:2021pwm,
   @Feruglio:2021dte, 
   @Gherardi:2020qhc, 
   @Gherardi:2020det, 
