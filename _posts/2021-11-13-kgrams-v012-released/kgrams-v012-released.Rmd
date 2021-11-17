@@ -1,0 +1,66 @@
+---
+title: "kgrams v0.1.2 on CRAN"
+description: |
+  kgrams: Classical k-gram Language Models in R.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2021-11-13
+output:
+  distill::distill_article:
+    self_contained: false
+categories:
+  - R
+draft: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary
+
+Version v0.1.2 of my R package [kgrams](https://github.com/vgherard/kgrams) was just accepted by CRAN. This package provides tools for training and evaluating k-gram language models in R, supporting several probability smoothing techniques, perplexity computations, random text generation and more.
+
+## Short demo
+
+```{r}
+library(kgrams)
+# Get k-gram frequency counts from Shakespeare's "Much Ado About Nothing"
+freqs <- kgram_freqs(kgrams::much_ado, N = 4)
+
+# Build modified Kneser-Ney 4-gram model, with discount parameters D1, D2, D3.
+mkn <- language_model(freqs, smoother = "mkn", D1 = 0.25, D2 = 0.5, D3 = 0.75)
+
+# Sample sentences from the language model at different temperatures
+set.seed(840)
+sample_sentences(model = mkn, n = 3, max_length = 10, t = 1)
+sample_sentences(model = mkn, n = 3, max_length = 10, t = 0.1)
+sample_sentences(model = mkn, n = 3, max_length = 10, t = 10)
+```
+
+## NEWS
+
+### Overall Software Improvements
+* The package's test suite has been greatly extended.
+* Improved error/warning conditions for wrong arguments.
+* Re-enabled compiler diagnostics as per CRAN policy (#19)
+
+### API Changes
+* `verbose` arguments now default to `FALSE`.
+* `probability()`, `perplexity()` and `sample_sentences()` are restricted to
+accept only `language_model` class objects as their `model` argument.
+
+### New features
+* `as_dictionary(NULL)` now returns an empty `dictionary`.
+
+### Bug Fixes
+* Fixed bug causing `.preprocess` and `.tknz_sent` arguments to be ignored in `process_sentences()`.
+* Fixed previously wrong defaults for `max_lines` and `batch_size` arguments in `kgram_freqs.connection()`.
+* Added print method for class `dictionary`.
+* Fixed bug causing invalid results in `dictionary()` with batch processing and
+non-trivial size constraints on vocabulary size.
+
+### Other
+* Maintainer's email updated

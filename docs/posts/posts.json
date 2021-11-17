@@ -1,5 +1,24 @@
 [
   {
+    "path": "posts/2021-11-13-kgrams-v012-released/",
+    "title": "kgrams v0.1.2 on CRAN",
+    "description": "kgrams: Classical k-gram Language Models in R.",
+    "author": [
+      {
+        "name": "vgherard",
+        "url": "https://vgherard.github.io"
+      }
+    ],
+    "date": "2021-11-13",
+    "categories": [
+      "R"
+    ],
+    "contents": "\nSummary\nVersion v0.1.2 of my R package kgrams was just accepted by CRAN. This package provides tools for training and evaluating k-gram language models in R, supporting several probability smoothing techniques, perplexity computations, random text generation and more.\nShort demo\n\n\nlibrary(kgrams)\n# Get k-gram frequency counts from Shakespeare's \"Much Ado About Nothing\"\nfreqs <- kgram_freqs(kgrams::much_ado, N = 4)\n\n# Build modified Kneser-Ney 4-gram model, with discount parameters D1, D2, D3.\nmkn <- language_model(freqs, smoother = \"mkn\", D1 = 0.25, D2 = 0.5, D3 = 0.75)\n\n# Sample sentences from the language model at different temperatures\nset.seed(840)\nsample_sentences(model = mkn, n = 3, max_length = 10, t = 1)\n\n\n[1] \"i have studied eight or nine truly by your office [...] (truncated output)\"\n[2] \"ere you go : <EOS>\"                                                        \n[3] \"don pedro welcome signior : <EOS>\"                                         \n\nsample_sentences(model = mkn, n = 3, max_length = 10, t = 0.1)\n\n\n[1] \"i will not be sworn but love may transform me [...] (truncated output)\" \n[2] \"i will not fail . <EOS>\"                                                \n[3] \"i will go to benedick and counsel him to fight [...] (truncated output)\"\n\nsample_sentences(model = mkn, n = 3, max_length = 10, t = 10)\n\n\n[1] \"july cham's incite start ancientry effect torture tore pains endings [...] (truncated output)\"   \n[2] \"lastly gallants happiness publish margaret what by spots commodity wake [...] (truncated output)\"\n[3] \"born all's 'fool' nest praise hurt messina build afar dancing [...] (truncated output)\"          \n\nNEWS\nOverall Software Improvements\nThe package’s test suite has been greatly extended.\nImproved error/warning conditions for wrong arguments.\nRe-enabled compiler diagnostics as per CRAN policy (#19)\nAPI Changes\nverbose arguments now default to FALSE.\nprobability(), perplexity() and sample_sentences() are restricted to accept only language_model class objects as their model argument.\nNew features\nas_dictionary(NULL) now returns an empty dictionary.\nBug Fixes\nFixed bug causing .preprocess and .tknz_sent arguments to be ignored in process_sentences().\nFixed previously wrong defaults for max_lines and batch_size arguments in kgram_freqs.connection().\nAdded print method for class dictionary.\nFixed bug causing invalid results in dictionary() with batch processing and non-trivial size constraints on vocabulary size.\nOther\nMaintainer’s email updated\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-11-17T08:21:29+01:00",
+    "input_file": "kgrams-v012-released.knit.md"
+  },
+  {
     "path": "posts/2021-07-25-r-client-for-r-universe-apis/",
     "title": "R Client for R-universe APIs",
     "description": "Introducing W.I.P. {runiv}, an R package to interact with R-universe \nrepository APIs",

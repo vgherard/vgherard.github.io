@@ -10,7 +10,7 @@
     <lastBuildDate>Fri, 12 Nov 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>kgrams v0.1.2 on CRAN</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</link>
       <description>
 
@@ -67,14 +67,14 @@ sample_sentences(model = mkn, n = 3, max_length = 10, t = 1)&lt;/code&gt;&lt;/pr
 &lt;li&gt;Maintainer’s email updated&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>4069d9c1946e554b3624f887b1b3ff92</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">4069d9c1946e554b3624f887b1b3ff92</distill:md5>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</guid>
       <pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>R Client for R-universe APIs</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</link>
       <description>Introducing W.I.P. {runiv}, an R package to interact with R-universe 
 repository APIs</description>
@@ -84,7 +84,7 @@ repository APIs</description>
     </item>
     <item>
       <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</link>
       <description>Create automatic resumes of your R packages using the R-Universe API.</description>
       <category>R</category>
@@ -93,20 +93,11 @@ repository APIs</description>
     </item>
     <item>
       <title>{r2r} now on CRAN</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-06-r2r</link>
       <description>Introducing {r2r}, an R implementation of hash tables.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
-      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Test post</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2021-07-06-test-post</link>
-      <description>A short description of the post.</description>
-      <category>Other</category>
-      <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
       <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>
