@@ -7,70 +7,15 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 12 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>kgrams v0.1.2 on CRAN</title>
       <dc:creator>vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</link>
-      <description>
-
-
-&lt;h2 id="summary"&gt;Summary&lt;/h2&gt;
-&lt;p&gt;Version v0.1.2 of my R package &lt;a href="https://github.com/vgherard/kgrams"&gt;kgrams&lt;/a&gt; was just accepted by CRAN. This package provides tools for training and evaluating k-gram language models in R, supporting several probability smoothing techniques, perplexity computations, random text generation and more.&lt;/p&gt;
-&lt;h2 id="short-demo"&gt;Short demo&lt;/h2&gt;
-&lt;pre class="r"&gt;&lt;code&gt;library(kgrams)
-# Get k-gram frequency counts from Shakespeare&amp;#39;s &amp;quot;Much Ado About Nothing&amp;quot;
-freqs &amp;lt;- kgram_freqs(kgrams::much_ado, N = 4)
-
-# Build modified Kneser-Ney 4-gram model, with discount parameters D1, D2, D3.
-mkn &amp;lt;- language_model(freqs, smoother = &amp;quot;mkn&amp;quot;, D1 = 0.25, D2 = 0.5, D3 = 0.75)
-
-# Sample sentences from the language model at different temperatures
-set.seed(840)
-sample_sentences(model = mkn, n = 3, max_length = 10, t = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;i have studied eight or nine truly by your office [...] (truncated output)&amp;quot;
-[2] &amp;quot;ere you go : &amp;lt;EOS&amp;gt;&amp;quot;                                                        
-[3] &amp;quot;don pedro welcome signior : &amp;lt;EOS&amp;gt;&amp;quot;                                         &lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;sample_sentences(model = mkn, n = 3, max_length = 10, t = 0.1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;i will not be sworn but love may transform me [...] (truncated output)&amp;quot; 
-[2] &amp;quot;i will not fail . &amp;lt;EOS&amp;gt;&amp;quot;                                                
-[3] &amp;quot;i will go to benedick and counsel him to fight [...] (truncated output)&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;sample_sentences(model = mkn, n = 3, max_length = 10, t = 10)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;july cham&amp;#39;s incite start ancientry effect torture tore pains endings [...] (truncated output)&amp;quot;   
-[2] &amp;quot;lastly gallants happiness publish margaret what by spots commodity wake [...] (truncated output)&amp;quot;
-[3] &amp;quot;born all&amp;#39;s &amp;#39;fool&amp;#39; nest praise hurt messina build afar dancing [...] (truncated output)&amp;quot;          &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id="news"&gt;NEWS&lt;/h2&gt;
-&lt;h3 id="overall-software-improvements"&gt;Overall Software Improvements&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The package’s test suite has been greatly extended.&lt;/li&gt;
-&lt;li&gt;Improved error/warning conditions for wrong arguments.&lt;/li&gt;
-&lt;li&gt;Re-enabled compiler diagnostics as per CRAN policy (#19)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="api-changes"&gt;API Changes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;verbose&lt;/code&gt; arguments now default to &lt;code&gt;FALSE&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;probability()&lt;/code&gt;, &lt;code&gt;perplexity()&lt;/code&gt; and &lt;code&gt;sample_sentences()&lt;/code&gt; are restricted to accept only &lt;code&gt;language_model&lt;/code&gt; class objects as their &lt;code&gt;model&lt;/code&gt; argument.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="new-features"&gt;New features&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;as_dictionary(NULL)&lt;/code&gt; now returns an empty &lt;code&gt;dictionary&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="bug-fixes"&gt;Bug Fixes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Fixed bug causing &lt;code&gt;.preprocess&lt;/code&gt; and &lt;code&gt;.tknz_sent&lt;/code&gt; arguments to be ignored in &lt;code&gt;process_sentences()&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Fixed previously wrong defaults for &lt;code&gt;max_lines&lt;/code&gt; and &lt;code&gt;batch_size&lt;/code&gt; arguments in &lt;code&gt;kgram_freqs.connection()&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Added print method for class &lt;code&gt;dictionary&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Fixed bug causing invalid results in &lt;code&gt;dictionary()&lt;/code&gt; with batch processing and non-trivial size constraints on vocabulary size.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="other"&gt;Other&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Maintainer’s email updated&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>4069d9c1946e554b3624f887b1b3ff92</distill:md5>
+      <description>kgrams: Classical k-gram Language Models in R.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</guid>
-      <pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>R Client for R-universe APIs</title>
