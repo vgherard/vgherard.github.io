@@ -73,5 +73,7 @@ navbar:
           href: https://stackexchange.com/users/2261006/pppqqq
         - text: "vgherard @ exercism"
           href: https://exercism.io/profiles/vgherard
+        - text: "vgherard @ Chess.com"
+          href: https://www.chess.com/member/vgherard
 #    - icon: fa fa-rss
 #      href: blog.xml

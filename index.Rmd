@@ -13,8 +13,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ![](img/me-circle-cropped.png){width=33%: style="float: left"}
 
 ## Welcome
-Here you can find information about me, my professional and scientific profile,
-and my current work and personal projects.
+Here you can find information about me, my work and some personal projects.
 
 </center>
 
