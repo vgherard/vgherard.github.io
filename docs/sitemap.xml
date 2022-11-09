@@ -2,7 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://vgherard.github.io/about.html</loc>
-<<<<<<< HEAD
     <lastmod>2021-11-13T17:16:10+01:00</lastmod>
   </url>
   <url>
@@ -15,7 +14,7 @@
   </url>
   <url>
     <loc>https://vgherard.github.io/</loc>
-    <lastmod>2021-11-13T16:53:50+01:00</lastmod>
+    <lastmod>2022-11-08T17:44:08+01:00</lastmod>
   </url>
   <url>
     <loc>https://vgherard.github.io/physics.html</loc>
@@ -40,48 +39,5 @@
   <url>
     <loc>https://vgherard.github.io/posts/2021-07-06-test-post/</loc>
     <lastmod>2021-11-13T16:53:50+01:00</lastmod>
-=======
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/blog.html</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/code.html</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/physics.html</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/wip.html</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/posts/2021-07-06-r2r/</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://vgherard.github.io/posts/2021-07-06-test-post/</loc>
-    <lastmod>2022-07-18T01:19:20+00:00</lastmod>
->>>>>>> aa33df15a78f3e8d9af3732079a1e0a878eb6fbf
   </url>
 </urlset>
