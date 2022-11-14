@@ -5,14 +5,15 @@ description: |
 author:
   - name: vgherard
     url: https://vgherard.github.io
-date: 2022-10-18
+date: 2022-11-14
 output:
   distill::distill_article:
     self_contained: false
 bibliography: biblio.bib
 categories:
   - R
-draft: true
+  - Statistics
+draft: false
 editor_options: 
   markdown: 
     wrap: 72
@@ -27,20 +28,25 @@ knitr::opts_chunk$set(echo = TRUE)
 A few months back, for undocumented circumstances, my browser's search
 history was full of terms like *"parameter estimation with variable selection"*, 
 or *"confidence intervals after cross-validation"*, or again
-*"linear model uncertainties after staring into the abyss"*, ... En fin, sparing
-you my rock bottom, I eventually stumbled upon the right keywords, and
+*"linear model uncertainties after staring into the abyss"*, ... 
+
+Sparing you my rock bottom, I eventually stumbled upon the right keywords, and
 started digging into the mathematical aspects of **Selective Inference**, or 
 **Post-Model Selection Inference**. Now, while my hands
 are still full of dirt, I've decided it's the right moment to write some
 notes about what I've learned - whose main recipient is the future me,
 which will otherwise inevitably forget what the present me thinks he
-knows; but anyone dropping by is welcome to read, comment and report his
-skepticism. 👋
+knows. If you're *not* the future me:
+
+1. Welcome 👋
+2. If you have detected some imprecision, or have suggestions for this or the 
+next posts, you are more than welcome to [create an issue](https://github.com/vgherard/vgherard.github.io/issues/new) on the source
+repository of this blog.
 
 # Introduction
 
 Broadly speaking, the problem of Selective Inference is that of
-performing valid statistical inferences when **the actual questions of the data analysis are not fixed in advance**, but rather **selected through data examination**. In model-based inference, this lack of
+performing valid statistical inferences when *the actual questions of the data analysis are not fixed in advance*, but rather *selected through data examination*. In model-based inference, this lack of
 pre-determination usually stems from the (often unavoidable) practice of
 using the same data to choose an adequate model for the data generating
 process *and* to perform inference. The intrinsic
@@ -63,11 +69,11 @@ model from training data.
     parameters and training parameters (also known as hyper-parameters).
 
 The example from machine-learning also suggests a very simple-minded and
-relatively a-theoretical approach to Selective Inference: **data-splitting**[^sha]. According to this method, we would use only part of the available data to select the questions to be answered by the analysis, while the remaining part would
+relatively a-theoretical approach to Selective Inference: data-splitting[^sha]. According to this method, we would use only part of the available data to select the questions to be answered by the analysis, while the remaining part would
 be reserved to perform the actual inference. For this program to
 succeed, there are however two important requirements: first, we must have 
 enough data to ensure decent statistics for both the selection and inference 
-tasks; and second, we must be able to split data in two *independent* 
+tasks; and second, we must be able to split data in two independent 
 (or close to independent) sets. This can suppose problems with, *e.g.*, 
 time-series data. If, on the other hand, these requirements cannot be met, we 
 have to resort to more sophisticated methods.
@@ -81,22 +87,13 @@ decent intuition for probability[^2]. What is less obvious, but in fact
 a [fairly active research field in statistics](https://arxiv.org/search/?query=%22selective+inference%22&searchtype=all&abstracts=show&order=-announced_date_first&size=50),
 is how to perform valid selective inferences when the "easy" solution of
 data-splitting I mentioned above is not available. This is where theory 
-re-enters into the game, and what I'm going to ramble about in this and the next 
+re-enters the game, and what I'm going to ramble about in this and the next 
 posts.
 
-[^2]: This is not to say that Selective Inference is always properly accounted
-for in scientific practice. A relevant example from the field I come from 
-(Particle Physics), is documented in this stimulating reference: 
+[^2]: This is not to say that correctly accounting for Selective Inference is 
+the default in scientific practice. A relevant example from the field I come 
+from (Particle Physics), is documented in this stimulating reference: 
 [@isidori2021significance].
-
-### Plan
-
-My goal for the remainder of this post is to illustrate the mechanisms of selective inference through a simple simulation. In future posts, I would like 
-to discuss:
-
-- Some more precise mathematical formulations of the problem, focusing on inference after model selection.
-- *How to get away with selection.* Some of the "sophisticated methods" I have
-been reading about, coming to the rescue when we can't data-split.
 
 # Illustrations of Selective Inference
 
@@ -107,7 +104,7 @@ classical inference with a simple-minded simulation.
 
 To illustrate why naive classical inference can fail in the presence of
 selection, we consider a very simple regression 
-problem involving a single regressor $X$ and a response $Y$, where **all the assumptions of the classical linear model hold**. In fact, we will assume the true data generating process to be:
+problem involving a single regressor $X$ and a response $Y$, where *all the assumptions of the classical linear model hold*. In fact, we will assume the true data generating process to be:
 
 $$
 Y = mX + \varepsilon, \qquad \varepsilon \sim \mathcal N (0, \sigma),
@@ -115,31 +112,32 @@ Y = mX + \varepsilon, \qquad \varepsilon \sim \mathcal N (0, \sigma),
 $$
 where $\varepsilon \sim \mathcal N (0, \sigma)$ means "$\varepsilon$ follows a gaussian distribution with mean $0$ and standard deviation $\sigma$".
 
-### A selective modeling procedure...
+### A selective modeling procedure
 
 Now, suppose we are given a dataset of $N$ independent observations
-$(y_i, x_i)_{i = 1, \,2,\, \dots,\,N}$, and we're asked to study the
+$(y_i, x_i)_{i = 1, \,2,\, \dots,\,N}$, and we would like to study the
 dependence of $Y$ from $X$. Of course we don't know the true law, Eq.
 \@ref(eq:yGaussian), but by a stroke of luck (or by a Taylor expansion
 argument) we make the correct initial guess that such dependence is
 linear in $X$. We are, however, unsure whether it would be appropriate
 to also include an intercept term in the fit. We thus establish the
-following modeling procedure:
+following selective modeling procedure:
 
-1.  Fit a full linear model with intercept term,
+-  Fit a linear model with intercept term,
     $Y = mX + q + \varepsilon$.
-2.  Stop if the intercept term has at least 1-$\sigma$ significance
-    ($p\text{-value}<32\%$), otherwise:
-3.  Fit a model with no intercept, $Y = mX + \varepsilon$.
-4.  Report the "naive" 95% confidence intervals for the slope $m$ in the
-    last fitted model.
+-  Stop if the intercept estimate is significantly different from zero (say, at the level of 1-$\sigma$, $p\text{-value}<32\%$). Otherwise:
+-  Fit a model with no intercept, $Y = mX + \varepsilon$.
 
-The "naive 95% confidence interval" here is $(\hat m_-, \hat m_+)$, where:
+Finally, we *use the last fitted model* to construct a "naive 95%" 
+confidence interval $(\hat m_-, \hat m_+)$ for the slope $m$. 
+This is defined by:
 
 $$
 \hat m_\pm = \hat m\pm t_{0.975, \,N-d} \cdot \hat \sigma _\hat m\qquad (95\%\,\text {C.L.}).
 (\#eq:naiveCISlope)
-$$ Here $t_{0.975,\, N-d}$ is the 97.5%-quantile of the $t$-student
+$$ 
+
+Here $t_{0.975,\, N-d}$ is the 97.5%-quantile of the $t$-student
 distribution with $N-d$ degrees of freedom, and $d$ is the number of
 estimated parameters, ($2$ or $1$, according to where we stopped in the
 modeling procedure). $\hat m$ and $\hat \sigma _{\hat m}$ are the
@@ -147,14 +145,21 @@ Ordinary Least Squares (OLS) estimates of the slope and its standard
 deviation, respectively. These are the classical confidence intervals
 reported by the `lm()` function in R.
 
+At a first glance, this procedure might look reasonable. After all, both 
+intervals we may end up constructing do have a genuine 95% coverage probability, 
+when constructed unconditionally... and by selecting the "best" model we're 
+supposedly choosing the "best" confidence interval. In spite of this qualitative 
+argument, we inquire:
+
 ### ... does it work?
 
-Now our question is: how often do the naive CIs \@ref(eq:naiveCISlope)
+Now, the question is: how often do the naive CIs \@ref(eq:naiveCISlope)
 cover the true parameter $m$ of Eq. \@ref(eq:yGaussian)? The answer
 better be "at least 95% of the times" for our confidence claim in Eq.
 \@ref(eq:naiveCISlope) to be valid!
 
-We can check the actual coverage of \@ref(eq:naiveCISlope) through a simulation. Here I'll assume $m = \sigma = 1$, and that the
+We can check the actual coverage of \@ref(eq:naiveCISlope) through a simulation. 
+Here I'll assume $m = \sigma = 1$, and that the
 dataset consists of $N=10$ independent observations of $Y$ at fixed points
 $X = (1, \,2, \,\dots ,\, 10)$.
 
@@ -204,7 +209,7 @@ for (b in 1:B) {
 	fit <- lm(y ~ x + 1)  
 	q_pval <- summary(fit)$coefficients[1, 4]
 	
-	# Is 'q' term is "significant"? If yes, drop 'q' and fit a simpler model
+	# Is 'q' term "significant"? If not, drop 'q' and fit a simpler model
 	if (q_pval > 0.32)  { 
 		q_dropped[[b]] <- TRUE
 		fit <- lm(y ~ x - 1) 
@@ -230,10 +235,10 @@ the CI is given by:
 mean(m_covered)  # Actual coverage of naive "95%" CIs.
 ```
 
-92%! If this difference from the naive 95% coverage guarantee does not
+92%! If this difference from the nominal 95% coverage guarantee does not
 strike you as enormous, think about it in these terms: the naive CIs
 \@ref(eq:naiveCISlope) fail to cover the true parameter about 8% of the
-times; This is a relative +60% of failures with respect to a honest 95%
+times; This is a relative +60% of failures with respect to an honest 95%
 CI.
 
 ### What's going on
@@ -242,7 +247,7 @@ We can understand a bit better what's happening here by decomposing the
 coverage probability as follows:
 
 $$
-\text {Pr}(m \in \text{CI})  = \text {Pr}(m \in \text{CI}_{q \text{ dropped}}\,\vert\,q \text{ dropped})\cdot \text {Pr}(q \text{ dropped}) +\\ +\text {Pr}(m \in m \in \text{CI}_{q  \text{ kept}}\,\vert\,q \text{ kept})\cdot \text {Pr}(q \text{ kept})
+\text {Pr}(m \in \text{CI})  = \text {Pr}(m \in \text{CI}_{q \text{ dropped}}\,\vert\,q \text{ dropped})\cdot \text {Pr}(q \text{ dropped}) +\\ +\text {Pr}(m \in \text{CI}_{q  \text{ kept}}\,\vert\,q \text{ kept})\cdot \text {Pr}(q \text{ kept})
 (\#eq:coverageDecomposition)
 $$
 
@@ -251,11 +256,11 @@ procedure alters the probability $\text{Pr}(m\in \text{CI})$. There are
 two contributing factors here: the probability of dropping the intercept
 term, and the covering probabilities of the CIs constructed in the two
 cases ($\text{CI}_{q \text{ dropped}}$ and
-$m \in \text{CI}_{q \text{ kept}}$). We can estimate all these
+$\text{CI}_{q \text{ kept}}$). We can estimate all these
 probabilities as:
 
 ```{r}
-mean(q_dropped)  # Pr(m covered)
+mean(q_dropped)  # Pr(q dropped)
 mean(m_covered[q_dropped])  # Pr(m covered | q dropped)
 mean(m_covered[!q_dropped])  # Pr(m covered | q kept)
 ```
@@ -291,24 +296,26 @@ $\hat m$ using the selected model, *as if this had been fixed in advance*.
 4. A simulation shows that such intervals have a true coverage probability of
 $\approx 92\%$.
 
-The mathematical explanation of these observations is provided by Eq. \@ref(eq:coverageDecomposition), while the (hopefully) plain English one in the introductory part of this post. I will conclude with a few parenthetical remarks. 
+The mathematical explanation of the last result is provided by Eq. \@ref(eq:coverageDecomposition), while the (hopefully) plain English one in the introductory part of this post. I will conclude with a few parenthetical remarks. 
 
 First, the selective procedure proposed here would likely hardly be applied in practice in such a simple situation[^4]. However, one could easily think of a more complex scenario with multiple covariates, where eliminating redundant ones could turn out to be beneficial for interpretation (if not compulsory, if the number of covariates exceeds the sample size).
 
 Second, in order to avoid cluttering the discussion with too much 
-technicalities, I have deliberately chosen a quite special point in true-model space ($q = 0$). This implies that both fits with and without intercept estimate the *same* slope $m$; this is a *peculiar* property of $q = 0$, which would not be true in the general case $q \in \mathbb R$. In general, we would have to carefully define the inferential targets for the $q=0$ and $q \in \mathbb R$ cases, in a differential manner.
+technicalities, I have deliberately chosen a quite special point in true-model space ($q = 0$). This implies that both fits with and without intercept estimate the *same* slope $m$; this is a peculiar property of $q = 0$, which would not be true in the general case $q \in \mathbb R$. In general, we would have to carefully define the inferential targets for the $q=0$ and $q \in \mathbb R$ cases, in a differential manner.
 
 [^4]: And I'm actually not sure that, after properly taking into account Selective Inference, it would lead to a substantial gain in estimation accuracy, compared to simply fitting the possibly redundant model with intercept.
 
 # Conclusion
 
-That was all for today. If I haven't managed to bore you to death, please give me a second chance with the next post (ETA: a week or so). There, I will give some mathematical details about how one can formulate the problem of Selective Inference in model-building. For the survivors, my future plan is to review some 
-(correct) selective methods I found interesting, including:
+That was all for today. In the next post, I will discuss some mathematical details 
+regarding the formulation of the Selective Inference problem in model-building. 
+For those surviving down to the bottom of the funnel, my future plan is to 
+review some (valid) selective inference methods I found interesting, including:
 
 - Benjamini-Yekutieli control of False Coverage Rate [@benjamini2005false],
 - POSI bounds for marginal coverage [@berk2013valid],
-- Data Fission, an elegant generalization of old good data splitting [@https://doi.org/10.48550/arxiv.2112.11079].
-- ...whatever I discover in the mean time.
+- Data Fission, an elegant generalization of good old data splitting [@https://doi.org/10.48550/arxiv.2112.11079].
+- ...whatever cool stuff I may discover in the meantime.
 
 Ciao!
 

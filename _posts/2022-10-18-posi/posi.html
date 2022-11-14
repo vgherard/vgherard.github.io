@@ -115,8 +115,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-10-18"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-10-18"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-11-14"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-11-14"/>
   <meta name="article:author" content="vgherard"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -142,7 +142,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography","categories","draft","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["How to get away with selection. Part I: Introduction"]},{"type":"character","attributes":{},"value":["Introducing the problem of Selective Inference, illustrated through a simple simulation in R.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2022-10-18"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["R"]},{"type":"logical","attributes":{},"value":[true]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["markdown"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["wrap"]}},"value":[{"type":"integer","attributes":{},"value":[72]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography","categories","draft","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["How to get away with selection. Part I: Introduction"]},{"type":"character","attributes":{},"value":["Introducing the problem of Selective Inference, illustrated through a simple simulation in R.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2022-11-14"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["R","Statistics"]},{"type":"logical","attributes":{},"value":[false]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["markdown"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["wrap"]}},"value":[{"type":"integer","attributes":{},"value":[72]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1525,7 +1525,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"How to get away with selection. Part I: Introduction","description":"Introducing the problem of Selective Inference, illustrated through a simple simulation in R.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-10-18T00:00:00.000+02:00","citationText":"vgherard, 2022"}
+{"title":"How to get away with selection. Part I: Introduction","description":"Introducing the problem of Selective Inference, illustrated through a simple simulation in R.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-11-14T00:00:00.000+01:00","citationText":"vgherard, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1539,6 +1539,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
 <div class="dt-tag">R</div>
+<div class="dt-tag">Statistics</div>
 </div>
 <!--/radix_placeholder_categories-->
 <p><p>Introducing the problem of Selective Inference, illustrated through a simple simulation in R.</p></p>
@@ -1547,7 +1548,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   vgherard <a href="https://vgherard.github.io" class="uri">https://vgherard.github.io</a> 
   
-<br/>2022-10-18
+<br/>2022-11-14
 </div>
 
 <div class="d-article">
@@ -1555,18 +1556,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>A few months back, for undocumented circumstances, my browser’s search
 history was full of terms like <em>“parameter estimation with variable selection”</em>,
 or <em>“confidence intervals after cross-validation”</em>, or again
-<em>“linear model uncertainties after staring into the abyss”</em>, … En fin, sparing
-you my rock bottom, I eventually stumbled upon the right keywords, and
+<em>“linear model uncertainties after staring into the abyss”</em>, …</p>
+<p>Sparing you my rock bottom, I eventually stumbled upon the right keywords, and
 started digging into the mathematical aspects of <strong>Selective Inference</strong>, or
 <strong>Post-Model Selection Inference</strong>. Now, while my hands
 are still full of dirt, I’ve decided it’s the right moment to write some
 notes about what I’ve learned - whose main recipient is the future me,
 which will otherwise inevitably forget what the present me thinks he
-knows; but anyone dropping by is welcome to read, comment and report his
-skepticism. 👋</p>
+knows. If you’re <em>not</em> the future me:</p>
+<ol type="1">
+<li>Welcome 👋</li>
+<li>If you have detected some imprecision, or have suggestions for this or the
+next posts, you are more than welcome to <a href="https://github.com/vgherard/vgherard.github.io/issues/new">create an issue</a> on the source
+repository of this blog.</li>
+</ol>
 <h1 id="introduction">Introduction</h1>
 <p>Broadly speaking, the problem of Selective Inference is that of
-performing valid statistical inferences when <strong>the actual questions of the data analysis are not fixed in advance</strong>, but rather <strong>selected through data examination</strong>. In model-based inference, this lack of
+performing valid statistical inferences when <em>the actual questions of the data analysis are not fixed in advance</em>, but rather <em>selected through data examination</em>. In model-based inference, this lack of
 pre-determination usually stems from the (often unavoidable) practice of
 using the same data to choose an adequate model for the data generating
 process <em>and</em> to perform inference. The intrinsic
@@ -1583,11 +1589,11 @@ from an extended family of models<a href="#fn1" class="footnote-ref" id="fnref1"
 and this event introduces a bias in the error estimate of the final
 model from training data.</p>
 <p>The example from machine-learning also suggests a very simple-minded and
-relatively a-theoretical approach to Selective Inference: <strong>data-splitting</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. According to this method, we would use only part of the available data to select the questions to be answered by the analysis, while the remaining part would
+relatively a-theoretical approach to Selective Inference: data-splitting<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. According to this method, we would use only part of the available data to select the questions to be answered by the analysis, while the remaining part would
 be reserved to perform the actual inference. For this program to
 succeed, there are however two important requirements: first, we must have
 enough data to ensure decent statistics for both the selection and inference
-tasks; and second, we must be able to split data in two <em>independent</em>
+tasks; and second, we must be able to split data in two independent
 (or close to independent) sets. This can suppose problems with, <em>e.g.</em>,
 time-series data. If, on the other hand, these requirements cannot be met, we
 have to resort to more sophisticated methods.</p>
@@ -1597,63 +1603,61 @@ decent intuition for probability<a href="#fn3" class="footnote-ref" id="fnref3" 
 a <a href="https://arxiv.org/search/?query=%22selective+inference%22&amp;searchtype=all&amp;abstracts=show&amp;order=-announced_date_first&amp;size=50">fairly active research field in statistics</a>,
 is how to perform valid selective inferences when the “easy” solution of
 data-splitting I mentioned above is not available. This is where theory
-re-enters into the game, and what I’m going to ramble about in this and the next
+re-enters the game, and what I’m going to ramble about in this and the next
 posts.</p>
-<h3 id="plan">Plan</h3>
-<p>My goal for the remainder of this post is to illustrate the mechanisms of selective inference through a simple simulation. In future posts, I would like
-to discuss:</p>
-<ul>
-<li>Some more precise mathematical formulations of the problem, focusing on inference after model selection.</li>
-<li><em>How to get away with selection.</em> Some of the “sophisticated methods” I have
-been reading about, coming to the rescue when we can’t data-split.</li>
-</ul>
 <h1 id="illustrations-of-selective-inference">Illustrations of Selective Inference</h1>
 <p>Enough for the speech, let us see how selection can affect (and invalidate)
 classical inference with a simple-minded simulation.</p>
 <h3 id="setting">Setting</h3>
 <p>To illustrate why naive classical inference can fail in the presence of
 selection, we consider a very simple regression
-problem involving a single regressor <span class="math inline">\(X\)</span> and a response <span class="math inline">\(Y\)</span>, where <strong>all the assumptions of the classical linear model hold</strong>. In fact, we will assume the true data generating process to be:</p>
+problem involving a single regressor <span class="math inline">\(X\)</span> and a response <span class="math inline">\(Y\)</span>, where <em>all the assumptions of the classical linear model hold</em>. In fact, we will assume the true data generating process to be:</p>
 <p><span class="math display" id="eq:yGaussian">\[
 Y = mX + \varepsilon, \qquad \varepsilon \sim \mathcal N (0, \sigma),
 \tag{1}
 \]</span>
 where <span class="math inline">\(\varepsilon \sim \mathcal N (0, \sigma)\)</span> means “<span class="math inline">\(\varepsilon\)</span> follows a gaussian distribution with mean <span class="math inline">\(0\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>”.</p>
-<h3 id="a-selective-modeling-procedure">A selective modeling procedure…</h3>
+<h3 id="a-selective-modeling-procedure">A selective modeling procedure</h3>
 <p>Now, suppose we are given a dataset of <span class="math inline">\(N\)</span> independent observations
-<span class="math inline">\((y_i, x_i)_{i = 1, \,2,\, \dots,\,N}\)</span>, and we’re asked to study the
+<span class="math inline">\((y_i, x_i)_{i = 1, \,2,\, \dots,\,N}\)</span>, and we would like to study the
 dependence of <span class="math inline">\(Y\)</span> from <span class="math inline">\(X\)</span>. Of course we don’t know the true law, Eq.
 <a href="#eq:yGaussian">(1)</a>, but by a stroke of luck (or by a Taylor expansion
 argument) we make the correct initial guess that such dependence is
 linear in <span class="math inline">\(X\)</span>. We are, however, unsure whether it would be appropriate
 to also include an intercept term in the fit. We thus establish the
-following modeling procedure:</p>
-<ol type="1">
-<li>Fit a full linear model with intercept term,
+following selective modeling procedure:</p>
+<ul>
+<li>Fit a linear model with intercept term,
 <span class="math inline">\(Y = mX + q + \varepsilon\)</span>.</li>
-<li>Stop if the intercept term has at least 1-<span class="math inline">\(\sigma\)</span> significance
-(<span class="math inline">\(p\text{-value}&lt;32\%\)</span>), otherwise:</li>
+<li>Stop if the intercept estimate is significantly different from zero (say, at the level of 1-<span class="math inline">\(\sigma\)</span>, <span class="math inline">\(p\text{-value}&lt;32\%\)</span>). Otherwise:</li>
 <li>Fit a model with no intercept, <span class="math inline">\(Y = mX + \varepsilon\)</span>.</li>
-<li>Report the “naive” 95% confidence intervals for the slope <span class="math inline">\(m\)</span> in the
-last fitted model.</li>
-</ol>
-<p>The “naive 95% confidence interval” here is <span class="math inline">\((\hat m_-, \hat m_+)\)</span>, where:</p>
+</ul>
+<p>Finally, we <em>use the last fitted model</em> to construct a “naive 95%”
+confidence interval <span class="math inline">\((\hat m_-, \hat m_+)\)</span> for the slope <span class="math inline">\(m\)</span>.
+This is defined by:</p>
 <p><span class="math display" id="eq:naiveCISlope">\[
 \hat m_\pm = \hat m\pm t_{0.975, \,N-d} \cdot \hat \sigma _\hat m\qquad (95\%\,\text {C.L.}).
 \tag{2}
-\]</span> Here <span class="math inline">\(t_{0.975,\, N-d}\)</span> is the 97.5%-quantile of the <span class="math inline">\(t\)</span>-student
+\]</span></p>
+<p>Here <span class="math inline">\(t_{0.975,\, N-d}\)</span> is the 97.5%-quantile of the <span class="math inline">\(t\)</span>-student
 distribution with <span class="math inline">\(N-d\)</span> degrees of freedom, and <span class="math inline">\(d\)</span> is the number of
 estimated parameters, (<span class="math inline">\(2\)</span> or <span class="math inline">\(1\)</span>, according to where we stopped in the
 modeling procedure). <span class="math inline">\(\hat m\)</span> and <span class="math inline">\(\hat \sigma _{\hat m}\)</span> are the
 Ordinary Least Squares (OLS) estimates of the slope and its standard
 deviation, respectively. These are the classical confidence intervals
 reported by the <code>lm()</code> function in R.</p>
+<p>At a first glance, this procedure might look reasonable. After all, both
+intervals we may end up constructing do have a genuine 95% coverage probability,
+when constructed unconditionally… and by selecting the “best” model we’re
+supposedly choosing the “best” confidence interval. In spite of this qualitative
+argument, we inquire:</p>
 <h3 id="does-it-work">… does it work?</h3>
-<p>Now our question is: how often do the naive CIs <a href="#eq:naiveCISlope">(2)</a>
+<p>Now, the question is: how often do the naive CIs <a href="#eq:naiveCISlope">(2)</a>
 cover the true parameter <span class="math inline">\(m\)</span> of Eq. <a href="#eq:yGaussian">(1)</a>? The answer
 better be “at least 95% of the times” for our confidence claim in Eq.
 <a href="#eq:naiveCISlope">(2)</a> to be valid!</p>
-<p>We can check the actual coverage of <a href="#eq:naiveCISlope">(2)</a> through a simulation. Here I’ll assume <span class="math inline">\(m = \sigma = 1\)</span>, and that the
+<p>We can check the actual coverage of <a href="#eq:naiveCISlope">(2)</a> through a simulation.
+Here I’ll assume <span class="math inline">\(m = \sigma = 1\)</span>, and that the
 dataset consists of <span class="math inline">\(N=10\)</span> independent observations of <span class="math inline">\(Y\)</span> at fixed points
 <span class="math inline">\(X = (1, \,2, \,\dots ,\, 10)\)</span>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1704,7 +1708,7 @@ times the true slope <span class="math inline">\(m = 1\)</span> falls in the con
 <span>  <span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>  </span>
 <span>  <span class='va'>q_pval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>]</span></span>
 <span>  </span>
-<span>  <span class='co'># Is 'q' term is "significant"? If yes, drop 'q' and fit a simpler model</span></span>
+<span>  <span class='co'># Is 'q' term "significant"? If not, drop 'q' and fit a simpler model</span></span>
 <span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>q_pval</span> <span class='op'>&gt;</span> <span class='fl'>0.32</span><span class='op'>)</span>  <span class='op'>{</span> </span>
 <span>    <span class='va'>q_dropped</span><span class='op'>[[</span><span class='va'>b</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
 <span>    <span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span> </span>
@@ -1720,7 +1724,7 @@ times the true slope <span class="math inline">\(m = 1\)</span> falls in the con
 <span><span class='va'>time_end</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"Done :) Took "</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>time_end</span> <span class='op'>-</span> <span class='va'>time_start</span><span class='op'>)</span>, <span class='st'>" seconds."</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>Done :) Took  15.1221  seconds.</code></pre>
+<pre><code>Done :) Took  12.12071  seconds.</code></pre>
 </div>
 <p>The variable <code>m_covered[[b]]</code> is <code>TRUE</code> if the slope <span class="math inline">\(m\)</span> fell in the
 naive CI <span class="math inline">\((m_-, m_+)\)</span> defined by Eq. <a href="#eq:naiveCISlope">(2)</a> in the
@@ -1732,16 +1736,16 @@ the CI is given by:</p>
 </div>
 <pre><code>[1] 0.9172</code></pre>
 </div>
-<p>92%! If this difference from the naive 95% coverage guarantee does not
+<p>92%! If this difference from the nominal 95% coverage guarantee does not
 strike you as enormous, think about it in these terms: the naive CIs
 <a href="#eq:naiveCISlope">(2)</a> fail to cover the true parameter about 8% of the
-times; This is a relative +60% of failures with respect to a honest 95%
+times; This is a relative +60% of failures with respect to an honest 95%
 CI.</p>
 <h3 id="whats-going-on">What’s going on</h3>
 <p>We can understand a bit better what’s happening here by decomposing the
 coverage probability as follows:</p>
 <p><span class="math display" id="eq:coverageDecomposition">\[
-\text {Pr}(m \in \text{CI})  = \text {Pr}(m \in \text{CI}_{q \text{ dropped}}\,\vert\,q \text{ dropped})\cdot \text {Pr}(q \text{ dropped}) +\\ +\text {Pr}(m \in m \in \text{CI}_{q  \text{ kept}}\,\vert\,q \text{ kept})\cdot \text {Pr}(q \text{ kept})
+\text {Pr}(m \in \text{CI})  = \text {Pr}(m \in \text{CI}_{q \text{ dropped}}\,\vert\,q \text{ dropped})\cdot \text {Pr}(q \text{ dropped}) +\\ +\text {Pr}(m \in \text{CI}_{q  \text{ kept}}\,\vert\,q \text{ kept})\cdot \text {Pr}(q \text{ kept})
 \tag{3}
 \]</span></p>
 <p>The right hand side of this equation shows how our selective modeling
@@ -1749,11 +1753,11 @@ procedure alters the probability <span class="math inline">\(\text{Pr}(m\in \tex
 two contributing factors here: the probability of dropping the intercept
 term, and the covering probabilities of the CIs constructed in the two
 cases (<span class="math inline">\(\text{CI}_{q \text{ dropped}}\)</span> and
-<span class="math inline">\(m \in \text{CI}_{q \text{ kept}}\)</span>). We can estimate all these
+<span class="math inline">\(\text{CI}_{q \text{ kept}}\)</span>). We can estimate all these
 probabilities as:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>q_dropped</span><span class='op'>)</span>  <span class='co'># Pr(m covered)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>q_dropped</span><span class='op'>)</span>  <span class='co'># Pr(q dropped)</span></span></code></pre>
 </div>
 <pre><code>[1] 0.6782</code></pre>
 <div class="sourceCode">
@@ -1783,18 +1787,20 @@ finally what invalidates the naive coverage guarantee in Eq.
 <li>A simulation shows that such intervals have a true coverage probability of
 <span class="math inline">\(\approx 92\%\)</span>.</li>
 </ol>
-<p>The mathematical explanation of these observations is provided by Eq. <a href="#eq:coverageDecomposition">(3)</a>, while the (hopefully) plain English one in the introductory part of this post. I will conclude with a few parenthetical remarks.</p>
+<p>The mathematical explanation of the last result is provided by Eq. <a href="#eq:coverageDecomposition">(3)</a>, while the (hopefully) plain English one in the introductory part of this post. I will conclude with a few parenthetical remarks.</p>
 <p>First, the selective procedure proposed here would likely hardly be applied in practice in such a simple situation<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. However, one could easily think of a more complex scenario with multiple covariates, where eliminating redundant ones could turn out to be beneficial for interpretation (if not compulsory, if the number of covariates exceeds the sample size).</p>
 <p>Second, in order to avoid cluttering the discussion with too much
-technicalities, I have deliberately chosen a quite special point in true-model space (<span class="math inline">\(q = 0\)</span>). This implies that both fits with and without intercept estimate the <em>same</em> slope <span class="math inline">\(m\)</span>; this is a <em>peculiar</em> property of <span class="math inline">\(q = 0\)</span>, which would not be true in the general case <span class="math inline">\(q \in \mathbb R\)</span>. In general, we would have to carefully define the inferential targets for the <span class="math inline">\(q=0\)</span> and <span class="math inline">\(q \in \mathbb R\)</span> cases, in a differential manner.</p>
+technicalities, I have deliberately chosen a quite special point in true-model space (<span class="math inline">\(q = 0\)</span>). This implies that both fits with and without intercept estimate the <em>same</em> slope <span class="math inline">\(m\)</span>; this is a peculiar property of <span class="math inline">\(q = 0\)</span>, which would not be true in the general case <span class="math inline">\(q \in \mathbb R\)</span>. In general, we would have to carefully define the inferential targets for the <span class="math inline">\(q=0\)</span> and <span class="math inline">\(q \in \mathbb R\)</span> cases, in a differential manner.</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>That was all for today. If I haven’t managed to bore you to death, please give me a second chance with the next post (ETA: a week or so). There, I will give some mathematical details about how one can formulate the problem of Selective Inference in model-building. For the survivors, my future plan is to review some
-(correct) selective methods I found interesting, including:</p>
+<p>That was all for today. In the next post, I will discuss some mathematical details
+regarding the formulation of the Selective Inference problem in model-building.
+For those surviving down to the bottom of the funnel, my future plan is to
+review some (valid) selective inference methods I found interesting, including:</p>
 <ul>
 <li>Benjamini-Yekutieli control of False Coverage Rate <span class="citation" data-cites="benjamini2005false">(<a href="#ref-benjamini2005false" role="doc-biblioref">Benjamini and Yekutieli 2005</a>)</span>,</li>
 <li>POSI bounds for marginal coverage <span class="citation" data-cites="berk2013valid">(<a href="#ref-berk2013valid" role="doc-biblioref">Berk et al. 2013</a>)</span>,</li>
-<li>Data Fission, an elegant generalization of old good data splitting <span class="citation" data-cites="https://doi.org/10.48550/arxiv.2112.11079">(<a href="#ref-https://doi.org/10.48550/arxiv.2112.11079" role="doc-biblioref">Leiner et al. 2021</a>)</span>.</li>
-<li>…whatever I discover in the mean time.</li>
+<li>Data Fission, an elegant generalization of good old data splitting <span class="citation" data-cites="https://doi.org/10.48550/arxiv.2112.11079">(<a href="#ref-https://doi.org/10.48550/arxiv.2112.11079" role="doc-biblioref">Leiner et al. 2021</a>)</span>.</li>
+<li>…whatever cool stuff I may discover in the meantime.</li>
 </ul>
 <p>Ciao!</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
@@ -1826,9 +1832,9 @@ accounting for the multiplicity introduced by continuous model
 parameters and training parameters (also known as hyper-parameters).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>The preferential method according to <span class="citation" data-cites="Shalizi:2020pmsi">(<a href="#ref-Shalizi:2020pmsi" role="doc-biblioref">Shalizi 2020</a>)</span>, from which
 I borrowed the “a-theoretical” description, and which I recommend as a starting point for literature review.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This is not to say that Selective Inference is always properly accounted
-for in scientific practice. A relevant example from the field I come from
-(Particle Physics), is documented in this stimulating reference:
+<li id="fn3"><p>This is not to say that correctly accounting for Selective Inference is
+the default in scientific practice. A relevant example from the field I come
+from (Particle Physics), is documented in this stimulating reference:
 <span class="citation" data-cites="isidori2021significance">(<a href="#ref-isidori2021significance" role="doc-biblioref">Isidori et al. 2021</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>I’m always amazed by the great deal of theory one can learn by
 running a dumb simulation, and trying to explain a posteriori what

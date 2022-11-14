@@ -7,7 +7,18 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>How to get away with selection. Part I: Introduction</title>
+      <dc:creator>vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2022-10-18-posi</link>
+      <description>Introducing the problem of Selective Inference, illustrated through a simple simulation in R.</description>
+      <category>R</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2022-10-18-posi</guid>
+      <pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>kgrams v0.1.2 on CRAN</title>
       <dc:creator>vgherard</dc:creator>
