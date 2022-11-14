@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 <br>
 I am Valerio, class 1992, born in Italy and living in Valencia (Spain) with my girlfriend.
 
-I studied [Theoretical Physics](physics.html), and I'm currently employed as 
+I studied [Theoretical Physics](physics.html), and I'm employed as 
 Data Scientist at [Voicemod](https://www.voicemod.net/). I play piano, 
 I enjoy long walks, I dislike closed empty space and empty space in general.
 
