@@ -1,18 +1,18 @@
 ---
 title: "How to get away with selection. Part II: Mathematical Framework"
 description: |
-  A short description of the post.
+  Mathematicals details on Selective Inference, model misspecification and coverage guarantees.
 author:
   - name: vgherard
     url: https://vgherard.github.io
-date: 2022-10-18
+date: 2022-11-25
 output:
   distill::distill_article:
     self_contained: false
 bibliography: biblio.bib
 categories:
   - Statistics
-draft: true
+draft: false
 
 ---
 
@@ -154,33 +154,33 @@ Here are some of the notions of coverage I've come across:
 
 - *Marginal coverage over the selected parameters.* We bound at level $\alpha$ 
 the probability that our procedure constructs any non-covering confidence 
-interval for model parameters $\beta_i$. Denote by $\hat M$ the selected model 
+interval for model parameters $\beta_i$. Denote by $\widehat M$ the selected model 
 and, with abuse of notation, the corresponding set of selected parameters. 
-If $ \hat{\text{CI}}_i$ are the confidence intervals for parameters $\beta _i$, we 
+If $\widehat{\text{CI}}_i$ are the confidence intervals for parameters $\beta _i$, we 
 require:
 $$ 
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in \hat M) \geq 1-\alpha
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \geq 1-\alpha
 (\#eq:marginalCoverage)
 $$
 - *Conditional coverage over the selected parameters*. We bound at level 
 $\alpha$ the *conditional* 
 probability of constructing a non-covering confidence interval, conditioned on 
-the outcome of selection $\hat M$. If $m$ is the selected model, we require:
+the outcome of selection $\widehat M$. If $m$ is the selected model, we require:
 $$ 
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in m|\,\hat M=m) \geq 1-\alpha
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in m|\,\widehat M=m) \geq 1-\alpha
 (\#eq:conditionalCoverage)
 $$
 - *False Coverage Rate*. We bound at level $q$[^4] the expected fraction of 
 non-covering confidence intervals out of all intervals constructed:
 $$
-\mathbb E \left( \dfrac{|i \in \hat M \colon \ \beta_i \in \hat{\text{CI}}_i|}{|\hat M|} \right) 
+\mathbb E \left( \dfrac{|i \in \widehat M \colon \ \beta_i \in \widehat{\text{CI}}_i|}{|\widehat M|} \right) 
 \geq1-q
 (\#eq:FCR)
 $$
 where $|S|$ denotes the cardinality of a set $S$. 
 
-Notice that the random variables in the previous equations are $\hat M$ and 
-$\hat{\text{CI}}_i$ (denoted by a hat), whereas the true coefficients $\beta_i$ 
+Notice that the random variables in the previous equations are $\widehat M$ and 
+$\widehat{\text{CI}}_i$ (denoted by a hat), whereas the true coefficients $\beta_i$ 
 and the selected set $m$ in the case of conditional coverage
 (Eq. \@ref(eq:conditionalCoverage)) are fixed quantities.
 Variations of these measures focusing on single coefficients are also possible. 
@@ -210,7 +210,7 @@ were able to provide simultaneous coverage for *all* parameters
 (selected or not):
 
 $$ 
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha
 (\#eq:simultaneousMarginalCoverage)
 $$
 Then, it's easy to see that the same confidence interval would also provide
@@ -218,12 +218,12 @@ marginal coverage over the selected parameters. In order to see that, simply
 observe that the simultaneous coverage event can be decomposed as:
 
 $$ 
-(\beta _i \in \hat{\text{CI}}_i\,\,\forall i) = (\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in \hat M) \cap (\beta _i \in \hat{\text{CI}}_i\,\,\forall i \notin \hat M)
+(\beta _i \in \widehat {\text{CI}}_i\,\,\forall i) = (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \cap (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \notin \widehat M)
 $$
 which implies that:
 
 $$ 
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in \hat M) \geq \text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha,
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \geq \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha,
 (\#eq:simultaneousImpliesMarginalCoverage)
 $$
 that is simultaneous coverage implies marginal coverage over the 

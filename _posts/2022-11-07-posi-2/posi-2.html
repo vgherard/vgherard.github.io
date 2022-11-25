@@ -111,24 +111,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>How to get away with selection. Part II: Mathematical Framework</title>
 
-  <meta property="description" itemprop="description" content="A short description of the post."/>
+  <meta property="description" itemprop="description" content="Mathematicals details on Selective Inference, model misspecification and coverage guarantees."/>
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-10-18"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-10-18"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-11-25"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-11-25"/>
   <meta name="article:author" content="vgherard"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="How to get away with selection. Part II: Mathematical Framework"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="A short description of the post."/>
+  <meta property="og:description" content="Mathematicals details on Selective Inference, model misspecification and coverage guarantees."/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="How to get away with selection. Part II: Mathematical Framework"/>
-  <meta property="twitter:description" content="A short description of the post."/>
+  <meta property="twitter:description" content="Mathematicals details on Selective Inference, model misspecification and coverage guarantees."/>
 
   <!--/radix_placeholder_meta_tags-->
   
@@ -139,7 +139,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["How to get away with selection. Part II: Mathematical Framework"]},{"type":"character","attributes":{},"value":["A short description of the post.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2022-10-18"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["R"]},{"type":"logical","attributes":{},"value":[true]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["How to get away with selection. Part II: Mathematical Framework"]},{"type":"character","attributes":{},"value":["Mathematicals details on Selective Inference, model misspecification and coverage guarantees.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2022-11-25"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["Statistics"]},{"type":"logical","attributes":{},"value":[false]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1522,7 +1522,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"How to get away with selection. Part II: Mathematical Framework","description":"A short description of the post.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-10-18T00:00:00.000+02:00","citationText":"vgherard, 2022"}
+{"title":"How to get away with selection. Part II: Mathematical Framework","description":"Mathematicals details on Selective Inference, model misspecification and coverage guarantees.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-11-25T00:00:00.000+01:00","citationText":"vgherard, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1535,16 +1535,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1>How to get away with selection. Part II: Mathematical Framework</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
-<div class="dt-tag">R</div>
+<div class="dt-tag">Statistics</div>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>A short description of the post.</p></p>
+<p><p>Mathematicals details on Selective Inference, model misspecification and coverage guarantees.</p></p>
 </div>
 
 <div class="d-byline">
   vgherard <a href="https://vgherard.github.io" class="uri">https://vgherard.github.io</a> 
   
-<br/>2022-10-18
+<br/>2022-11-25
 </div>
 
 <div class="d-article">
@@ -1653,36 +1653,36 @@ Introduction).</p>
 <ul>
 <li><em>Marginal coverage over the selected parameters.</em> We bound at level <span class="math inline">\(\alpha\)</span>
 the probability that our procedure constructs any non-covering confidence
-interval for model parameters <span class="math inline">\(\beta_i\)</span>. Denote by <span class="math inline">\(\hat M\)</span> the selected model
+interval for model parameters <span class="math inline">\(\beta_i\)</span>. Denote by <span class="math inline">\(\widehat M\)</span> the selected model
 and, with abuse of notation, the corresponding set of selected parameters.
-If $ _i$ are the confidence intervals for parameters <span class="math inline">\(\beta _i\)</span>, we
+If <span class="math inline">\(\widehat{\text{CI}}_i\)</span> are the confidence intervals for parameters <span class="math inline">\(\beta _i\)</span>, we
 require:
 <span class="math display" id="eq:marginalCoverage">\[
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in \hat M) \geq 1-\alpha
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \geq 1-\alpha
 \tag{2}
 \]</span></li>
 <li><em>Conditional coverage over the selected parameters</em>. We bound at level
 <span class="math inline">\(\alpha\)</span> the <em>conditional</em>
 probability of constructing a non-covering confidence interval, conditioned on
-the outcome of selection <span class="math inline">\(\hat M\)</span>. If <span class="math inline">\(m\)</span> is the selected model, we require:
+the outcome of selection <span class="math inline">\(\widehat M\)</span>. If <span class="math inline">\(m\)</span> is the selected model, we require:
 <span class="math display" id="eq:conditionalCoverage">\[
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in m|\,\hat M=m) \geq 1-\alpha
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in m|\,\widehat M=m) \geq 1-\alpha
 \tag{3}
 \]</span></li>
 <li><em>False Coverage Rate</em>. We bound at level <span class="math inline">\(q\)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> the expected fraction of
 non-covering confidence intervals out of all intervals constructed:
 <span class="math display" id="eq:FCR">\[
-\mathbb E \left( \dfrac{|i \in \hat M \colon \ \beta_i \in \hat{\text{CI}}_i|}{|\hat M|} \right)
+\mathbb E \left( \dfrac{|i \in \widehat M \colon \ \beta_i \in \widehat{\text{CI}}_i|}{|\widehat M|} \right)
 \geq1-q
 \tag{4}
 \]</span>
 where <span class="math inline">\(|S|\)</span> denotes the cardinality of a set <span class="math inline">\(S\)</span>.</li>
 </ul>
-<p>Notice that the random variables in the previous equations are <span class="math inline">\(\hat M\)</span> and
-<span class="math inline">\(\hat{\text{CI}}_i\)</span> (denoted by a hat), whereas the true coefficients <span class="math inline">\(\beta_i\)</span>
+<p>Notice that the random variables in the previous equations are <span class="math inline">\(\widehat M\)</span> and
+<span class="math inline">\(\widehat{\text{CI}}_i\)</span> (denoted by a hat), whereas the true coefficients <span class="math inline">\(\beta_i\)</span>
 and the selected set <span class="math inline">\(m\)</span> in the case of conditional coverage
 (Eq. <a href="#eq:conditionalCoverage">(3)</a>) are fixed quantities.
-Variations of this measures focusing on single coefficients are also possible.</p>
+Variations of these measures focusing on single coefficients are also possible.</p>
 <p>In practice, in the <em>Assumption Lean</em> framework I just introduced,
 all these coverage measures would <em>not</em> be computed
 under the selected model’s probability distribution, but rather under a
@@ -1702,18 +1702,18 @@ understood, through the notion of marginal coverage. In fact, suppose that we
 were able to provide simultaneous coverage for <em>all</em> parameters
 (selected or not):</p>
 <p><span class="math display" id="eq:simultaneousMarginalCoverage">\[
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha
 \tag{5}
 \]</span>
 Then, it’s easy to see that the same confidence interval would also provide
 marginal coverage over the selected parameters. In order to see that, simply
 observe that the simultaneous coverage event can be decomposed as:</p>
 <p><span class="math display">\[
-(\beta _i \in \hat{\text{CI}}_i\,\,\forall i) = (\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in \hat M) \cap (\beta _i \in \hat{\text{CI}}_i\,\,\forall i \notin \hat M)
+(\beta _i \in \widehat {\text{CI}}_i\,\,\forall i) = (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \cap (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \notin \widehat M)
 \]</span>
 which implies that:</p>
 <p><span class="math display" id="eq:simultaneousImpliesMarginalCoverage">\[
-\text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i \in \hat M) \geq \text{Pr}(\beta _i \in \hat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha,
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \geq \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha,
 \tag{6}
 \]</span>
 that is simultaneous coverage implies marginal coverage over the
@@ -1728,6 +1728,25 @@ in the absence of selection: use any procedure (e.g. 
 <a href="https://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni corrections</a>)
 which controls simultaneous coverage for <em>all</em> parameters we may select a priori.</p>
 <h1 id="conclusions">Conclusions</h1>
+<p>This was a long and somewhat abstract post, so perhaps the best way to conclude
+is with some bottom lines:</p>
+<ol type="1">
+<li>When performing model-based inference, nothing forces us to make working
+hypotheses about the correctness of the model we arrive at. Not making such
+assumptions corresponds to what I called an <em>Assumption Lean</em> framework.</li>
+<li>In an <em>Assumption Lean</em> framework, the inferential targets are, in general,
+the best approximations to the truth allowed by the selected model.</li>
+<li>There exist many type of coverage guarantees for selective confidence
+intervals.</li>
+<li>Bounding the probability of any false coverage statement
+(“marginal coverage over the selected parameters”) allows to turn a problem of
+selective inference into one of <em>simultaneous</em> inference.</li>
+</ol>
+<p>In particular, it is worth to mention that the last observation lead us to a
+simple recipe for constructing (somewhat conservative, but valid) selective
+confidence intervals with marginal coverage. In the posts which follow,
+I will discuss some more advanced methods which produce confidence intervals
+satisfying the requirements discussed here.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-benjamini2005false" class="csl-entry" role="doc-biblioentry">

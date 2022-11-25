@@ -7,7 +7,320 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 14 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>How to get away with selection. Part II: Mathematical Framework</title>
+      <dc:creator>vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2022-11-07-posi-2</link>
+      <description>
+
+
+&lt;h1 id="introduction"&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;In a &lt;a href="posts/2022-10-18-posi/"&gt;previous post&lt;/a&gt; I introduced
+the problem of Selective Inference and illustrated, in a simplified
+setting, how selection generally affects the coverage of confidence
+intervals - when they are both &lt;em&gt;selected&lt;/em&gt; and
+&lt;em&gt;constructed&lt;/em&gt; using the same data. While the example was
+(hopefully) helpful to build some intuition, in order to discuss
+&lt;em&gt;“How to get away with selection”&lt;/em&gt; in a comprehensive manner we
+need to make a few clarifications. In particular, we need to answer the
+following questions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What is the target of our Selective Inference?&lt;/li&gt;
+&lt;li&gt;What statistical properties would we like our inferences to
+have?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Searching through the literature, I realized there exist a bunch of
+variations on these two themes, which give rise to different
+mathematical formalisms. Specifying these points is mandatory for any
+further discussion, so my main goal here is to present these different
+points of view and explain some of their pros and cons.&lt;/p&gt;
+&lt;h1 id="mathematical-framework"&gt;Mathematical Framework&lt;/h1&gt;
+&lt;h3 id="regression-and-parameter-estimation"&gt;Regression and parameter
+estimation&lt;/h3&gt;
+&lt;p&gt;In order to avoid getting carried away with too much abstraction, I
+will focus on a specific type of problem, that is &lt;em&gt;parameter
+estimation in regression&lt;/em&gt;. As far as I can tell, this represents no
+serious loss in generality, and most of the notions I’m going to outline
+would carry over to more general problems in a straightforward
+manner.&lt;/p&gt;
+&lt;p&gt;Broadly speaking, the goal of regression is to understand the
+dependence of a set of random variables &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; from another set of random variables
+&lt;span class="math inline"&gt;\(X\)&lt;/span&gt;. More precisely, we’re interested
+in the conditional probability distribution of &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt;, conditioned on the observation of
+&lt;span class="math inline"&gt;\(X\)&lt;/span&gt;, which can always be represented
+as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+Y = f(X)+\varepsilon,\qquad \mathbb E(\varepsilon|X)\equiv 0.
+(\#eq:yRegression)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(f(X) = \mathbb
+E(Y|X)\)&lt;/span&gt; is the conditional mean of &lt;span
+class="math inline"&gt;\(Y|X\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(\varepsilon\)&lt;/span&gt; is a random variable with
+vanishing conditional mean, sometimes called the “error term”.
+&lt;em&gt;Parameter estimation&lt;/em&gt; means that we have (somehow) chosen
+functional forms for the conditional mean and for the probability
+distribution of the error term, and we want to provide estimates for the
+parameters defining these two functions.&lt;/p&gt;
+&lt;h3 id="enter-selection"&gt;Enter selection&lt;/h3&gt;
+&lt;p&gt;Now, in many applications we actually don’t have much insight about
+the correct functional form &lt;span class="math inline"&gt;\(f\)&lt;/span&gt;, nor
+of the distribution of the error term &lt;span
+class="math inline"&gt;\(\varepsilon\)&lt;/span&gt;. Given a dataset of
+experimental observations of &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(X\)&lt;/span&gt;, we are thus faced with two
+tasks:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Selection.&lt;/em&gt; Choose an adequate model &lt;span
+class="math inline"&gt;\(\hat M = (\hat f,\,\hat \varepsilon)\)&lt;/span&gt; for
+the true &lt;span class="math inline"&gt;\(f\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\varepsilon\)&lt;/span&gt;, usually from a (more or
+less) pre-specified family of initial guesses &lt;span
+class="math inline"&gt;\(\mathcal M =\{(f_i,\varepsilon_i)\}_i\)&lt;/span&gt;,
+using a (more or less) pre-specified criterion.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Post-Selection Inference.&lt;/em&gt; Perform inference with the
+chosen model. In the study case we’re considering, this amounts to
+provide confidence intervals for model parameters.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;It is, of course, the need to use the same data for both tasks which
+gives rise to complications.&lt;/p&gt;
+&lt;h3 id="inferential-target"&gt;Inferential target&lt;/h3&gt;
+&lt;p&gt;We now come to the first question raised in the Introduction,
+regarding the nature of the inferential target. And now more concretely:
+&lt;em&gt;what are the true values of the parameters we’re trying to
+estimate?&lt;/em&gt; One can appreciate that the answer necessarily depends on
+how we consider the final output of the modeling procedure:&lt;/p&gt;
+&lt;ol style="list-style-type: lower-alpha"&gt;
+&lt;li&gt;&lt;em&gt;(Model Trusting)&lt;/em&gt; As the &lt;em&gt;true&lt;/em&gt; data generating
+process, or&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;(Assumption Lean)&lt;/em&gt; As an &lt;em&gt;approximation&lt;/em&gt; of the
+(partially or totally unknown) data generating process, chosen in a
+data-driven fashion within a family of initial guesses &lt;span
+class="math inline"&gt;\(\mathcal M\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;According to the first interpretation, there’s no room for ambiguity:
+the targets of our estimates should clearly be the true parameter
+values, whose definition does not depend on any modeling choice. The
+second interpretation, on the other hand, leaves a certain amount of
+freedom in this respect. Here, I will follow the point of view advocated
+by &lt;span class="citation"&gt;(Berk et al. 2013)&lt;/span&gt;, according to which
+the target parameters are those providing the &lt;em&gt;best
+approximation&lt;/em&gt;&lt;a href="#fn1" class="footnote-ref"
+id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; to the true data generating process,
+according to the functional form chosen in the selection stage.&lt;/p&gt;
+&lt;p&gt;I believe both positions have their merits and flaws, and which one
+is more appropriate largely depends on context. In a reductionist field
+like High Energy Physics, whose eventual goal is to explain the
+fundamental laws of Nature, the &lt;em&gt;Model Trusting&lt;/em&gt; point of view is
+usually taken, and with good reason. When studying more emergent
+phenomena, on the other hand, the quest for fundamental laws is often
+meaningless (or at best wishful thinking), and the &lt;em&gt;Assumption
+Lean&lt;/em&gt; standpoint looks more reasonable. In any case, here the
+differences are not merely philosophical ones, as the two
+interpretations give rise to different mathematical formalisms.&lt;/p&gt;
+&lt;p&gt;In the following posts, I will be mostly focusing on the
+&lt;em&gt;Assumption Lean&lt;/em&gt; point of view. In my opinion, this has two big
+advantages&lt;a href="#fn2" class="footnote-ref"
+id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;em&gt;Conceptual:&lt;/em&gt; Inferences have a well-defined meaning even
+when the model is misspecified&lt;a href="#fn3" class="footnote-ref"
+id="fnref3"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt; - which, apart from quite particular cases
+(see above), accounts for the great majority of cases encountered by
+data analysts in the practice.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Mathematical:&lt;/em&gt; It allows to reduce the problem of
+&lt;em&gt;selective&lt;/em&gt; inference to that of &lt;em&gt;simultaneous&lt;/em&gt; inference
+(more on this below). For the latter type of problems, the theory of &lt;a
+href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"&gt;multiple
+testing&lt;/a&gt; readily provides at least conservative bounds.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="notions-of-coverage"&gt;Notions of coverage&lt;/h3&gt;
+&lt;p&gt;In addition to the conceptual distinction about the interpretation of
+the selected model, there is also a technical distinction regarding the
+type of coverage guarantees that selective confidence intervals should
+be endowed with (this is the concrete version of the second question
+posed in the Introduction).&lt;/p&gt;
+&lt;p&gt;Here are some of the notions of coverage I’ve come across:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Marginal coverage over the selected parameters.&lt;/em&gt; We bound at
+level &lt;span class="math inline"&gt;\(\alpha\)&lt;/span&gt; the probability that
+our procedure constructs any non-covering confidence interval for model
+parameters &lt;span class="math inline"&gt;\(\beta_i\)&lt;/span&gt;. Denote by &lt;span
+class="math inline"&gt;\(\widehat M\)&lt;/span&gt; the selected model and, with
+abuse of notation, the corresponding set of selected parameters. If
+&lt;span class="math inline"&gt;\(\widehat{\text{CI}}_i\)&lt;/span&gt; are the
+confidence intervals for parameters &lt;span class="math inline"&gt;\(\beta
+_i\)&lt;/span&gt;, we require: &lt;span class="math display"&gt;\[
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat
+M) \geq 1-\alpha
+(\#eq:marginalCoverage)
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Conditional coverage over the selected parameters&lt;/em&gt;. We bound
+at level &lt;span class="math inline"&gt;\(\alpha\)&lt;/span&gt; the
+&lt;em&gt;conditional&lt;/em&gt; probability of constructing a non-covering
+confidence interval, conditioned on the outcome of selection &lt;span
+class="math inline"&gt;\(\widehat M\)&lt;/span&gt;. If &lt;span
+class="math inline"&gt;\(m\)&lt;/span&gt; is the selected model, we require:
+&lt;span class="math display"&gt;\[
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in
+m|\,\widehat M=m) \geq 1-\alpha
+(\#eq:conditionalCoverage)
+\]&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;False Coverage Rate&lt;/em&gt;. We bound at level &lt;span
+class="math inline"&gt;\(q\)&lt;/span&gt;&lt;a href="#fn4" class="footnote-ref"
+id="fnref4"&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt; the expected fraction of non-covering
+confidence intervals out of all intervals constructed: &lt;span
+class="math display"&gt;\[
+\mathbb E \left( \dfrac{|i \in \widehat M \colon \ \beta_i \in
+\widehat{\text{CI}}_i|}{|\widehat M|} \right)
+\geq1-q
+(\#eq:FCR)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(|S|\)&lt;/span&gt; denotes the
+cardinality of a set &lt;span class="math inline"&gt;\(S\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Notice that the random variables in the previous equations are &lt;span
+class="math inline"&gt;\(\widehat M\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\widehat{\text{CI}}_i\)&lt;/span&gt; (denoted by a hat),
+whereas the true coefficients &lt;span
+class="math inline"&gt;\(\beta_i\)&lt;/span&gt; and the selected set &lt;span
+class="math inline"&gt;\(m\)&lt;/span&gt; in the case of conditional coverage
+(Eq. @ref(eq:conditionalCoverage)) are fixed quantities. Variations of
+these measures focusing on single coefficients are also possible.&lt;/p&gt;
+&lt;p&gt;In practice, in the &lt;em&gt;Assumption Lean&lt;/em&gt; framework I just
+introduced, all these coverage measures would &lt;em&gt;not&lt;/em&gt; be computed
+under the selected model’s probability distribution, but rather under a
+pre-fixed, more general model for the true probability distribution of
+&lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; conditional on &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;. We may, for instance, assume that the
+true error term &lt;span class="math inline"&gt;\(\varepsilon\)&lt;/span&gt; in Eq.
+@ref(eq:yRegression) is gaussian with constant (&lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;-independent) variance, without making
+any further assumption on &lt;span class="math inline"&gt;\(f(X)\)&lt;/span&gt;.
+With enough data, we may even be able to bypass any assumption at all,
+and compute all relevant quantiles using a bootstrap &lt;span
+class="citation"&gt;(Kuchibhotla et al. 2020)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;In the &lt;em&gt;Model Trusting&lt;/em&gt; framework, on the other hand, the
+conditional coverage measure would be computed &lt;em&gt;under the selected
+model&lt;/em&gt;… and I’m honestly not sure whether it’s possible to make
+sense of the other two measures in this framework.&lt;/p&gt;
+&lt;h3 id="selective-vs.-simultaneous-inference"&gt;Selective vs. Simultaneous
+Inference&lt;/h3&gt;
+&lt;p&gt;The connection between selective and simultaneous inference can now
+be understood, through the notion of marginal coverage. In fact, suppose
+that we were able to provide simultaneous coverage for &lt;em&gt;all&lt;/em&gt;
+parameters (selected or not):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha
+(\#eq:simultaneousMarginalCoverage)
+\]&lt;/span&gt; Then, it’s easy to see that the same confidence interval would
+also provide marginal coverage over the selected parameters. In order to
+see that, simply observe that the simultaneous coverage event can be
+decomposed as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+(\beta _i \in \widehat {\text{CI}}_i\,\,\forall i) = (\beta _i \in
+\widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \cap (\beta _i \in
+\widehat{\text{CI}}_i\,\,\forall i \notin \widehat M)
+\]&lt;/span&gt; which implies that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat
+M) \geq \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq
+1-\alpha,
+(\#eq:simultaneousImpliesMarginalCoverage)
+\]&lt;/span&gt; that is simultaneous coverage implies marginal coverage over
+the selected parameters. In fact, with a few more set-theory
+manipulations, one can arrive to a powerful Lemma &lt;span
+class="citation"&gt;(see Kuchibhotla et al. 2020 for details)&lt;/span&gt;:
+controlling the marginal coverage @ref(eq:marginalCoverage) at level
+&lt;span class="math inline"&gt;\(\alpha\)&lt;/span&gt; for &lt;em&gt;any&lt;/em&gt; model
+selection procedure&lt;a href="#fn5" class="footnote-ref"
+id="fnref5"&gt;&lt;sup&gt;5&lt;/sup&gt;&lt;/a&gt; is equivalent to controlling simultaneous
+coverage for all possible model selections.&lt;/p&gt;
+&lt;p&gt;This provides us a first, very simple recipe for selective inference,
+which can be applied whenever one is able to construct confidence
+intervals for parameters in the absence of selection: use any procedure
+(e.g.  &lt;a
+href="https://en.wikipedia.org/wiki/Bonferroni_correction"&gt;Bonferroni
+corrections&lt;/a&gt;) which controls simultaneous coverage for &lt;em&gt;all&lt;/em&gt;
+parameters we may select a priori.&lt;/p&gt;
+&lt;h1 id="conclusions"&gt;Conclusions&lt;/h1&gt;
+&lt;p&gt;This was a long and somewhat abstract post, so perhaps the best way
+to conclude is with some bottom lines:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;When performing model-based inference, nothing forces us to make
+working hypotheses about the correctness of the model we arrive at. Not
+making such assumptions corresponds to what I called an &lt;em&gt;Assumption
+Lean&lt;/em&gt; framework.&lt;/li&gt;
+&lt;li&gt;In an &lt;em&gt;Assumption Lean&lt;/em&gt; framework, the inferential targets
+are, in general, the best approximations to the truth allowed by the
+selected model.&lt;/li&gt;
+&lt;li&gt;There exist many type of coverage guarantees for selective
+confidence intervals.&lt;/li&gt;
+&lt;li&gt;Bounding the probability of any false coverage statement (“marginal
+coverage over the selected parameters”) allows to turn a problem of
+selective inference into one of &lt;em&gt;simultaneous&lt;/em&gt; inference.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In particular, it is worth to mention that the last observation lead
+us to a simple recipe for constructing (somewhat conservative, but
+valid) selective confidence intervals with marginal coverage. In the
+posts which follow, I will discuss some more advanced methods which
+produce confidence intervals satisfying the requirements discussed
+here.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-benjamini2005false" class="csl-entry"&gt;
+Benjamini, Yoav, and Daniel Yekutieli. 2005. &lt;span&gt;“False Discovery
+Rate–Adjusted Multiple Confidence Intervals for Selected
+Parameters.”&lt;/span&gt; &lt;em&gt;Journal of the American Statistical
+Association&lt;/em&gt; 100 (469): 71–81.
+&lt;/div&gt;
+&lt;div id="ref-berk2013valid" class="csl-entry"&gt;
+Berk, Richard, Lawrence Brown, Andreas Buja, Kai Zhang, and Linda Zhao.
+2013. &lt;span&gt;“Valid Post-Selection Inference.”&lt;/span&gt; &lt;em&gt;The Annals of
+Statistics&lt;/em&gt;, 802–37.
+&lt;/div&gt;
+&lt;div id="ref-kuchibhotla2020valid" class="csl-entry"&gt;
+Kuchibhotla, Arun K, Lawrence D Brown, Andreas Buja, Junhui Cai, Edward
+I George, and Linda H Zhao. 2020. &lt;span&gt;“Valid Post-Selection Inference
+in Model-Free Linear Regression.”&lt;/span&gt; &lt;em&gt;The Annals of
+Statistics&lt;/em&gt; 48 (5): 2953–81.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Where what’s to be considered &lt;em&gt;best&lt;/em&gt; is defined
+in terms of some reasonable metric. For instance, for the conditional
+mean &lt;span class="math inline"&gt;\(f(X)\)&lt;/span&gt; of a continuous response
+&lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;, a convenient target &lt;span
+class="math inline"&gt;\(f^*(X)\)&lt;/span&gt; within a prescribed family of
+functions &lt;span class="math inline"&gt;\(\mathcal F\)&lt;/span&gt; can be defined
+by &lt;span class="math inline"&gt;\(f^* =\arg\min _{\phi \in \mathcal F}
+\mathbb E (\vert f(X) - \phi (X)\vert^2)\)&lt;/span&gt;.&lt;a href="#fnref1"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;There’s also a third advantage, which is that I find
+much harder to think about selective inference from the Model Trusting
+point of view, hence to write blog posts about it - but that’s likely a
+limitation of my imagination, rather than of the point of view itself.&lt;a
+href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn3"&gt;&lt;p&gt;A cool word for “wrong”.&lt;a href="#fnref3"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn4"&gt;&lt;p&gt;Why &lt;span class="math inline"&gt;\(q\)&lt;/span&gt; and not &lt;span
+class="math inline"&gt;\(\alpha\)&lt;/span&gt;? Ask &lt;span
+class="citation"&gt;(Benjamini and Yekutieli 2005)&lt;/span&gt;.&lt;a href="#fnref4"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn5"&gt;&lt;p&gt;It is assumed that the selection is performed from a
+from a &lt;em&gt;fixed&lt;/em&gt; family of models &lt;span
+class="math inline"&gt;\(\mathcal M\)&lt;/span&gt;.&lt;a href="#fnref5"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>d02620771c85a2439125f0948d707b98</distill:md5>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2022-11-07-posi-2</guid>
+      <pubDate>Thu, 24 Nov 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>How to get away with selection. Part I: Introduction</title>
       <dc:creator>vgherard</dc:creator>
