@@ -61,19 +61,22 @@ navbar:
       href: https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf
     - text: "Other links"
       menu:
-        - text: "vgherard @ SISSA-TPP"
-          href: https://www.sissa.it/tpp/members.php?ID=278
-        - text: "vgherard @ iNSPIRE HEP"
-          href: https://inspirehep.net/authors/1728353?ui-citation-summary=true
+
         - text: "vgherard @ r-bloggers"
           href: https://www.r-bloggers.com/author/vgherard/
         - text: "vgherard @ datascience+"
           href: https://datascienceplus.com/author/vgherard/
         - text: "vgherard @ StackExchange"
           href: https://stackexchange.com/users/2261006/pppqqq
+        - text: "vgherard @ iNSPIRE HEP"
+          href: https://inspirehep.net/authors/1728353?ui-citation-summary=true
         - text: "vgherard @ exercism"
           href: https://exercism.io/profiles/vgherard
         - text: "vgherard @ Chess.com"
           href: https://www.chess.com/member/vgherard
+        - text: "vgherard @ lichess.org"
+          href: https://lichess.org/@/vgherard
+        - text: "vgherard @ FIDE"
+          href: https://ratings.fide.com/profile/94715360
 #    - icon: fa fa-rss
 #      href: blog.xml
