@@ -55,7 +55,7 @@ navbar:
     - icon: fab fa-twitter fa-1x
       href: https://twitter.com/ValerioGherardi
     - icon: fa fa-envelope fa-1x
-      href: mailto:vgherard@sissa.it
+      href: mailto:vgherard840@gmail.com
     #- icon: fa fa-address-card fa-2x
     - text: CV
       href: https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf
