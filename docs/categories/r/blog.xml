@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:distill="https://distill.pub/journal/" version="2.0">
+  <channel>
+    <title>Valerio Gherardi</title>
+    <link>https://vgherard.github.io/</link>
+    <atom:link href="https://vgherard.github.io/blog.xml" rel="self" type="application/rss+xml"/>
+    <description>Valerio Gherardi
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>How to get away with selection. Part I: Introduction</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2022-10-18-posi</link>
+      <description>Introducing the problem of Selective Inference, illustrated through a simple simulation in R.</description>
+      <category>R</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2022-10-18-posi</guid>
+      <pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>kgrams v0.1.2 on CRAN</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</link>
+      <description>kgrams: Classical k-gram Language Models in R.</description>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</guid>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>R Client for R-universe APIs</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</link>
+      <description>Introducing W.I.P. {runiv}, an R package to interact with R-universe 
+repository APIs</description>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</guid>
+      <pubDate>Sun, 25 Jul 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</link>
+      <description>Create automatic resumes of your R packages using the R-Universe API.</description>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</guid>
+      <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>{r2r} now on CRAN</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-07-06-r2r</link>
+      <description>Introducing {r2r}, an R implementation of hash tables.</description>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

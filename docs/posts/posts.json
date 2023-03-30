@@ -1,5 +1,24 @@
 [
   {
+    "path": "posts/2023-03-10-correlation-without-causation/",
+    "title": "Correlation Without Causation",
+    "description": "*Cum hoc ergo propter hoc*",
+    "author": [
+      {
+        "name": "vgherard",
+        "url": "https://vgherard.github.io"
+      }
+    ],
+    "date": "2023-03-30",
+    "categories": [
+      "Statistics"
+    ],
+    "contents": "\nIt is part of common knowledge that correlation does not require causation.\nAbsence of causation, say between a condition \\(p\\) and an effect \\(q\\), means that the realization of \\(p\\) has no influence on the presence of \\(q\\). If this is the case,\na statistical correlation between \\(p\\) and \\(q\\) can still be present, if the realization of \\(p\\) modifies our state of information about \\(q\\).\nAs an example, let \\(X,Y\\) be two conditionally independent binary random variables, with a common probability \\(\\Theta\\) of evaluating to one. Think, for instance,\nof a machine that produces pairs of identical biased coins, with a probability of tails \\(\\Theta\\).\nIf \\(\\Theta\\) is equal to a given value \\(\\theta\\), the joint probability distribution of \\(X\\) and \\(Y\\) is:\n\\[\n\\text {Pr}(X=x,Y=y\\vert \\Theta = \\theta) = B(x;\\theta)B(y;\\theta), \\tag{1}\n\\]\nwhere \\(B(z; \\theta) = \\theta ^z (1 - \\theta) ^ {1-z}\\).\nWhether or not this provides a satisfying probabilistic description of experiments on \\(X\\) and \\(Y\\) depends on context.\nFrom a frequentist point of view, if \\(\\Theta\\) is fixed once and for all, the right hand side of Eq. (1) correctly describes the experimental outcomes of \\(X\\) and \\(Y\\) for some value of \\(\\theta\\). On the other hand, if \\(\\Theta\\) can change from experiment to experiment in a random fashion, and we do not observe its values \\(\\theta\\), we clearly cannot use Eq. (1) as it stands, as its usage requires knowing \\(\\theta\\).\nFinally, from a bayesian’s point of view, if \\(\\Theta\\) is fixed but unknown, Eq. (1) does not describe our state of knowledge about \\(X\\) and \\(Y\\), because it assumes unavailable information (\\(\\Theta = \\theta\\)).\nIn the last two cases, what we’re actually after is the unconditional probability:\n\\[\n\\text{Pr}(X=x,\\,Y=y)=\\intop\\,\\text{d}P_\\Theta(\\theta) \\,\\text{Pr}(X=x,Y=y\\vert\\Theta = \\theta)\n\\tag{2}\n\\]\nwhere \\(\\text{d}P_\\Theta(\\theta)\\) can be regarded either as the actual probability distribution of \\(\\Theta\\) (in a frequentist framework) or as a subjective prior distribution (in a bayesian framework).\nPlugging Eq. (1) into (2), we find:\n\\[\n\\begin{split}\n\\text{Pr}(X=1,\\,Y=1) & = \\mathbb E(\\Theta)^2+\\text{Var}(\\Theta)\\\\\n\\text{Pr}(X=1,\\, Y=0)&=\\mathbb E(\\Theta)-\\mathbb E(\\Theta)^2-\\text{Var}(\\Theta)\\\\\n\\text{Pr}(X=0,\\, Y=1)&=\\mathbb E(\\Theta)-\\mathbb E(\\Theta)^2-\\text{Var}(\\Theta)\\\\\n\\text{Pr}(X=0,\\,Y=0) & = \\mathbb (1-\\mathbb E(\\Theta))^2+\\text{Var}(\\Theta) \\\\\n\\end{split}\n\\]\nIn particular, we have:\n\\[\n\\dfrac{\\text{Pr}(Y = 1 \\vert\\, X = 1)}{\\text {Pr}(Y=1)} = 1+\\frac{\\text{Var}(\\Theta)}{\\mathbb{E}(\\Theta)^2},\n\\tag{3}\n\\]\nwhich means that, unconditionally, \\(X\\) and \\(Y\\) are not independent, but in fact positively correlated1.\nObservations of this kind apply, mutatis mutandis, in many practical situations. For instance if we were modeling the time series of new visitors to a website, we could reasonably assume that the number of yesterday’s new visitors does not influence the number of today’s ones (if individual visitors are unlikely to interact with each other). Yet, it would be wrong to assume, and easy to disprove, that these two numbers are by themselves statistically independent, because yesterday’s new visitors carry useful background information on today’s potential new visitors.\nThe bottom line of the post is that lack of causation does not imply lack of correlation, which is logically equivalent to the original motto, but sometimes slightly less obvious2… at least to this irrational human being.\n\nHere I’m using the word correlation in a loose sense, as in the popular motto.↩︎\nAnd admittedly somewhat uglier.↩︎\n",
+    "preview": {},
+    "last_modified": "2023-03-30T20:08:12+02:00",
+    "input_file": "correlation-without-causation.knit.md"
+  },
+  {
     "path": "posts/2022-11-07-posi-2/",
     "title": "How to get away with selection. Part II: Mathematical Framework",
     "description": "Mathematicals details on Selective Inference, model misspecification and coverage guarantees.",

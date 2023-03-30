@@ -7,7 +7,124 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 25 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Correlation Without Causation</title>
+      <dc:creator>vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-03-10-correlation-without-causation</link>
+      <description>
+
+
+&lt;p&gt;It is part of common knowledge that &lt;strong&gt;correlation does not
+require causation&lt;/strong&gt;. Absence of causation, say between a
+condition &lt;span class="math inline"&gt;\(p\)&lt;/span&gt; and an effect &lt;span
+class="math inline"&gt;\(q\)&lt;/span&gt;, means that the realization of &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt; has no influence on the presence of
+&lt;span class="math inline"&gt;\(q\)&lt;/span&gt;. If this is the case, a
+statistical correlation between &lt;span class="math inline"&gt;\(p\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(q\)&lt;/span&gt; can still be present, if the
+realization of &lt;span class="math inline"&gt;\(p\)&lt;/span&gt; modifies our
+&lt;em&gt;state of information&lt;/em&gt; about &lt;span
+class="math inline"&gt;\(q\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;As an example, let &lt;span class="math inline"&gt;\(X,Y\)&lt;/span&gt; be two
+conditionally independent binary random variables, with a common
+probability &lt;span class="math inline"&gt;\(\Theta\)&lt;/span&gt; of evaluating to
+one. Think, for instance, of a machine that produces pairs of identical
+biased coins, with a probability of tails &lt;span
+class="math inline"&gt;\(\Theta\)&lt;/span&gt;. If &lt;span
+class="math inline"&gt;\(\Theta\)&lt;/span&gt; is equal to a given value &lt;span
+class="math inline"&gt;\(\theta\)&lt;/span&gt;, the joint probability
+distribution of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text {Pr}(X=x,Y=y\vert \Theta = \theta) = B(x;\theta)B(y;\theta),
+(\#eq:XYConditionalProb)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(B(z; \theta) = \theta ^z (1
+- \theta) ^ {1-z}\)&lt;/span&gt;. Whether or not this provides a satisfying
+probabilistic description of experiments on &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; depends on context.&lt;/p&gt;
+&lt;p&gt;From a frequentist point of view, if &lt;span
+class="math inline"&gt;\(\Theta\)&lt;/span&gt; is fixed once and for all, the
+right hand side of Eq. @ref(eq:XYConditionalProb) correctly describes
+the experimental outcomes of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; for &lt;em&gt;some&lt;/em&gt; value of &lt;span
+class="math inline"&gt;\(\theta\)&lt;/span&gt;. On the other hand, if &lt;span
+class="math inline"&gt;\(\Theta\)&lt;/span&gt; can change from experiment to
+experiment in a random fashion, and we do not observe its values &lt;span
+class="math inline"&gt;\(\theta\)&lt;/span&gt;, we clearly cannot use Eq.
+@ref(eq:XYConditionalProb) as it stands, as its usage requires knowing
+&lt;span class="math inline"&gt;\(\theta\)&lt;/span&gt;. Finally, from a bayesian’s
+point of view, if &lt;span class="math inline"&gt;\(\Theta\)&lt;/span&gt; is fixed
+but unknown, Eq. @ref(eq:XYConditionalProb) does not describe our
+&lt;em&gt;state of knowledge&lt;/em&gt; about &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;, because it assumes
+unavailable information (&lt;span class="math inline"&gt;\(\Theta =
+\theta\)&lt;/span&gt;).&lt;/p&gt;
+&lt;p&gt;In the last two cases, what we’re actually after is the unconditional
+probability:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}(X=x,\,Y=y)=\intop\,\text{d}P_\Theta(\theta)
+\,\text{Pr}(X=x,Y=y\vert\Theta = \theta)
+(\#eq:XYUnconditionalProb)
+\]&lt;/span&gt; where &lt;span
+class="math inline"&gt;\(\text{d}P_\Theta(\theta)\)&lt;/span&gt; can be regarded
+either as the actual probability distribution of &lt;span
+class="math inline"&gt;\(\Theta\)&lt;/span&gt; (in a frequentist framework) or as
+a subjective prior distribution (in a bayesian framework).&lt;/p&gt;
+&lt;p&gt;Plugging Eq. @ref(eq:XYConditionalProb) into
+@ref(eq:XYUnconditionalProb), we find:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\text{Pr}(X=1,\,Y=1) &amp;amp; = \mathbb E(\Theta)^2+\text{Var}(\Theta)\\
+\text{Pr}(X=1,\, Y=0)&amp;amp;=\mathbb E(\Theta)-\mathbb
+E(\Theta)^2-\text{Var}(\Theta)\\
+\text{Pr}(X=0,\, Y=1)&amp;amp;=\mathbb E(\Theta)-\mathbb
+E(\Theta)^2-\text{Var}(\Theta)\\
+\text{Pr}(X=0,\,Y=0) &amp;amp; = \mathbb (1-\mathbb
+E(\Theta))^2+\text{Var}(\Theta) \\
+\end{split}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In particular, we have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\dfrac{\text{Pr}(Y = 1 \vert\, X = 1)}{\text {Pr}(Y=1)} =
+1+\frac{\text{Var}(\Theta)}{\mathbb{E}(\Theta)^2},
+(\#eq:PMI)
+\]&lt;/span&gt; which means that, &lt;em&gt;unconditionally&lt;/em&gt;, &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; are not independent, but in fact
+positively correlated&lt;a href="#fn1" class="footnote-ref"
+id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Observations of this kind apply, &lt;em&gt;mutatis mutandis&lt;/em&gt;, in many
+practical situations. For instance if we were modeling the time series
+of new visitors to a website, we could reasonably assume that the number
+of yesterday’s new visitors does not influence the number of today’s
+ones (if individual visitors are unlikely to interact with each other).
+Yet, it would be wrong to assume, and easy to disprove, that these two
+numbers are by themselves statistically independent, because yesterday’s
+new visitors carry useful background information on today’s potential
+new visitors.&lt;/p&gt;
+&lt;p&gt;The bottom line of the post is that &lt;strong&gt;lack of causation does
+not imply lack of correlation&lt;/strong&gt;, which is logically equivalent to
+the original motto, but sometimes slightly less obvious&lt;a href="#fn2"
+class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;… at least to this
+irrational human being.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Here I’m using the word correlation in a loose sense, as
+in the popular motto.&lt;a href="#fnref1"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;And admittedly somewhat uglier.&lt;a href="#fnref2"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>fe520dca72f62407e195f134051b016c</distill:md5>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2023-03-10-correlation-without-causation</guid>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>How to get away with selection. Part II: Mathematical Framework</title>
       <dc:creator>vgherard</dc:creator>
