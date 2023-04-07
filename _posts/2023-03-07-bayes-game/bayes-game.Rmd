@@ -1,0 +1,415 @@
+---
+title: "Bayes Game"
+description: |
+  Illustrating differences between confidence and credible intervals through 
+  a betting game.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-03-07
+output:
+  distill::distill_article:
+    self_contained: false
+header-includes:
+  - \usepackage{blkarray}
+  - \usepackage{amsmath}
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Intro
+
+I have always felt a bit uneasy with the way I was taught about the 
+differences between frequentist and bayesian methods. Back in my freshman years,
+I recall that the explanations were mostly focused on how "frequentists" and
+"bayesians" had diverging opinions on what kind of objects you may attach a 
+probability to, which *naturally* led to approaching inferential problems in a 
+different way. This led me to a strange idea, a sort of naive extrapolation: 
+that whether you used a given formalism was a matter of committing to 
+one particular philosophy or the other, and that there was no point in trying 
+to compare the constructs of the two.
+
+Now, I am deeply convinced that injecting too many opinions and too few facts 
+into young scientists' minds is a superb strategy to grow orthodox imbeciles 
+^[Here's a list of topics where I believe education focuses too much on opinions 
+and too little on facts: Frequentist vs. Bayesian statistical inference; 
+Interpretations of Quantum Mechanics; The derivation of Statistical Mechanics 
+from first principles; The naturalness problem of the Standard Model...]. 
+In hindsight, I can see why young me's reasoning was fallacious: it simply 
+failed to distinguish mathematical methods from epistemics. 
+On the mathematical grounding, both methods are born out of the 
+one and only theory of probability (***cit Kolmogorov***), and one can obviously 
+make meaningful comparisons and choices between the two, on a purely rational 
+basis.
+
+To demonstrate this, I'm going to describe two games of chance, that represent 
+the related scientific tasks of hypothesis testing and reporting measurements.
+We will see that, although the games are readily interpreted in the frequentist
+framework, depending on a small but critical variation of the games' rules, 
+the optimal strategies for the players involved can be either frequentist" or 
+"bayesian".
+
+# Hypothesis Testing
+
+Hypothesis testing normally involves some experimental data $\mathcal D$, and a
+set of mutually exclusive assumptions $H_0,\,H_1,\,H_2,\dots $ on the data 
+generating process (*i.e.* the true probability distribution 
+$\text{Pr}(\mathcal D)$).
+
+# ...
+
+We start with a couple game :) Consider two entangled spins (of two 
+distinguishable particles):
+
+$$
+\vert \alpha \rangle = \sqrt \theta\vert +_z\rangle _1 \otimes \vert +_{z'}\rangle _2+ \sqrt {1-\theta}\vert -_z\rangle _1 \otimes \vert -_{z'}\rangle _2,
+$$
+where $z$ and $z'$ are two different, slightly tilted cartesian axes (
+see Fig). 1. There are two quantum scientists, say Tom and Elis, that can only 
+measure spins along the $z$ axis. The game proceeds as follows:
+
+- **Tom** measures the first spin and annotates its value $S_1 ^T $.
+- **Elis** measures the second spin *along the same axis $z$* 
+($S_2= \pm \frac{1}{2}$) and makes a guess $S_1 ^E$ on the value $S_1 ^T$ 
+measured by **Tom**.
+- The couple will get rewarded (or penalised) according to the following table:
+
+|                        | $S_1 ^T = +\frac{1}{2}$  | $S_1^T = -\frac{1}{2}$ |
+|-----------------------:|-------------------------:|-----------------------:|
+|$S_1 ^E = +\frac{1}{2}$ | $G _{\text{TP}}$         |  $-L _{\text{FP}}$     |
+|$S_1 ^E = -\frac{1}{2}$ | $-L _{\text{FN}}$        | $G _{\text{TN}}$       |
+
+### Analysis
+
+From a physical point of view, the first measurement of $S_1$ performed by Tom 
+makes the system collapse into one of the two states 
+$\theta\vert \pm_z\rangle \otimes \vert \pm_{z'}\rangle$ with probability 
+$\theta$ and $1-\theta$, respectively. In these two different states, the 
+distribution of $S_2$ is different, so that the outcome of Elis' measurement 
+hints...
+
+The expected reward is given by:
+
+$$
+\begin{split}
+\mathbb E(R) &= \text{Pr}(
+	S_1^T=+) \times \left[ G_{\text{TP}}\cdot\text{Pr}(S_1^E=+\vert S_1^T=+)-L_{\text{FN}}\cdot\text{Pr}(S_1^E=-\vert S_1^T=+) \right] +\\
+	& + \text{Pr}(S_1^T=-) \times \left[ -L_{\text{FP}}\cdot\text{Pr}(S_1^E=+\vert S_1^T=-)+G_{\text{TN}}\cdot\text{Pr}(S_1^E=-\vert S_1^T=-) \right]
+	\end{split}
+$$
+This can be rewritten in terms of the positive, false positive, negative and 
+false negative rates:
+
+$$
+\mathbb E(R)=-\text{PR}\cdot(G_\text{TP}+L_\text{FN})\cdot \text{FNR}
+							-\text{NR}\cdot(L_\text{FP}+G_\text{TN})\cdot \text{FPR} +\text{const.}
+$$
+where the constant is independent of $\text{FNR}$ and $\text{FPR}$, so that it 
+can be omitted. In a frequentist framework, the optimal strategy to get the 
+maximum possible expected reward can be described as follows: from the Neyman 
+Pearson lemma, we know that the optimal test will be the likelihood-ratio test 
+for the hypotheses $S_1 ^T = \pm \frac{1}{2}$. We can then tune the $\text{FPR}$
+so that: 
+
+$$
+\frac{\text{d} (\text{FNR})}{\text{d} (\text{FPR})} = 
+-\dfrac{\text{NR}}{\text{PR}}\cdot \dfrac{L_\text{FP}+G_\text{TN}}{G_\text{TP}+L_\text{FN}}
+$$
+where the expected reward has a maximum (assuming $\text{FNR}$ to be a convex 
+function of $\text{FPR}$).
+
+Elis uses the Neyman Pearson lemma, so that here inference is based on:
+
+$$
+\Lambda \equiv \dfrac{\text{Pr}(S_2 ^ E \vert S_1 ^T = +\frac{1}{2})}
+{\text{Pr}(S_2 ^ E \vert S_1 ^T = -\frac{1}{2})} \leq k
+$$
+We can see that:
+
+$$
+\frac{\text{d} (\text{FNR})}{\text{d} (\text{FPR})} = 
+-\frac{1}{k},
+$$
+a condition that is ensured by the relations:
+
+$$
+\text{FPR}(k) = \text{Pr}(\Lambda \leq k \vert H_0)\\
+1 - \text{FNR}(k) = \text{Pr}(\Lambda \leq k \vert H_1)
+$$
+That is to say:
+
+$$
+\dfrac{\text{Pr}(S_1 ^T = +\frac{1}{2}\vert S_2 ^E)}
+{\text{Pr}(S_1 ^T = -\frac{1}{2}\vert S_2 ^E)} \leq k \dfrac{\text{Pr}(S_1 ^T = +\frac{1}{2})}
+{\text{Pr}(S_1 ^T = -\frac{1}{2}
+)} 
+$$
+
+A bayesian Elis would immediately answers that we should bet on 
+$S_1 ^T = -\frac{1}{2}$ if:
+
+$$
+\text{Pr}(S_1 ^T = +\frac{1}{2}\vert S_2 ^E)\cdot G_\text{TP} - \text{Pr}(S_1 ^T = -\frac{1}{2}\vert S_2 ^E)\cdot L_\text{FP} \leq - \text{Pr}(S_1 ^T = +\frac{1}{2}\vert S_2 ^E)\cdot L_\text{FN}+\text{Pr}(S_1 ^T = -\frac{1}{2}\vert S_2 ^E)\cdot G_\text{TN}
+$$
+because the LHS and RHS are respectively the posterior expected rewards for the 
+guesses $S_1 ^E = \pm \frac{1}{2}$. This provides the constant that one should
+use in the Neyman Pearson lemma:
+
+$$
+k = \frac{G_{\text{TN}}+L_{\text{FP}}}{G_{\text{TP}}+L_{\text{FN}}}\cdot 
+\dfrac{\text{PR}}{\text{NR}}
+$$
+
+# Reporting measurements: frequentist and bayesian
+
+Frequentist confidence intervals and bayesian credible intervals are quite 
+different beasts. While, superficially, they can be both characterized as 
+*"covering the true parameters with probability $p$"*, the word *"probability"* 
+is used with rather different meanings in the two cases, and confusing them can 
+lead to irrational thought.
+
+
+# Rules of the game
+
+To begin, the **Game Master** sets a number $p\in (0,1)$, which remains the same
+during the whole length of the game. Then, a single iteration of the game 
+proceeds as follows:
+
+1. The **Game Master** extracts a coin from a urn, removes the label from the 
+coin and hands it to the **Bookmaker**. (The coin is biased, and the 
+probability of tails for such coin, denoted by $\theta$, is known to the 
+**Game Master** (the coin has a small label upon it), and kept secret.)
+
+2. The **Bookmaker** tosses the coin an arbitrary number of times, after 
+which he provides an interval.
+
+3. The **Bookmaker** examines the data $\mathcal D$, and publishes a 
+*book* $\mathcal B = \left( \mathcal D, \hat I, p \right)$, containing:
+	- The data $\mathcal D$,
+	- An interval $\hat I = \left(\hat L,\hat U\right)$,
+	- A payout $p \in \left(0,1\right)$.
+	
+5. The **Gambler** examines the book $\mathcal B$ and places a bet to win 
+$b=\pm 1$ if the event that $\theta \in \hat I$ obtains. An amount of cash $bp$ 
+is automatically moved from the **Gambler**'s to the **Bookmaker**'s bank 
+account (if $b = -1$ an amount $-bp$ is moved from the **Bookmaker**'s to the
+**Gambler**'s account).
+
+6. The **Game Master** examines the book $\mathcal B$ and the bet $b$ and, 
+if $\theta \in \hat I$ obtained, moves an amount $b$ from the
+**Bookmaker**'s to the **Gambler**'s account (again, if $b$ is negative, 
+the amount $-b$ is moved in the opposite direction).
+
+7. As for the final step, there are three variants:
+
+	a. The **Game Master** publishes the actual value of $\theta$.
+	b. The **Game Master** does not publish the actual value of $\theta$, but 
+	the players are allowed to consult their bank accounts, 
+	so that they know whether $\theta \in \hat I$ obtained.
+	c. The **Game Master** does not publish the actual value of $\theta$, and 
+	the players are not allowed to consult their bank accounts.
+
+# Problem
+
+Suppose that the **Bookmaker** and **Gambler** are both forced to play 
+indefinitely (maybe until they run out of money, which they have in great 
+abundance). What are the best strategies for these two players?
+	
+# Analysis
+
+Let's start by considering a single iteration of the game. The expected gain of 
+the **Bookmaker** is given by ($\chi _E = 1$ is equal to one if the event $E$ 
+obtains, and zero otherwise):
+
+$$
+G=\int  b\cdot (p - \chi_{\theta \in \hat I}) \,\text dP(\theta, \,x, \, \dots)  
+$$
+where, to simplify things, we have considered $n$ to be fixed. The other 
+quantities ($p$, $\hat I$, and $b$) are random, but assumed to be 
+*fixed functions* of $x$^[This is not strictly necessary, as (for instance) 
+we could allow for some randomness in the $x\mapsto \hat I$ association, which 
+would lead to some nuisance parameters in integration for the expected value. 
+This would not modify the essence of the arguments below.
+Also, strictly speaking, $b$ is a function of $p$ and $\hat I$, as the gambler 
+is allowed to review the book before placing a bet.]. On the other hand, these 
+quantities cannot depend on $\theta$, which is kept unknown to the players.
+
+Clearly, the **Bookmaker** would like maximize $G$, whereas the **Gambler** 
+would like to minimize it ($-G$ is the **Gambler**'s expected gain). The optimal
+strategy for each player clearly depends on what the other player will do: for 
+instance, if the **Gambler** always bets on the event ($b \equiv 1$), 
+independently of any available data, then the optimal strategy for the 
+**Bookmaker** is to put $p = 1$ and make $\hat I$ negligibly small.
+
+To start with, assume that the **Gambler** knows exactly the distribution
+of $\theta$, so that given $x$ and $\hat I$, he is able to compute 
+$\text{Pr}_{\Theta\vert X}(\theta \in \hat I \vert X=x)$. Then, he can choose: 
+
+$$
+b = \text{sgn}\left(\text{Pr}_{\Theta\vert X}(\theta \in \hat I(x) \vert X= x)-p\right)
+(\#eq:bayesianGambler)
+$$
+where $\text{sgn}(z)$ is the sign of $z$ 
+(we make the convention that $\text{sgn}(0) = +1$). In plain english:
+
+> "Given the observed value of $x$, I will bet for (against) $\theta \in \hat I$ 
+if the probability of such event is greater (smaller) than $p$."
+
+In this case, by rewriting the integral as:
+
+$$
+G = 
+	\int \text dP _X(x) \,b 
+		\int \text d P _{\Theta\vert X}(\theta\vert X=x)
+			\, (p - \chi_{\theta \in \hat I})
+	= \int \text dP _X(x) \,b \cdot
+		(p - \text{Pr}_{\Theta\vert X}(\theta \in \hat I \vert X=x))
+$$
+and plugging in Eq. \@ref(eq:bayesianGambler), we find^[This is the expected 
+gain, according to the players strategy we detailed, before observing the value 
+$x$ of $X$. The expectation after observing $X=x$ is the integrand, 
+which is again always positive.]:
+
+$$
+G = 
+	-\int \text dP _X(x)\,\,  \left| p - \text{Pr}_{\Theta\vert X}(\theta \in \hat I(x) \vert X=x)\right|
+$$
+which is never positive. The only way for the **Bookmaker** to have a 
+non-negative expected gain, would be to choose $\hat I(x)$ in such a way that:
+
+$$
+\text{Pr}_{\Theta\vert X}(\theta \in \hat I(x) \vert X=x) = p. (\#eq:bayesianBookmaker)
+$$
+It's also clear that, for any choice of $b$, we have:
+
+$$
+-G = \int \text dP _X(x) \,b\cdot
+\left( p - \text{Pr}_{\Theta\vert X}(\theta \in \hat I(x) \vert X=x)\right) \leq 
+		\int \text dP _X(x)\,\,  \left| p - \text{Pr}_{\Theta\vert X}(\theta \in \hat I(x) \vert X=x)\right|
+$$
+so that betting according to \@ref(eq:bayesianGambler) leads to the maximum 
+expected gain.
+
+Hence, summarising a little bit: 
+
+- If the **Gambler** knows the distribution of $\theta$, the strategy which 
+achieves him the maximum expected gain is to bet according to 
+Eq. \@ref(eq:bayesianGambler)...
+- ... in which case, the only way for the **Bookmaker** to avoid a negative 
+expected gain is to publish his books according to \@ref(eq:bayesianBookmaker) -
+in which case the expected gain is zero.
+
+---
+
+Now, consider a different scenario where the player is not allowed to observe
+the outcome $X=x$ or the interval $\hat I(x)$. The player can only count the 
+number of times the **Bookmaker** is right. He can then bet for
+
+$$
+b = \text{sgn}\left(\text{Pr}(\Theta \in \hat I (X))-p\right)
+$$
+which results in:
+
+$$
+G = -\left| \text{Pr}(\Theta \in \hat I (X))-p \right|
+$$
+This implies that, in order not to run into a sure loss, the bookmaker must bet
+according to:
+
+$$
+\text{Pr}(\Theta \in \hat I(X)) = p. (\#eq:marginalBookmaker)
+$$
+It's also clear that, if $b$ cannot depend on anything but $p$, this is the most
+rational choice for the player (leading to the maximum expected gain).
+
+----
+
+We finally consider a last scenario, where the player does not observe $X=x$ or 
+$\hat I (x)$, and is instead given the true value of $\Theta = \theta$. He now 
+decides to bet according to:
+
+$$
+b = \text{sgn}\left(\text{Pr}_{X\vert \Theta}(\theta \in \hat I (X)\vert \Theta = \theta) - p\right)
+$$
+where he could learn the first probability through non-parametric classification
+(say nearest neighbours, for instance).
+
+The expected gain is now:
+
+$$
+G = - \left\vert\text{Pr}_{X\vert \Theta}(\theta \in \hat I (X)\vert \Theta = \theta) - p\right\vert
+$$
+so that the **Bookmaker** must publish its books according to:
+
+$$
+\text{Pr}_{X\vert \Theta}(\theta \in \hat I (X)\vert \Theta = \theta) = p \quad \forall \theta.
+$$
+---
+
+Consider now a different scenario: players are not allowed to look at the data $x$. Instead, the **Bookmaker** must specify how he will construct the interval $x$ beforehands, and provide this information in the book he publishes for gamblers.
+
+Let us rewrite:
+
+$$
+G[p,I, b]=\int \text d P_\Theta(\theta )\int \text dP_{X\vert \theta}(x)\,  b\cdot (p - \chi_{\theta \in \hat I})
+$$
+Assume that the gambler again knows the distribution of $\theta$, so that he can choose to bet according to:
+
+$$
+b = \text{sgn}\left(\int d P_\Theta(\theta ) \,\left[\text{Pr}(\theta \in \hat I \vert \theta)-p\right]\right)
+(\#eq:hybridGambler)
+$$
+
+In this case, we have:
+
+$$
+G[p,I, b] = -\left \vert \int d P_\Theta(\theta ) \,\left[\text{Pr}(\theta \in \hat I \vert \theta)-p\right]\right \vert
+$$
+
+which means that the gambler always wins, unless the function $x \mapsto \hat I(x)$ satisfies
+$$
+\int d P_\Theta(\theta ) \,\left[\text{Pr}(\theta \in \hat I \vert \theta)-p\right] = 0
+$$
+The rational strategy for the *Bookmaker* is then to construct $p$-level confidence intervals for $\theta$. There could be other strategies if the **Bookmaker** also knew the distribution of $\theta$, but they wouldn't perform
+better than the frequentist strategy... the **Bookmaker** can't win.
+
+Notice that, if the *Bookmaker* doesn't change its strategy for setting $\hat I$ and $p$ in the course of the game, the marginal probability:
+
+$$
+\int d P_\Theta(\theta ) \,\left[\text{Pr}(\theta \in \hat I \vert \theta)-p\right]
+$$
+is also something that the gambler can learn with Bayesian methods (by simply averaging the number of times that the **Bookmaker** is right and comparing to the average of $p$).
+
+----
+
+Consider now a different scenario: a
+
+$$
+b = 2\cdot \chi _{\theta \in \hat I} - 1
+$$
+
+The expected gain of the bookmaker is:
+
+$$
+G[p,I, b]
+=
+\int \text d P_\Theta(\theta )\int \text dP_{X\vert \theta}(x)\,  b\cdot (p - \chi_{\theta \in \hat I})
+= \int \text d P_\Theta(\theta )\int \text dP_{X\vert \theta}(x)\,  (2\cdot \chi _{\theta \in \hat I} - 1)\cdot (p - \chi_{\theta \in \hat I})
+$$
+...
+Minimized if bet is 1 on a certainly true event, or zero on a certainly false 
+event.
+
+----
+
+Consider now a different scenario. Suppose that a single coin is drawn, with an 
+unknown value $\theta = \theta _0$. The bookmaker has to make a single bet with
+a single 
+
+$$
+\int \text dP_{X\vert \theta = \theta_0}(x)\,  b\cdot (p - \chi_{\theta _0 \in \hat I})
+$$
