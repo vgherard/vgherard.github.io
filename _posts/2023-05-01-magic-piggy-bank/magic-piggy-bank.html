@@ -90,7 +90,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Bayes, Neyman and the Magic Piggy Bank</title>
 
-  <meta property="description" itemprop="description" content="Compares the frequentist properties of credible intervals and confidence &#10;intervals in a gambling game involving a magic piggy bank."/>
+  <meta property="description" itemprop="description" content="Compares frequentist properties of credible intervals and confidence &#10;intervals in a gambling game involving a magic piggy bank."/>
 
 
   <!--  https://schema.org/Article -->
@@ -101,19 +101,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Bayes, Neyman and the Magic Piggy Bank"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Compares the frequentist properties of credible intervals and confidence &#10;intervals in a gambling game involving a magic piggy bank."/>
+  <meta property="og:description" content="Compares frequentist properties of credible intervals and confidence &#10;intervals in a gambling game involving a magic piggy bank."/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Bayes, Neyman and the Magic Piggy Bank"/>
-  <meta property="twitter:description" content="Compares the frequentist properties of credible intervals and confidence &#10;intervals in a gambling game involving a magic piggy bank."/>
+  <meta property="twitter:description" content="Compares frequentist properties of credible intervals and confidence &#10;intervals in a gambling game involving a magic piggy bank."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["Bayes, Neyman and the Magic Piggy Bank"]},{"type":"character","attributes":{},"value":["Compares the frequentist properties of credible intervals and confidence \nintervals in a gambling game involving a magic piggy bank.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2023-05-01"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["Statistics"]},{"type":"logical","attributes":{},"value":[true]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["Bayes, Neyman and the Magic Piggy Bank"]},{"type":"character","attributes":{},"value":["Compares frequentist properties of credible intervals and confidence \nintervals in a gambling game involving a magic piggy bank.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2023-05-01"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["Statistics"]},{"type":"logical","attributes":{},"value":[false]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1496,7 +1496,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Bayes, Neyman and the Magic Piggy Bank","description":"Compares the frequentist properties of credible intervals and confidence \nintervals in a gambling game involving a magic piggy bank.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-05-01T00:00:00.000+02:00","citationText":"vgherard, 2023"}
+{"title":"Bayes, Neyman and the Magic Piggy Bank","description":"Compares frequentist properties of credible intervals and confidence \nintervals in a gambling game involving a magic piggy bank.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-05-01T00:00:00.000+02:00","citationText":"vgherard, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1512,7 +1512,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="dt-tag">Statistics</div>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>Compares the frequentist properties of credible intervals and confidence
+<p><p>Compares frequentist properties of credible intervals and confidence
 intervals in a gambling game involving a magic piggy bank.</p></p>
 </div>
 
@@ -1556,8 +1556,7 @@ The Magic Piggy Bank contains infinite biased coins, and knows the probability
 <span class="math inline">\(\Theta\)</span> of giving “tails” for each one of them.</p>
 <p>A single iteration of the game proceeds as follows:</p>
 <ol type="1">
-<li><p>The Magic Piggy Bank ejects (…) a biased coin and gives it to the
-Bookmaker.</p></li>
+<li><p>The Magic Piggy Bank ejects <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> a biased coin and gives it to the Bookmaker.</p></li>
 <li><p>The Bookmaker can flip the coin an arbitrary number of times, to produce an
 estimate of <span class="math inline">\(\Theta\)</span>, in the form of an interval <span class="math inline">\(I\)</span>. This must be accompanied
 by a <em>payout</em>, that is a number <span class="math inline">\(p\in \left(0,1\right)\)</span>, for bets on the event
@@ -1586,7 +1585,7 @@ and the scores are settled.</p></li>
 <h3 id="problem">Problem</h3>
 <p>Suppose that the Bookmaker and Gambler are forced to play indefinitely.
 What are the best strategies for these two players, according to
-the three different variants A, B, and C described above<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>?</p>
+the three different variants A, B, and C described above<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>?</p>
 <h1 id="analysis">Analysis</h1>
 <p>One can readily verify that the Gambler’s gain (or, equivalently, the
 Bookmaker’s loss) in a single iteration of the game is given by:</p>
@@ -1613,7 +1612,7 @@ described above.</p>
 <p>In the first variant of the game, the Gambler is given the same information as the
 Bookmaker. In particular, the choice to bet in favor or against, represented by
 the sign <span class="math inline">\(b\)</span>, cannot depend on <span class="math inline">\(\Theta\)</span> (which the Gambler doesn’t know), and we
-can rewrite the expected gain <a href="#eq:ExpectedGain">(3)</a> as<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+can rewrite the expected gain <a href="#eq:ExpectedGain">(3)</a> as<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</p>
 <p><span class="math display" id="eq:ExpectedGainA">\[
 \begin{split}
 \mathbb E (G) &amp;= \intop \text{d}P(X) \,b\cdot \intop \text{d}P(\Theta \vert X) \,(\chi_I (\Theta)-p) \\
@@ -1634,7 +1633,7 @@ b_A \equiv \text{sgn}\left(\text {Pr}(\Theta \in I \vert X)-p\right) \tag{5}
 to know the overall distribution <span class="math inline">\(\pi (\Theta)\)</span> of the coins <span class="math inline">\(\Theta\)</span> extracted
 from the Magic Piggy Bank, but this is something that can be accurately
 estimated in the long run, since the actual values of <span class="math inline">\(\Theta\)</span> are revealed
-at the end of each iteration <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+at the end of each iteration <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
 <p>Plugging Eq. <a href="#eq:OptimalBetA">(5)</a> into Eq. <a href="#eq:ExpectedGainA">(4)</a>, we find:</p>
 <p><span class="math display" id="eq:OptimalExpectedGainA">\[
 \mathbb E (G) = \intop \text{d}P(X) \left|\text {Pr}(\Theta \in I \vert X)-p\right|\quad\text{(Variant A)}   \tag{6}.
@@ -1665,7 +1664,7 @@ to the previous section we rewrite:</p>
 &amp; = \intop \text{d}P(\Theta) \,b \cdot \left(\text {Pr}(\Theta \in I \vert \Theta)-p\right)
 \end{split} \tag{8}
 \]</span>
-and define<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>:
+and define<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>:
 <span class="math display" id="eq:OptimalBetB">\[
 b_B \equiv \text{sgn}\left(\text {Pr}(\Theta \in I \vert \Theta)-p\right)\quad(\text{Variant B}) \tag{9}
 \]</span>
@@ -1714,7 +1713,7 @@ than <span class="math inline">\(p\)</span> (Eq. <a href="#eq:OptimalBetC">(12)<
 <p>When playing against the first two types of players, in order to avoid a certain
 loss, the Bookmaker must produce Bayesian credible intervals (Variant A) or
 Frequentist confidence intervals (Variant B). In the remaining case (Variant C),
-the Bookmaker can either produce Bayesian or Frequentist intervals<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
+the Bookmaker can either produce Bayesian or Frequentist intervals<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
 <h1 id="conclusions">Conclusions</h1>
 <p>When I first learned about Bayesian and Frequentist inference, I remember most
 discussions were focused on the philosophical differences between these two
@@ -1724,7 +1723,7 @@ choice between “Bayesian” or “Frequentist” look like a mere matter of
 committing to one particular view.</p>
 <p>Technically, what I did here was to compare the frequentist properties of
 credible intervals and confidence intervals. I’m sure the literature,
-including the pedagogical one, is full of examples like this, and better ones<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. With no pretense of originality, I believe that including more examples
+including the pedagogical one, is full of examples like this, and better ones<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. With no pretense of originality, I believe that including more examples
 of this kind in the usual presentations can be beneficial to students and
 practitioners, and perhaps help them out of the ugly black-box of orthodoxy.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
@@ -1737,28 +1736,29 @@ Italian mathematician
 <a href="https://en.wikipedia.org/wiki/Bruno_de_Finetti">Bruno de Finetti</a>.
 The statistical analysis of the game proposed below can be given a Frequentist
 interpretation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>We assume that both
-players know from the outset which variant of the game they are playing to.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>
+<li id="fn2"><p>Readers are free to imagine this process in the way they find more convenient.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>We assume that both
+players know from the outset which variant of the game they are playing to.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>
 We denote (with some abuse of notation) by
 <span class="math inline">\(\text{d}P(\Theta \vert X)\)</span> the conditional probability measure of <span class="math inline">\(\Theta\)</span>
-conditioned on <span class="math inline">\(X\)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>In the Bayesian spirit of <a href="#eq:OptimalBetA">(5)</a>,
+conditioned on <span class="math inline">\(X\)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>In the Bayesian spirit of <a href="#eq:OptimalBetA">(5)</a>,
 the Gambler could for instance estimate <span class="math inline">\(\pi(\Theta)\)</span> through Bayesian updates
-of a <a href="https://en.wikipedia.org/wiki/Dirichlet_process">Dirichlet prior</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Noteworthy, the random quantity in this equation is <span class="math inline">\(I\)</span>,
+of a <a href="https://en.wikipedia.org/wiki/Dirichlet_process">Dirichlet prior</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Noteworthy, the random quantity in this equation is <span class="math inline">\(I\)</span>,
 whereas <span class="math inline">\(\Theta\)</span> is regarded as fixed. This is in stark contrast with
 Eq. <a href="#eq:OptimalBetA">(5)</a>, where <span class="math inline">\(X\)</span> and <span class="math inline">\(I\)</span> were fixed, and <span class="math inline">\(\Theta\)</span> was
-random.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>
-There are, in fact, infinitely many more ways to produce intervals with the
-unconditional coverage property Eq. <a href="#eq:OptimalBookC">(13)</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+random.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>
+There are, in fact, infinitely many more ways to produce intervals with the
+unconditional coverage property Eq. <a href="#eq:OptimalBookC">(13)</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>
 I see that Jaynes (the father of the Maximum Entropy foundation of
 Statistical Mechanics, among other things) has a full essay paper on
 <a href="https://bayes.wustl.edu/etj/articles/confidence.pdf">Confidence Intervals vs. Bayesian Intervals</a>, which I haven’t read -
 the abstract sounds a bit loaded to me, but it’s probably definitely worth to
-read.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+read.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

@@ -1,7 +1,7 @@
 ---
 title: "Bayes, Neyman and the Magic Piggy Bank"
 description: |
-  Compares the frequentist properties of credible intervals and confidence 
+  Compares frequentist properties of credible intervals and confidence 
   intervals in a gambling game involving a magic piggy bank.
 author:
   - name: vgherard
@@ -12,7 +12,7 @@ output:
     self_contained: false
 categories: 
   - Statistics
-draft: true
+draft: false
 ---
 
 # Intro
@@ -61,8 +61,7 @@ $\Theta$ of giving "tails" for each one of them.
 
 A single iteration of the game proceeds as follows:
 
-1. The Magic Piggy Bank ejects (...) a biased coin and gives it to the 
-Bookmaker.
+1. The Magic Piggy Bank ejects ^[Readers are free to imagine this process in the way they find more convenient.] a biased coin and gives it to the Bookmaker.
 
 2. The Bookmaker can flip the coin an arbitrary number of times, to produce an 
 estimate of $\Theta$, in the form of an interval $I$. This must be accompanied 

@@ -66,4 +66,4 @@ which means that, *unconditionally*, $X$ and $Y$ are not independent, but in fac
 
 Observations of this kind apply, *mutatis mutandis*, in many practical situations. For instance if we were modeling the time series of new visitors to a website, we could reasonably assume that the number of yesterday's new visitors does not influence the number of today's ones (if individual visitors are unlikely to interact with each other). Yet, it would be wrong to assume, and easy to disprove, that these two numbers are by themselves statistically independent, because yesterday's new visitors carry useful background information on today's potential new visitors.
 
-The bottom line of the post is that **lack of causation does not imply lack of correlation**, which is logically equivalent to the original motto, but sometimes slightly less obvious^[And admittedly somewhat uglier.]... at least to this irrational human being. 
+The bottom line of the post is that **lack of causation does not imply lack of correlation**, which is logically equivalent to the original motto... but, for some strange reason, I find easier to forget. 
