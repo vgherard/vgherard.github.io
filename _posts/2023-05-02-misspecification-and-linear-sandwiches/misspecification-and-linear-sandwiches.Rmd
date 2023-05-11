@@ -1,0 +1,329 @@
+---
+title: "Model Misspecification and Linear Sandwiches"
+description: |
+  Being wrong in the right way. With R excerpts.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-05-02
+bibliography: biblio.bib
+output:
+  distill::distill_article:
+    self_contained: false
+categories: 
+  - Statistics
+  - R
+draft: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Introduction
+
+Traditional linear models, such as the output of the R function `lm()`, are 
+often loaded with a set of strong assumptions. Take univariate regression:
+
+$$
+Y = q+mX+\varepsilon. (\#eq:lm)
+$$
+This equation assumes that:
+
+1. The conditional mean $\mathbb E(Y\vert X) = q + mX$, a linear function 
+of $X$.
+2. The conditional variance $\mathbb {V}(Y \vert X)=\mathbb{V}(\varepsilon\vert X)$ 
+is independent of $X$.
+3. The conditional distribution $Y\vert X$ is gaussian.
+4. In a set of measurements $\left\{\left(X_i,Y_i\right)\right\}_{i = 1,\, \dots, \,N}$, $Y_i$ and the set $\left\{ X_j, Y_j\right\} _{j\neq i}$ are conditionally independent of each other, given the value of the corresponding regressor $X_i$.^[
+This is already somewhat implicit in the representation \@ref(eq:lm), that 
+models $Y$ and $X$ as single random variables. The reason for stating this condition in an apparently convoluted way, rather than a simpler *"data points $(X_i,Y_i)$ are independent draws from the same joint distribution"*, is that this formulation includes cases where the $X_i$'s are *not* independent, *cf.* the following note.]
+
+The last assumption is satisfied in many practical situations, and we will take it here for granted^[There are of course important exceptions, like time series or spatial data. Noteworthy, our formulation of strict linear model assumptions can also cover some cases of temporal or spatial dependence in the regressors $X_i$, provided that such dependence is not reflected on $Y_i \vert X_i$.]. What happens when the first 
+three assumptions are violated (that is "frequently" to "almost always", 
+depending on context)?
+
+A comprehensive discussion is provided by [@buja2019models]. These authors show that:
+
+- If the conditional mean $\mathbb E (Y \vert X)$ is not linear ("first order misspecification"), then the Ordinary Least Squares (OLS) regression 
+coefficients $\hat \beta$ consistently estimate:
+$$
+\beta \equiv \text{arg } \min _{\beta^\prime} \mathbb E((Y-X\beta^\prime)^2) (\#eq:target)
+$$
+which can be thought as the "best linear approximation of the response"^[According to an $L_2$ loss criterion.].
+
+- Both non-linearity in the sense of the previous point, and $X$-dependence in 
+$\mathbb{V}(Y \vert X)$ ("second order misspecification") affect the sampling 
+distribution of $\hat \beta$ and, in particular, $\mathbb{V}(\hat \beta)$, 
+which is the relevant quantity for inference in the large-sample limit.
+
+- Both problems can be efficiently addressed through the so-called "sandwich" estimators for the covariance matrix of $\hat \beta$ [@white1980heteroskedasticity], that are asymptotically consistent in the large
+sample limit.
+
+Details can be found in the mentioned reference. The rest of the post 
+illustrates with examples how to compute "sandwich" estimates in `R`, and why 
+you may want to do so.
+
+## Fitting misspecified linear models in R
+
+The [`{sandwich}`](https://CRAN.R-project.org/package=sandwich) package 
+(available on CRAN) provides estimators for the regression coefficients' 
+variance-covariance matrix $\mathbb V (\hat \beta)$ that are robust to first
+and second order misspecification. These can be readily used with `lm` objects,
+as in the example below:
+
+```{r}
+fit <- lm(mpg ~ wt, data = mtcars)
+
+stats::vcov(fit)  # standard vcov (linear model trusting estimate)
+sandwich::vcovHC(fit)  # sandwich vcov (model-robust estimate)
+```
+It is important to note that both functions `stats::vcov()` and 
+`sandwich::vcovHC()` employ the same point estimates of regression coefficients  
+to compute $\mathbb V (\hat \beta)$:
+
+```{r}
+fit
+```
+The difference between these functions lies in the different assumptions they 
+make on the linear model residuals, which leads to different estimates 
+for $\mathbb{V}(\hat \beta)$.
+
+## Effects of misspecification
+
+This section illustrates some consequences of model misspecification through 
+simulation. The examples use:
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+For convenience, we define some helpers to be used in the following
+examples. The function below returns random generators for the generic additive 
+error model $Y = f(X) + \varepsilon$, where the distribution of the noise term 
+$\varepsilon$ may in general depend on $X$. Both $X$ and $Y$ are assumed here 
+and below to be 1-dimensional.
+
+```{r}
+rxy_fun <- function(rx, f, reps) {
+	res <- function(n) {
+		x <- rx(n)  # X has marginal distribution 'rx'
+		y <- f(x) + reps(x)  # Y has conditional mean 'f(x)' and noise 'reps(x)'
+		return(tibble(x = x, y = y))  
+	}
+	return(structure(res, class = "rxy"))
+}
+
+plot.rxy <- function(x, N = 1000, seed = 840) {
+	set.seed(seed)
+	
+	ggplot(data = x(N), aes(x = x, y = y)) +
+		geom_point(alpha = 0.3) + 
+		geom_smooth(method = "lm", se = FALSE)
+}
+```
+
+The following function simulates fitting the linear model `y ~ x` over multiple 
+datasets generated according to a function `rxy()`.
+
+```{r}
+lmsim <- function(rxy, N = 100, vcov = stats::vcov, B = 1e3, seed = 840) 
+{ 
+	set.seed(seed)
+	
+	res <- list(coef = matrix(nrow = B, ncol = 2), vcov = vector("list", B))
+	colnames(res$coef) <- c("(Intercept)", "x")
+	class(res) <- "lmsim"
+								
+	for (b in 1:B) {
+		.fit <- lm(y ~ ., data = rxy(N))
+		res$coef[b, ] <- coef(.fit)  # Store intercept and slope in B x 2 matrix
+		res$vcov[[b]] <- vcov(.fit)  # Store vcov estimates in length B list. 
+	}
+	
+	return(res)
+}
+
+print.lmsim <- function(x) 
+{
+	cat("Simulation results:\n\n")
+	cat("* Model-trusting vcov (average of vcov estimates):\n")
+	print( avg_est_vcov <- Reduce("+", x$vcov) / length(x$vcov) )
+	cat("\n* Simulation-based vcov (vcov of coefficient estimates):\n")
+	print( emp_vcov <- cov(x$coef))
+	cat("\n* Ratio (1st / 2nd):\n")
+	print( avg_est_vcov / emp_vcov )
+	return(invisible(x))
+}
+```
+
+The print method defined above shows a comparison of the covariance matrices 
+obtained by:
+
+A) Averaging variance-covariance estimates from the various simulations, and
+B) Taking the variance-covariance matrix of regression coefficients obtained
+in the simulations.
+
+The first one can be considered a "model-trusting" estimate (where the actual 
+"model" is specified by the `vcov` argument of `lmsim()`, i.e. `stats::vcov` and
+`sandwich::vcovHC` for the traditional and sandwich estimates, respectively). 
+The second one is a model-free simulation-based estimate of the true 
+$\mathbb{V}(\hat \beta)$. The comparison between the two^[I use an element-wise ratio, 
+in order to avoid confusion from the different scales involved in the various 
+entries of $\mathbb V (\hat \beta)$.] 
+provides a measure of the bias of the model-trusting estimate.
+
+
+### Example 1: First order misspecification
+
+$$
+Y = X ^ 2 + \varepsilon,\quad X \sim \text{Unif} (0,1),\qquad \varepsilon \sim \mathcal N (0,0.01) 
+$$
+```{r message=FALSE, warning=FALSE}
+rxy_01 <- rxy_fun(
+	rx = runif,
+	f = \(x) x^2,
+	reps = \(x) rnorm(length(x), sd = .01)
+	)
+```
+
+In this model, $\mathbb E (Y \vert X)$ is not linear in $X$ 
+(first order misspecification), but the remaining assumptions of the linear 
+model hold. This is how a typical linear fit of data generated from this model 
+looks like:
+
+```{r message=FALSE, warning=FALSE}
+plot(rxy_01, N = 300)
+```
+
+Here the effect of misspecification on the variance-covariance model trusting 
+estimates is to underestimate true covariance values 
+(by a factor as large as 40%!):
+
+```{r}
+lmsim(rxy_01)
+```
+This is fixed by the `sandwich::vcovHC()` estimators:
+
+```{r}
+lmsim(rxy_01, vcov = sandwich::vcovHC)
+```
+
+### Example 2: Second order misspecification
+
+$$
+Y = X + \varepsilon,\quad X \sim \text{Unif} (0,1),\qquad \varepsilon \sim \mathcal N (0,X) 
+$$
+```{r message=FALSE, warning=FALSE}
+rxy_02 <- rxy_fun(
+	rx = runif,
+	f = \(x) x,
+	reps = \(x) rnorm(length(x), sd = x)
+	)
+
+plot(rxy_02, N = 300)
+```
+This model is first-order consistent, but second-order misspecified (variance is 
+not independent of $X$). The effects on vcov model-trusting estimates is
+mixed: some covariances are underestimated, some are overestimated.
+
+```{r}
+lmsim(rxy_02)
+```
+Again, the sandwich estimator provides unbiased covariance estimates:
+
+```{r}
+lmsim(rxy_02, vcov = sandwich::vcovHC)
+```
+### Example 3: sample size effects
+
+The sandwich estimators are only asymptotically unbiased (in the large sample 
+limit). For instance, in our previous Example 1, the sandwich covariance 
+estimates require sample sizes of $N \approx 50$ or larger, in order for their 
+bias to be relatively contained ($\lesssim 10\%$). With a small sample size:
+
+```{r}
+lmsim(rxy_01, N = 10, vcov = sandwich::vcovHC)
+```
+
+### Example 4: variance underestimation and overestimation 
+
+According to the heuristics of [@buja2019models], the linear model trusting 
+variances $\mathbb V (\hat \beta)_{ii}$ tend to underestimate (overestimate) the
+true variances: 
+
+- In the presence of non-linearity, when the strong deviations from linearity
+are far away from (close to) the center of the regressor distribution.
+- In the presence of heteroskedasticity, when the regions of high variance are
+far away from the (close to) the center of the regressor distribution.
+
+We illustrate the second case. Consider the following two models:
+
+$$
+Y = X + \varepsilon,\quad X \sim \text{Unif} (0,1),\qquad \varepsilon \sim \mathcal N (0,\vert X-\frac{1}{2}\vert ) 
+$$
+```{r message=FALSE}
+rxy_04a <- rxy_fun(
+	rx = runif,
+	f = \(x) x,
+	reps = \(x) rnorm(length(x), sd = abs(0.5 - x))
+	)
+
+plot(rxy_04a)
+```
+
+$$
+Y = X + \varepsilon,\quad X \sim \text{Unif} (0,1),\qquad \varepsilon \sim \mathcal N (0,\frac{1}{2}-\vert X-\frac{1}{2}\vert ) 
+$$
+```{r message=FALSE}
+rxy_04b <- rxy_fun(
+	rx = runif,
+	f = \(x) x,
+	reps = \(x) rnorm(length(x), sd = 0.5 - abs(0.5 - x))
+	)
+
+plot(rxy_04b)
+```
+In agreement with the heuristics, we have, for the first model:
+
+```{r}
+lmsim(rxy_04a)
+```
+and, for the second model:
+
+```{r}
+lmsim(rxy_04b)
+```
+
+It is interesting to notice that, far away from the large-sample limit, the 
+sandwich estimates also have a bias (as discussed in the previous example), 
+but the bias leads to an overestimate of $\mathbb V (\hat \beta)$ 
+*in both cases*^[
+I don't know whether this result (that sandwich estimates are, at worst, 
+overestimates) is a general one.]:
+
+```{r}
+lmsim(rxy_04a, N = 10, vcov = sandwich::vcovHC)
+lmsim(rxy_04b, N = 10, vcov = sandwich::vcovHC)
+```
+
+## Conclusions
+
+Sandwich estimators provide valid inference for parameter covariances and 
+standard errors in misspecified linear regression settings. 
+These model-robust tools are available in R through 
+[`{sandwich}`](https://CRAN.R-project.org/package=sandwich) (which also provides  
+methods for more general `glm` objects).
+
+For fairly large datasets, this model-robust approach can be coupled with data 
+splitting, leading to a modeling procedure which I'm finding to be quite solid 
+and versatile in practice:
+
+1. Perform data exploration and model selection on a separate portion of data.
+This is to avoid [biasing inferential results with random selective procedures](https://vgherard.github.io/posts/2022-10-18-posi/).
+2. Once a reasonable model is found, fit the model on the remaining data, 
+adopting robust covariance estimates for model parameters.
+
+This works very well with independent data for which a (generalized) linear 
+model can provide a useful parametric description. Generalizations may be 
+discussed in a separate post.
