@@ -7,7 +7,87 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 30 Apr 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 11 May 2023 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Consistency and bias in OLS estimator</title>
+      <dc:creator>vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-05-12-bias-in-ols-estimator</link>
+      <description>
+
+
+&lt;p&gt;Given random variables &lt;span class="math inline"&gt;\(Y\colon \Omega \to
+\mathbb R\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(X\colon \Omega \to
+\mathbb R ^{p}\)&lt;/span&gt; defined on an event space &lt;span
+class="math inline"&gt;\(\Omega\)&lt;/span&gt;, denote:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\beta = \arg \min _{\beta ^\prime } \mathbb E[(Y-X \beta^\prime )^2]=
+\mathbb E(X^TX)^{-1}\mathbb E(X^TY), (\#eq:blp)
+\]&lt;/span&gt; so that &lt;span class="math inline"&gt;\(X \beta\)&lt;/span&gt; is the
+best linear predictor of &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; in terms
+of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; (&lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; is regarded as a row vector).&lt;/p&gt;
+&lt;p&gt;Let &lt;span class="math inline"&gt;\((\textbf Y, \textbf X)\)&lt;/span&gt; be
+independent samples from the joint &lt;span
+class="math inline"&gt;\(XY\)&lt;/span&gt; distribution, with independent
+observations stacked vertically in &lt;span class="math inline"&gt;\(N \times
+1\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(N \times p\)&lt;/span&gt; matrices
+respectively, as customary. Then the usual Ordinary Least Squares (OLS)
+estimator of &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt; is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\hat \beta = \arg \min _{\beta ^\prime}(\textbf Y - \textbf X \beta
+^\prime)^2=(\textbf X^T\textbf X)^{-1} \textbf X^T \textbf Y. (\#eq:ols)
+\]&lt;/span&gt; This is a consistent, but generally biased estimator of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Comparing Eqs. @ref(eq:blp) and @ref(eq:ols), consistency follows
+immediately from the law of large numbers and continuity. In order to
+show that &lt;span class="math inline"&gt;\(\mathbb E (\hat \beta) \neq
+\beta\)&lt;/span&gt; in general, it is sufficient to provide an example.&lt;/p&gt;
+&lt;p&gt;Consider, for instance (example adapted from &lt;a
+href="https://www.stat.berkeley.edu/~freedman/badols.pdf"&gt;D.A.
+Freedman&lt;/a&gt;):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+X \sim \mathcal N (0, 1),\qquad Y=X(1+aX^2)
+\]&lt;/span&gt; Recalling that &lt;span class="math inline"&gt;\(\mathbb E (X^4) =
+3\)&lt;/span&gt; for the standard normal, we have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\beta = 1+3a,
+\]&lt;/span&gt; where we have ignored a potential intercept term (which would
+vanish here, since &lt;span class="math inline"&gt;\(\mathbb E (Y) =
+0\)&lt;/span&gt;). To compute &lt;span class="math inline"&gt;\(\mathbb E (\hat
+\beta)\)&lt;/span&gt;, we use the identity &lt;span
+class="math inline"&gt;\(\frac{e^{-z}}{z} = \intop _1 ^\infty \text d t\, e
+^{-zt}\)&lt;/span&gt; to rewrite this expected value as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb E (\hat \beta) &amp;amp; =  (2 \pi)^{-N/2}
+    \intop \text d\textbf X \,e^{-\sum _j X_i ^2 /2}
+                                    \dfrac{\sum _i X_i^2(1+aX_i^2)}{\sum
+_i X_i^2} = \frac{N}{2}\intop_1 ^\infty \text d t\,I(t) \\
+I(t)                                     &amp;amp; \equiv (2 \pi)^{-N/2}
+\intop \text d\textbf X\,
+                                                        e^{-t \sum _j
+X_j ^2 /2}X_1^2(1+aX_1^2)
+\end{split}
+\]&lt;/span&gt; The inner integral can be computed easily:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+I(t) = t^{-\frac{N}{2}}(\frac{1}{t}+a\frac{3}{t^2})
+\]&lt;/span&gt; and we eventually find: &lt;span class="math display"&gt;\[
+\mathbb E (\hat \beta) = 1+3 a\frac{N}{N+2}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The bias is thus given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\beta - \mathbb E (\hat \beta) = \frac{6a}{N+2}
+\]&lt;/span&gt; This vanishes linearly, in agreement with the fact that &lt;span
+class="math inline"&gt;\(\sqrt N (\hat \beta - \beta )\)&lt;/span&gt; converges
+in probability to a gaussian with zero mean and finite variance (which
+requires the bias to be &lt;span
+class="math inline"&gt;\(o(N^{-1/2})\)&lt;/span&gt;).&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>68a99c7f45caaeea0c15acfa4b3658ec</distill:md5>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2023-05-12-bias-in-ols-estimator</guid>
+      <pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Bayes, Neyman and the Magic Piggy Bank</title>
       <dc:creator>vgherard</dc:creator>
@@ -328,7 +408,7 @@ to read.&lt;a href="#fnref8" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;
       <distill:md5>95a1367b9833d3b8fb3e3e183a81c6f3</distill:md5>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank</guid>
-      <pubDate>Sun, 30 Apr 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Correlation Without Causation</title>
