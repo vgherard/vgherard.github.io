@@ -9,9 +9,9 @@
     <generator>Distill</generator>
     <lastBuildDate>Thu, 11 May 2023 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Consistency and bias in OLS estimator</title>
+      <title>Consistency and bias of OLS estimators</title>
       <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2023-05-12-bias-in-ols-estimator</link>
+      <link>https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators</link>
       <description>
 
 
@@ -83,9 +83,9 @@ in probability to a gaussian with zero mean and finite variance (which
 requires the bias to be &lt;span
 class="math inline"&gt;\(o(N^{-1/2})\)&lt;/span&gt;).&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>68a99c7f45caaeea0c15acfa4b3658ec</distill:md5>
+      <distill:md5>7cfd1178ff5aa1d949ed57c9fa30e17f</distill:md5>
       <category>Statistics</category>
-      <guid>https://vgherard.github.io/posts/2023-05-12-bias-in-ols-estimator</guid>
+      <guid>https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators</guid>
       <pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate>
     </item>
     <item>

@@ -1,5 +1,5 @@
 ---
-title: "Consistency and bias in OLS estimator"
+title: "Consistency and bias of OLS estimators"
 description: |
   OLS estimators are consistent but generally biased - here's an example.
 author:
