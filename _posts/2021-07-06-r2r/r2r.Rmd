@@ -3,13 +3,14 @@ title: "{r2r} now on CRAN"
 description: |
   Introducing {r2r}, an R implementation of hash tables.
 author:
-    - name: vgherard
+  - name: vgherard
     url: https://vgherard.github.io
 date: 07-06-2021
 output:
   distill::distill_article:
     self_contained: false
 categories:
+  - Data Structures
   - R
 draft: false
 ---

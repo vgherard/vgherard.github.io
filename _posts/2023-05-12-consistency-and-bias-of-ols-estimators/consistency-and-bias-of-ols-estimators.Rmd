@@ -11,6 +11,9 @@ output:
     self_contained: false
 categories: 
   - Statistics
+  - Regression
+  - Linear Models
+  - Model Misspecification
 draft: FALSE
 ---
 

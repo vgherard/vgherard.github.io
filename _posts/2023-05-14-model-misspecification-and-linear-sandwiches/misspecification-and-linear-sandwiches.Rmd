@@ -5,15 +5,18 @@ description: |
 author:
   - name: vgherard
     url: https://vgherard.github.io
-date: 2023-05-02
+date: 2023-05-14
 bibliography: biblio.bib
 output:
   distill::distill_article:
     self_contained: false
 categories: 
   - Statistics
+  - Regression
+  - Linear Models
+  - Model Misspecification
   - R
-draft: TRUE
+draft: FALSE
 ---
 
 ```{r setup, include=FALSE}
@@ -56,8 +59,7 @@ $\mathbb{V}(Y \vert X)$ ("second order misspecification") affect the sampling
 distribution of $\hat \beta$ and, in particular, $\mathbb{V}(\hat \beta)$, 
 which is the relevant quantity for inference in the large-sample limit.
 
-- Both problems can be efficiently addressed through the so-called "sandwich" estimators for the covariance matrix of $\hat \beta$ [@white1980heteroskedasticity], that are asymptotically consistent in the large
-sample limit.
+- Both problems can be efficiently addressed through the so-called "sandwich" estimators for the covariance matrix of $\hat \beta$ [@white1980heteroskedasticity], whose consistency is robust to both type of misspecification.
 
 Details can be found in the mentioned reference. The rest of the post 
 illustrates with examples how to compute "sandwich" estimates in `R`, and why 
@@ -171,7 +173,7 @@ The second one is a model-free simulation-based estimate of the true
 $\mathbb{V}(\hat \beta)$. The comparison between the two^[I use an element-wise ratio, 
 in order to avoid confusion from the different scales involved in the various 
 entries of $\mathbb V (\hat \beta)$.] 
-provides a measure of the bias of the model-trusting estimate.
+provides a measure of the asymptotic bias of the model-trusting estimate.
 
 
 ### Example 1: First order misspecification
@@ -230,21 +232,23 @@ mixed: some covariances are underestimated, some are overestimated.
 ```{r}
 lmsim(rxy_02)
 ```
-Again, the sandwich estimator provides unbiased covariance estimates:
+Again, this large bias is corrected by the sandwich estimator:
 
 ```{r}
 lmsim(rxy_02, vcov = sandwich::vcovHC)
 ```
 ### Example 3: sample size effects
 
-The sandwich estimators are only asymptotically unbiased (in the large sample 
-limit). For instance, in our previous Example 1, the sandwich covariance 
+The sandwich estimators only become unbiased in the large sample 
+limit. For instance, in our previous Example 1, the sandwich covariance 
 estimates require sample sizes of $N \approx 50$ or larger, in order for their 
 bias to be relatively contained ($\lesssim 10\%$). With a small sample size:
 
 ```{r}
 lmsim(rxy_01, N = 10, vcov = sandwich::vcovHC)
 ```
+
+For such small sample sizes, however, one should probably also keep into account the [bias in the point estimate $\hat \beta$ itself](https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/), so that the bias in the variance $\mathbb V (\hat \beta)$ becomes a kinda second-order problem.
 
 ### Example 4: variance underestimation and overestimation 
 

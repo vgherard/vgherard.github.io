@@ -10,6 +10,7 @@ output:
   distill::distill_article:
     self_contained: false
 categories:
+  - Natural Language Processing
   - R
 draft: false
 ---

@@ -12,6 +12,8 @@ output:
 bibliography: biblio.bib
 categories:
   - Statistics
+  - Selective Inference
+  - Model Misspecification
 draft: false
 
 ---

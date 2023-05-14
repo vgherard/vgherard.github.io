@@ -11,8 +11,9 @@ output:
     self_contained: false
 bibliography: biblio.bib
 categories:
-  - R
   - Statistics
+  - Selective Inference
+  - R
 draft: false
 editor_options: 
   markdown: 

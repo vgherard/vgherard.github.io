@@ -12,6 +12,9 @@ output:
     self_contained: false
 categories: 
   - Statistics
+  - Confidence Intervals
+  - Frequentist Methods
+  - Bayesian Methods
 draft: false
 ---
 

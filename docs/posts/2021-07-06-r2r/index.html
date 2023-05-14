@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -84,6 +85,7 @@ code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Valerio Gherardi: {r2r} now on CRAN</title>
@@ -123,7 +125,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","output","categories","draft","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY-SA"]},{"type":"character","attributes":{},"value":["{r2r} now on CRAN"]},{"type":"character","attributes":{},"value":["Introducing {r2r}, an R implementation of hash tables."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]}]}]},{"type":"character","attributes":{},"value":["07-06-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["R"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-06-r2r/"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-06-r2r/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","output","categories","draft","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY-SA"]},{"type":"character","attributes":{},"value":["{r2r} now on CRAN"]},{"type":"character","attributes":{},"value":["Introducing {r2r}, an R implementation of hash tables."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["07-06-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["Data Structures","R"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-06-r2r/"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-06-r2r/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -475,8 +477,8 @@ d-title {
 </style>
 
 <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-6.2.1/css/all.min.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-6.2.1/css/v4-shims.min.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
 <script src="../../site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
 <script src="../../site_libs/fuse-6.4.1/fuse.min.js"></script>
@@ -2401,8 +2403,8 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.21/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2441,7 +2443,7 @@ gtag('config', 'UA-201349540-1');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"{r2r} now on CRAN","description":"Introducing {r2r}, an R implementation of hash tables.","authors":[{"author":"vgherard","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-06T00:00:00.000+02:00","citationText":"vgherard, 2021"}
+{"title":"{r2r} now on CRAN","description":"Introducing {r2r}, an R implementation of hash tables.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-06T00:00:00.000+02:00","citationText":"vgherard, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2500,6 +2502,7 @@ Other links
 <h1>{r2r} now on CRAN</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
+  <a href="../../blog.html#category:Data_Structures" class="dt-tag">Data Structures</a>
   <a href="../../blog.html#category:R" class="dt-tag">R</a>
 </div>
 <!--/radix_placeholder_categories-->
@@ -2507,7 +2510,7 @@ Other links
 </div>
 
 <div class="d-byline">
-  vgherard  
+  vgherard <a href="https://vgherard.github.io" class="uri">https://vgherard.github.io</a> 
   
 <br/>07-06-2021
 </div>
@@ -2517,7 +2520,10 @@ Other links
 <p>My package <code>{r2r}</code> (v0.1.1) has been accepted by <a href="https://CRAN.R-project.org/package=r2r">CRAN</a>, and is now available for download from the public repository.</p>
 <h2 id="r2r">r2r</h2>
 <!-- badges: start -->
-<p><a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a> <a href="https://github.com/vgherard/r2r/actions"><img src="https://github.com/vgherard/r2r/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a> <a href="https://codecov.io/gh/vgherard/r2r?branch=master"><img src="https://codecov.io/gh/vgherard/r2r/branch/master/graph/badge.svg" alt="Codecov test coverage" /></a> <!-- badges: end --></p>
+<p><a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a>
+<a href="https://github.com/vgherard/r2r/actions"><img src="https://github.com/vgherard/r2r/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
+<a href="https://codecov.io/gh/vgherard/r2r?branch=master"><img src="https://codecov.io/gh/vgherard/r2r/branch/master/graph/badge.svg" alt="Codecov test coverage" /></a>
+<!-- badges: end --></p>
 <p><a href="https://vgherard.github.io/r2r/"><code>r2r</code></a> provides a flexible implementation of hash tables in R, allowing for:</p>
 <ul>
 <li>arbitrary R objects as keys and values,</li>
@@ -2532,20 +2538,18 @@ Other links
 <h2 id="usage">Usage</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/vgherard/r2r'>r2r</a></span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/r2r/man/hashtable.html'>hashmap</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># Insert and query a single key-value pair</span>
-<span class='va'>m</span><span class='op'>[[</span> <span class='st'>"user"</span> <span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"vgherard"</span>
-<span class='va'>m</span><span class='op'>[[</span> <span class='st'>"user"</span> <span class='op'>]</span><span class='op'>]</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/vgherard/r2r'>r2r</a></span><span class='op'>)</span></span>
+<span><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/r2r/man/hashtable.html'>hashmap</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Insert and query a single key-value pair</span></span>
+<span><span class='va'>m</span><span class='op'>[[</span> <span class='st'>"user"</span> <span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"vgherard"</span></span>
+<span><span class='va'>m</span><span class='op'>[[</span> <span class='st'>"user"</span> <span class='op'>]</span><span class='op'>]</span></span></code></pre>
 </div>
 <pre><code>[1] &quot;vgherard&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Insert and query multiple key-value pairs</span>
-<span class='va'>m</span><span class='op'>[</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"one"</span>, <span class='st'>"two"</span>, <span class='st'>"three"</span><span class='op'>)</span>
-<span class='va'>m</span><span class='op'>[</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='op'>]</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Insert and query multiple key-value pairs</span></span>
+<span><span class='va'>m</span><span class='op'>[</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"one"</span>, <span class='st'>"two"</span>, <span class='st'>"three"</span><span class='op'>)</span></span>
+<span><span class='va'>m</span><span class='op'>[</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='op'>]</span></span></code></pre>
 </div>
 <pre><code>[[1]]
 [1] &quot;one&quot;
@@ -2553,10 +2557,9 @@ Other links
 [[2]]
 [1] &quot;three&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Keys and values can be arbitrary R objects</span>
-<span class='va'>m</span><span class='op'>[[</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, <span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>m</span><span class='op'>[[</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, <span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>]</span><span class='op'>]</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Keys and values can be arbitrary R objects</span></span>
+<span><span class='va'>m</span><span class='op'>[[</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, <span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span><span class='va'>m</span><span class='op'>[[</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span>, <span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>]</span><span class='op'>]</span></span></code></pre>
 </div>
 <pre><code>[1]  TRUE FALSE  TRUE</code></pre>
 </div>
@@ -2567,6 +2570,11 @@ Other links
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <caption><span id="tab:unnamed-chunk-2">Table 1: </span>Features supported by {r2r} and {hash}.</caption>
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Feature</th>
