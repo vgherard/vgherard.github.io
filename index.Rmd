@@ -2,19 +2,13 @@
 title: "Valerio Gherardi"
 date: "`r Sys.Date()`"
 site: distill::distill_website
+listing: posts
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-<center>
 
-![](img/me-circle-cropped.png){width=33%: style="float: left"}
-
-## Welcome
-Here you can find information about me, my work and some personal projects.
-
-</center>
 
 

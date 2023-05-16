@@ -25,5 +25,5 @@ jobs:
       - name: Commit results
         run: |
           git add -A
-          git commit -m 'Update code.Rmd' || echo "No changes to commit"
+          git commit -m 'Render website' || echo "No changes to commit"
           git push origin || echo "No changes to commit"

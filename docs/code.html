@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-03-29"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-03-29"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-05-16"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-05-16"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Valerio Gherardi: Code"/>
@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Code"]},{"type":"character","attributes":{},"value":["2023-03-29"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Code"]},{"type":"character","attributes":{},"value":["2023-05-16"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -459,8 +459,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
   <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
@@ -2385,7 +2385,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2424,7 +2424,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Code","authors":[],"publishedDate":"2023-03-29T00:00:00.000+02:00"}
+{"title":"Code","authors":[],"publishedDate":"2023-05-16T00:00:00.000+02:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2434,9 +2434,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="nav-left">
 <a href="index.html" class="title">Valerio Gherardi</a>
 <a href="index.html">Home</a>
-<a href="blog.html">Blog</a>
 <a href="code.html">Code</a>
-<a href="physics.html">Physics</a>
 <a href="about.html">About me</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
@@ -2466,8 +2464,8 @@ Other links
 <a href="https://stackexchange.com/users/2261006/pppqqq">vgherard @ StackExchange</a>
 <a href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">vgherard @ iNSPIRE HEP</a>
 <a href="https://exercism.io/profiles/vgherard">vgherard @ exercism</a>
-<a href="https://www.chess.com/member/vgherard">vgherard @ Chess.com</a>
 <a href="https://lichess.org/@/vgherard">vgherard @ lichess.org</a>
+<a href="https://www.chess.com/member/vgherard">vgherard @ Chess.com</a>
 <a href="https://ratings.fide.com/profile/94715360">vgherard @ FIDE</a>
 </div>
 </div>
@@ -2492,61 +2490,35 @@ Other links
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#overview" id="toc-overview">Overview</a></li>
-<li><a href="#r-packages" id="toc-r-packages">R packages</a>
-<ul>
-<li><a href="#fcci" id="toc-fcci"><code>fcci</code></a></li>
-<li><a href="#kgrams" id="toc-kgrams"><code>kgrams</code></a></li>
-<li><a href="#scribblr" id="toc-scribblr"><code>scribblr</code></a></li>
-<li><a href="#runi" id="toc-runi"><code>runi</code></a></li>
-<li><a href="#r2r" id="toc-r2r"><code>r2r</code></a></li>
-<li><a href="#gsample" id="toc-gsample"><code>gsample</code></a></li>
-<li><a href="#sbo" id="toc-sbo"><code>sbo</code></a></li>
-</ul></li>
-<li><a href="#code-excerpts" id="toc-code-excerpts">Code excerpts</a>
-<ul>
-<li><a href="#viterbi" id="toc-viterbi"><strong>viterbi</strong></a></li>
-<li><a href="#dijkstra" id="toc-dijkstra"><strong>dijkstra</strong></a></li>
-</ul></li>
+<li><a href="#r-packages" id="toc-r-packages">R packages</a></li>
+<li><a href="#miscellaneous" id="toc-miscellaneous">Miscellaneous</a></li>
 </ul>
 </nav>
 </div>
-<h2 id="overview">Overview</h2>
-<p>In my day to day work, I routinely program with <a href="https://www.python.org/"><code>Python</code></a>, SQL, <a href="https://www.r-project.org/"><code>R</code></a> and <a href="https://tiswww.case.edu/php/chet/bash/bashtop.html"><code>Bash</code></a>. For my personal/fun projects (which is what this page is about 🙂), my preference goes for <a href="https://www.r-project.org/"><code>R</code></a> and <a href="https://www.cplusplus.com/"><code>C++</code></a>, and
-my main topics of interest are statistical computing, machine-learning and natural language processing.</p>
-<p>This page contains a selected list of open-source projects, mostly but not only R packages, I’m working or have worked on.</p>
 <h2 id="r-packages">R packages</h2>
-<p>The R packages listed below can be installed from <a href="https://vgherard.r-universe.dev/">my R-universe public repository</a>. This list is automatically updated every day, round midnight (UTC).</p>
-<p><em>Last update:</em> 2023-03-29 12:55:51</p>
-<h3 id="fcci"><a href="https://github.com/vgherard/fcci"><code>fcci</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=fcci"><img src="https://www.r-pkg.org/badges/version/fcci" alt="CRAN status" /></a></p>
-<p><em>Feldman-Cousins Confidence Intervals.</em> Provides support for building Feldman-Cousins confidence intervals
-[G. J. Feldman and R. D. Cousins (1998) <a href="doi:10.1103/PhysRevD.57.3873" class="uri">doi:10.1103/PhysRevD.57.3873</a>].</p>
-<h3 id="kgrams"><a href="https://github.com/vgherard/kgrams"><code>kgrams</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=kgrams"><img src="https://www.r-pkg.org/badges/version/kgrams" alt="CRAN status" /></a></p>
-<p><em>Classical k-gram Language Models.</em> Tools for training and evaluating k-gram language models in R,
+<p>The R packages listed below can be installed from <a href="https://vgherard.r-universe.dev/">my R-universe public repository</a>.</p>
+<p><em>Last update:</em> 2023-05-16 12:13:20.330005</p>
+<h3 id="kgrams---cran-status"><a href="https://github.com/vgherard/kgrams"><code>kgrams</code></a> - <a href="https://CRAN.R-project.org/package=kgrams"><img src="https://www.r-pkg.org/badges/version/kgrams" alt="CRAN status" /></a></h3>
+<p><em>Classical k-gram Language Models.</em> Training and evaluating k-gram language models in R,
 supporting several probability smoothing techniques,
 perplexity computations, random text generation and more.</p>
-<h3 id="scribblr"><a href="https://github.com/vgherard/scribblr"><code>scribblr</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=scribblr"><img src="https://www.r-pkg.org/badges/version/scribblr" alt="CRAN status" /></a></p>
+<h3 id="fcci---cran-status"><a href="https://github.com/vgherard/fcci"><code>fcci</code></a> - <a href="https://CRAN.R-project.org/package=fcci"><img src="https://www.r-pkg.org/badges/version/fcci" alt="CRAN status" /></a></h3>
+<p><em>Feldman-Cousins Confidence Intervals.</em> Provides support for building Feldman-Cousins confidence intervals
+[G. J. Feldman and R. D. Cousins (1998) <a href="doi:10.1103/PhysRevD.57.3873" class="uri">doi:10.1103/PhysRevD.57.3873</a>].</p>
+<h3 id="scribblr---cran-status"><a href="https://github.com/vgherard/scribblr"><code>scribblr</code></a> - <a href="https://CRAN.R-project.org/package=scribblr"><img src="https://www.r-pkg.org/badges/version/scribblr" alt="CRAN status" /></a></h3>
 <p><em>A Notepad Inside RStudio.</em> A project aware notepad inside RStudio, for taking quick project-related notes without distractions. RStudio addin.</p>
-<h3 id="runi"><a href="https://github.com/vgherard/runi"><code>runi</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=runi"><img src="https://www.r-pkg.org/badges/version/runi" alt="CRAN status" /></a></p>
+<h3 id="runi---cran-status"><a href="https://github.com/vgherard/runi"><code>runi</code></a> - <a href="https://CRAN.R-project.org/package=runi"><img src="https://www.r-pkg.org/badges/version/runi" alt="CRAN status" /></a></h3>
 <p><em>Client for R-universe APIs.</em> Client for R-universe APIs.</p>
-<h3 id="r2r"><a href="https://github.com/vgherard/r2r"><code>r2r</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a></p>
+<h3 id="r2r---cran-status"><a href="https://github.com/vgherard/r2r"><code>r2r</code></a> - <a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a></h3>
 <p><em>R-Object to R-Object Hash Maps.</em> Implementation of hash tables (hash sets and hash maps) in R,
 featuring arbitrary R objects as keys,
 arbitrary hash and key-comparison functions,
 and customizable behaviour upon queries of missing keys.</p>
-<h3 id="gsample"><a href="https://github.com/vgherard/gsample"><code>gsample</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=gsample"><img src="https://www.r-pkg.org/badges/version/gsample" alt="CRAN status" /></a></p>
+<h3 id="gsample---cran-status"><a href="https://github.com/vgherard/gsample"><code>gsample</code></a> - <a href="https://CRAN.R-project.org/package=gsample"><img src="https://www.r-pkg.org/badges/version/gsample" alt="CRAN status" /></a></h3>
 <p><em>Efficient Weighted Sampling Without Replacement.</em> Sample without replacement using the Gumbel-Max trick (c.f. ).</p>
-<h3 id="sbo"><a href="https://github.com/vgherard/sbo"><code>sbo</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=sbo"><img src="https://www.r-pkg.org/badges/version/sbo" alt="CRAN status" /></a></p>
+<h3 id="sbo---cran-status"><a href="https://github.com/vgherard/sbo"><code>sbo</code></a> - <a href="https://CRAN.R-project.org/package=sbo"><img src="https://www.r-pkg.org/badges/version/sbo" alt="CRAN status" /></a></h3>
 <p><em>Text Prediction via Stupid Back-Off N-Gram Models.</em> Utilities for training and evaluating text predictors based on Stupid Back-Off N-gram models (Brants et al., 2007, <a href="https://www.aclweb.org/anthology/D07-1090/" class="uri">https://www.aclweb.org/anthology/D07-1090/</a>).</p>
-<h1 id="code-excerpts">Code excerpts</h1>
-<p>This Section lists some smaller projects, including code snippets, algorithm implementations and similars.</p>
+<h1 id="miscellaneous">Miscellaneous</h1>
 <h3 id="viterbi"><strong><a href="https://github.com/vgherard/viterbi">viterbi</a></strong></h3>
 <p><em>Optimal paths in Hidden Markov Models.</em> C++ implementation of Viterbi’s dynamic programming algorithm for finding optimal paths in the hidden space of hidden Markov models.</p>
 <h3 id="dijkstra"><strong><a href="https://github.com/vgherard/dijkstra">dijkstra</a></strong></h3>

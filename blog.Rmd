@@ -1,9 +1,0 @@
----
-title: "Blog"
-#description: |
-#  vgherard's blog
-#date: "`r Sys.Date()`"
-#output: distill::distill_article
-site: distill::distill_website
-listing: posts
----

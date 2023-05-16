@@ -4,22 +4,16 @@ date: "`r Sys.Date()`"
 output:
   distill::distill_article:
     toc: true
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Overview
-
-In my day to day work, I routinely program with [`Python`](https://www.python.org/), SQL, [`R`](https://www.r-project.org/) and [`Bash`](https://tiswww.case.edu/php/chet/bash/bashtop.html). For my personal/fun projects (which is what this page is about 🙂), my preference goes for [`R`](https://www.r-project.org/) and [`C++`](https://www.cplusplus.com/), and 
-my main topics of interest are statistical computing, machine-learning and natural language processing.
-
-This page contains a selected list of open-source projects, mostly but not only R packages, I'm working or have worked on.
-
 ## R packages
 
-The R packages listed below can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/). This list is automatically updated every day, round midnight (UTC).
+The R packages listed below can be installed from [my R-universe public repository](https://vgherard.r-universe.dev/).
 
 *Last update:* `r Sys.time()`
 
@@ -29,11 +23,15 @@ pkgs <- jsonlite::stream_in(con)
 
 txt <- ""
 for (i in seq_len(nrow(pkgs))) {
+	pkg_name <- pkgs[i, "Package"]
+	pkg_url <- pkgs[i, "RemoteUrl"]
+	cran_badge_url <- paste0("https://www.r-pkg.org/badges/version/", pkg_name)
+	cran_url <- paste0("https://CRAN.R-project.org/package=", pkg_name)
+	
 	txt <- paste0(
 		txt, 
-		"### [`", pkgs[i, "Package"], "`](", pkgs[i, "RemoteUrl"], ")", "\n",
-		"[![CRAN status](https://www.r-pkg.org/badges/version/", pkgs[i,"Package"],
-		")](https://CRAN.R-project.org/package=",pkgs[i, "Package"], ")",
+		"### [`", pkg_name, "`](", pkg_url, ")", " - ",
+		"[![CRAN status](", cran_badge_url, ")](", cran_url, ")",
 		"\n\n",
 		"*", pkgs[i, "Title"], ".* ", pkgs[i, "Description"],
 		"\n\n"
@@ -44,9 +42,7 @@ for (i in seq_len(nrow(pkgs))) {
 
 `r txt`
 
-# Code excerpts
-
-This Section lists some smaller projects, including code snippets, algorithm implementations and similars.
+# Miscellaneous
 
 ### **[viterbi](https://github.com/vgherard/viterbi)**
 
