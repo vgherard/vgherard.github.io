@@ -1,7 +1,8 @@
 on:
   schedule:
     - cron: '59 23 * * 0'
-name: Website re-rendering
+  workflow_dispatch:
+name: Render Website
 
 jobs:
   build:
