@@ -92,7 +92,7 @@ navbar:
 
 # --------------------------------------------------------------------- Tracking
 
-google_analytics: "UA-201349540-1"
+google_analytics: "G-BM2Y0430QE"
 cookie_consent:
   style: simple
   type: express
