@@ -1,0 +1,21 @@
+---
+title: "Rare events and Feldman-Cousin Confidence Interval"
+description: |
+  A short description of the post.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-05-17
+output:
+  distill::distill_article:
+    self_contained: false
+categories: 
+  - Statistics
+  - Physics
+  - Confidence Intervals
+  - Frequentist Methods
+  - R
+draft: true
+---
+
+
