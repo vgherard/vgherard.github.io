@@ -10,7 +10,7 @@
     <lastBuildDate>2023-05-19</lastBuildDate>
     <item>
       <title>Linear regression with autocorrelated noise</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise</link>
       <description>
 
@@ -358,7 +358,7 @@ href="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-lin
 post of mine&lt;/a&gt;.&lt;a href="#fnref6" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5>b539717c0543de8c5787acda9bbbd811</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">b539717c0543de8c5787acda9bbbd811</distill:md5>
       <category>Statistics</category>
       <category>Regression</category>
       <category>Time Series</category>
@@ -367,11 +367,11 @@ post of mine&lt;/a&gt;.&lt;a href="#fnref6" class="footnote-back"&gt;↩︎&lt;/
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise</guid>
       <pubDate>2023-05-19</pubDate>
-      <media:content url="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Model Misspecification and Linear Sandwiches</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches</link>
       <description>Being wrong in the right way. With R excerpts.</description>
       <category>Statistics</category>
@@ -381,56 +381,11 @@ post of mine&lt;/a&gt;.&lt;a href="#fnref6" class="footnote-back"&gt;↩︎&lt;/
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches</guid>
       <pubDate>2023-05-14</pubDate>
-      <media:content url="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Consistency and bias of OLS estimators</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators</link>
-      <description>OLS estimators are consistent but generally biased - here's an example.</description>
-      <category>Statistics</category>
-      <category>Regression</category>
-      <category>Linear Models</category>
-      <category>Model Misspecification</category>
-      <guid>https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators</guid>
-      <pubDate>2023-05-12</pubDate>
-    </item>
-    <item>
-      <title>Bayes, Neyman and the Magic Piggy Bank</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank</link>
-      <description>Compares frequentist properties of credible intervals and confidence 
-intervals in a gambling game involving a magic piggy bank.</description>
-      <category>Statistics</category>
-      <category>Confidence Intervals</category>
-      <category>Frequentist Methods</category>
-      <category>Bayesian Methods</category>
-      <guid>https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank</guid>
-      <pubDate>2023-05-01</pubDate>
-    </item>
-    <item>
-      <title>Correlation Without Causation</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2023-03-10-correlation-without-causation</link>
-      <description>*Cum hoc ergo propter hoc*</description>
-      <category>Statistics</category>
-      <guid>https://vgherard.github.io/posts/2023-03-10-correlation-without-causation</guid>
-      <pubDate>2023-03-30</pubDate>
-    </item>
-    <item>
-      <title>How to get away with selection. Part II: Mathematical Framework</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2022-11-07-posi-2</link>
-      <description>Mathematicals details on Selective Inference, model misspecification and coverage guarantees.</description>
-      <category>Statistics</category>
-      <category>Selective Inference</category>
-      <category>Model Misspecification</category>
-      <guid>https://vgherard.github.io/posts/2022-11-07-posi-2</guid>
-      <pubDate>2022-11-25</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>How to get away with selection. Part I: Introduction</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2022-10-18-posi</link>
       <description>Introducing the problem of Selective Inference, illustrated through a simple simulation in R.</description>
       <category>Statistics</category>
@@ -438,11 +393,11 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2022-10-18-posi</guid>
       <pubDate>2022-11-14</pubDate>
-      <media:content url="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>kgrams v0.1.2 on CRAN</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</link>
       <description>kgrams: Classical k-gram Language Models in R.</description>
       <category>Natural Language Processing</category>
@@ -452,7 +407,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
     </item>
     <item>
       <title>R Client for R-universe APIs</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</link>
       <description>Introducing W.I.P. {runiv}, an R package to interact with R-universe 
 repository APIs</description>
@@ -462,7 +417,7 @@ repository APIs</description>
     </item>
     <item>
       <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</link>
       <description>Create automatic resumes of your R packages using the R-Universe API.</description>
       <category>R</category>
@@ -471,21 +426,12 @@ repository APIs</description>
     </item>
     <item>
       <title>{r2r} now on CRAN</title>
-      <dc:creator>vgherard</dc:creator>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2021-07-06-r2r</link>
       <description>Introducing {r2r}, an R implementation of hash tables.</description>
       <category>Data Structures</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
-      <pubDate>2021-07-06</pubDate>
-    </item>
-    <item>
-      <title>Test post</title>
-      <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/2021-07-06-test-post</link>
-      <description>A short description of the post.</description>
-      <category>Other</category>
-      <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
       <pubDate>2021-07-06</pubDate>
     </item>
   </channel>
