@@ -1,0 +1,71 @@
+---
+title: "Model checks and selective inference"
+description: |
+  A short description of the post.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-05-24
+output:
+  distill::distill_article:
+    self_contained: false
+categories: 
+  - Statistics
+  - Regression
+  - Linear Models
+  - Model Misspecification
+  - Selective Inference
+  - R
+draft: true
+---
+
+```{r}
+q <- -0.04
+m <- 0.6
+ar <- .5
+sigma0 <- 0.004
+
+rxy <- function(n) {
+	x <- runif(n, 0.2, 0.3)
+	eta.gen <- \(n)rnorm(n, sd = sigma0)
+	eta <- arima.sim(list(order = c(1,0,0), ar = .88), n = n, rand.gen = eta.gen)
+	y <- q + m * x + eta
+	data.frame(x = x, y = y)
+}
+```
+
+```{r}
+with(rxy(100), plot(x, y))
+```
+```{r}
+B <- 1e3
+ar_selected <- logical(B)
+beta_hat <- numeric(B)
+var_beta_hat <- numeric(B)
+sigma0_sq_hat <- numeric(B)
+sigma0_sq_hat[] <- NA
+N <- 20
+
+for (b in 1:B) {
+	dd <- rxy(N)
+	fit <- lm(y ~ x, data = dd)
+	p <- forecast::checkresiduals(fit, test = "BG", plot = F)$p.value
+	if (p < 0.05) {
+		ar_selected[b] <- TRUE
+		fit <- forecast::Arima(dd$y, c(1,0,0), xreg = dd$x, method = "CSS")
+		beta_hat[b] <- coef(fit)["xreg"]
+		var_beta_hat[b] <- vcov(fit)["xreg", "xreg"]
+		sigma0_sq_hat[b] <- fit$sigma2
+	} else {
+		ar_selected[b] <- FALSE
+		beta_hat[b] <- coef(fit)[2]
+		var_beta_hat[b] <- vcov(fit)[2,2]
+	}
+}
+
+mean(ar_selected)
+mean(beta_hat)
+mean(var_beta_hat[!ar_selected]) / (sd(beta_hat[!ar_selected]) ^2)
+mean(sigma0_sq_hat, na.rm = T) / (sigma0^2)
+```
+
