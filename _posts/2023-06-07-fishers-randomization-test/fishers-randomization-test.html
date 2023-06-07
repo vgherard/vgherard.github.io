@@ -86,664 +86,41 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
-<style>
-  div.csl-bib-body { }
-  div.csl-entry {
-    clear: both;
-    }
-  .hanging div.csl-entry {
-    margin-left:2em;
-    text-indent:-2em;
-  }
-  div.csl-left-margin {
-    min-width:2em;
-    float:left;
-  }
-  div.csl-right-inline {
-    margin-left:2em;
-    padding-left:1em;
-  }
-  div.csl-indent {
-    margin-left: 2em;
-  }
-</style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Valerio Gherardi: Physics</title>
+  <title>Fisher's Randomization Test</title>
 
+  <meta property="description" itemprop="description" content="Notes and proofs of basic theorems"/>
 
-  <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2023-06-07"/>
   <meta property="article:created" itemprop="dateCreated" content="2023-06-07"/>
+  <meta name="article:author" content="vgherard"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Valerio Gherardi: Physics"/>
+  <meta property="og:title" content="Fisher&#39;s Randomization Test"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Notes and proofs of basic theorems"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="Valerio Gherardi"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Valerio Gherardi: Physics"/>
-  <meta property="twitter:site" content="@ValerioGherardi"/>
+  <meta property="twitter:title" content="Fisher&#39;s Randomization Test"/>
+  <meta property="twitter:description" content="Notes and proofs of basic theorems"/>
 
   <!--/radix_placeholder_meta_tags-->
-  
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output","bibliography","csl","nocite"]}},"value":[{"type":"character","attributes":{},"value":["Physics"]},{"type":"character","attributes":{},"value":["2023-06-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["physical-review-d.csl"]},{"type":"character","attributes":{},"value":["@Gherardi:2021pwm,\n@Feruglio:2021dte, \n@Gherardi:2020qhc, \n@Gherardi:2020det, \n@Gherardi:2020gtv,\n@AlvarengaNogueira:2019zcs,\n@Gherardi:2019zil"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["Fisher's Randomization Test"]},{"type":"character","attributes":{},"value":["Notes and proofs of basic theorems\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2023-06-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["Statistics","Frequentist Methods","Causal Inference"]},{"type":"logical","attributes":{},"value":[false]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["fishers-randomization-test_files/anchor-4.2.2/anchor.min.js","fishers-randomization-test_files/bowser-1.9.3/bowser.min.js","fishers-randomization-test_files/distill-2.2.21/template.v2.js","fishers-randomization-test_files/header-attrs-2.21/header-attrs.js","fishers-randomization-test_files/jquery-3.6.0/jquery-3.6.0.js","fishers-randomization-test_files/jquery-3.6.0/jquery-3.6.0.min.js","fishers-randomization-test_files/jquery-3.6.0/jquery-3.6.0.min.map","fishers-randomization-test_files/popper-2.6.0/popper.min.js","fishers-randomization-test_files/tippy-6.2.7/tippy-bundle.umd.min.js","fishers-randomization-test_files/tippy-6.2.7/tippy-light-border.css","fishers-randomization-test_files/tippy-6.2.7/tippy.css","fishers-randomization-test_files/tippy-6.2.7/tippy.umd.min.js","fishers-randomization-test_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
   <!--radix_placeholder_navigation_in_header-->
-  <meta name="distill:offset" content=""/>
-
-  <script type="application/javascript">
-
-    window.headroom_prevent_pin = false;
-
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-
-      // initialize headroom for banner
-      var header = $('header').get(0);
-      var headerHeight = header.offsetHeight;
-      var headroom = new Headroom(header, {
-        tolerance: 5,
-        onPin : function() {
-          if (window.headroom_prevent_pin) {
-            window.headroom_prevent_pin = false;
-            headroom.unpin();
-          }
-        }
-      });
-      headroom.init();
-      if(window.location.hash)
-        headroom.unpin();
-      $(header).addClass('headroom--transition');
-
-      // offset scroll location for banner on hash change
-      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
-      window.addEventListener("hashchange", function(event) {
-        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
-      });
-
-      // responsive menu
-      $('.distill-site-header').each(function(i, val) {
-        var topnav = $(this);
-        var toggle = topnav.find('.nav-toggle');
-        toggle.on('click', function() {
-          topnav.toggleClass('responsive');
-        });
-      });
-
-      // nav dropdowns
-      $('.nav-dropbtn').click(function(e) {
-        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
-        $(this).parent().siblings('.nav-dropdown')
-           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $("body").click(function(e){
-        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $(".nav-dropdown").click(function(e){
-        e.stopPropagation();
-      });
-    });
-  </script>
-
-  <style type="text/css">
-
-  /* Theme (user-documented overrideables for nav appearance) */
-
-  .distill-site-nav {
-    color: rgba(255, 255, 255, 0.8);
-    background-color: #0F2E3D;
-    font-size: 15px;
-    font-weight: 300;
-  }
-
-  .distill-site-nav a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .distill-site-nav a:hover {
-    color: white;
-  }
-
-  @media print {
-    .distill-site-nav {
-      display: none;
-    }
-  }
-
-  .distill-site-header {
-
-  }
-
-  .distill-site-footer {
-
-  }
-
-
-  /* Site Header */
-
-  .distill-site-header {
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 3;
-  }
-
-  .distill-site-header .nav-left {
-    display: inline-block;
-    margin-left: 8px;
-  }
-
-  @media screen and (max-width: 768px) {
-    .distill-site-header .nav-left {
-      margin-left: 0;
-    }
-  }
-
-
-  .distill-site-header .nav-right {
-    float: right;
-    margin-right: 8px;
-  }
-
-  .distill-site-header a,
-  .distill-site-header .title {
-    display: inline-block;
-    text-align: center;
-    padding: 14px 10px 14px 10px;
-  }
-
-  .distill-site-header .title {
-    font-size: 18px;
-    min-width: 150px;
-  }
-
-  .distill-site-header .logo {
-    padding: 0;
-  }
-
-  .distill-site-header .logo img {
-    display: none;
-    max-height: 20px;
-    width: auto;
-    margin-bottom: -4px;
-  }
-
-  .distill-site-header .nav-image img {
-    max-height: 18px;
-    width: auto;
-    display: inline-block;
-    margin-bottom: -3px;
-  }
-
-
-
-  @media screen and (min-width: 1000px) {
-    .distill-site-header .logo img {
-      display: inline-block;
-    }
-    .distill-site-header .nav-left {
-      margin-left: 20px;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 20px;
-    }
-    .distill-site-header .title {
-      padding-left: 12px;
-    }
-  }
-
-
-  .distill-site-header .nav-toggle {
-    display: none;
-  }
-
-  .nav-dropdown {
-    display: inline-block;
-    position: relative;
-  }
-
-  .nav-dropdown .nav-dropbtn {
-    border: none;
-    outline: none;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 16px 10px;
-    background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-    margin-top: 1px;
-    z-index: 2;
-  }
-
-  .nav-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    margin-top: 2px;
-    white-space: nowrap;
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-
-  .nav-dropdown-content hr {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-dropdown-active {
-    display: block;
-  }
-
-  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
-    color: black;
-    padding: 6px 24px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-
-  .nav-dropdown-content .nav-dropdown-header {
-    display: block;
-    padding: 5px 24px;
-    padding-bottom: 0;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #999999;
-    white-space: nowrap;
-  }
-
-  .nav-dropdown:hover .nav-dropbtn {
-    color: white;
-  }
-
-  .nav-dropdown-content a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-
-  .nav-right .nav-dropdown-content {
-    margin-left: -45%;
-    right: 0;
-  }
-
-  @media screen and (max-width: 768px) {
-    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
-    .distill-site-header a.nav-toggle {
-      float: right;
-      display: block;
-    }
-    .distill-site-header .title {
-      margin-left: 0;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 0;
-    }
-    .distill-site-header {
-      overflow: hidden;
-    }
-    .nav-right .nav-dropdown-content {
-      margin-left: 0;
-    }
-  }
-
-
-  @media screen and (max-width: 768px) {
-    .distill-site-header.responsive {position: relative; min-height: 500px; }
-    .distill-site-header.responsive a.nav-toggle {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .distill-site-header.responsive a,
-    .distill-site-header.responsive .nav-dropdown {
-      display: block;
-      text-align: left;
-    }
-    .distill-site-header.responsive .nav-left,
-    .distill-site-header.responsive .nav-right {
-      width: 100%;
-    }
-    .distill-site-header.responsive .nav-dropdown {float: none;}
-    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
-    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  }
-
-  /* Site Footer */
-
-  .distill-site-footer {
-    width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    z-index: 3;
-    margin-top: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    text-align: center;
-  }
-
-  /* Headroom */
-
-  d-title {
-    padding-top: 6rem;
-  }
-
-  @media print {
-    d-title {
-      padding-top: 4rem;
-    }
-  }
-
-  .headroom {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  .headroom--transition {
-    transition: all .4s ease-in-out;
-  }
-
-  .headroom--unpinned {
-    top: -100px;
-  }
-
-  .headroom--pinned {
-    top: 0;
-  }
-
-  /* adjust viewport for navbar height */
-  /* helps vertically center bootstrap (non-distill) content */
-  .min-vh-100 {
-    min-height: calc(100vh - 100px) !important;
-  }
-
-  </style>
-
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet"/>
-  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
-  <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
-  <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
-
-  <script type="application/javascript">
-
-  function getMeta(metaName) {
-    var metas = document.getElementsByTagName('meta');
-    for (let i = 0; i < metas.length; i++) {
-      if (metas[i].getAttribute('name') === metaName) {
-        return metas[i].getAttribute('content');
-      }
-    }
-    return '';
-  }
-
-  function offsetURL(url) {
-    var offset = getMeta('distill:offset');
-    return offset ? offset + '/' + url : url;
-  }
-
-  function createFuseIndex() {
-
-    // create fuse index
-    var options = {
-      keys: [
-        { name: 'title', weight: 20 },
-        { name: 'categories', weight: 15 },
-        { name: 'description', weight: 10 },
-        { name: 'contents', weight: 5 },
-      ],
-      ignoreLocation: true,
-      threshold: 0
-    };
-    var fuse = new window.Fuse([], options);
-
-    // fetch the main search.json
-    return fetch(offsetURL('search.json'))
-      .then(function(response) {
-        if (response.status == 200) {
-          return response.json().then(function(json) {
-            // index main articles
-            json.articles.forEach(function(article) {
-              fuse.add(article);
-            });
-            // download collections and index their articles
-            return Promise.all(json.collections.map(function(collection) {
-              return fetch(offsetURL(collection)).then(function(response) {
-                if (response.status === 200) {
-                  return response.json().then(function(articles) {
-                    articles.forEach(function(article) {
-                      fuse.add(article);
-                    });
-                  })
-                } else {
-                  return Promise.reject(
-                    new Error('Unexpected status from search index request: ' +
-                              response.status)
-                  );
-                }
-              });
-            })).then(function() {
-              return fuse;
-            });
-          });
-
-        } else {
-          return Promise.reject(
-            new Error('Unexpected status from search index request: ' +
-                        response.status)
-          );
-        }
-      });
-  }
-
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-
-    // get search element (bail if we don't have one)
-    var searchEl = window.document.getElementById('distill-search');
-    if (!searchEl)
-      return;
-
-    createFuseIndex()
-      .then(function(fuse) {
-
-        // make search box visible
-        searchEl.classList.remove('hidden');
-
-        // initialize autocomplete
-        var options = {
-          autoselect: true,
-          hint: false,
-          minLength: 2,
-        };
-        window.autocomplete(searchEl, options, [{
-          source: function(query, callback) {
-            const searchOptions = {
-              isCaseSensitive: false,
-              shouldSort: true,
-              minMatchCharLength: 2,
-              limit: 10,
-            };
-            var results = fuse.search(query, searchOptions);
-            callback(results
-              .map(function(result) { return result.item; })
-            );
-          },
-          templates: {
-            suggestion: function(suggestion) {
-              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
-                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
-                : '';
-              var html = `
-                <div class="search-item">
-                  <h3>${suggestion.title}</h3>
-                  <div class="search-item-description">
-                    ${suggestion.description || ''}
-                  </div>
-                  <div class="search-item-preview">
-                    ${img}
-                  </div>
-                </div>
-              `;
-              return html;
-            }
-          }
-        }]).on('autocomplete:selected', function(event, suggestion) {
-          window.location.href = offsetURL(suggestion.path);
-        });
-        // remove inline display style on autocompleter (we want to
-        // manage responsive display via css)
-        $('.algolia-autocomplete').css("display", "");
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-
-  });
-
-  </script>
-
-  <style type="text/css">
-
-  .nav-search {
-    font-size: x-small;
-  }
-
-  /* Algolioa Autocomplete */
-
-  .algolia-autocomplete {
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: sub;
-    background-color: white;
-    color: black;
-    padding: 6px;
-    padding-top: 8px;
-    padding-bottom: 0;
-    border-radius: 6px;
-    border: 1px #0F2E3D solid;
-    width: 180px;
-  }
-
-
-  @media screen and (max-width: 768px) {
-    .distill-site-nav .algolia-autocomplete {
-      display: none;
-      visibility: hidden;
-    }
-    .distill-site-nav.responsive .algolia-autocomplete {
-      display: inline-block;
-      visibility: visible;
-    }
-    .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
-      margin-left: 0;
-      width: 400px;
-      max-height: 400px;
-    }
-  }
-
-  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
-    width: 90%;
-    outline: none;
-    border: none;
-  }
-
-  .algolia-autocomplete .aa-hint {
-    color: #999;
-  }
-  .algolia-autocomplete .aa-dropdown-menu {
-    width: 550px;
-    max-height: 70vh;
-    overflow-x: visible;
-    overflow-y: scroll;
-    padding: 5px;
-    margin-top: 3px;
-    margin-left: -150px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #999;
-    border-top: none;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-    cursor: pointer;
-    padding: 5px 4px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
-    border-bottom: none;
-    margin-bottom: 2px;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
-    overflow: hidden;
-    font-size: 0.8em;
-    line-height: 1.4em;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
-    font-size: 1rem;
-    margin-block-start: 0;
-    margin-block-end: 5px;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
-    display: inline-block;
-    overflow: hidden;
-    height: 2.8em;
-    width: 80%;
-    margin-right: 4%;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
-    display: inline-block;
-    width: 15%;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
-    height: 3em;
-    width: auto;
-    display: none;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
-    display: initial;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-    background-color: #eee;
-  }
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-    font-weight: bold;
-    font-style: normal;
-  }
-
-  </style>
-
-
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
 
@@ -2097,346 +1474,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </script>
 
-  <style type="text/css">
-  /* base variables */
-
-  /* Edit the CSS properties in this file to create a custom
-     Distill theme. Only edit values in the right column
-     for each row; values shown are the CSS defaults.
-     To return any property to the default,
-     you may set its value to: unset
-     All rows must end with a semi-colon.                      */
-
-  /* Optional: embed custom fonts here with `@import`          */
-  /* This must remain at the top of this file.                 */
-
-
-
-  html {
-    /*-- Main font sizes --*/
-    --title-size:      50px;
-    --body-size:       1.06rem;
-    --code-size:       14px;
-    --aside-size:      12px;
-    --fig-cap-size:    13px;
-    /*-- Main font colors --*/
-    --title-color:     #000000;
-    --header-color:    rgba(0, 0, 0, 0.8);
-    --body-color:      rgba(0, 0, 0, 0.8);
-    --aside-color:     rgba(0, 0, 0, 0.6);
-    --fig-cap-color:   rgba(0, 0, 0, 0.6);
-    /*-- Specify custom fonts ~~~ must be imported above   --*/
-    --heading-font:    sans-serif;
-    --mono-font:       monospace;
-    --body-font:       sans-serif;
-    --navbar-font:     sans-serif;  /* websites + blogs only */
-  }
-
-  /*-- ARTICLE METADATA --*/
-  d-byline {
-    --heading-size:    0.6rem;
-    --heading-color:   rgba(0, 0, 0, 0.5);
-    --body-size:       0.8rem;
-    --body-color:      rgba(0, 0, 0, 0.8);
-  }
-
-  /*-- ARTICLE TABLE OF CONTENTS --*/
-  .d-contents {
-    --heading-size:    18px;
-    --contents-size:   13px;
-  }
-
-  /*-- ARTICLE APPENDIX --*/
-  d-appendix {
-    --heading-size:    15px;
-    --heading-color:   rgba(0, 0, 0, 0.65);
-    --text-size:       0.8em;
-    --text-color:      rgba(0, 0, 0, 0.5);
-  }
-
-  /*-- WEBSITE HEADER + FOOTER --*/
-  /* These properties only apply to Distill sites and blogs  */
-
-  .distill-site-header {
-    --title-size:       18px;
-    --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
-  }
-
-  .distill-site-footer {
-    --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
-  }
-
-  /*-- Additional custom styles --*/
-  /* Add any additional CSS rules below                      */
-  </style>
-  <style type="text/css">
-  /* base variables */
-
-  /* Edit the CSS properties in this file to create a custom
-     Distill theme. Only edit values in the right column
-     for each row; values shown are the CSS defaults.
-     To return any property to the default,
-     you may set its value to: unset
-     All rows must end with a semi-colon.                      */
-
-  /* Optional: embed custom fonts here with `@import`          */
-  /* This must remain at the top of this file.                 */
-
-
-
-  html {
-    /*-- Main font sizes --*/
-    --title-size:      50px;
-    --body-size:       1.06rem;
-    --code-size:       14px;
-    --aside-size:      12px;
-    --fig-cap-size:    13px;
-    /*-- Main font colors --*/
-    --title-color:     #000000;
-    --header-color:    rgba(0, 0, 0, 0.8);
-    --body-color:      rgba(0, 0, 0, 0.8);
-    --aside-color:     rgba(0, 0, 0, 0.6);
-    --fig-cap-color:   rgba(0, 0, 0, 0.6);
-    /*-- Specify custom fonts ~~~ must be imported above   --*/
-    --heading-font:    sans-serif;
-    --mono-font:       monospace;
-    --body-font:       sans-serif;
-    --navbar-font:     sans-serif;  /* websites + blogs only */
-  }
-
-  /*-- ARTICLE METADATA --*/
-  d-byline {
-    --heading-size:    0.6rem;
-    --heading-color:   rgba(0, 0, 0, 0.5);
-    --body-size:       0.8rem;
-    --body-color:      rgba(0, 0, 0, 0.8);
-  }
-
-  /*-- ARTICLE TABLE OF CONTENTS --*/
-  .d-contents {
-    --heading-size:    18px;
-    --contents-size:   13px;
-  }
-
-  /*-- ARTICLE APPENDIX --*/
-  d-appendix {
-    --heading-size:    15px;
-    --heading-color:   rgba(0, 0, 0, 0.65);
-    --text-size:       0.8em;
-    --text-color:      rgba(0, 0, 0, 0.5);
-  }
-
-  /*-- WEBSITE HEADER + FOOTER --*/
-  /* These properties only apply to Distill sites and blogs  */
-
-  .distill-site-header {
-    --title-size:       18px;
-    --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
-  }
-
-  .distill-site-footer {
-    --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
-  }
-
-  /*-- Additional custom styles --*/
-  /* Add any additional CSS rules below                      */
-  </style>
-  <style type="text/css">
-  /* base style */
-
-  /* FONT FAMILIES */
-
-  :root {
-    --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-    --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-  }
-
-  body,
-  .posts-list .post-preview p,
-  .posts-list .description p {
-    font-family: var(--body-font), var(--body-default);
-  }
-
-  h1, h2, h3, h4, h5, h6,
-  .posts-list .post-preview h2,
-  .posts-list .description h2 {
-    font-family: var(--heading-font), var(--heading-default);
-  }
-
-  d-article div.sourceCode code,
-  d-article pre code {
-    font-family: var(--mono-font), var(--mono-default);
-  }
-
-
-  /*-- TITLE --*/
-  d-title h1,
-  .posts-list > h1 {
-    color: var(--title-color, black);
-  }
-
-  d-title h1 {
-    font-size: var(--title-size, 50px);
-  }
-
-  /*-- HEADERS --*/
-  d-article h1,
-  d-article h2,
-  d-article h3,
-  d-article h4,
-  d-article h5,
-  d-article h6 {
-    color: var(--header-color, rgba(0, 0, 0, 0.8));
-  }
-
-  /*-- BODY --*/
-  d-article > p,  /* only text inside of <p> tags */
-  d-article > ul, /* lists */
-  d-article > ol {
-    color: var(--body-color, rgba(0, 0, 0, 0.8));
-    font-size: var(--body-size, 1.06rem);
-  }
-
-
-  /*-- CODE --*/
-  d-article div.sourceCode code,
-  d-article pre code {
-    font-size: var(--code-size, 14px);
-  }
-
-  /*-- ASIDE --*/
-  d-article aside {
-    font-size: var(--aside-size, 12px);
-    color: var(--aside-color, rgba(0, 0, 0, 0.6));
-  }
-
-  /*-- FIGURE CAPTIONS --*/
-  figure .caption,
-  figure figcaption,
-  .figure .caption {
-    font-size: var(--fig-cap-size, 13px);
-    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
-  }
-
-  /*-- METADATA --*/
-  d-byline h3 {
-    font-size: var(--heading-size, 0.6rem);
-    color: var(--heading-color, rgba(0, 0, 0, 0.5));
-  }
-
-  d-byline {
-    font-size: var(--body-size, 0.8rem);
-    color: var(--body-color, rgba(0, 0, 0, 0.8));
-  }
-
-  d-byline a,
-  d-article d-byline a {
-    color: var(--body-color, rgba(0, 0, 0, 0.8));
-  }
-
-  /*-- TABLE OF CONTENTS --*/
-  .d-contents nav h3 {
-    font-size: var(--heading-size, 18px);
-  }
-
-  .d-contents nav a {
-    font-size: var(--contents-size, 13px);
-  }
-
-  /*-- APPENDIX --*/
-  d-appendix h3 {
-    font-size: var(--heading-size, 15px);
-    color: var(--heading-color, rgba(0, 0, 0, 0.65));
-  }
-
-  d-appendix {
-    font-size: var(--text-size, 0.8em);
-    color: var(--text-color, rgba(0, 0, 0, 0.5));
-  }
-
-  d-appendix d-footnote-list a.footnote-backlink {
-    color: var(--text-color, rgba(0, 0, 0, 0.5));
-  }
-
-  /*-- WEBSITE HEADER + FOOTER --*/
-  .distill-site-header .title {
-    font-size: var(--title-size, 18px);
-    font-family: var(--navbar-font), var(--heading-default);
-  }
-
-  .distill-site-header a,
-  .nav-dropdown .nav-dropbtn {
-    font-family: var(--navbar-font), var(--heading-default);
-  }
-
-  .nav-dropdown .nav-dropbtn {
-    color: var(--text-color, rgba(255, 255, 255, 0.8));
-    font-size: var(--text-size, 15px);
-  }
-
-  .distill-site-header a:hover,
-  .nav-dropdown:hover .nav-dropbtn {
-    color: var(--hover-color, white);
-  }
-
-  .distill-site-header {
-    font-size: var(--text-size, 15px);
-    color: var(--text-color, rgba(255, 255, 255, 0.8));
-    background-color: var(--bkgd-color, #0F2E3D);
-  }
-
-  .distill-site-footer {
-    font-size: var(--text-size, 15px);
-    color: var(--text-color, rgba(255, 255, 255, 0.8));
-    background-color: var(--bkgd-color, #0F2E3D);
-  }
-
-  .distill-site-footer a:hover {
-    color: var(--hover-color, white);
-  }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
-  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
-  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
-  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
-  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
-  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
-  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
-  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <script src="fishers-randomization-test_files/header-attrs-2.21/header-attrs.js"></script>
+  <script src="fishers-randomization-test_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="fishers-randomization-test_files/popper-2.6.0/popper.min.js"></script>
+  <link href="fishers-randomization-test_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="fishers-randomization-test_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="fishers-randomization-test_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="fishers-randomization-test_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="fishers-randomization-test_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="fishers-randomization-test_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="fishers-randomization-test_files/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-  <script type="text/javascript" src="https://www.cookieconsent.com/releases/3.1.0/cookie-consent.js"></script>
-  <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-  cookieconsent.run({
-  'notice_banner_type':'simple',
-  'consent_type': 'express',
-  'palette': 'light',
-  'language': 'en',
-  'website_name': 'vgherard',
-  'cookies_policy_url': 'url',
-  'change_preferences_selector':'#CookiePreferences'
-  });});</script>
-  <script type="text/plain" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-BM2Y0430QE"></script>
-  <script type="text/plain" cookie-consent="tracking">
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BM2Y0430QE');
-  </script>
   <!--/radix_placeholder_site_in_header-->
 
 
@@ -2447,121 +1496,100 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Physics","authors":[],"publishedDate":"2023-06-07T00:00:00.000+02:00"}
+{"title":"Fisher's Randomization Test","description":"Notes and proofs of basic theorems","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-06-07T00:00:00.000+02:00","citationText":"vgherard, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
 <!--radix_placeholder_navigation_before_body-->
-<header class="header header--fixed" role="banner">
-<nav class="distill-site-nav distill-site-header">
-<div class="nav-left">
-<a href="index.html" class="title">Valerio Gherardi</a>
-<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
-</div>
-<div class="nav-right">
-<a href="index.html">Home</a>
-<a href="code.html">Code</a>
-<a href="about.html">About me</a>
-<a href="index.xml">
-<i class="fa fa-rss" aria-hidden="true"></i>
-</a>
-<a href="https://github.com/vgherard">
-<i class="fab fa-github fa-1x" aria-hidden="true"></i>
-</a>
-<a href="https://www.linkedin.com/in/vgherard/">
-<i class="fab fa-linkedin fa-1x" aria-hidden="true"></i>
-</a>
-<a href="https://twitter.com/ValerioGherardi">
-<i class="fab fa-twitter fa-1x" aria-hidden="true"></i>
-</a>
-<a href="mailto:vgherard840@gmail.com">
-<i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
-</a>
-<a href="https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf">CV</a>
-<div class="nav-dropdown">
-<button class="nav-dropbtn">
-Other links
- 
-<span class="down-arrow">&#x25BE;</span>
-</button>
-<div class="nav-dropdown-content">
-<a href="https://www.r-bloggers.com/author/vgherard/">vgherard @ r-bloggers</a>
-<a href="https://datascienceplus.com/author/vgherard/">vgherard @ datascience+</a>
-<a href="https://stackexchange.com/users/2261006/pppqqq">vgherard @ StackExchange</a>
-<a href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">vgherard @ iNSPIRE HEP</a>
-<a href="https://exercism.io/profiles/vgherard">vgherard @ exercism</a>
-<a href="https://lichess.org/@/vgherard">vgherard @ lichess.org</a>
-<a href="https://www.chess.com/member/vgherard">vgherard @ Chess.com</a>
-<a href="https://ratings.fide.com/profile/94715360">vgherard @ FIDE</a>
-</div>
-</div>
-<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
-</div>
-</nav>
-</header>
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Physics</h1>
+<h1>Fisher’s Randomization Test</h1>
 <!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt-tag">Statistics</div>
+<div class="dt-tag">Frequentist Methods</div>
+<div class="dt-tag">Causal Inference</div>
+</div>
 <!--/radix_placeholder_categories-->
-
+<p><p>Notes and proofs of basic theorems</p></p>
 </div>
 
+<div class="d-byline">
+  vgherard <a href="https://vgherard.github.io" class="uri">https://vgherard.github.io</a> 
+  
+<br/>2023-06-07
+</div>
 
 <div class="d-article">
-<div class="d-contents d-contents-float">
-<nav class="l-text toc figcaption" id="TOC">
-<h3>Contents</h3>
+<p>Let <span class="math inline">\(N\in \mathbb N\)</span> be fixed, and let:</p>
 <ul>
-<li><a href="#overview" id="toc-overview">Overview</a></li>
-<li><a href="#the-standard-model" id="toc-the-standard-model">The Standard Model</a></li>
-<li><a href="#my-scientific-publications" id="toc-my-scientific-publications">My Scientific Publications</a></li>
+<li><span class="math inline">\(\mathbf Y(1),\,\mathbf Y(0)\in \mathbb R ^N\)</span> be random vectors, with
+components <span class="math inline">\(Y_i(1),Y_i(0)\in \mathbb R\)</span>,</li>
+<li><span class="math inline">\(\mathbf Z\)</span> be a random vector with components <span class="math inline">\(Z_i \in \{0,1\}\)</span>, independent
+from <span class="math inline">\(\mathbf Y(1)\)</span> and <span class="math inline">\(\mathbf Y(0)\)</span> above,</li>
+<li><span class="math inline">\(\mathbf Y = \mathbf Z\times \mathbf Y(1)+(1-\mathbf Z)\times \mathbf Y(0)\)</span> (multiplication is component-wise).</li>
 </ul>
-</nav>
-</div>
-<h2 id="overview">Overview</h2>
-<p>I graduated in Physics in 2017, at Università La Sapienza of Rome, and obtained
-the PhD degree in Theoretical Particle Physics in 2021, at the International School for Advanced Studies (SISSA) of Trieste, Italy.</p>
-<p>I have always felt deeply fascinated by the combination of mathematical abstraction and reductivism behind Physical Laws, which find one of their greatest expressions in Particle Physics. For this (and possibly other less conscious) reason(s) I devoted my research to this field and, especially in the last years, to theories Beyond the Standard Model of Particle Physics.</p>
-<p>This page provides an overview of the research topics I have been primarily involved with during these years, and of my personal contributions to the various areas.</p>
-<h2 id="the-standard-model">The Standard Model</h2>
-<p>The <a href="https://home.cern/science/physics/standard-model">Standard Model</a> (SM) of Particle Physics is the scientific theory which subsumes our current understanding of the sub-atomic world. According to it, all observable physical phenomena can be reduced to the interaction of few elementary constituents: quarks, leptons, gauge vectors, and the Higgs boson.</p>
-<figure>
-<img src="img/STDM%20higgs%20and%20field%20D.png" alt="Particles of the Standard Model of particle physics (Image: Daniel Dominguez/CERN)" />
-<figcaption aria-hidden="true">Particles of the Standard Model of particle physics (Image: Daniel Dominguez/CERN)</figcaption>
-</figure>
-<p>Despite many experimental validations, including the spectacular <a href="https://home.cern/news/news/experiments/atlas-and-cms-publish-observations-new-particle">discovery of the Higgs boson</a> at CERN in 2012, there also exist several pieces of evidence indicating (or requiring) the presence of physics not described by the SM. Some of these hints are purely observational in nature: the existence of <a href="https://home.cern/science/physics/dark-matter">Dark Matter</a>, <a href="https://en.wikipedia.org/wiki/Neutrino">Neutrino Masses</a> and (!) gravity, to cite just a few. In addition, there are several theoretical suggestions and puzzles which strengthen the case for Physics Beyond the SM: for example, explaining the exact numbers and features of the elementary constituents shown in the figure above.</p>
-<p>The SM is one of the greatest intellectual achievements of the last century, and poses a similarly great challenge for the present one: to supersede it.</p>
-<h2 id="my-scientific-publications">My Scientific Publications</h2>
-<p>Below you can find a complete list of my scientific publications on Particle Physics, in inverse chronological order. More details, including full pdfs and citation metrics, can be found at <a href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">my iNSPIRE HEP author page</a>.</p>
-<p>My PhD thesis is publicly available <a href="https://arxiv.org/abs/2111.00285">on arXiv</a>.</p>
+<p>Given a scalar function <span class="math inline">\(t = t(\mathbf Z, \,\mathbf Y)\in \mathbb R\)</span>, define:</p>
+<p><span class="math display">\[
+P(t,\mathbf Z, \mathbf Y)=\sum _{\mathbf Z &#39;}\text{Pr}_\mathbf Z(\mathbf Z&#39;)\cdot I(t(\mathbf Z&#39;,\mathbf Y)\geq t(\mathbf Z,\mathbf Y)),
+\]</span>
+where <span class="math inline">\(\text{Pr}_\mathbf Z(\cdot)\)</span> is the marginal distribution of treatment assignments.</p>
+<p><strong>Theorem.</strong> If <span class="math inline">\(\mathbf Y(0) = \mathbf Y(1)\)</span> then:</p>
+<p><span class="math display">\[
+\text{Pr}(P(t,\mathbf Z,\mathbf Y)\leq \alpha) \leq \alpha.
+\]</span></p>
+<p><em>Proof.</em> Let <span class="math inline">\(\mathbf Z&#39;\)</span> be distributed according to
+<span class="math inline">\(\text{Pr}_\mathbf Z(\cdot)\)</span>, and define
+<span class="math inline">\(\mathbf Y&#39; = \mathbf Z&#39;\times \mathbf Y(1)+(1-\mathbf Z&#39;)\times \mathbf Y(0)\)</span>. Given <span class="math inline">\(t_0\in \mathbb R\)</span>, we observe that:</p>
+<p><span class="math display">\[
+\text {Pr}(t(\mathbf Z&#39;,\mathbf Y&#39;)\geq t_0 \,\vert\,\mathbf Y(0),\,\mathbf Y(1)) = \sum _{\mathbf Z &#39;}\text{Pr}_\mathbf Z(\mathbf Z&#39;)\cdot I(t(\mathbf Z&#39;,\mathbf Y&#39;)\geq t_0).
+\]</span>
+Now, if <span class="math inline">\(\mathbf Y(0) = \mathbf Y(1)\)</span>, we have <span class="math inline">\(t(\mathbf Z&#39;,\mathbf Y&#39;) = t(\mathbf Z&#39;,\mathbf Y)\)</span>, so that we may replace <span class="math inline">\(\mathbf Y&#39;\)</span> with <span class="math inline">\(\mathbf Y\)</span>
+in the RHS of the previous equation. If, moreover, we choose <span class="math inline">\(t_0= t(\mathbf Z , \mathbf Y)\)</span> we obtain:</p>
+<p><span class="math display">\[
+P(t, \mathbf Z, \mathbf Y) = \text {Pr}(t(\mathbf Z&#39;,\mathbf Y&#39;)\geq t(\mathbf Z,\mathbf Y) \,\vert\,\mathbf Y(0),\mathbf Y(1)).
+\]</span>
+In other words, <span class="math inline">\(P(t,\mathbf Z, \mathbf Y)\)</span> is a conditional <span class="math inline">\(p\)</span>-value.
+Therefore:</p>
+<p><span class="math display">\[
+\text{Pr}(P(t,\mathbf Z,\mathbf Y)\leq \alpha \,\vert\,\mathbf Y(0),\mathbf Y(1)) \leq \alpha.
+\]</span></p>
+<p>Since this is valid for any value of <span class="math inline">\(\mathbf Y (0)\)</span> and <span class="math inline">\(\mathbf Y(1)\)</span>, the thesis follows.</p>
+<hr />
+<p>In the usual setting of causal inference, we interpret:</p>
+<ul>
+<li><span class="math inline">\(Z_i\)</span> as the treatment assignment for the <span class="math inline">\(i\)</span>-th statistical unit, <span class="math inline">\(Z_i = 0,1\)</span>
+standing for “treatment” and “control”, respectively.</li>
+<li><span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span> as the potential outcomes for the <span class="math inline">\(i\)</span>-th unit under treatment and control, respectively.</li>
+<li><span class="math inline">\(Y_i\)</span> as the observed outcome for the <span class="math inline">\(i\)</span>-th unit.</li>
+<li><span class="math inline">\(t(\cdot)\)</span> as a test statistic used to test the null hypothesis <span class="math inline">\(\mathbf Y(1)= \mathbf Y (0)\)</span>.</li>
+<li><span class="math inline">\(P(t,\mathbf Z,\mathbf Y)\)</span> is the randomization <span class="math inline">\(p\)</span>-value of <span class="math inline">\(t(\mathbf Z, \mathbf Y)\)</span> in a Fisher Randomization Test.</li>
+</ul>
+<p>Fisher’s “sharp” null hypothesis is an equality <em>between random variables</em>, the potential outcomes. Typical examples for the distribution <span class="math inline">\(\text{Pr}_\mathbf Z(\cdot)\)</span> are:</p>
+<ul>
+<li>Completely Randomized Experiment (CRE):</li>
+</ul>
+<p><span class="math display">\[
+\text{Pr}_\mathbf Z (\mathbf Z) = \begin{cases}
+\binom N {n_1} ^{-1} &amp; \sum _{i=1}^N Z_i =n_1, \\
+0 &amp; \text{otherwise.}
+\end{cases}
+\]</span></p>
+<ul>
+<li>Bernoulli Randomized Experiment (BRE):</li>
+</ul>
+<p><span class="math display">\[
+\text{Pr}_\mathbf Z (\mathbf Z) = \prod _{i=1} ^N \pi^{Z_i}(1-\pi)^{1-Z_i}.
+\]</span></p>
+<p>An example of test statistic is the difference in means between the treatment
+and control group, that can be written:</p>
+<p><span class="math display">\[
+t(\mathbf Z , \mathbf Y) = \sum_i c_i Y_i,\qquad c_i=\frac{Z_i}{\sum _iZ_i} - \frac{1-Z_i}{\sum _i(1-Z_i)}.
+\]</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<div id="refs" class="references csl-bib-body" role="doc-bibliography">
-<div id="ref-Gherardi:2021pwm" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">V. Gherardi, <a href="https://arxiv.org/abs/2111.00285"><span class="nocase">New Physics Hints from Flavour</span></a>, PhD thesis, 2021.</div>
-</div>
-<div id="ref-Feruglio:2021dte" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">F. Feruglio, V. Gherardi, A. Romanino, and A. Titov, <em><a href="https://doi.org/10.1007/JHEP05(2021)242"><span class="nocase">Modular invariant dynamics and fermion mass hierarchies around <span class="math inline">\(\tau = i\)</span></span></a></em>, JHEP <strong>05</strong>, 242 (2021).</div>
-</div>
-<div id="ref-Gherardi:2020qhc" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, and E. Venturini, <em><a href="https://doi.org/10.1007/JHEP01(2021)138"><span class="nocase">Low-energy phenomenology of scalar leptoquarks at one-loop accuracy</span></a></em>, JHEP <strong>01</strong>, 138 (2021).</div>
-</div>
-<div id="ref-Gherardi:2020det" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, and E. Venturini, <em><a href="https://doi.org/10.1007/JHEP07(2020)225"><span class="nocase">Matching scalar leptoquarks to the SMEFT at one loop</span></a></em>, JHEP <strong>07</strong>, 225 (2020).</div>
-</div>
-<div id="ref-Gherardi:2020gtv" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">V. Gherardi, <em><a href="https://doi.org/10.1393/ncc/i2020-20045-0"><span class="nocase">General correlations to <span class="math inline">\(b \to s\mu^+\mu^-\)</span> anomalies from a rank condition</span></a></em>, Nuovo Cim. C <strong>43</strong>, 45 (2020).</div>
-</div>
-<div id="ref-AlvarengaNogueira:2019zcs" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">J. H. Alvarenga Nogueira, D. Colasante, V. Gherardi, T. Frederico, E. Pace, and G. Salmè, <em><a href="https://doi.org/10.1103/PhysRevD.100.016021"><span class="nocase">Solving the Bethe-Salpeter Equation in Minkowski Space for a Fermion-Scalar system</span></a></em>, Phys. Rev. D <strong>100</strong>, 016021 (2019).</div>
-</div>
-<div id="ref-Gherardi:2019zil" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, M. Nardecchia, and A. Romanino, <em><a href="https://doi.org/10.1007/JHEP10(2019)112"><span class="nocase">Rank-One Flavor Violation and B-meson anomalies</span></a></em>, JHEP <strong>10</strong>, 112 (2019).</div>
-</div>
-</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2582,14 +1610,7 @@ the PhD degree in Theoretical Particle Physics in 2021, at the International Sch
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom">
-<h3 id="references">References</h3>
-<div id="references-listing"></div>
-<h3 id="updates-and-corrections">Corrections</h3>
-<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/vgherard/vgherard.github.io/issues/new">create an issue</a> on the source repository.</p>
-<h3 id="reuse">Reuse</h3>
-<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Source code is available at <a href="https://github.com/vgherard/vgherard.github.io/">https://github.com/vgherard/vgherard.github.io/</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
-</div>
+<div class="appendix-bottom"></div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

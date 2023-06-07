@@ -7,7 +7,128 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>2023-05-25</lastBuildDate>
+    <lastBuildDate>2023-06-06</lastBuildDate>
+    <item>
+      <title>Fisher's Randomization Test</title>
+      <dc:creator>vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test</link>
+      <description>
+
+
+&lt;p&gt;Let &lt;span class="math inline"&gt;\(N\in \mathbb N\)&lt;/span&gt; be fixed, and
+let:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(\mathbf Y(1),\,\mathbf Y(0)\in \mathbb R
+^N\)&lt;/span&gt; be random vectors, with components &lt;span
+class="math inline"&gt;\(Y_i(1),Y_i(0)\in \mathbb R\)&lt;/span&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(\mathbf Z\)&lt;/span&gt; be a random vector
+with components &lt;span class="math inline"&gt;\(Z_i \in \{0,1\}\)&lt;/span&gt;,
+independent from &lt;span class="math inline"&gt;\(\mathbf Y(1)\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(\mathbf Y(0)\)&lt;/span&gt; above,&lt;/li&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(\mathbf Y = \mathbf Z\times \mathbf
+Y(1)+(1-\mathbf Z)\times \mathbf Y(0)\)&lt;/span&gt; (multiplication is
+component-wise).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Given a scalar function &lt;span class="math inline"&gt;\(t = t(\mathbf Z,
+\,\mathbf Y)\in \mathbb R\)&lt;/span&gt;, define:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+P(t,\mathbf Z, \mathbf Y)=\sum _{\mathbf Z &amp;#39;}\text{Pr}_\mathbf
+Z(\mathbf Z&amp;#39;)\cdot I(t(\mathbf Z&amp;#39;,\mathbf Y)\geq t(\mathbf
+Z,\mathbf Y)),
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\text{Pr}_\mathbf
+Z(\cdot)\)&lt;/span&gt; is the marginal distribution of treatment
+assignments.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theorem.&lt;/strong&gt; If &lt;span class="math inline"&gt;\(\mathbf Y(0)
+= \mathbf Y(1)\)&lt;/span&gt; then:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}(P(t,\mathbf Z,\mathbf Y)\leq \alpha) \leq \alpha.
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Proof.&lt;/em&gt; Let &lt;span class="math inline"&gt;\(\mathbf
+Z&amp;#39;\)&lt;/span&gt; be distributed according to &lt;span
+class="math inline"&gt;\(\text{Pr}_\mathbf Z(\cdot)\)&lt;/span&gt;, and define
+&lt;span class="math inline"&gt;\(\mathbf Y&amp;#39; = \mathbf Z&amp;#39;\times
+\mathbf Y(1)+(1-\mathbf Z&amp;#39;)\times \mathbf Y(0)\)&lt;/span&gt;. Given &lt;span
+class="math inline"&gt;\(t_0\in \mathbb R\)&lt;/span&gt;, we observe that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text {Pr}(t(\mathbf Z&amp;#39;,\mathbf Y&amp;#39;)\geq t_0 \,\vert\,\mathbf
+Y(0),\,\mathbf Y(1)) = \sum _{\mathbf Z &amp;#39;}\text{Pr}_\mathbf
+Z(\mathbf Z&amp;#39;)\cdot I(t(\mathbf Z&amp;#39;,\mathbf Y&amp;#39;)\geq t_0).
+\]&lt;/span&gt; Now, if &lt;span class="math inline"&gt;\(\mathbf Y(0) = \mathbf
+Y(1)\)&lt;/span&gt;, we have &lt;span class="math inline"&gt;\(t(\mathbf
+Z&amp;#39;,\mathbf Y&amp;#39;) = t(\mathbf Z&amp;#39;,\mathbf Y)\)&lt;/span&gt;, so that
+we may replace &lt;span class="math inline"&gt;\(\mathbf Y&amp;#39;\)&lt;/span&gt; with
+&lt;span class="math inline"&gt;\(\mathbf Y\)&lt;/span&gt; in the RHS of the
+previous equation. If, moreover, we choose &lt;span
+class="math inline"&gt;\(t_0= t(\mathbf Z , \mathbf Y)\)&lt;/span&gt; we
+obtain:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+P(t, \mathbf Z, \mathbf Y) = \text {Pr}(t(\mathbf Z&amp;#39;,\mathbf
+Y&amp;#39;)\geq t(\mathbf Z,\mathbf Y) \,\vert\,\mathbf Y(0),\mathbf Y(1)).
+\]&lt;/span&gt; In other words, &lt;span class="math inline"&gt;\(P(t,\mathbf Z,
+\mathbf Y)\)&lt;/span&gt; is a conditional &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt;-value. Therefore:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}(P(t,\mathbf Z,\mathbf Y)\leq \alpha \,\vert\,\mathbf
+Y(0),\mathbf Y(1)) \leq \alpha.
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Since this is valid for any value of &lt;span
+class="math inline"&gt;\(\mathbf Y (0)\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\mathbf Y(1)\)&lt;/span&gt;, the thesis follows.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;In the usual setting of causal inference, we interpret:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(Z_i\)&lt;/span&gt; as the treatment assignment
+for the &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;-th statistical unit,
+&lt;span class="math inline"&gt;\(Z_i = 0,1\)&lt;/span&gt; standing for “treatment”
+and “control”, respectively.&lt;/li&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(Y_i(1)\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y_i(0)\)&lt;/span&gt; as the potential outcomes for the
+&lt;span class="math inline"&gt;\(i\)&lt;/span&gt;-th unit under treatment and
+control, respectively.&lt;/li&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(Y_i\)&lt;/span&gt; as the observed outcome for
+the &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;-th unit.&lt;/li&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(t(\cdot)\)&lt;/span&gt; as a test statistic
+used to test the null hypothesis &lt;span class="math inline"&gt;\(\mathbf
+Y(1)= \mathbf Y (0)\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;span class="math inline"&gt;\(P(t,\mathbf Z,\mathbf Y)\)&lt;/span&gt; is the
+randomization &lt;span class="math inline"&gt;\(p\)&lt;/span&gt;-value of &lt;span
+class="math inline"&gt;\(t(\mathbf Z, \mathbf Y)\)&lt;/span&gt; in a Fisher
+Randomization Test.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Fisher’s “sharp” null hypothesis is an equality &lt;em&gt;between random
+variables&lt;/em&gt;, the potential outcomes. Typical examples for the
+distribution &lt;span class="math inline"&gt;\(\text{Pr}_\mathbf
+Z(\cdot)\)&lt;/span&gt; are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Completely Randomized Experiment (CRE):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}_\mathbf Z (\mathbf Z) = \begin{cases}
+\binom N {n_1} ^{-1} &amp;amp; \sum _{i=1}^N Z_i =n_1, \\
+0 &amp;amp; \text{otherwise.}
+\end{cases}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bernoulli Randomized Experiment (BRE):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}_\mathbf Z (\mathbf Z) = \prod _{i=1} ^N
+\pi^{Z_i}(1-\pi)^{1-Z_i}.
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;An example of test statistic is the difference in means between the
+treatment and control group, that can be written:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+t(\mathbf Z , \mathbf Y) = \sum_i c_i Y_i,\qquad c_i=\frac{Z_i}{\sum
+_iZ_i} - \frac{1-Z_i}{\sum _i(1-Z_i)}.
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>f0cf5613ea5c3bf68737c38dea7c09a6</distill:md5>
+      <category>Statistics</category>
+      <category>Frequentist Methods</category>
+      <category>Causal Inference</category>
+      <guid>https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test</guid>
+      <pubDate>2023-06-06</pubDate>
+    </item>
     <item>
       <title>Linear regression with autocorrelated noise</title>
       <dc:creator>vgherard</dc:creator>

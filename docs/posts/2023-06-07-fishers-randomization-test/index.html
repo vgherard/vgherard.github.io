@@ -86,87 +86,52 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
-<style>
-  div.csl-bib-body { }
-  div.csl-entry {
-    clear: both;
-    }
-  .hanging div.csl-entry {
-    margin-left:2em;
-    text-indent:-2em;
-  }
-  div.csl-left-margin {
-    min-width:2em;
-    float:left;
-  }
-  div.csl-right-inline {
-    margin-left:2em;
-    padding-left:1em;
-  }
-  div.csl-indent {
-    margin-left: 2em;
-  }
-</style>
 
   <!--radix_placeholder_meta_tags-->
-<title>Valerio Gherardi: How to get away with selection. Part I: Introduction</title>
+<title>Valerio Gherardi: Fisher's Randomization Test</title>
 
-<meta property="description" itemprop="description" content="Introducing the problem of Selective Inference, illustrated through a simple simulation in R."/>
+<meta property="description" itemprop="description" content="Notes and proofs of basic theorems"/>
 
-<link rel="canonical" href="https://vgherard.github.io/posts/2022-10-18-posi/"/>
+<link rel="canonical" href="https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/"/>
 <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2022-11-14"/>
-<meta property="article:created" itemprop="dateCreated" content="2022-11-14"/>
+<meta property="article:published" itemprop="datePublished" content="2023-06-07"/>
+<meta property="article:created" itemprop="dateCreated" content="2023-06-07"/>
 <meta name="article:author" content="vgherard"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="Valerio Gherardi: How to get away with selection. Part I: Introduction"/>
+<meta property="og:title" content="Valerio Gherardi: Fisher&#39;s Randomization Test"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="Introducing the problem of Selective Inference, illustrated through a simple simulation in R."/>
-<meta property="og:url" content="https://vgherard.github.io/posts/2022-10-18-posi/"/>
-<meta property="og:image" content="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png"/>
-<meta property="og:image:width" content="1248"/>
-<meta property="og:image:height" content="768"/>
+<meta property="og:description" content="Notes and proofs of basic theorems"/>
+<meta property="og:url" content="https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="Valerio Gherardi"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
-<meta property="twitter:card" content="summary_large_image"/>
-<meta property="twitter:title" content="Valerio Gherardi: How to get away with selection. Part I: Introduction"/>
-<meta property="twitter:description" content="Introducing the problem of Selective Inference, illustrated through a simple simulation in R."/>
-<meta property="twitter:url" content="https://vgherard.github.io/posts/2022-10-18-posi/"/>
-<meta property="twitter:image" content="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png"/>
-<meta property="twitter:image:width" content="1248"/>
-<meta property="twitter:image:height" content="768"/>
+<meta property="twitter:card" content="summary"/>
+<meta property="twitter:title" content="Valerio Gherardi: Fisher&#39;s Randomization Test"/>
+<meta property="twitter:description" content="Notes and proofs of basic theorems"/>
+<meta property="twitter:url" content="https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/"/>
 <meta property="twitter:site" content="@ValerioGherardi"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-<meta name="citation_title" content="Valerio Gherardi: How to get away with selection. Part I: Introduction"/>
-<meta name="citation_fulltext_html_url" content="https://vgherard.github.io/posts/2022-10-18-posi/"/>
+<meta name="citation_title" content="Valerio Gherardi: Fisher&#39;s Randomization Test"/>
+<meta name="citation_fulltext_html_url" content="https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/"/>
 <meta name="citation_fulltext_world_readable" content=""/>
-<meta name="citation_online_date" content="2022/11/14"/>
-<meta name="citation_publication_date" content="2022/11/14"/>
+<meta name="citation_online_date" content="2023/06/07"/>
+<meta name="citation_publication_date" content="2023/06/07"/>
 <meta name="citation_author" content="vgherard"/>
 <!--/radix_placeholder_meta_tags-->
-  
-  <meta name="citation_reference" content="citation_title=Post-model-selection inference;citation_author=C. R. Shalizi"/>
-  <meta name="citation_reference" content="citation_title=Valid post-selection inference;citation_publisher=JSTOR;citation_author=Richard Berk;citation_author=Lawrence Brown;citation_author=Andreas Buja;citation_author=Kai Zhang;citation_author=Linda Zhao"/>
-  <meta name="citation_reference" content="citation_title=On the significance of new physics in b→ sℓ+ ℓ- decays;citation_publisher=Elsevier;citation_volume=822;citation_author=Gino Isidori;citation_author=Davide Lancierini;citation_author=Patrick Owen;citation_author=Nicola Serra"/>
-  <meta name="citation_reference" content="citation_title=Regression analysis (lecture notes);citation_author=Jan Vrbik"/>
-  <meta name="citation_reference" content="citation_title=False discovery rate–adjusted multiple confidence intervals for selected parameters;citation_publisher=Taylor &amp; Francis;citation_volume=100;citation_author=Yoav Benjamini;citation_author=Daniel Yekutieli"/>
-  <meta name="citation_reference" content="citation_title=Valid post-selection inference;citation_publisher=JSTOR;citation_author=Richard Berk;citation_author=Lawrence Brown;citation_author=Andreas Buja;citation_author=Kai Zhang;citation_author=Linda Zhao"/>
-  <meta name="citation_reference" content="citation_title=Data fission: Splitting a single data point;citation_publisher=arXiv;citation_doi=10.48550/ARXIV.2112.11079;citation_author=James Leiner;citation_author=Boyan Duan;citation_author=Larry Wasserman;citation_author=Aaditya Ramdas"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","output","bibliography","categories","draft","editor_options","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY-SA"]},{"type":"character","attributes":{},"value":["How to get away with selection. Part I: Introduction"]},{"type":"character","attributes":{},"value":["Introducing the problem of Selective Inference, illustrated through a simple simulation in R."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2022-11-14"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["Statistics","Selective Inference","R"]},{"type":"logical","attributes":{},"value":[false]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["markdown"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["wrap"]}},"value":[{"type":"integer","attributes":{},"value":[72]}]}]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2022-10-18-posi/"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2022-10-18-posi/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","output","categories","draft","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY-SA"]},{"type":"character","attributes":{},"value":["Fisher's Randomization Test"]},{"type":"character","attributes":{},"value":["Notes and proofs of basic theorems"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2023-06-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["Statistics","Frequentist Methods","Causal Inference"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["biblio.bib","posi_files/anchor-4.2.2/anchor.min.js","posi_files/bowser-1.9.3/bowser.min.js","posi_files/distill-2.2.21/template.v2.js","posi_files/figure-html5/unnamed-chunk-3-1.png","posi_files/header-attrs-2.14/header-attrs.js","posi_files/header-attrs-2.17/header-attrs.js","posi_files/jquery-3.6.0/jquery-3.6.0.js","posi_files/jquery-3.6.0/jquery-3.6.0.min.js","posi_files/jquery-3.6.0/jquery-3.6.0.min.map","posi_files/popper-2.6.0/popper.min.js","posi_files/tippy-6.2.7/tippy-bundle.umd.min.js","posi_files/tippy-6.2.7/tippy-light-border.css","posi_files/tippy-6.2.7/tippy.css","posi_files/tippy-6.2.7/tippy.umd.min.js","posi_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["fishers-randomization-test_files/anchor-4.2.2/anchor.min.js","fishers-randomization-test_files/bowser-1.9.3/bowser.min.js","fishers-randomization-test_files/distill-2.2.21/template.v2.js","fishers-randomization-test_files/header-attrs-2.21/header-attrs.js","fishers-randomization-test_files/jquery-3.6.0/jquery-3.6.0.js","fishers-randomization-test_files/jquery-3.6.0/jquery-3.6.0.min.js","fishers-randomization-test_files/jquery-3.6.0/jquery-3.6.0.min.map","fishers-randomization-test_files/popper-2.6.0/popper.min.js","fishers-randomization-test_files/tippy-6.2.7/tippy-bundle.umd.min.js","fishers-randomization-test_files/tippy-6.2.7/tippy-light-border.css","fishers-randomization-test_files/tippy-6.2.7/tippy.css","fishers-randomization-test_files/tippy-6.2.7/tippy.umd.min.js","fishers-randomization-test_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2479,7 +2444,7 @@ gtag('config', 'G-BM2Y0430QE');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"How to get away with selection. Part I: Introduction","description":"Introducing the problem of Selective Inference, illustrated through a simple simulation in R.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-11-14T00:00:00.000+01:00","citationText":"vgherard, 2022"}
+{"title":"Fisher's Randomization Test","description":"Notes and proofs of basic theorems","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-06-07T00:00:00.000+02:00","citationText":"vgherard, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2536,321 +2501,90 @@ Other links
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>How to get away with selection. Part I: Introduction</h1>
+<h1>Fisher’s Randomization Test</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
   <a href="../../index.html#category:Statistics" class="dt-tag">Statistics</a>
-  <a href="../../index.html#category:Selective_Inference" class="dt-tag">Selective Inference</a>
-  <a href="../../index.html#category:R" class="dt-tag">R</a>
+  <a href="../../index.html#category:Frequentist_Methods" class="dt-tag">Frequentist Methods</a>
+  <a href="../../index.html#category:Causal_Inference" class="dt-tag">Causal Inference</a>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>Introducing the problem of Selective Inference, illustrated through a simple simulation in R.</p></p>
+<p><p>Notes and proofs of basic theorems</p></p>
 </div>
 
 <div class="d-byline">
   vgherard <a href="https://vgherard.github.io" class="uri">https://vgherard.github.io</a> 
   
-<br/>2022-11-14
+<br/>2023-06-07
 </div>
 
 <div class="d-article">
-<h1 id="prologue">Prologue</h1>
-<p>A few months back, for undocumented circumstances, my browser’s search
-history was full of terms like <em>“parameter estimation with variable selection”</em>,
-or <em>“confidence intervals after cross-validation”</em>, or again
-<em>“linear model uncertainties after staring into the abyss”</em>, …</p>
-<p>Sparing you my rock bottom, I eventually stumbled upon the right keywords, and
-started digging into the mathematical aspects of <strong>Selective Inference</strong>, or
-<strong>Post-Model Selection Inference</strong>. Now, while my hands
-are still full of dirt, I’ve decided it’s the right moment to write some
-notes about what I’ve learned - whose main recipient is the future me,
-which will otherwise inevitably forget what the present me thinks he
-knows. If you’re <em>not</em> the future me:</p>
-<ol type="1">
-<li>Welcome 👋</li>
-<li>If you have detected some imprecision, or have suggestions for this or the
-next posts, you are more than welcome to <a href="https://github.com/vgherard/vgherard.github.io/issues/new">create an issue</a> on the source
-repository of this blog.</li>
-</ol>
-<h1 id="introduction">Introduction</h1>
-<p>Broadly speaking, the problem of Selective Inference is that of
-performing valid statistical inferences when <em>the actual questions of the data analysis are not fixed in advance</em>, but rather <em>selected through data examination</em>. In model-based inference, this lack of
-pre-determination usually stems from the (often unavoidable) practice of
-using the same data to choose an adequate model for the data generating
-process <em>and</em> to perform inference. The intrinsic
-randomness of the selection process has important consequences on the
-probability of making different guesses about the selected questions,
-which, if not properly taken into account, can completely invalidate the
-analysis results.</p>
-<p>If this sounds unfamiliar, think about machine-learning: when training a
-predictive model on a given dataset, you would usually consider the
-error on the same dataset as a poor (optimistic) estimate of the true
-model’s error rate, because the model was tuned to perform well on that
-data in the first place. There we go, Selective Inference! A selection
-from an extended family of models<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is performed through data examination,
-and this event introduces a bias in the error estimate of the final
-model from training data.</p>
-<p>The example from machine-learning also suggests a very simple-minded and
-relatively a-theoretical approach to Selective Inference: data-splitting<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. According to this method, we would use only part of the available data to select the questions to be answered by the analysis, while the remaining part would
-be reserved to perform the actual inference. For this program to
-succeed, there are however two important requirements: first, we must have
-enough data to ensure decent statistics for both the selection and inference
-tasks; and second, we must be able to split data in two independent
-(or close to independent) sets. This can suppose problems with, <em>e.g.</em>,
-time-series data. If, on the other hand, these requirements cannot be met, we
-have to resort to more sophisticated methods.</p>
-<p>At this point, I would like to stress that the conceptual problems
-I’ve just pointed out will probably look obvious to any reader with a
-decent intuition for probability<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. What is less obvious, but in fact
-a <a href="https://arxiv.org/search/?query=%22selective+inference%22&amp;searchtype=all&amp;abstracts=show&amp;order=-announced_date_first&amp;size=50">fairly active research field in statistics</a>,
-is how to perform valid selective inferences when the “easy” solution of
-data-splitting I mentioned above is not available. This is where theory
-re-enters the game, and what I’m going to ramble about in this and the next
-posts.</p>
-<h1 id="illustrations-of-selective-inference">Illustrations of Selective Inference</h1>
-<p>Enough for the speech, let us see how selection can affect (and invalidate)
-classical inference with a simple-minded simulation.</p>
-<h3 id="setting">Setting</h3>
-<p>To illustrate why naive classical inference can fail in the presence of
-selection, we consider a very simple regression
-problem involving a single regressor <span class="math inline">\(X\)</span> and a response <span class="math inline">\(Y\)</span>, where <em>all the assumptions of the classical linear model hold</em>. In fact, we will assume the true data generating process to be:</p>
-<p><span class="math display" id="eq:yGaussian">\[
-Y = mX + \varepsilon, \qquad \varepsilon \sim \mathcal N (0, \sigma),
-\tag{1}
+<p>Let <span class="math inline">\(N\in \mathbb N\)</span> be fixed, and let:</p>
+<ul>
+<li><span class="math inline">\(\mathbf Y(1),\,\mathbf Y(0)\in \mathbb R ^N\)</span> be random vectors, with
+components <span class="math inline">\(Y_i(1),Y_i(0)\in \mathbb R\)</span>,</li>
+<li><span class="math inline">\(\mathbf Z\)</span> be a random vector with components <span class="math inline">\(Z_i \in \{0,1\}\)</span>, independent
+from <span class="math inline">\(\mathbf Y(1)\)</span> and <span class="math inline">\(\mathbf Y(0)\)</span> above,</li>
+<li><span class="math inline">\(\mathbf Y = \mathbf Z\times \mathbf Y(1)+(1-\mathbf Z)\times \mathbf Y(0)\)</span> (multiplication is component-wise).</li>
+</ul>
+<p>Given a scalar function <span class="math inline">\(t = t(\mathbf Z, \,\mathbf Y)\in \mathbb R\)</span>, define:</p>
+<p><span class="math display">\[
+P(t,\mathbf Z, \mathbf Y)=\sum _{\mathbf Z &#39;}\text{Pr}_\mathbf Z(\mathbf Z&#39;)\cdot I(t(\mathbf Z&#39;,\mathbf Y)\geq t(\mathbf Z,\mathbf Y)),
 \]</span>
-where <span class="math inline">\(\varepsilon \sim \mathcal N (0, \sigma)\)</span> means “<span class="math inline">\(\varepsilon\)</span> follows a gaussian distribution with mean <span class="math inline">\(0\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>”.</p>
-<h3 id="a-selective-modeling-procedure">A selective modeling procedure</h3>
-<p>Now, suppose we are given a dataset of <span class="math inline">\(N\)</span> independent observations
-<span class="math inline">\((y_i, x_i)_{i = 1, \,2,\, \dots,\,N}\)</span>, and we would like to study the
-dependence of <span class="math inline">\(Y\)</span> from <span class="math inline">\(X\)</span>. Of course we don’t know the true law, Eq.
-<a href="#eq:yGaussian">(1)</a>, but by a stroke of luck (or by a Taylor expansion
-argument) we make the correct initial guess that such dependence is
-linear in <span class="math inline">\(X\)</span>. We are, however, unsure whether it would be appropriate
-to also include an intercept term in the fit. We thus establish the
-following selective modeling procedure:</p>
-<ul>
-<li>Fit a linear model with intercept term,
-<span class="math inline">\(Y = mX + q + \varepsilon\)</span>.</li>
-<li>Stop if the intercept estimate is significantly different from zero (say, at the level of 1-<span class="math inline">\(\sigma\)</span>, <span class="math inline">\(p\text{-value}&lt;32\%\)</span>). Otherwise:</li>
-<li>Fit a model with no intercept, <span class="math inline">\(Y = mX + \varepsilon\)</span>.</li>
-</ul>
-<p>Finally, we <em>use the last fitted model</em> to construct a “naive 95%”
-confidence interval <span class="math inline">\((\hat m_-, \hat m_+)\)</span> for the slope <span class="math inline">\(m\)</span>.
-This is defined by:</p>
-<p><span class="math display" id="eq:naiveCISlope">\[
-\hat m_\pm = \hat m\pm t_{0.975, \,N-d} \cdot \hat \sigma _\hat m\qquad (95\%\,\text {C.L.}).
-\tag{2}
+where <span class="math inline">\(\text{Pr}_\mathbf Z(\cdot)\)</span> is the marginal distribution of treatment assignments.</p>
+<p><strong>Theorem.</strong> If <span class="math inline">\(\mathbf Y(0) = \mathbf Y(1)\)</span> then:</p>
+<p><span class="math display">\[
+\text{Pr}(P(t,\mathbf Z,\mathbf Y)\leq \alpha) \leq \alpha.
 \]</span></p>
-<p>Here <span class="math inline">\(t_{0.975,\, N-d}\)</span> is the 97.5%-quantile of the <span class="math inline">\(t\)</span>-student
-distribution with <span class="math inline">\(N-d\)</span> degrees of freedom, and <span class="math inline">\(d\)</span> is the number of
-estimated parameters, (<span class="math inline">\(2\)</span> or <span class="math inline">\(1\)</span>, according to where we stopped in the
-modeling procedure). <span class="math inline">\(\hat m\)</span> and <span class="math inline">\(\hat \sigma _{\hat m}\)</span> are the
-Ordinary Least Squares (OLS) estimates of the slope and its standard
-deviation, respectively. These are the classical confidence intervals
-reported by the <code>lm()</code> function in R.</p>
-<p>At a first glance, this procedure might look reasonable. After all, both
-intervals we may end up constructing do have a genuine 95% coverage probability,
-when constructed unconditionally… and by selecting the “best” model we’re
-supposedly choosing the “best” confidence interval. In spite of this qualitative
-argument, we inquire:</p>
-<h3 id="does-it-work">… does it work?</h3>
-<p>Now, the question is: how often do the naive CIs <a href="#eq:naiveCISlope">(2)</a>
-cover the true parameter <span class="math inline">\(m\)</span> of Eq. <a href="#eq:yGaussian">(1)</a>? The answer
-better be “at least 95% of the times” for our confidence claim in Eq.
-<a href="#eq:naiveCISlope">(2)</a> to be valid!</p>
-<p>We can check the actual coverage of <a href="#eq:naiveCISlope">(2)</a> through a simulation.
-Here I’ll assume <span class="math inline">\(m = \sigma = 1\)</span>, and that the
-dataset consists of <span class="math inline">\(N=10\)</span> independent observations of <span class="math inline">\(Y\)</span> at fixed points
-<span class="math inline">\(X = (1, \,2, \,\dots ,\, 10)\)</span>.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='va'>sigma</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>  <span class='co'># True parameters</span></span>
-<span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>  <span class='co'># x covariate, assumed fixed</span></span></code></pre>
-</div>
-</div>
-<p>The following function generates observations of <span class="math inline">\(Y\)</span> according to the distribution <a href="#eq:yGaussian">(1)</a>:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_y</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, <span class='va'>sigma</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>eps</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, mean <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span></span>
-<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>m</span> <span class='op'>*</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>eps</span><span class='op'>)</span></span>
-<span>  <span class='op'>}</span></span></code></pre>
-</div>
-</div>
-<p>For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>840</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'>generate_y</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, <span class='va'>sigma</span><span class='op'>)</span>, xlab <span class='op'>=</span> <span class='st'>"X"</span>, ylab <span class='op'>=</span> <span class='st'>"Y"</span><span class='op'>)</span></span></code></pre>
-</div>
-<p><img src="posi_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
-</div>
-<p>Below we generate <span class="math inline">\(B=10^4\)</span> such <span class="math inline">\((X,Y)\)</span> datasets, for each of which we fit a linear model according to the procedure specified above, and check how many
-times the true slope <span class="math inline">\(m = 1\)</span> falls in the confidence interval defined by Eq. <a href="#eq:naiveCISlope">(2)</a>.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Simulation parameters</span></span>
-<span><span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fl'>1e4</span>  <span class='co'># Number of replications</span></span>
-<span></span>
-<span><span class='co'># Preallocate logical vectors to be assigned for each replica - for efficiency. </span></span>
-<span><span class='va'>q_dropped</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='va'>B</span><span class='op'>)</span>  <span class='co'># Was the intercept term 'q' dropped? </span></span>
-<span><span class='va'>m_covered</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>logical</a></span><span class='op'>(</span><span class='va'>B</span><span class='op'>)</span>  <span class='co'># Was the true parameter 'm' covered?</span></span>
-<span></span>
-<span><span class='co'># Set seed for reproducibility</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>841</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='co'># Logging</span></span>
-<span><span class='va'>time_start</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>  </span>
-<span></span>
-<span><span class='co'># Start the simulation</span></span>
-<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>b</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>B</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>generate_y</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>m</span>, <span class='va'>sigma</span><span class='op'>)</span></span>
-<span>  </span>
-<span>  <span class='co'># Fit full model (including intercept 'q')</span></span>
-<span>  <span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>  </span>
-<span>  <span class='va'>q_pval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>]</span></span>
-<span>  </span>
-<span>  <span class='co'># Is 'q' term "significant"? If not, drop 'q' and fit a simpler model</span></span>
-<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>q_pval</span> <span class='op'>&gt;</span> <span class='fl'>0.32</span><span class='op'>)</span>  <span class='op'>{</span> </span>
-<span>    <span class='va'>q_dropped</span><span class='op'>[[</span><span class='va'>b</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span></span>
-<span>    <span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span> </span>
-<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span></span>
-<span>    <span class='va'>q_dropped</span><span class='op'>[[</span><span class='va'>b</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>FALSE</span></span>
-<span>  <span class='op'>}</span></span>
-<span>  </span>
-<span>  <span class='co'># Construct CI for 'm',  using the selected model's fit</span></span>
-<span>  <span class='va'>m_ci</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>fit</span>, <span class='st'>'x'</span>, level <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span></span>
-<span>  <span class='va'>m_covered</span><span class='op'>[[</span><span class='va'>b</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>m_ci</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='va'>m</span> <span class='op'>&amp;&amp;</span> <span class='va'>m</span> <span class='op'>&lt;</span> <span class='va'>m_ci</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span></span>
-<span><span class='op'>}</span></span>
-<span></span>
-<span><span class='va'>time_end</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"Done :) Took "</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>time_end</span> <span class='op'>-</span> <span class='va'>time_start</span><span class='op'>)</span>, <span class='st'>" seconds."</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code>Done :) Took  12.12071  seconds.</code></pre>
-</div>
-<p>The variable <code>m_covered[[b]]</code> is <code>TRUE</code> if the slope <span class="math inline">\(m\)</span> fell in the
-naive CI <span class="math inline">\((m_-, m_+)\)</span> defined by Eq. <a href="#eq:naiveCISlope">(2)</a> in the
-<code>b</code>-th replica of the simulation. Hence, the actual coverage fraction of
-the CI is given by:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>m_covered</span><span class='op'>)</span>  <span class='co'># Actual coverage of naive "95%" CIs.</span></span></code></pre>
-</div>
-<pre><code>[1] 0.9172</code></pre>
-</div>
-<p>92%! If this difference from the nominal 95% coverage guarantee does not
-strike you as enormous, think about it in these terms: the naive CIs
-<a href="#eq:naiveCISlope">(2)</a> fail to cover the true parameter about 8% of the
-times; This is a relative +60% of failures with respect to an honest 95%
-CI.</p>
-<h3 id="whats-going-on">What’s going on</h3>
-<p>We can understand a bit better what’s happening here by decomposing the
-coverage probability as follows:</p>
-<p><span class="math display" id="eq:coverageDecomposition">\[
-\text {Pr}(m \in \text{CI})  = \text {Pr}(m \in \text{CI}_{q \text{ dropped}}\,\vert\,q \text{ dropped})\cdot \text {Pr}(q \text{ dropped}) +\\ +\text {Pr}(m \in \text{CI}_{q  \text{ kept}}\,\vert\,q \text{ kept})\cdot \text {Pr}(q \text{ kept})
-\tag{3}
+<p><em>Proof.</em> Let <span class="math inline">\(\mathbf Z&#39;\)</span> be distributed according to
+<span class="math inline">\(\text{Pr}_\mathbf Z(\cdot)\)</span>, and define
+<span class="math inline">\(\mathbf Y&#39; = \mathbf Z&#39;\times \mathbf Y(1)+(1-\mathbf Z&#39;)\times \mathbf Y(0)\)</span>. Given <span class="math inline">\(t_0\in \mathbb R\)</span>, we observe that:</p>
+<p><span class="math display">\[
+\text {Pr}(t(\mathbf Z&#39;,\mathbf Y&#39;)\geq t_0 \,\vert\,\mathbf Y(0),\,\mathbf Y(1)) = \sum _{\mathbf Z &#39;}\text{Pr}_\mathbf Z(\mathbf Z&#39;)\cdot I(t(\mathbf Z&#39;,\mathbf Y&#39;)\geq t_0).
+\]</span>
+Now, if <span class="math inline">\(\mathbf Y(0) = \mathbf Y(1)\)</span>, we have <span class="math inline">\(t(\mathbf Z&#39;,\mathbf Y&#39;) = t(\mathbf Z&#39;,\mathbf Y)\)</span>, so that we may replace <span class="math inline">\(\mathbf Y&#39;\)</span> with <span class="math inline">\(\mathbf Y\)</span>
+in the RHS of the previous equation. If, moreover, we choose <span class="math inline">\(t_0= t(\mathbf Z , \mathbf Y)\)</span> we obtain:</p>
+<p><span class="math display">\[
+P(t, \mathbf Z, \mathbf Y) = \text {Pr}(t(\mathbf Z&#39;,\mathbf Y&#39;)\geq t(\mathbf Z,\mathbf Y) \,\vert\,\mathbf Y(0),\mathbf Y(1)).
+\]</span>
+In other words, <span class="math inline">\(P(t,\mathbf Z, \mathbf Y)\)</span> is a conditional <span class="math inline">\(p\)</span>-value.
+Therefore:</p>
+<p><span class="math display">\[
+\text{Pr}(P(t,\mathbf Z,\mathbf Y)\leq \alpha \,\vert\,\mathbf Y(0),\mathbf Y(1)) \leq \alpha.
 \]</span></p>
-<p>The right hand side of this equation shows how our selective modeling
-procedure alters the probability <span class="math inline">\(\text{Pr}(m\in \text{CI})\)</span>. There are
-two contributing factors here: the probability of dropping the intercept
-term, and the covering probabilities of the CIs constructed in the two
-cases (<span class="math inline">\(\text{CI}_{q \text{ dropped}}\)</span> and
-<span class="math inline">\(\text{CI}_{q \text{ kept}}\)</span>). We can estimate all these
-probabilities as:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>q_dropped</span><span class='op'>)</span>  <span class='co'># Pr(q dropped)</span></span></code></pre>
-</div>
-<pre><code>[1] 0.6782</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>m_covered</span><span class='op'>[</span><span class='va'>q_dropped</span><span class='op'>]</span><span class='op'>)</span>  <span class='co'># Pr(m covered | q dropped)</span></span></code></pre>
-</div>
-<pre><code>[1] 0.9510469</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>m_covered</span><span class='op'>[</span><span class='op'>!</span><span class='va'>q_dropped</span><span class='op'>]</span><span class='op'>)</span>  <span class='co'># Pr(m covered | q kept)</span></span></code></pre>
-</div>
-<pre><code>[1] 0.845867</code></pre>
-</div>
-<p>The first result directly follows from our procedure, which uses a
-hypothesis test with significance <span class="math inline">\(\alpha = 32\%\)</span> to test the (true)
-null hypothesis <span class="math inline">\(q = 0\)</span>. It is a bit harder but in fact possible to
-prove that<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
-<span class="math inline">\(\text {Pr}(m \in \text{CI}_{q \text{ dropped}}\,\vert\,q \text{ dropped}) = 95\%\)</span>,
-as the second estimate would seem to suggest. The third result is
-finally what invalidates the naive coverage guarantee in Eq.
-<a href="#eq:naiveCISlope">(2)</a>.</p>
-<h3 id="concluding-remarks">Concluding Remarks</h3>
-<p>To summarize:</p>
-<ol type="1">
-<li>We started with two linear models for <span class="math inline">\(Y\)</span> vs. <span class="math inline">\(X\)</span>, which were in fact <em>both well-specified</em> (that is, correct).</li>
-<li>We stipulated to choose one of the two models by testing the null hypothesis <span class="math inline">\(q = 0\)</span>.</li>
-<li>After selection, we constructed <span class="math inline">\(95\%\)</span> confidence intervals for the slope
-<span class="math inline">\(\hat m\)</span> using the selected model, <em>as if this had been fixed in advance</em>.</li>
-<li>A simulation shows that such intervals have a true coverage probability of
-<span class="math inline">\(\approx 92\%\)</span>.</li>
-</ol>
-<p>The mathematical explanation of the last result is provided by Eq. <a href="#eq:coverageDecomposition">(3)</a>, while the (hopefully) plain English one in the introductory part of this post. I will conclude with a few parenthetical remarks.</p>
-<p>First, the selective procedure proposed here would likely hardly be applied in practice in such a simple situation<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. However, one could easily think of a more complex scenario with multiple covariates, where eliminating redundant ones could turn out to be beneficial for interpretation (if not compulsory, if the number of covariates exceeds the sample size).</p>
-<p>Second, in order to avoid cluttering the discussion with too much
-technicalities, I have deliberately chosen a quite special point in true-model space (<span class="math inline">\(q = 0\)</span>). This implies that both fits with and without intercept estimate the <em>same</em> slope <span class="math inline">\(m\)</span>; this is a peculiar property of <span class="math inline">\(q = 0\)</span>, which would not be true in the general case <span class="math inline">\(q \in \mathbb R\)</span>. In general, we would have to carefully define the inferential targets for the <span class="math inline">\(q=0\)</span> and <span class="math inline">\(q \in \mathbb R\)</span> cases, in a differential manner.</p>
-<h1 id="conclusion">Conclusion</h1>
-<p>That was all for today. In the next post, I will discuss some mathematical details
-regarding the formulation of the Selective Inference problem in model-building.
-For those surviving down to the bottom of the funnel, my future plan is to
-review some (valid) selective inference methods I found interesting, including:</p>
-<ul>
-<li>Benjamini-Yekutieli control of False Coverage Rate <span class="citation" data-cites="benjamini2005false">(<a href="#ref-benjamini2005false" role="doc-biblioref">Benjamini and Yekutieli 2005</a>)</span>,</li>
-<li>POSI bounds for marginal coverage <span class="citation" data-cites="berk2013valid">(<a href="#ref-berk2013valid" role="doc-biblioref">Berk et al. 2013</a>)</span>,</li>
-<li>Data Fission, an elegant generalization of good old data splitting <span class="citation" data-cites="https://doi.org/10.48550/arxiv.2112.11079">(<a href="#ref-https://doi.org/10.48550/arxiv.2112.11079" role="doc-biblioref">Leiner et al. 2021</a>)</span>.</li>
-<li>…whatever cool stuff I may discover in the meantime.</li>
-</ul>
-<p>Ciao!</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-benjamini2005false" class="csl-entry" role="doc-biblioentry">
-Benjamini, Yoav, and Daniel Yekutieli. 2005. <span>“False Discovery Rate–Adjusted Multiple Confidence Intervals for Selected Parameters.”</span> <em>Journal of the American Statistical Association</em> 100 (469): 71–81.
-</div>
-<div id="ref-berk2013valid" class="csl-entry" role="doc-biblioentry">
-Berk, Richard, Lawrence Brown, Andreas Buja, Kai Zhang, and Linda Zhao. 2013. <span>“Valid Post-Selection Inference.”</span> <em>The Annals of Statistics</em>, 802–37.
-</div>
-<div id="ref-isidori2021significance" class="csl-entry" role="doc-biblioentry">
-Isidori, Gino, Davide Lancierini, Patrick Owen, and Nicola Serra. 2021. <span>“On the Significance of New Physics in b→ Sℓ+ ℓ- Decays.”</span> <em>Physics Letters B</em> 822: 136644.
-</div>
-<div id="ref-https://doi.org/10.48550/arxiv.2112.11079" class="csl-entry" role="doc-biblioentry">
-Leiner, James, Boyan Duan, Larry Wasserman, and Aaditya Ramdas. 2021. <span>“Data Fission: Splitting a Single Data Point.”</span> arXiv. <a href="https://doi.org/10.48550/ARXIV.2112.11079">https://doi.org/10.48550/ARXIV.2112.11079</a>.
-</div>
-<div id="ref-Shalizi:2020pmsi" class="csl-entry" role="doc-biblioentry">
-Shalizi, C. R. 2020. <span>“Post-Model-Selection Inference.”</span> 2020. <a href="http://bactra.org/notebooks/post-model-selection-inference.html">http://bactra.org/notebooks/post-model-selection-inference.html</a>.
-</div>
-<div id="ref-vrbik:2020ra" class="csl-entry" role="doc-biblioentry">
-Vrbik, Jan. 2020. <span>“Regression Analysis (Lecture Notes).”</span> 2020. <a href="http://spartan.ac.brocku.ca/~jvrbik/MATH3P82/notes.pdf">http://spartan.ac.brocku.ca/~jvrbik/MATH3P82/notes.pdf</a>.
-</div>
-</div>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<p>Since this is valid for any value of <span class="math inline">\(\mathbf Y (0)\)</span> and <span class="math inline">\(\mathbf Y(1)\)</span>, the thesis follows.</p>
 <hr />
-<ol>
-<li id="fn1"><p>Here, in the “extended family of models”, I’m also implicitly
-accounting for the multiplicity introduced by continuous model
-parameters and training parameters (also known as hyper-parameters).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The preferential method according to <span class="citation" data-cites="Shalizi:2020pmsi">(<a href="#ref-Shalizi:2020pmsi" role="doc-biblioref">Shalizi 2020</a>)</span>, from which
-I borrowed the “a-theoretical” description, and which I recommend as a starting point for literature review.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This is not to say that correctly accounting for Selective Inference is
-the default in scientific practice. A relevant example from the field I come
-from (Particle Physics), is documented in this stimulating reference:
-<span class="citation" data-cites="isidori2021significance">(<a href="#ref-isidori2021significance" role="doc-biblioref">Isidori et al. 2021</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>I’m always amazed by the great deal of theory one can learn by
-running a dumb simulation, and trying to explain a posteriori what
-seems to be a too perfect result. Technically, this follows from the fact that the slope estimate
-<span class="math inline">\(\hat m\)</span> and residual sum of squares <span class="math inline">\(\text{RSS}\)</span> of the reduced
-model, and the <span class="math inline">\(F\)</span>-statistic used to test <span class="math inline">\(q = 0\)</span>, are all
-independent random variables under the same null hypothesis, here
-true by construction. All these facts are in turn consequences of
-general theorems from linear model theory, see for example
-<span class="citation" data-cites="vrbik:2020ra">(<a href="#ref-vrbik:2020ra" role="doc-biblioref">Vrbik 2020, chap. 4</a>)</span>… and, to be sure, it took me more than a single
-night without sleep to figure all this out.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>And I’m actually not sure that, after properly taking into account Selective Inference, it would lead to a substantial gain in estimation accuracy, compared to simply fitting the possibly redundant model with intercept.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
+<p>In the usual setting of causal inference, we interpret:</p>
+<ul>
+<li><span class="math inline">\(Z_i\)</span> as the treatment assignment for the <span class="math inline">\(i\)</span>-th statistical unit, <span class="math inline">\(Z_i = 0,1\)</span>
+standing for “treatment” and “control”, respectively.</li>
+<li><span class="math inline">\(Y_i(1)\)</span> and <span class="math inline">\(Y_i(0)\)</span> as the potential outcomes for the <span class="math inline">\(i\)</span>-th unit under treatment and control, respectively.</li>
+<li><span class="math inline">\(Y_i\)</span> as the observed outcome for the <span class="math inline">\(i\)</span>-th unit.</li>
+<li><span class="math inline">\(t(\cdot)\)</span> as a test statistic used to test the null hypothesis <span class="math inline">\(\mathbf Y(1)= \mathbf Y (0)\)</span>.</li>
+<li><span class="math inline">\(P(t,\mathbf Z,\mathbf Y)\)</span> is the randomization <span class="math inline">\(p\)</span>-value of <span class="math inline">\(t(\mathbf Z, \mathbf Y)\)</span> in a Fisher Randomization Test.</li>
+</ul>
+<p>Fisher’s “sharp” null hypothesis is an equality <em>between random variables</em>, the potential outcomes. Typical examples for the distribution <span class="math inline">\(\text{Pr}_\mathbf Z(\cdot)\)</span> are:</p>
+<ul>
+<li>Completely Randomized Experiment (CRE):</li>
+</ul>
+<p><span class="math display">\[
+\text{Pr}_\mathbf Z (\mathbf Z) = \begin{cases}
+\binom N {n_1} ^{-1} &amp; \sum _{i=1}^N Z_i =n_1, \\
+0 &amp; \text{otherwise.}
+\end{cases}
+\]</span></p>
+<ul>
+<li>Bernoulli Randomized Experiment (BRE):</li>
+</ul>
+<p><span class="math display">\[
+\text{Pr}_\mathbf Z (\mathbf Z) = \prod _{i=1} ^N \pi^{Z_i}(1-\pi)^{1-Z_i}.
+\]</span></p>
+<p>An example of test statistic is the difference in means between the treatment
+and control group, that can be written:</p>
+<p><span class="math display">\[
+t(\mathbf Z , \mathbf Y) = \sum_i c_i Y_i,\qquad c_i=\frac{Z_i}{\sum _iZ_i} - \frac{1-Z_i}{\sum _i(1-Z_i)}.
+\]</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p>
@@ -2891,21 +2625,19 @@ R-related posts also available at
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
 <div class="appendix-bottom">
-  <h3 id="references">References</h3>
-  <div id="references-listing"></div>
   <h3 id="updates-and-corrections">Corrections</h3>
   <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/vgherard/vgherard.github.io/issues/new">create an issue</a> on the source repository.</p>
   <h3 id="reuse">Reuse</h3>
   <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Source code is available at <a href="https://github.com/vgherard/vgherard.github.io/">https://github.com/vgherard/vgherard.github.io/</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">vgherard (2022, Nov. 14). Valerio Gherardi: How to get away with selection. Part I: Introduction. Retrieved from https://vgherard.github.io/posts/2022-10-18-posi/</pre>
+  <pre class="citation-appendix short">vgherard (2023, June 7). Valerio Gherardi: Fisher's Randomization Test. Retrieved from https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/</pre>
   <p>BibTeX citation</p>
-  <pre class="citation-appendix long">@misc{vgherard2022how,
+  <pre class="citation-appendix long">@misc{vgherard2023fisher's,
   author = {vgherard, },
-  title = {Valerio Gherardi: How to get away with selection. Part I: Introduction},
-  url = {https://vgherard.github.io/posts/2022-10-18-posi/},
-  year = {2022}
+  title = {Valerio Gherardi: Fisher's Randomization Test},
+  url = {https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test/},
+  year = {2023}
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->
