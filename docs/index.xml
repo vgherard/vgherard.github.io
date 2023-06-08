@@ -7,7 +7,7 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>2023-06-06</lastBuildDate>
+    <lastBuildDate>2023-06-07</lastBuildDate>
     <item>
       <title>Fisher's Randomization Test</title>
       <dc:creator>vgherard</dc:creator>
@@ -127,6 +127,96 @@ _iZ_i} - \frac{1-Z_i}{\sum _i(1-Z_i)}.
       <category>Frequentist Methods</category>
       <category>Causal Inference</category>
       <guid>https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test</guid>
+      <pubDate>2023-06-07</pubDate>
+    </item>
+    <item>
+      <title>p-values and measure theory</title>
+      <dc:creator>vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/p-values-and-measure-theory</link>
+      <description>
+
+
+&lt;p&gt;Let &lt;span class="math inline"&gt;\((\Omega, \mathcal E,
+\text{Pr})\)&lt;/span&gt; be a probability space, where &lt;span
+class="math inline"&gt;\(\Omega\)&lt;/span&gt; is the space of random outcomes,
+&lt;span class="math inline"&gt;\(\mathcal E\)&lt;/span&gt; the &lt;span
+class="math inline"&gt;\(\sigma\)&lt;/span&gt;-algebra of measurable events, and
+&lt;span class="math inline"&gt;\(P\)&lt;/span&gt; the probability measure.&lt;/p&gt;
+&lt;p&gt;Given a random variable &lt;span class="math inline"&gt;\(T\colon \Omega
+\to \mathbb R\)&lt;/span&gt;, define &lt;span class="math inline"&gt;\(p_T\colon
+\Omega \to \left[0,1\right]\)&lt;/span&gt; as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+p_T(\omega) = \text{Pr}(\{\omega&amp;#39;\in \Omega\,\vert\,
+T(\omega&amp;#39;)\geq T(\omega)\})
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theorem.&lt;/strong&gt; &lt;span class="math inline"&gt;\(p_T\)&lt;/span&gt; is
+measurable and &lt;span class="math inline"&gt;\(\text{Pr}(p_T\leq \alpha)
+\leq \alpha\)&lt;/span&gt; for all &lt;span class="math inline"&gt;\(\alpha \in
+\left[0,1\right]\)&lt;/span&gt;. Equality holds if and only if there exists a
+sequence &lt;span class="math inline"&gt;\(\{\omega_n\}_{n\in \mathbb
+N}\)&lt;/span&gt; such that &lt;span class="math inline"&gt;\(p_T(\omega_n) \leq
+\alpha\)&lt;/span&gt;, and &lt;span class="math inline"&gt;\(p_T(\omega _n)\to
+\alpha\)&lt;/span&gt; as &lt;span class="math inline"&gt;\(n \to
+\infty\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Proof.&lt;/em&gt; Let &lt;span
+class="math inline"&gt;\(\alpha\in\left[0,1\right]\)&lt;/span&gt;, and denote:
+&lt;span class="math display"&gt;\[
+E_T(\omega) = \{\omega&amp;#39;\in \Omega\,\vert\, T(\omega&amp;#39;)\geq
+T(\omega)\},
+\]&lt;/span&gt; so that &lt;span class="math inline"&gt;\(p_T(\omega) =
+\text{Pr}(E_T(\omega))\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Assume first that there exists &lt;span
+class="math inline"&gt;\(\omega_\alpha \in p_T^{-1}(\alpha)\)&lt;/span&gt;, that
+is to say &lt;span class="math inline"&gt;\(\text{Pr}(E_T(\omega)) =
+\alpha\)&lt;/span&gt;. We can show that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+N_T(\omega_\alpha) = \{\omega \vert p_T(\omega) \leq \alpha\} \backslash
+E_T(\omega_\alpha)
+\]&lt;/span&gt; is a measurable, zero probability set, which proves the thesis
+for this particular case. As a matter of fact, for any &lt;span
+class="math inline"&gt;\(\omega \in \Omega\)&lt;/span&gt;, if &lt;span
+class="math inline"&gt;\(p_T(\omega)\leq \alpha\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(T(\omega) &amp;lt;T(\omega_\alpha)\)&lt;/span&gt;, then we
+must have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}(\{\omega&amp;#39;\in \Omega\,\vert\,
+                                                                T(\omega_\alpha)&amp;gt;T(\omega&amp;#39;)\geq
+T(\omega)\}
+                                                                ) =
+p_T(\omega) - \alpha=0.
+\]&lt;/span&gt; If &lt;span class="math inline"&gt;\(t_* = \inf_{p_T(\omega)\leq
+\alpha}T(\omega)\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\{a _n\}_{n
+\in \mathbb N}\)&lt;/span&gt; is a sequence in &lt;span
+class="math inline"&gt;\(\Omega\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\(T(a _n)\to t_*\)&lt;/span&gt; as &lt;span
+class="math inline"&gt;\(n\to \infty\)&lt;/span&gt;, then:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+N_T(\omega _\alpha) \subseteq \cup _n \{\omega&amp;#39;\in \Omega\,\vert\,
+                                                                T(\omega_\alpha)&amp;gt;T(\omega&amp;#39;)\geq
+T(a_n)\},
+\]&lt;/span&gt; the right hand side being a probability zero set.&lt;/p&gt;
+&lt;p&gt;If &lt;span class="math inline"&gt;\(p_T^{-1}(\alpha)\)&lt;/span&gt; is empty,
+let &lt;span class="math inline"&gt;\(\alpha^* = \sup _{p_T(\omega)\leq
+\alpha}p(\omega)\)&lt;/span&gt;, and let &lt;span class="math inline"&gt;\(\{b
+_n\}_{n\in \mathbb N}\)&lt;/span&gt; be a sequence in &lt;span
+class="math inline"&gt;\(\Omega\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\(p_T(b_n)\to \alpha^*\)&lt;/span&gt; as &lt;span
+class="math inline"&gt;\(n\to \infty\)&lt;/span&gt;. Then:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\{\omega \vert p_T(\omega) \leq \alpha\}=
+\{\omega \vert p_T(\omega) \leq \alpha^*\}=
+\cup _n \{\omega \vert p_T(\omega) \leq p_T(b_n)\},
+\]&lt;/span&gt; so that, from the particular case proved earlier, we have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}(p_T \leq \alpha) = \lim _{n \to \infty} \text{Pr}(p_T \leq
+p_T(b_n)) \leq \lim _{n \to \infty} p_T(b_n) = \alpha ^* \leq \alpha,
+\]&lt;/span&gt; as was to be proved.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>59f780cb2829e8a6622ca805a037e6f3</distill:md5>
+      <category>Statistics</category>
+      <category>Measure Theory</category>
+      <category>Frequentist Methods</category>
+      <guid>https://vgherard.github.io/posts/p-values-and-measure-theory</guid>
       <pubDate>2023-06-06</pubDate>
     </item>
     <item>
