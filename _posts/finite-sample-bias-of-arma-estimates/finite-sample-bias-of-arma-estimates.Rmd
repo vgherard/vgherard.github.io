@@ -1,0 +1,147 @@
+---
+title: "Finite sample bias of ARMA estimates"
+description: |
+  A short description of the post.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-06-08
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+```{r setup, include=FALSE}
+set.seed(840)
+```
+
+
+# Intro
+
+Take an AR(1) model such as:
+
+$$
+Y_{t+1}= \mu+\alpha (Y_t-\mu) +\epsilon _t. (\#eq:AR1)
+$$
+The $\alpha$ coefficient estimates returned from functions such as `arima()` 
+are *biased*, and the bias can be severe for short time series samples. This is
+a simple fact of life of ARMA models (that I learned at my own expense).
+
+Let's illustrate this through a simulation. The block below defines the function 
+`sim_fit_ar1()`, which simulates the process of fitting an AR(1) model to actual 
+AR(1) data. Concretely, it performs the following two steps:
+
+- Simulate $n$ observations from Eq. \@ref(eq:AR1) above.
+- Fit an AR(1) model to the simulated dataset and store the estimated 
+coefficients.
+
+These are repeated a large number of times $B$, to obtain an estimate of the 
+estimates' distributions.
+
+```{r warning=FALSE, code_folding=TRUE}
+sim_ar1 <- function(n, alpha, mu = 0)  
+	mu + arima.sim(model = list(order = c(1, 0, 0),  ar1 = alpha), n = n)
+
+fit_ar1 <- function(data, ...) 
+	arima(data, order = c(1, 0, 0), ...)
+
+sim_fit_ar1 <- function(B, n, alpha, mu, method = "CSS", plot = TRUE, ...) {
+	
+	# Simulate from true AR(1) model, fit an AR(1) and extract coefficients
+	coefs <- sapply(1:B, \(dummy) {
+		sim_ar1(n = n, alpha = alpha, mu = mu) |> 
+			fit_ar1(method = method, ...) |> 
+			coefficients()
+	})
+	
+	# Remove outliers due to convergence issues using simple heuristic
+	# (deviation from median larger than 5 median absolute deviations)
+	B_discarded <- 0
+	for (i in 1:2) {
+		outliers <- abs(coefs[i, ] - median(coefs[i, ])) / mad(coefs[i, ]) > 5
+		coefs <- coefs[, !outliers]
+		B_discarded <- sum(outliers)
+	}
+	
+	alpha_hat <- coefs["ar1", ]
+	mu_hat <- coefs["intercept", ]
+	
+	if (plot) {
+		# Plot histograms of ar1 and intercept coefficients
+		oldpar <- par(mfrow=c(1,2))
+		
+		coef_hist(alpha_hat, alpha, xlab = "alpha")
+		coef_hist(mu_hat, mu, xlab = "mu")
+		title(main = "Distribution of AR(1) model estimates",
+					sub = paste0("B: ", B, " - n: ", n, " - method: ", method, 
+											 " - discarded ", B_discarded, " simulations"),
+					outer = TRUE,
+					line = -1
+					)
+		par(oldpar)
+	}
+	
+	# Return summary of results
+	res <- data.frame(
+		n = n, 
+		method = method, 
+		alpha_hat_mean = mean(alpha_hat),
+		alpha_hat_se = sd(alpha_hat) / sqrt(B),
+		alpha = alpha,
+		mu_hat_mean = mean(mu_hat),
+		mu_hat_se = sd(mu_hat) / sqrt(B),
+		mu = mu,
+		B = B,
+		B_discarded = B_discarded
+	)
+	return(invisible(res))
+}
+
+coef_hist <- function(estimates, target, xlab) {
+	hist(estimates, freq = FALSE, xlab = xlab, main = NULL)
+	abline(v = mean(estimates), lty = "dashed", lwd = 4)
+	abline(v = target, col = "red", lty = "dashed", lwd = 4)
+}
+```
+
+
+# Simulations
+
+
+## Warm up
+
+We start by comparing the distributions of $\hat \alpha$ for 
+$n = 10, \,100,\,1000$, for fixed $\alpha = 0.5$, $\mu = 1$. I've silently
+used the default (in `arima.sim()`) variance $\sigma ^2 =1$ for the innovations 
+$\epsilon _t$, so that $\mu$ can be interpreted here as a sort of signal to 
+noise ratio.
+
+We see that $\hat \alpha$ has a relative bias of about 50% (!) for $n=10$, which
+gradually decreases as $n$ increases (since $\hat \alpha$ is a consistent 
+estimator). 
+
+The plot for $n = 10$ reports that $110$ simulations (roughly 1% of the 
+total $B = 10^4$ simulations) were discarded from the reported results. This is
+because such simulations had convergence issues, and I manually removed these 
+results, a problem that we don't really need to worry too much about
+(not with a 50% bias!).
+
+
+```{r warning=FALSE}
+set.seed(840)
+sim_fit_ar1(10000, 10, alpha = 0.5, mu = 1, method = "CSS")
+```
+
+```{r}
+sim_fit_ar1(10000, 100, alpha = 0.5, mu = 1, method = "CSS")
+```
+
+```{r}
+sim_fit_ar1(10000, 1000, alpha = 0.5, mu = 1, method = "CSS")
+```
+
+## Parameter space scan
+
+Scan in:
+- `n`, `method`, `mu`, `alpha`
