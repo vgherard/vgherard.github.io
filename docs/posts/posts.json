@@ -1,5 +1,25 @@
 [
   {
+    "path": "posts/sum-and-ratio-of-independent-random-variables/",
+    "title": "Sum and ratio of independent random variables",
+    "description": "Sufficient conditions for independence of sum and ratio.",
+    "author": [
+      {
+        "name": "vgherard",
+        "url": "https://vgherard.github.io"
+      }
+    ],
+    "date": "2023-06-14",
+    "categories": [
+      "Mathematics",
+      "Probability Theory"
+    ],
+    "contents": "\nLet \\(X\\) and \\(Y\\) be two continuous independent random variables, with joint\ndensity \\(f_{XY}(x,y)=f_X(x)f_Y(y)\\). Define:\n\\[\ns = x+y, \\qquad r = x/y,\n\\]\nwith inverse transformation given by:\n\\[\ny = \\frac{s}{1+r},\\qquad x = \\frac{rs}{1+r}.\n\\]\nThe Jacobian of the \\((x,y) \\mapsto (s,r)\\) transformation is:\n\\[\n\\left|\\dfrac{\\partial (s,r)}{\\partial(x,y)}\\right|= \\dfrac{(1+r)^2}{s}.\n\\]\nHence the joint density of \\(S = X+Y\\) and \\(R = X/Y\\) is given by:\n\\[\nf_{SR}(s,r) = f(x,y)\\left|\\dfrac{\\partial (x,y)}{\\partial(s,r)}\\right|=f_X(\\frac{rs}{1+r})f_Y(\\frac{s}{1+r})\\frac{s}{(1+r)^2}.\n\\]\nThe necessary and sufficient condition for this to factorize into a product,\n\\(f_{SR}(s,r)\\equiv f_S(s)f_R(r)\\), is that \\(f_X(x)f_Y(y) = g_S(s)g_R(r)\\)\nfor some functions \\(g_S\\) and \\(g_R\\).\nThis is true for all functions \\(f_X\\) and \\(f_Y\\) from the family:\n\\[\n\\phi(t) = \\text{const} \\times  t^\\alpha e^{-\\beta t}.\n\\]\nThis includes some important special cases:\nThe \\(\\chi ^2\\) distribution (\\(\\alpha = \\frac{\\nu}{2}-1,\\,\\beta = \\frac{1}{2}\\)).\nThe exponential distribution: \\(\\alpha = 0,\\,\\beta >0\\).\nThe “homogeneous” distribution: \\(\\beta = 0\\) (restricted to the appropriate\ndomain).\nThe uniform distribution: \\(\\alpha = \\beta = 0\\).\n\n\n\n",
+    "preview": {},
+    "last_modified": "2023-06-14T20:47:35+02:00",
+    "input_file": "sum-and-ratio-of-independent-random-variables.knit.md"
+  },
+  {
     "path": "posts/2023-06-07-fishers-randomization-test/",
     "title": "Fisher's Randomization Test",
     "description": "Notes and proofs of basic theorems",
