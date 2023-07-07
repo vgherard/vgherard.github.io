@@ -25,10 +25,43 @@ $$
 Y_{t+1}= \mu+\alpha (Y_t-\mu) +\epsilon _t. (\#eq:AR1)
 $$
 The $\alpha$ coefficient estimates returned from functions such as `arima()` 
-are *biased*, and the bias can be severe for short time series samples. This is
-a simple fact of life of ARMA models (that I learned at my own expense).
+are *biased*, and the bias can be severe for short time series samples. For 
+instance, in the case of zero intercept, the OLS estimate 
+(in R `arima()` referred to as "Conditional Sum of Squares") reads:
 
-Let's illustrate this through a simulation. The block below defines the function 
+$$
+\hat \alpha _{\text{OLS}} = \alpha + 
+	\frac{\sum _{t = 1}^{n} y_{t-1}\epsilon _t}{\sum _{t=1}^ny_{t-1}^2}.
+		(\#eq:OLSAR1)
+$$
+Even though $\epsilon_t$ is independent from $y_{t-1}$, it is not independent
+from the denominator $\sum _{t = 1}^n y_{t-1}^2$. To obtain some intuition, 
+consider the case $n = 2$ (corresponding to three data points $y_{0,1,2}$). With
+some manipulations, we obtain:
+
+$$
+\hat \alpha _{\text{OLS}}-\alpha = 
+	\frac{1}{4\alpha}\left(1-\frac{1+(\alpha -\frac{\epsilon_1}{y_0})^2}{1+(\alpha +\frac{\epsilon_1}{y_0})^2}\right)+	\frac{(\alpha y_0+\epsilon_1)\epsilon_2}{y_0^2+(\alpha y_0+\epsilon_1)^2}.
+		(\#eq:OLSAR1)
+$$
+The second term has vanishing expectation, while the expectation value of the 
+first term has the opposite sign of $\alpha$ ^[In fact, for any random variable 
+$X$ with symmetric distribution and any positive function $F(X)$ we have:
+
+$$
+\mathbb E(\frac{F(-X)}{F(X)})=\mathbb E(\frac{F(-X)^2 +F(X)^2}{2F(-X)F(X)})\geq1.
+$$
+]
+
+The bias tends to make $\mathbb E(\hat \alpha _{\text{OLS}})$ smaller 
+(in absolute value) than the true value.
+
+Let's illustrate this through a simulation. 
+
+
+# Setup
+
+The block below defines the function 
 `sim_fit_ar1()`, which simulates the process of fitting an AR(1) model to actual 
 AR(1) data. Concretely, it performs the following two steps:
 
@@ -89,6 +122,7 @@ sim_fit_ar1 <- function(B, n, alpha, mu, method = "CSS", plot = TRUE, ...) {
 		alpha_hat_mean = mean(alpha_hat),
 		alpha_hat_se = sd(alpha_hat) / sqrt(B),
 		alpha = alpha,
+		alpha_rel_bias = mean(alpha_hat) / alpha - 1,
 		mu_hat_mean = mean(mu_hat),
 		mu_hat_se = sd(mu_hat) / sqrt(B),
 		mu = mu,
@@ -119,7 +153,7 @@ noise ratio.
 
 We see that $\hat \alpha$ has a relative bias of about 50% (!) for $n=10$, which
 gradually decreases as $n$ increases (since $\hat \alpha$ is a consistent 
-estimator). 
+estimator). We also see that the bias does not affect the $\mu$ estimate.
 
 The plot for $n = 10$ reports that $110$ simulations (roughly 1% of the 
 total $B = 10^4$ simulations) were discarded from the reported results. This is
@@ -129,19 +163,74 @@ results, a problem that we don't really need to worry too much about
 
 
 ```{r warning=FALSE}
+alpha <- 0.5
+mu = 1
+
 set.seed(840)
-sim_fit_ar1(10000, 10, alpha = 0.5, mu = 1, method = "CSS")
+sim_fit_ar1(10000, 10, alpha, mu)
 ```
 
 ```{r}
-sim_fit_ar1(10000, 100, alpha = 0.5, mu = 1, method = "CSS")
+sim_fit_ar1(10000, 100, alpha, mu)
 ```
 
 ```{r}
-sim_fit_ar1(10000, 1000, alpha = 0.5, mu = 1, method = "CSS")
+sim_fit_ar1(10000, 1000, alpha, mu)
 ```
 
-## Parameter space scan
 
-Scan in:
-- `n`, `method`, `mu`, `alpha`
+
+## Dependence from fitting method
+
+```{r}
+sim_fit_ar1(10000, 10, alpha, mu, method = "ML")
+```
+
+## Dependence from intercept
+
+```{r}
+lapply(c(0.1, 1, 10), \(mu){
+	sim_fit_ar1(B = 1000, 
+							n = 10, 
+							alpha, 
+							mu, 
+							plot = FALSE
+							)
+	}) |>
+	Reduce(f = "rbind", x = _) |>
+	{\(data) {plot(x = data$mu, y = data$alpha_rel_bias)}}()
+```
+
+## Dependence from alpha
+
+
+```{r}
+grid <- expand.grid(
+	n = c(10, 30, 100, 300, 1000),
+	method = "CSS",
+	mu = 1,
+	alpha = seq(from = 0.1, to = 0.9, by = 0.1),
+	stringsAsFactors = FALSE
+)
+```
+
+
+```{r}
+set.seed(840)
+sims <- lapply(1:nrow(grid), \(i){
+	sim_fit_ar1(B = 1000, 
+							n = grid[i, "n"], 
+							alpha = grid[i, "alpha"], 
+							mu = grid[i, "mu"], 
+							method = grid[i, "method"],
+							plot = FALSE
+							)
+	}) |>
+	Reduce(f = "rbind", x = _)
+```
+
+
+```{r}
+plot(x = sims$alpha, y = sims$alpha_rel_bias, col = as.factor(sims$n), log = "x", type = "p")
+```
+
