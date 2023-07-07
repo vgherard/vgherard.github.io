@@ -7,16 +7,64 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>2023-06-14</lastBuildDate>
+    <lastBuildDate>2023-06-13</lastBuildDate>
     <item>
       <title>Sum and ratio of independent random variables</title>
       <dc:creator>vgherard</dc:creator>
-      <link>https://vgherard.github.io/posts/sum-and-ratio-of-independent-random-variables</link>
-      <description>Sufficient conditions for independence of sum and ratio.</description>
+      <link>https://vgherard.github.io/posts/2023-06-14-sum-and-ratio-of-independent-random-variables</link>
+      <description>
+
+
+&lt;p&gt;Let &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; be two continuous independent random
+variables, with joint density &lt;span
+class="math inline"&gt;\(f_{XY}(x,y)=f_X(x)f_Y(y)\)&lt;/span&gt;. Define: &lt;span
+class="math display"&gt;\[
+s = x+y, \qquad r = x/y,
+\]&lt;/span&gt; with inverse transformation given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+y = \frac{s}{1+r},\qquad x = \frac{rs}{1+r}.
+\]&lt;/span&gt; The Jacobian of the &lt;span class="math inline"&gt;\((x,y) \mapsto
+(s,r)\)&lt;/span&gt; transformation is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\left|\dfrac{\partial (s,r)}{\partial(x,y)}\right|= \dfrac{(1+r)^2}{s}.
+\]&lt;/span&gt; Hence the joint density of &lt;span class="math inline"&gt;\(S =
+X+Y\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(R = X/Y\)&lt;/span&gt; is given
+by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+f_{SR}(s,r) = f(x,y)\left|\dfrac{\partial
+(x,y)}{\partial(s,r)}\right|=f_X(\frac{rs}{1+r})f_Y(\frac{s}{1+r})\frac{s}{(1+r)^2}.
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The necessary and sufficient condition for this to factorize into a
+product, &lt;span class="math inline"&gt;\(f_{SR}(s,r)\equiv
+f_S(s)f_R(r)\)&lt;/span&gt;, is that &lt;span class="math inline"&gt;\(f_X(x)f_Y(y)
+= g_S(s)g_R(r)\)&lt;/span&gt; for some functions &lt;span
+class="math inline"&gt;\(g_S\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(g_R\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;This is true for all functions &lt;span
+class="math inline"&gt;\(f_X\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(f_Y\)&lt;/span&gt; from the family:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\phi(t) = \text{const} \times  t^\alpha e^{-\beta t}.
+\]&lt;/span&gt; This includes some important special cases:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;span class="math inline"&gt;\(\chi ^2\)&lt;/span&gt; distribution (&lt;span
+class="math inline"&gt;\(\alpha = \frac{\nu}{2}-1,\,\beta =
+\frac{1}{2}\)&lt;/span&gt;).&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;The exponential distribution: &lt;span class="math inline"&gt;\(\alpha =
+0,\,\beta &amp;gt;0\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;The “homogeneous” distribution: &lt;span class="math inline"&gt;\(\beta =
+0\)&lt;/span&gt; (restricted to the appropriate domain).&lt;/li&gt;
+&lt;li&gt;The uniform distribution: &lt;span class="math inline"&gt;\(\alpha = \beta
+= 0\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>3a555fa2751e207cc5df808bb9e96fc2</distill:md5>
       <category>Mathematics</category>
       <category>Probability Theory</category>
-      <guid>https://vgherard.github.io/posts/sum-and-ratio-of-independent-random-variables</guid>
-      <pubDate>2023-06-14</pubDate>
+      <guid>https://vgherard.github.io/posts/2023-06-14-sum-and-ratio-of-independent-random-variables</guid>
+      <pubDate>2023-06-13</pubDate>
     </item>
     <item>
       <title>Fisher's Randomization Test</title>
