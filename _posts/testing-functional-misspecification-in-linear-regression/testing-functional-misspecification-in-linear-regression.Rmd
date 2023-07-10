@@ -70,16 +70,51 @@ be chosen to be robust to heteroskedasticity (see [Model Misspecification and Li
 The code that follows illustrates this procedure with an example dataset. The following section contains a more in-depth simulation study of the property of this test.
 
 ```{r fit_cars}
-fit <- lm(dist ~ speed, data = cars)
+fit_cars <- lm(dist ~ speed, data = cars)
 with(data = cars, plot(speed, dist))
-abline(fit)
+abline(fit_cars)
 ```
 ```{r reset_test_cars}
-lmtest::resettest(fit, vcov = sandwich::vcovHC)
+lmtest::resettest(fit_cars, 
+									type = "regressor", 
+									power = 2,
+									vcov = sandwich::vcovHC
+									)
 ```
+Unfortunately, the output of `lmtest::resettest` does not include the results of the extended fit, which can be useful to understand the *impact* of the omitted covariates on the overall model picture (independently of the RESET $p$-value under the null hypothesis). ^[With enough data, the RESET test would likely test positive for a variety of misspecifications, but that doesn't mean that such misspecification are necessarily relevant from a modeling perspective. Here, for instance, a large coefficient for $\text{(speed)}^2$ with a $Z$-score of two $\sigma$s could be more worrying than a minuscule coefficient with a $Z$-score of five $\sigma$s.]
+
+In order to get some insight on the effect of misspecification, we need to manually perform the RESET fit and make the relevant comparisons. For instance,
+here I perform the extended fit with the $\text{(speed)}^2$ covariate and make a visual comparison of the two fits: 
+
+```{r fit_cars_sq}
+fit_cars_sq <- lm(dist ~ speed + I(speed*speed), data = cars)
+with(data = cars, plot(speed, dist))
+abline(fit_cars)
+lines(x = cars$speed, y = fitted(fit_cars_sq), col = "blue")
+```
+
+In the quadratic fit, the expected change in $\text{dist}$ for a unit change in $\text{speed}$ - the so called "marginal effect" of $\text{speed}$ - depends on $\text{speed}$:
+
+```{r cars_marginal_effects, code_folding=TRUE}
+with(
+	data = data.frame(
+		speed = cars$speed,
+		slope_quadratic = 
+			coef(fit_cars_sq)[[2]] + 2 * coef(fit_cars_sq)[[3]] * cars$speed  
+	), {
+	plot(
+		x = speed, y = slope_quadratic, 
+		type = "l", col = "blue", 
+		xlab = "speed", ylab = "Slope", 
+		main = "'Speed' vs. 'Dist': marginal effect")
+	abline(h = coef(fit_cars)[[2]])
+})
+```
+
+
 ## RESET + HC vcov: a simulation study
 
-We consider a univariate regression problem, with a regressor $X \sim \mathcal N (0,1)$, a noise term $\varepsilon \sim \mathcal N (0,\sigma= 0.1)$ and a response $Y$. We will consider three ground truth distributions for $Y$ given $X$:
+We consider a univariate regression problem, with a regressor $X \sim \mathcal N (0,1)$, a noise term $\varepsilon \sim \mathcal N (0,\sigma= 3)$ and a response $Y$. We will consider three ground truth distributions for $Y$ given $X$:
 
 $$
 \begin{split}
@@ -90,16 +125,17 @@ $$
 $$
 We will study, through simulation, the $p$-value distribution of the RESET test for linear regression based on the model $Y = q+m X + \epsilon$, where $q$ and $m$ are unknown coefficients, and $\epsilon$ is Gaussian noise with unknown variance. It follows that the model is correctly specified with respect to $\text{T1}$, has functional misspecification with respect to  $\text{T2}$, and potentially noise misspecification^[Sometimes also referred to as "second order misspecification".] with respect to $\text{T3}$, if we model variance as being independent of $X$.
 
-Data will consist of independent samples $(X_i, Y_i)$ from the joint distribution of $X$ and $Y$. To facilitate simulation, we define some helpers:
+Data will consist of independent samples $(X_i, Y_i)$ from the joint distribution of $X$ and $Y$. To facilitate simulation, we define some helpers in the code chunk below.
 
-```{r simulation_helpers}
+```{r simulation_helpers, code_folding=TRUE}
 #' Helper to generate data with prescribed: 
 #' * Regressor distribution: `x`
 #' * Response conditional mean: `f`
 #' * Response conditional noise: `eps` 
 dgp_fun <- function(x, f, eps) {
 	function(n) {
-		data.frame(x = x(n), y = f(x) + eps(x))
+		.x <- x(n)
+		data.frame(x = .x, y = f(.x) + eps(.x))
 	}
 }
 
@@ -107,30 +143,116 @@ dgp_fun <- function(x, f, eps) {
 #' * Data generating process: `dgp`
 #' * Sample size of simulated datasets: `n`
 #' * Summary function (e.g. p-value of RESET test): `summarize_fun`
-lm_simulate <- function(dgp, n, summarize_fun, nsims = 1e3, simplify = TRUE) {
-	replicate(nsims, {
+lm_simulate <- function(dgp, n, summarize_fun, nsim, simplify) {
+	replicate(nsim, {
 		data <- dgp(n)
 		fit <- lm(y ~ x, data)
 		summarize_fun(fit)
 	}, simplify = simplify)
 } 
 
-#' Helper to perform RESET test on a `lm` fit object, and extract p-value.
-#' The estimator for regression coefficients variance-covariance matrix can be
-#' set through the `vcov` argument.
-reset_pvalue <- function(
-		fit, power = 2:3, type = "regressor", vcov = sandwich::vcovHC
+#' Helper to plot the PDF and CDF of a vector of simulated p-values
+plot_pvalue <- function(
+		p, xlim, main = "Distribution of p-values", sub = NULL
 		) 
 {
-	lmtest::resettest(fit, power = power, type = type, vcov = vcov)$p.value
+	oldpar <- par(mfrow = c(1, 2))
+	hist(p, freq = FALSE, main = NULL)
+	plot(
+		ecdf(p),
+		do.points = FALSE,
+		xlim = xlim, 
+		xlab = "p",
+		ylab = "Empirical Quantile",
+		main = NULL
+		)
+	abline(0, 1, lty = "dotted")
+	#mtext(main, line = -2, outer = TRUE)
+	title(main = main, outer = TRUE, line = -1)
+	if(!is.null(sub))
+		mtext(sub, line = -3, outer = TRUE)
+	# title(main = main, sub = sub, outer = TRUE, line = -1)
+	par(oldpar) 
+}
+
+#' Helper to perform RESET test on a `lm` fit object, and plot the p-value
+#' distribution. The estimator for regression coefficients variance-covariance
+#' matrix can be set through the `vcov` argument.
+reset_pvalue <- function(
+		dgp, n,  # Data generating process params
+		power = 2:3, type = "regressor", vcov = sandwich::vcovHC,  # RESET params
+		plot = TRUE, xlim = c(0, 0.1),  # Plotting params
+		nsim = 1e4  # Simulation params
+		) 
+{
+	summarize_fun <- function(fit)
+		lmtest::resettest(fit, power = power, type = type, vcov = vcov)$p.value
+	
+	p <- lm_simulate(
+		dgp = dgp, 
+		n = n, 
+		summarize_fun = summarize_fun, 
+		nsim = nsim,
+		simplify = TRUE
+		)
+	
+	if (plot) {
+		dgp_name = deparse(substitute(dgp))
+		sub <- paste0("DGP: ", dgp_name, 
+									" | n = ", n, 
+									" | nsim = ", nsim)
+		plot_pvalue(p, xlim = xlim, sub = sub)
+	}
+	
+	return(invisible(p))
+	
 }
 ```
 
+### T1: Correct specification
 
-### M1: Correct specification
+```{r dgp_t1}
+dgp_t1 <- dgp_fun(
+	x = rnorm,
+	f = \(x) x,
+	eps = \(x) rnorm(length(x), sd = 3)
+)
 
-### M2: Functional misspecification
+set.seed(840)
+with(data = dgp_m1(100), plot(x = x, y = y))
+```
 
+```{r reset_t1}
+p <- reset_pvalue(dgp = dgp_t1, n = 100, nsim = 1e3)
+```
+```{r}
+p <- reset_pvalue(dgp = dgp_t1, n = 10, nsim = 1e3, vcov = stats::vcov)
+```
+
+
+```{r t1_pquantiles}
+quantile(p, c(0.001, 0.01, 0.05, 0.1))
+```
+
+
+
+### T2: Functional misspecification
+```{r dgp_t2}
+dgp_t2 <- dgp_fun(
+	x = rnorm,
+	f = \(x) x^3,
+	eps = \(x) rnorm(length(x), sd = 3)
+)
+
+set.seed(840)
+with(data = dgp_t2(100), plot(x = x, y = y))
+```
+
+```{r}
+reset_pvalue(
+	dgp = dgp_t2, n = 100, nsim = 1e3
+)
+```
 ### M3: Heteroskedastic noise
 
 ```{r}
