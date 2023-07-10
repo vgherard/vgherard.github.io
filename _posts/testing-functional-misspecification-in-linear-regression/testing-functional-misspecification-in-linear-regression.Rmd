@@ -1,0 +1,139 @@
+---
+title: "Testing functional specification in linear regression"
+description: |
+  Some options in R, using the `{lmtest}` package.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-05-25
+output:
+  distill::distill_article:
+    self_contained: false
+categories: 
+  - Statistics
+  - Model Misspecification
+  - Regression
+  - Linear Models
+  - R
+draft: true
+---
+
+Another one from the series on "misspecified regression models" (started with [Model Misspecification and Linear Sandwiches](https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/)). 
+
+## Intro
+
+Lately I've been messing around with the  [`{lmtest}`](https://cran.r-project.org/web/packages/lmtest/index.html) R package, a nice collection of hypothesis tests for classical linear model assumptions: *linearity* (of course) and *heteroskedasticity* ($X$-independence of the conditional variance). 
+
+Just to clarify, here the relevant "linearity" assumption is that the conditional mean $\mathbb E (Y\vert X)$ is given by a linear combination of *known functions* $f_i$ of $X$:
+
+$$
+\mathbb E (Y\vert X) = \sum _{i = 1}^p \alpha_if_i(X),
+$$
+Testing "linearity" (or, as goes the title, "functional specification") refers to testing that the chosen set of functions $\{f_{i}\}_{i=1,\dots,p}$ provide a valid description of the data generating process.
+
+## First attempt: residual autocorrelation
+
+My initial intuition was that it should be possible to test functional specification through the following procedure:
+
+- Perform linear regression with the specified functional form.
+- Order the residuals according to the corresponding values of $X$^[Here I'm implicitly assuming that we have a single $X$, but a similar logic should also apply to multivariate regression.].
+- Test for serial correlation (e.g. performing a Durbin-Watson test, `lmtest::dwtest`) on the series of ordered residuals.
+
+The idea is quite simple: if residuals exhibit some systematic pattern when
+plotted against $X$, then for close values of $X$, residuals should also tend to be close, leading to a positive correlation. For example:
+
+```{r}
+set.seed(840)
+x <- rnorm(1e2)
+y <- x^3 + rnorm(length(x))
+plot(x, y)
+abline(lm(y ~ x))
+```
+This, I suspect, is the reason why functions such as `lmtest::dwtest()` have an
+`order.by` argument which precisely allows to sort residuals before performing the test.
+
+Unfortunately, it turns out that such a method is not only sensitive to functional misspecification, but also to heteroskedasticity - as one can quickly verify by running a simulation using `lmtest::dwtest()`.
+
+The overall idea is interesting, and works for homoskedastic noise, but the limitation to constant variance may be a bit too stringent. For this reason I turned to a second method, which also allows to take into account the 
+possibility of heteroskedastic noise.
+
+## Second attempt: RESET + Heteroskedastic Consistent variance estimates
+
+The idea of RESET tests (see `?lmtest::resettest()`) is also quite simple: 
+if the linear model is correct, there should be relatively little gain in adding additional non-linear functions of the original covariates to the fit's formula. 
+
+The improvements from these model adjustments can be tested through a standard 
+$Z$-test (or $F$-test, for multiple adjustments at once), with an important 
+catch: the covariance matrix of regression coefficients used in these tests can 
+be chosen to be robust to heteroskedasticity (see [Model Misspecification and Linear Sandwiches](https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/)).
+
+The code that follows illustrates this procedure with an example dataset. The following section contains a more in-depth simulation study of the property of this test.
+
+```{r fit_cars}
+fit <- lm(dist ~ speed, data = cars)
+with(data = cars, plot(speed, dist))
+abline(fit)
+```
+```{r reset_test_cars}
+lmtest::resettest(fit, vcov = sandwich::vcovHC)
+```
+## RESET + HC vcov: a simulation study
+
+We consider a univariate regression problem, with a regressor $X \sim \mathcal N (0,1)$, a noise term $\varepsilon \sim \mathcal N (0,\sigma= 0.1)$ and a response $Y$. We will consider three ground truth distributions for $Y$ given $X$:
+
+$$
+\begin{split}
+\text{T1}:& \qquad Y=X+\varepsilon\\
+\text{T2}:& \qquad Y=X^3 + \varepsilon\\
+\text{T3}:& \qquad Y=X + X^2\varepsilon
+\end{split}
+$$
+We will study, through simulation, the $p$-value distribution of the RESET test for linear regression based on the model $Y = q+m X + \epsilon$, where $q$ and $m$ are unknown coefficients, and $\epsilon$ is Gaussian noise with unknown variance. It follows that the model is correctly specified with respect to $\text{T1}$, has functional misspecification with respect to  $\text{T2}$, and potentially noise misspecification^[Sometimes also referred to as "second order misspecification".] with respect to $\text{T3}$, if we model variance as being independent of $X$.
+
+Data will consist of independent samples $(X_i, Y_i)$ from the joint distribution of $X$ and $Y$. To facilitate simulation, we define some helpers:
+
+```{r simulation_helpers}
+#' Helper to generate data with prescribed: 
+#' * Regressor distribution: `x`
+#' * Response conditional mean: `f`
+#' * Response conditional noise: `eps` 
+dgp_fun <- function(x, f, eps) {
+	function(n) {
+		data.frame(x = x(n), y = f(x) + eps(x))
+	}
+}
+
+#' Helper to simulate results of linear regression, with prescribed:
+#' * Data generating process: `dgp`
+#' * Sample size of simulated datasets: `n`
+#' * Summary function (e.g. p-value of RESET test): `summarize_fun`
+lm_simulate <- function(dgp, n, summarize_fun, nsims = 1e3, simplify = TRUE) {
+	replicate(nsims, {
+		data <- dgp(n)
+		fit <- lm(y ~ x, data)
+		summarize_fun(fit)
+	}, simplify = simplify)
+} 
+
+#' Helper to perform RESET test on a `lm` fit object, and extract p-value.
+#' The estimator for regression coefficients variance-covariance matrix can be
+#' set through the `vcov` argument.
+reset_pvalue <- function(
+		fit, power = 2:3, type = "regressor", vcov = sandwich::vcovHC
+		) 
+{
+	lmtest::resettest(fit, power = power, type = type, vcov = vcov)$p.value
+}
+```
+
+
+### M1: Correct specification
+
+### M2: Functional misspecification
+
+### M3: Heteroskedastic noise
+
+```{r}
+
+```
+
