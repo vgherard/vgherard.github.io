@@ -1,0 +1,25 @@
+---
+title: "AB tests and repeated checking"
+description: |
+  A short description of the post.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-07-24
+output:
+  distill::distill_article:
+    self_contained: false
+categories: 
+  - AB testing
+  - Frequentist Methods
+  - Causal Inference
+  - Statistics
+  - R
+draft: true
+---
+
+```{r}
+
+```
+
+
