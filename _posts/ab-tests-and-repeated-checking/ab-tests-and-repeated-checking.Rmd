@@ -19,7 +19,34 @@ draft: true
 ---
 
 ```{r}
+generate_p_values <- function(n = 14, size = 1e3, prob = 0.5, p_thresh = 0.05) {
+	successes_a <- cumsum( rbinom(n = n, size = size, prob = prob) )
+	successes_b <- cumsum( rbinom(n = n, size = size, prob = prob) )
+	
+	sapply(1:n, \(k) {
+		prop.test(
+			x = c(successes_a[k], successes_b[k]), 
+			n = k * size * c(1, 1)
+			)$p.value
+	})
+}
+```
 
+```{r}
+set.seed(840)
+ps <- replicate(1e3, generate_p_values(
+	n = 28, size = 1e2, prob = 0.5, p_thresh = 0.05
+)) |> t()
+```
+
+```{r}
+m <- apply(ps, 1, \(x) as.logical(cumsum(x < 0.05))) |> t()
+```
+
+```{r}
+fprs <- colMeans(m)
+
+plot(fprs)
 ```
 
 
