@@ -18,15 +18,82 @@ categories:
 draft: true
 ---
 
+## Intro
+
+> "How is the experiment going?"
+
+Also:
+
+> "Do we already see something?"
+
+And my favorite one:
+
+> "Did we already hit significance, or do we need more data?"
+
+If you are regularly dealing with experiments whose outcomes are loaded with 
+high expectations, you will likely have received (or perhaps asked yourself) 
+similar questions from time to time. 
+
+In many data analysis contexts, including but not limited to for-profit ones, 
+researchers are always trying to come up with positive results as fast as
+they can. Therefore, it is not at all surprising to see questions such as the 
+ones above regularly arise during the course of an experiment. This is natural 
+and not a problem *per se*. What I want to highlight and quantify in this post 
+is how, if not done carefully, such "real-time" monitoring schedules can 
+seriously invalidate data analysis - mainly by inflating false positive rates. 
+
+Generally speaking, naive monitoring leads to a problem of Selective
+Inference (a topic which I have touched in [other places in this blog](https://vgherard.github.io/#category:Selective_Inference)). Avoiding 
+repeated checks is not the only valid solution - here the keyword is 
+[Sequential Hypothesis Testing](https://en.wikipedia.org/wiki/Sequential_analysis),
+a topic I may explore in future posts. Here my goal is to understand how bad is 
+the bad solution, which we can easily achieve through simulation.
+
+## What's the matter with repeated checks?
+
+To understand where do problems arise, let's remind that the classical 
+Frequentist framework ^[I move within this framework because it is the only 
+one I'm reasonably comfortable with, and for which I have a decent understanding 
+of the decision dynamics that follow from it. That said, I suspect that also 
+Bayesian hypothesis testing can be affected by the kind of issues discussed 
+here, although perhaps in a less transparent way, due to working with formal a 
+posteriori probabilities.] operates by providing
+*a priori* guarantees (bounds) on the probabilities of ^[The statistical jargon
+used to indicate these two types of errors, and the corresponding a priori 
+guarantees on their probabilities, sounds very mysterious to me 
+(Type I/II errors, size and power...). I like to think in terms of 
+"False Positive" and "False Negative" rates, which is the same thing.]: 
+
+- A false positive outcome in the absence of any signal: rejecting the null 
+hypothesis when this is actually true.
+- A false negative outcome in the presence of some (well-defined) signal.
+
+These guarantees are always formulated assuming a certain experimental 
+*schedule*, and any departure from it invalidates in principle the 
+claimed False Positive Rate (FPR) and False Negative Rate (FNR).
+
+
+
+
+
+# Simulation
+
 ```{r}
-generate_p_values <- function(n = 14, size = 1e3, prob = 0.5, p_thresh = 0.05) {
+generate_p_values <- function(n = 14, 
+															size = 1e3, 
+															prob = 0.5, 
+															conf.level = 0.05
+															) 
+	{
 	successes_a <- cumsum( rbinom(n = n, size = size, prob = prob) )
 	successes_b <- cumsum( rbinom(n = n, size = size, prob = prob) )
 	
 	sapply(1:n, \(k) {
 		prop.test(
 			x = c(successes_a[k], successes_b[k]), 
-			n = k * size * c(1, 1)
+			n = k * size * c(1, 1), 
+			alternative = "greater",
+			conf.level = conf.level
 			)$p.value
 	})
 }
@@ -35,7 +102,7 @@ generate_p_values <- function(n = 14, size = 1e3, prob = 0.5, p_thresh = 0.05) {
 ```{r}
 set.seed(840)
 ps <- replicate(1e3, generate_p_values(
-	n = 28, size = 1e2, prob = 0.5, p_thresh = 0.05
+	n = 14, size = 1e3, prob = 0.5, conf.level = 0.05
 )) |> t()
 ```
 
@@ -45,8 +112,16 @@ m <- apply(ps, 1, \(x) as.logical(cumsum(x < 0.05))) |> t()
 
 ```{r}
 fprs <- colMeans(m)
-
-plot(fprs)
 ```
 
 
+```{r}
+plot(fprs, type = "l", xlab = "t", ylab = "False Positives (%)")
+abline(h = 0.05, col = "red", lty = "dashed")
+```
+
+
+# Other simulation
+
+Using the logic "if significance  > 80%", continue the experiment, otherwise 
+not.
