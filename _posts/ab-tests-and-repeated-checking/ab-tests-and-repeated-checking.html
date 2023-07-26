@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["ab-tests-and-repeated-checking_files/anchor-4.2.2/anchor.min.js","ab-tests-and-repeated-checking_files/bowser-1.9.3/bowser.min.js","ab-tests-and-repeated-checking_files/distill-2.2.21/template.v2.js","ab-tests-and-repeated-checking_files/figure-html5/unnamed-chunk-5-1.png","ab-tests-and-repeated-checking_files/header-attrs-2.23/header-attrs.js","ab-tests-and-repeated-checking_files/jquery-3.6.0/jquery-3.6.0.js","ab-tests-and-repeated-checking_files/jquery-3.6.0/jquery-3.6.0.min.js","ab-tests-and-repeated-checking_files/jquery-3.6.0/jquery-3.6.0.min.map","ab-tests-and-repeated-checking_files/popper-2.6.0/popper.min.js","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy-bundle.umd.min.js","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy-light-border.css","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy.css","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy.umd.min.js","ab-tests-and-repeated-checking_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["ab-tests-and-repeated-checking_files/anchor-4.2.2/anchor.min.js","ab-tests-and-repeated-checking_files/bowser-1.9.3/bowser.min.js","ab-tests-and-repeated-checking_files/distill-2.2.21/template.v2.js","ab-tests-and-repeated-checking_files/figure-html5/unnamed-chunk-5-1.png","ab-tests-and-repeated-checking_files/figure-html5/unnamed-chunk-7-1.png","ab-tests-and-repeated-checking_files/header-attrs-2.23/header-attrs.js","ab-tests-and-repeated-checking_files/jquery-3.6.0/jquery-3.6.0.js","ab-tests-and-repeated-checking_files/jquery-3.6.0/jquery-3.6.0.min.js","ab-tests-and-repeated-checking_files/jquery-3.6.0/jquery-3.6.0.min.map","ab-tests-and-repeated-checking_files/popper-2.6.0/popper.min.js","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy-bundle.umd.min.js","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy-light-border.css","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy.css","ab-tests-and-repeated-checking_files/tippy-6.2.7/tippy.umd.min.js","ab-tests-and-repeated-checking_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1615,16 +1615,19 @@ of iterations, stop the experiment and declare the old subject as the winner.</l
 subject as the winner, if it doesn’t truly perform better than the old one?
 (<em>i.e.</em> what is the FPR of the whole procedure?)</p>
 <h2 id="simulation">Simulation</h2>
-<p>To simplify things,</p>
+<p>To compute the FPR, we assume that both the new and old subject have in fact the
+<em>same</em> opening rate <span class="math inline">\(p = 10 \%\)</span>. The following function generates a sequence of
+<span class="math inline">\(n\)</span> consecutive <span class="math inline">\(p\)</span>-values, computed as detailed above, that one could observe
+under these circumstances:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_p_values</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span> <span class='op'>=</span> <span class='fl'>14</span>, </span>
-<span>                              <span class='va'>size</span> <span class='op'>=</span> <span class='fl'>1e3</span>, </span>
-<span>                              <span class='va'>prob</span> <span class='op'>=</span> <span class='fl'>0.5</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_p_values</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span> <span class='op'>=</span> <span class='fl'>28</span>,      <span class='co'># maximum number of iterations</span></span>
+<span>                              <span class='va'>size</span> <span class='op'>=</span> <span class='fl'>1e3</span>,  <span class='co'># email sends per batch</span></span>
+<span>                              <span class='va'>p</span> <span class='op'>=</span> <span class='fl'>0.1</span>      <span class='co'># true opening rate of both variants</span></span>
 <span>                              <span class='op'>)</span> </span>
 <span>  <span class='op'>{</span></span>
-<span>  <span class='va'>successes_a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, size <span class='op'>=</span> <span class='va'>size</span>, prob <span class='op'>=</span> <span class='va'>prob</span><span class='op'>)</span> <span class='op'>)</span></span>
-<span>  <span class='va'>successes_b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, size <span class='op'>=</span> <span class='va'>size</span>, prob <span class='op'>=</span> <span class='va'>prob</span><span class='op'>)</span> <span class='op'>)</span></span>
+<span>  <span class='va'>successes_a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, size <span class='op'>=</span> <span class='va'>size</span>, prob <span class='op'>=</span> <span class='va'>p</span><span class='op'>)</span> <span class='op'>)</span>  <span class='co'># openings A</span></span>
+<span>  <span class='va'>successes_b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, size <span class='op'>=</span> <span class='va'>size</span>, prob <span class='op'>=</span> <span class='va'>p</span><span class='op'>)</span> <span class='op'>)</span>  <span class='co'># openings B</span></span>
 <span>  </span>
 <span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span>, \<span class='op'>(</span><span class='va'>k</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>    <span class='fu'><a href='https://rdrr.io/r/stats/prop.test.html'>prop.test</a></span><span class='op'>(</span></span>
@@ -1636,30 +1639,59 @@ subject as the winner, if it doesn’t truly perform better than the old one?
 <span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
+<p>For instance:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>999</span><span class='op'>)</span></span>
+<span><span class='op'>(</span> <span class='va'>p_example</span> <span class='op'>&lt;-</span> <span class='fu'>generate_p_values</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 0.4704229 0.3932333 0.1669308 0.2219066 0.2592812</code></pre>
+</div>
+<p>The function below evaluates such a sequence of <span class="math inline">\(p\)</span>-values with a fixed
+threshold <span class="math inline">\(\alpha\)</span>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>evaluate_p_values</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>p</span>, <span class='va'>alpha</span> <span class='op'>=</span> <span class='fl'>0.05</span>, <span class='va'>checkpoints</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span><span class='op'>[</span><span class='va'>checkpoints</span><span class='op'>]</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>as.logical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>p</span> <span class='op'>&lt;</span> <span class='va'>alpha</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p>For instance, with <span class="math inline">\(\alpha = 20\%\)</span>, the sequence above would lead to a
+(false) positive result, which would be claimed at the third check. Output
+looks as follows:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>evaluate_p_values</span><span class='op'>(</span><span class='va'>p_example</span>, alpha <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+</div>
+<p>Let me now simulate a large number of such “experiments”. I will fix
+<span class="math inline">\(\alpha = 5\%\)</span>, a popular choice:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>840</span><span class='op'>)</span></span>
-<span><span class='va'>ps</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span><span class='op'>(</span><span class='fl'>1e3</span>, <span class='fu'>generate_p_values</span><span class='op'>(</span></span>
-<span>  n <span class='op'>=</span> <span class='fl'>28</span>, size <span class='op'>=</span> <span class='fl'>1e3</span>, prob <span class='op'>=</span> <span class='fl'>0.5</span></span>
-<span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>sim_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span><span class='op'>(</span><span class='fl'>1e3</span>, <span class='fu'>generate_p_values</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'>evaluate_p_values</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
+<p>The result is a matrix whose columns are logical vectors such as the one above:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>ps</span>, <span class='fl'>1</span>, \<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>as.logical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;</span> <span class='fl'>0.01</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_data</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span></span></code></pre>
 </div>
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[23] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
 </div>
+<p>(a true negative result). Hence, the averages of this matrix rows provide the
+false positive rates after <span class="math inline">\(n\)</span> checks:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fprs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colMeans</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span></span></code></pre>
-</div>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>fprs</span>, type <span class='op'>=</span> <span class='st'>"l"</span>, xlab <span class='op'>=</span> <span class='st'>"t"</span>, ylab <span class='op'>=</span> <span class='st'>"False Positives (%)"</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fprs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowMeans</a></span><span class='op'>(</span><span class='va'>sim_data</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>fprs</span>, type <span class='op'>=</span> <span class='st'>"l"</span>, xlab <span class='op'>=</span> <span class='st'>"Iterations"</span>, ylab <span class='op'>=</span> <span class='st'>"False Positive Rate"</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>h <span class='op'>=</span> <span class='fl'>0.05</span>, col <span class='op'>=</span> <span class='st'>"red"</span>, lty <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="ab-tests-and-repeated-checking_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+<p><img src="ab-tests-and-repeated-checking_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
 </div>
 <h2 id="other-simulation">Other simulation</h2>
 <p>Using the logic “if significance &gt; 80%”, continue the experiment, otherwise
@@ -1672,7 +1704,7 @@ experiments for purely scientific or utilitaristic purposes. If you are unable
 to quantify, or at least approximate, the true FPR and FNR of a statistical
 test, it means that you essentially don’t know what you are doing: you may be
 convinced that your setting gives a false positive</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>

@@ -156,7 +156,9 @@ generate_p_values <- function(n = 28,      # maximum number of iterations
 }
 ```
 
+
 For instance:
+
 ```{r}
 set.seed(999)
 ( p_example <- generate_p_values(n = 5) )
@@ -183,23 +185,74 @@ $\alpha = 5\%$, a popular choice:
 
 ```{r}
 set.seed(840)
-sim_data <- replicate(1e3, generate_p_values() |> evaluate_p_values())
+sim_data <- replicate(1e4, generate_p_values(n = 100) |> evaluate_p_values())
 ```
 
-The result is a matrix whose columns are logical vectors such as the one above.
-For instance:
+The result is a matrix whose columns are logical vectors such as the one above:
+
 ```{r}
 sim_data[,1]
 ```
-(a true negative result). Hence, the average of this matrix rows provides the
-false positive rate after $n$ checks:
+(a true negative result). Hence, the averages of this matrix rows provide the
+false positive rates after $n$ checks:
 
 ```{r}
-fprs <- rowMeans(sim_data)
-plot(fprs, type = "l", xlab = "Iterations", ylab = "False Positive Rate")
+fpr <- rowMeans(sim_data)
+plot(fpr, type = "l", xlab = "Checks", ylab = "False Positive Rate")
 abline(h = 0.05, col = "red", lty = "dashed")
 ```
+The curve above shows how the FPR depends on the number of checks performed, 
+according to the procedure described in the previous section. For a single 
+check, this coincides with FPR of an individual binomial test^[The fact that 
+this is not exactly equal to $\alpha$, but in fact slightly smaller, is due to 
+the discreteness of the underlying binomial distributions. The $p$-value of the
+binomial test is defined in such a way to satisfy 
+$\text{Pr}(p < \alpha)\leq \alpha$.]. However, allowing for repeated checks, we 
+see that the overall FPR steadily increases with number of checks. With $n = 3$
+checks, the FPR is already close to 10%, almost twice the FPR of the individual
+tests:
 
+```{r}
+fpr[3]
+```
+With $n \approx 40$ checks, the FPR is about $25 \%$, the same FPR of
+an experiment that involves tossing a coin twice, declaring it biased if the 
+result is two consecutive "tails".
+
+```{r}
+fpr[40]
+```
+
+Here we are assuming that data is re-checked after the arrival of every single 
+batch, but there are of course infinite alternative possibilities. For instance,
+the chunk below shows what happens when checks are performed after 
+the collection of $n = 1, \,4, \,16, \,64$ batches of data (at each checkpoint,
+the expected size of statistical fluctuations is reduced by a factor of $2$).
+
+```{r}
+checkpoints <- c(1, 4, 16, 64)
+
+set.seed(840)
+fpr2 <- replicate(1e4, 
+					generate_p_values(n = 64) |> 
+						evaluate_p_values(checkpoints = checkpoints)
+					) |>
+	rowMeans()
+
+plot(fpr2, 
+		 type = "b", 
+		 xlab = "Checks", 
+		 ylab = "False Positive Rate", 
+		 xaxt = "n"
+		 )
+
+abline(h = 0.05, col = "red", lty = "dashed")
+axis(1, at = seq_along(checkpoints))
+axis(3, at = seq_along(checkpoints), labels = paste(checkpoints, "K"))
+mtext("Sample Size", side = 3, line = 2)
+
+
+```
 
 
 ## Other simulation
