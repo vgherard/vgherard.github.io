@@ -30,9 +30,9 @@ And my favorite one:
 
 > "Did we already hit significance, or do we need more data?"
 
-If you are regularly dealing with experiments whose outcomes are loaded with 
-high expectations, you will likely have received (or perhaps asked yourself) 
-similar questions from time to time. 
+If you have dealt with experiments with relatively high outcome expectations, 
+you will likely have received (or perhaps asked yourself) similar questions 
+from time to time. 
 
 In many data analysis contexts, including but not limited to for-profit ones, 
 researchers are always trying to come up with positive results as fast as
@@ -40,18 +40,19 @@ they can. Therefore, it is not at all surprising to see questions such as the
 ones above regularly arise during the course of an experiment. This is natural 
 and not a problem *per se*. What I want to highlight and quantify in this post 
 is how, if not done carefully, such "real-time" monitoring schedules can 
-seriously invalidate data analysis - mainly by inflating false positive rates. 
+seriously invalidate data analysis - by inflating false positive and false 
+negative rates.
 
-Generally speaking, naive monitoring leads to a problem of Selective
-Inference (a topic which I have touched in [other places in this blog](https://vgherard.github.io/#category:Selective_Inference)). Avoiding 
-repeated checks is not the only valid solution - here the keyword is 
-[Sequential Hypothesis Testing](https://en.wikipedia.org/wiki/Sequential_analysis),
-a topic I may explore in future posts. Here my goal is to understand how bad is 
-the bad solution, which we can easily achieve through simulation.
+Generally speaking, naive monitoring leads to problems of selective/simultaneous
+inference (a topic which I have touched in [other places in this blog](https://vgherard.github.io/#category:Selective_Inference)). Avoiding 
+ad-hoc checks is not the only valid solution - if you want to learn about some 
+proper method you may want to look into [Sequential Hypothesis Testing](https://en.wikipedia.org/wiki/Sequential_analysis),
+a topic that I may explore in future posts. Here my goal is to understand 
+*how bad is the bad solution*, which can be easily answered through simulation.
 
 ## What's the matter with repeated checks?
 
-To understand where do problems arise, let's remind that the classical 
+To understand why problems can arise, recall that the classical 
 Frequentist framework ^[I move within this framework because it is the only 
 one I'm reasonably comfortable with, and for which I have a decent understanding 
 of the decision dynamics that follow from it. That said, I suspect that also 
@@ -68,60 +69,151 @@ guarantees on their probabilities, sounds very mysterious to me
 hypothesis when this is actually true.
 - A false negative outcome in the presence of some (well-defined) signal.
 
-These guarantees are always formulated assuming a certain experimental 
-*schedule*, and any departure from it invalidates in principle the 
-claimed False Positive Rate (FPR) and False Negative Rate (FNR).
+The *a priori* nature of these guarantees means that they are stipulated before
+running the experiment and assuming a certain experimental *schedule* ^[This is 
+generally true, also in the aforementioned sequential settings. In that case,
+the difference is that the schedule takes into account that continuous and/or 
+interim checks will be performed.]. 
+This implies that any departure from the original schedule can in principle 
+invalidate the claimed False Positive Rate (FPR) and False Negative Rate (FNR).
+
+For instance, the most basic experimental schedule 
+(actually the one implicitly assumed by virtually all [sample size calculators](https://www.google.com/search?q=sample+size+calculator)
+) is:
+
+1. Collect data until reaching a prefixed sample size.
+2. Run an hypothesis test (with a prefixed significance threshold for claiming a 
+signal).
+
+Common examples of departures from the original schedule include:
+
+- Running several tests on partial data (before reaching the established sample 
+size), to look for an early signal.
+- Stopping the experiment beforehand, because partial data doesn't show any 
+signal.
+- Prolonging the experiment after reaching the established sample size, because 
+there's a "hint" to a signal, but the significance threshold was not reached.
+
+In what follows, I will focus on the first behavior, whose result is to inflate
+the FPR. Again, there are various ways to perform repeated checks while keeping 
+the FPR under control, but that's not the focus of this post. Instead, I want to
+understand how FPR is affected by *repeating the original test several* times on
+partial data.
+
+## Example
+
+Let me illustrate the idea with an example from marketing. Suppose you are 
+running an experiment to optimize an email campaign, say you want to test 
+whether a new email subject performs better (in terms of opening rates) than 
+the current one.
+
+In order to do so, you start sending batches of 2K emails to random users,
+1K using the new subject and 1K using the old one. After each send, you 
+compare the opening rates of all users reached so far, with the idea of 
+replacing the old subject with the new one, 
+*as soon as a statistically significant improvement is observed*. 
+
+Concretely, you propose to do the following:
+
+1. At each step, calculate the opening rates for the old and new subjects, 
+for all email sends so far.
+1. Compute a $p$-value for the hypothesis test^[Technically, this would be a 
+two-sample, one-sided binomial test.] that tests whether the new subject leads 
+to an higher opening rate than the old one.
+1. If the $p$-value is smaller than a certain fixed threshold $\alpha$, stop the 
+experiment and declare the new subject as the winner.
+1. If no $p$-value smaller than $\alpha$ is observed after a certain number $n$
+of iterations, stop the experiment and declare the old subject as the winner.
+
+Now, the question is: how often would the above procedure declare the new 
+subject as the winner, if it doesn't truly perform better than the old one? 
+(*i.e.* what is the FPR of the whole procedure?)
 
 
+## Simulation
 
-
-
-# Simulation
+To compute the FPR, we assume that both the new and old subject have in fact the 
+*same* opening rate $p = 10 \%$. The following function generates a sequence of 
+$n$ consecutive $p$-values, computed as detailed above, that one could observe 
+under these circumstances:
 
 ```{r}
-generate_p_values <- function(n = 14, 
-															size = 1e3, 
-															prob = 0.5, 
-															conf.level = 0.05
+generate_p_values <- function(n = 28,      # maximum number of iterations
+															size = 1e3,  # email sends per batch
+															p = 0.1      # true opening rate of both variants
 															) 
 	{
-	successes_a <- cumsum( rbinom(n = n, size = size, prob = prob) )
-	successes_b <- cumsum( rbinom(n = n, size = size, prob = prob) )
+	successes_a <- cumsum( rbinom(n = n, size = size, prob = p) )  # openings A
+	successes_b <- cumsum( rbinom(n = n, size = size, prob = p) )  # openings B
 	
 	sapply(1:n, \(k) {
 		prop.test(
 			x = c(successes_a[k], successes_b[k]), 
 			n = k * size * c(1, 1), 
 			alternative = "greater",
-			conf.level = conf.level
 			)$p.value
 	})
 }
 ```
 
+For instance:
+```{r}
+set.seed(999)
+( p_example <- generate_p_values(n = 5) )
+```
+The function below evaluates such a sequence of $p$-values with a fixed 
+threshold $\alpha$:
+
+```{r}
+evaluate_p_values <- function(p, alpha = 0.05, checkpoints = seq_along(p)) {
+	p <- p[checkpoints]
+	as.logical(cumsum(p < alpha))
+}
+```
+
+For instance, with $\alpha = 20\%$, the sequence above would lead to a 
+(false) positive result, which would be claimed at the third check. Output 
+looks as follows:
+
+```{r}
+evaluate_p_values(p_example, alpha = 0.2)
+```
+Let me now simulate a large number of such "experiments". I will fix 
+$\alpha = 5\%$, a popular choice:
+
 ```{r}
 set.seed(840)
-ps <- replicate(1e3, generate_p_values(
-	n = 14, size = 1e3, prob = 0.5, conf.level = 0.05
-)) |> t()
+sim_data <- replicate(1e3, generate_p_values() |> evaluate_p_values())
 ```
 
+The result is a matrix whose columns are logical vectors such as the one above.
+For instance:
 ```{r}
-m <- apply(ps, 1, \(x) as.logical(cumsum(x < 0.05))) |> t()
+sim_data[,1]
 ```
+(a true negative result). Hence, the average of this matrix rows provides the
+false positive rate after $n$ checks:
 
 ```{r}
-fprs <- colMeans(m)
-```
-
-
-```{r}
-plot(fprs, type = "l", xlab = "t", ylab = "False Positives (%)")
+fprs <- rowMeans(sim_data)
+plot(fprs, type = "l", xlab = "Iterations", ylab = "False Positive Rate")
 abline(h = 0.05, col = "red", lty = "dashed")
 ```
 
 
-# Other simulation
+
+## Other simulation
 
 Using the logic "if significance  > 80%", continue the experiment, otherwise 
 not.
+
+## Notes
+
+But before jumping into numbers, let us ask for a moment: 
+*should we really care?*
+
+My answer is a resounding *yes*, irrespective of whether you are running 
+experiments for purely scientific or utilitaristic purposes. If you are unable 
+to quantify, or at least approximate, the true FPR and FNR of a statistical 
+test, it means that you essentially don't know what you are doing: you may be 
+convinced that your setting gives a false positive 

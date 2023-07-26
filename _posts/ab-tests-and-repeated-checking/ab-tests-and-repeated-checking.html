@@ -1538,24 +1538,25 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <blockquote>
 <p>“Did we already hit significance, or do we need more data?”</p>
 </blockquote>
-<p>If you are regularly dealing with experiments whose outcomes are loaded with
-high expectations, you will likely have received (or perhaps asked yourself)
-similar questions from time to time.</p>
+<p>If you have dealt with experiments with relatively high outcome expectations,
+you will likely have received (or perhaps asked yourself) similar questions
+from time to time.</p>
 <p>In many data analysis contexts, including but not limited to for-profit ones,
 researchers are always trying to come up with positive results as fast as
 they can. Therefore, it is not at all surprising to see questions such as the
 ones above regularly arise during the course of an experiment. This is natural
 and not a problem <em>per se</em>. What I want to highlight and quantify in this post
 is how, if not done carefully, such “real-time” monitoring schedules can
-seriously invalidate data analysis - mainly by inflating false positive rates.</p>
-<p>Generally speaking, naive monitoring leads to a problem of Selective
-Inference (a topic which I have touched in <a href="https://vgherard.github.io/#category:Selective_Inference">other places in this blog</a>). Avoiding
-repeated checks is not the only valid solution - here the keyword is
-<a href="https://en.wikipedia.org/wiki/Sequential_analysis">Sequential Hypothesis Testing</a>,
-a topic I may explore in future posts. Here my goal is to understand how bad is
-the bad solution, which we can easily achieve through simulation.</p>
+seriously invalidate data analysis - by inflating false positive and false
+negative rates.</p>
+<p>Generally speaking, naive monitoring leads to problems of selective/simultaneous
+inference (a topic which I have touched in <a href="https://vgherard.github.io/#category:Selective_Inference">other places in this blog</a>). Avoiding
+ad-hoc checks is not the only valid solution - if you want to learn about some
+proper method you may want to look into <a href="https://en.wikipedia.org/wiki/Sequential_analysis">Sequential Hypothesis Testing</a>,
+a topic that I may explore in future posts. Here my goal is to understand
+<em>how bad is the bad solution</em>, which can be easily answered through simulation.</p>
 <h2 id="whats-the-matter-with-repeated-checks">What’s the matter with repeated checks?</h2>
-<p>To understand where do problems arise, let’s remind that the classical
+<p>To understand why problems can arise, recall that the classical
 Frequentist framework <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> operates by providing
 <em>a priori</em> guarantees (bounds) on the probabilities of <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <ul>
@@ -1563,16 +1564,63 @@ Frequentist framework <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-
 hypothesis when this is actually true.</li>
 <li>A false negative outcome in the presence of some (well-defined) signal.</li>
 </ul>
-<p>These guarantees are always formulated assuming a certain experimental
-<em>schedule</em>, and any departure from it invalidates in principle the
-claimed False Positive Rate (FPR) and False Negative Rate (FNR).</p>
-<h1 id="simulation">Simulation</h1>
+<p>The <em>a priori</em> nature of these guarantees means that they are stipulated before
+running the experiment and assuming a certain experimental <em>schedule</em> <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.
+This implies that any departure from the original schedule can in principle
+invalidate the claimed False Positive Rate (FPR) and False Negative Rate (FNR).</p>
+<p>For instance, the most basic experimental schedule
+(actually the one implicitly assumed by virtually all <a href="https://www.google.com/search?q=sample+size+calculator">sample size calculators</a>
+) is:</p>
+<ol type="1">
+<li>Collect data until reaching a prefixed sample size.</li>
+<li>Run an hypothesis test (with a prefixed significance threshold for claiming a
+signal).</li>
+</ol>
+<p>Common examples of departures from the original schedule include:</p>
+<ul>
+<li>Running several tests on partial data (before reaching the established sample
+size), to look for an early signal.</li>
+<li>Stopping the experiment beforehand, because partial data doesn’t show any
+signal.</li>
+<li>Prolonging the experiment after reaching the established sample size, because
+there’s a “hint” to a signal, but the significance threshold was not reached.</li>
+</ul>
+<p>In what follows, I will focus on the first behavior, whose result is to inflate
+the FPR. Again, there are various ways to perform repeated checks while keeping
+the FPR under control, but that’s not the focus of this post. Instead, I want to
+understand how FPR is affected by <em>repeating the original test several</em> times on
+partial data.</p>
+<h2 id="example">Example</h2>
+<p>Let me illustrate the idea with an example from marketing. Suppose you are
+running an experiment to optimize an email campaign, say you want to test
+whether a new email subject performs better (in terms of opening rates) than
+the current one.</p>
+<p>In order to do so, you start sending batches of 2K emails to random users,
+1K using the new subject and 1K using the old one. After each send, you
+compare the opening rates of all users reached so far, with the idea of
+replacing the old subject with the new one,
+<em>as soon as a statistically significant improvement is observed</em>.</p>
+<p>Concretely, you propose to do the following:</p>
+<ol type="1">
+<li>At each step, calculate the opening rates for the old and new subjects,
+for all email sends so far.</li>
+<li>Compute a <span class="math inline">\(p\)</span>-value for the hypothesis test<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> that tests whether the new subject leads
+to an higher opening rate than the old one.</li>
+<li>If the <span class="math inline">\(p\)</span>-value is smaller than a certain fixed threshold <span class="math inline">\(\alpha\)</span>, stop the
+experiment and declare the new subject as the winner.</li>
+<li>If no <span class="math inline">\(p\)</span>-value smaller than <span class="math inline">\(\alpha\)</span> is observed after a certain number <span class="math inline">\(n\)</span>
+of iterations, stop the experiment and declare the old subject as the winner.</li>
+</ol>
+<p>Now, the question is: how often would the above procedure declare the new
+subject as the winner, if it doesn’t truly perform better than the old one?
+(<em>i.e.</em> what is the FPR of the whole procedure?)</p>
+<h2 id="simulation">Simulation</h2>
+<p>To simplify things,</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_p_values</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span> <span class='op'>=</span> <span class='fl'>14</span>, </span>
 <span>                              <span class='va'>size</span> <span class='op'>=</span> <span class='fl'>1e3</span>, </span>
-<span>                              <span class='va'>prob</span> <span class='op'>=</span> <span class='fl'>0.5</span>, </span>
-<span>                              <span class='va'>conf.level</span> <span class='op'>=</span> <span class='fl'>0.05</span></span>
+<span>                              <span class='va'>prob</span> <span class='op'>=</span> <span class='fl'>0.5</span></span>
 <span>                              <span class='op'>)</span> </span>
 <span>  <span class='op'>{</span></span>
 <span>  <span class='va'>successes_a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, size <span class='op'>=</span> <span class='va'>size</span>, prob <span class='op'>=</span> <span class='va'>prob</span><span class='op'>)</span> <span class='op'>)</span></span>
@@ -1583,7 +1631,6 @@ claimed False Positive Rate (FPR) and False Negative Rate (FNR).</p>
 <span>      x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>successes_a</span><span class='op'>[</span><span class='va'>k</span><span class='op'>]</span>, <span class='va'>successes_b</span><span class='op'>[</span><span class='va'>k</span><span class='op'>]</span><span class='op'>)</span>, </span>
 <span>      n <span class='op'>=</span> <span class='va'>k</span> <span class='op'>*</span> <span class='va'>size</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, </span>
 <span>      alternative <span class='op'>=</span> <span class='st'>"greater"</span>,</span>
-<span>      conf.level <span class='op'>=</span> <span class='va'>conf.level</span></span>
 <span>      <span class='op'>)</span><span class='op'>$</span><span class='va'>p.value</span></span>
 <span>  <span class='op'>}</span><span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
@@ -1593,13 +1640,13 @@ claimed False Positive Rate (FPR) and False Negative Rate (FNR).</p>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>840</span><span class='op'>)</span></span>
 <span><span class='va'>ps</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>replicate</a></span><span class='op'>(</span><span class='fl'>1e3</span>, <span class='fu'>generate_p_values</span><span class='op'>(</span></span>
-<span>  n <span class='op'>=</span> <span class='fl'>14</span>, size <span class='op'>=</span> <span class='fl'>1e3</span>, prob <span class='op'>=</span> <span class='fl'>0.5</span>, conf.level <span class='op'>=</span> <span class='fl'>0.05</span></span>
+<span>  n <span class='op'>=</span> <span class='fl'>28</span>, size <span class='op'>=</span> <span class='fl'>1e3</span>, prob <span class='op'>=</span> <span class='fl'>0.5</span></span>
 <span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>ps</span>, <span class='fl'>1</span>, \<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>as.logical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>ps</span>, <span class='fl'>1</span>, \<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>as.logical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;</span> <span class='fl'>0.01</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -1614,9 +1661,17 @@ claimed False Positive Rate (FPR) and False Negative Rate (FNR).</p>
 </div>
 <p><img src="ab-tests-and-repeated-checking_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
-<h1 id="other-simulation">Other simulation</h1>
+<h2 id="other-simulation">Other simulation</h2>
 <p>Using the logic “if significance &gt; 80%”, continue the experiment, otherwise
 not.</p>
+<h2 id="notes">Notes</h2>
+<p>But before jumping into numbers, let us ask for a moment:
+<em>should we really care?</em></p>
+<p>My answer is a resounding <em>yes</em>, irrespective of whether you are running
+experiments for purely scientific or utilitaristic purposes. If you are unable
+to quantify, or at least approximate, the true FPR and FNR of a statistical
+test, it means that you essentially don’t know what you are doing: you may be
+convinced that your setting gives a false positive</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
@@ -1632,6 +1687,12 @@ used to indicate these two types of errors, and the corresponding a priori
 guarantees on their probabilities, sounds very mysterious to me
 (Type I/II errors, size and power…). I like to think in terms of
 “False Positive” and “False Negative” rates, which is the same thing.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This is
+generally true, also in the aforementioned sequential settings. In that case,
+the difference is that the schedule takes into account that continuous and/or
+interim checks will be performed.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Technically, this would be a
+two-sample, one-sided binomial test.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -1641,6 +1702,15 @@ guarantees on their probabilities, sounds very mysterious to me
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
