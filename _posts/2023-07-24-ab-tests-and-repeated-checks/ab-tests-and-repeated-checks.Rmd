@@ -15,7 +15,7 @@ categories:
   - Frequentist Methods
   - Statistics
   - R
-draft: true
+draft: false
 ---
 
 ## Intro
