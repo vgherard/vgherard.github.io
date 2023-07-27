@@ -225,11 +225,11 @@ fpr[40]
 
 Here we are assuming that data is re-checked after the arrival of every single 
 batch, but there are of course infinite alternative possibilities. For instance,
-the chunk below shows what happens when checks are performed after 
+the plot below shows what happens when checks are performed after 
 the collection of $n = 1, \,4, \,16, \,64$ batches of data (at each checkpoint,
 the expected size of statistical fluctuations is reduced by a factor of $2$).
 
-```{r}
+```{r, code_folding = TRUE}
 checkpoints <- c(1, 4, 16, 64)
 
 set.seed(840)
@@ -253,20 +253,55 @@ mtext("Sample Size", side = 3, line = 2)
 
 
 ```
+As a third possible variation, we may think of applying different $p$-value 
+thresholds at different checks (a scheme that can be actually made to work in 
+practice, see for instance the Wikipedia article on the [Haybittle–Peto boundary](https://en.wikipedia.org/wiki/Haybittle%E2%80%93Peto_boundary)). 
+The following plot illustrates this, assuming three (equally spaced) checks 
+after the collection of $n = 1,\,2,\,3$ data batches, using the significance 
+thresholds $\alpha = 0.01, \,0.025, \,0.05$, respectively.
+
+```{r}
+set.seed(840)
+
+alpha <- c(0.01, 0.025, 0.05)
+
+fpr3 <- replicate(1e4, 
+					generate_p_values(n = 3) |> 
+						evaluate_p_values(alpha = alpha)
+					) |>
+	rowMeans()
+
+plot(fpr3, 
+		 type = "b", 
+		 xlab = "Checks", 
+		 ylab = "False Positive Rate", 
+		 xaxt = "n"
+		 )
+
+abline(h = alpha[3], col = "red", lty = "dashed")
+abline(h = alpha[2], col = "blue", lty = "dashed")
+axis(1, at = seq_along(fpr3))
+axis(3, at = seq_along(fpr3), labels = alpha)
+mtext("p-value threshold", side = 3, line = 2)
+```
 
 
-## Other simulation
+## Conclusions
 
-Using the logic "if significance  > 80%", continue the experiment, otherwise 
-not.
+This post illustrated quantitatively how the performance of repeated checks 
+during the process of data collection can affect the overall False Positive Rate
+of an experimental analysis. The code provided above can be easily adapted to 
+simulate other types of experiments and schemes for interim checks.
 
-## Notes
-
-But before jumping into numbers, let us ask for a moment: 
-*should we really care?*
+A question that may possibly arise is: *should I really care?* You could argue 
+that what I've shown here represents a simple trade-off between FPR on one side, 
+FNR and efficiency (speed) in detection of a signal on the other.
 
 My answer is a resounding *yes*, irrespective of whether you are running 
 experiments for purely scientific or utilitaristic purposes. If you are unable 
-to quantify, or at least approximate, the true FPR and FNR of a statistical 
-test, it means that you essentially don't know what you are doing: you may be 
-convinced that your setting gives a false positive 
+to characterize (at least approximately) the FPR and FNR of your analysis, 
+the whole point of running a formal test 
+(instead of simply collecting some data and making an educated guess) looks very 
+dubious to me. Other story is if you are able to tell *in advance* how interim 
+checks affect FPR/FNR, and use this knowledge to optimize your analysis 
+procedure - this post provides some basic tools to do so.
