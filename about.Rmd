@@ -13,11 +13,10 @@ knitr::opts_chunk$set(echo = FALSE)
 </center>
 <br>
 <br>
-I am Valerio, class 1992, born in Italy and based in Valencia (Spain).
+Valerio, class 1992, Italian based in València (Spain). 
 
-My formal education is in [Theoretical Physics](physics.html), but my current
-occupation is in Data Analysis and, more specifically, Product Analytics. I work as Data Scientist in [Voicemod](https://www.voicemod.net/).
+Formally trained in [Theoretical Physics](physics.html), later drifted towards data analysis.
 
-I use this space to share little notes, mainly about statistics, mathematics, physics, whatever^[*Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.* - V.I. Arnold, On Teaching Mathematics.] . Despite my official role, I'm actually pretty much a rookie statistician, which makes the [explorations I share on this website](index.html) much more enjoyable to me, I guess 😼. I also like [messing with statistical code, usually in R](code.html).
+I use this space to share little notes, mainly about statistics, mathematics, physics, whatever^[*Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.* - V.I. Arnold, On Teaching Mathematics.]. I also like [messing with statistical code, usually in R](code.html).
 
 If you want to get in touch, you can follow the contact links in the navigation bar above. My CV can be downloaded [here](https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf). 
