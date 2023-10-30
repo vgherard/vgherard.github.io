@@ -115,8 +115,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-10-27"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-10-27"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-10-30"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-10-30"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Valerio Gherardi: Physics"/>
@@ -134,7 +134,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output","bibliography","csl","nocite"]}},"value":[{"type":"character","attributes":{},"value":["Physics"]},{"type":"character","attributes":{},"value":["2023-10-27"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["physical-review-d.csl"]},{"type":"character","attributes":{},"value":["@Gherardi:2021pwm,\n@Feruglio:2021dte, \n@Gherardi:2020qhc, \n@Gherardi:2020det, \n@Gherardi:2020gtv,\n@AlvarengaNogueira:2019zcs,\n@Gherardi:2019zil"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output","bibliography","csl","nocite"]}},"value":[{"type":"character","attributes":{},"value":["Physics"]},{"type":"character","attributes":{},"value":["2023-10-30"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["physical-review-d.csl"]},{"type":"character","attributes":{},"value":["@Gherardi:2021pwm,\n@Feruglio:2021dte, \n@Gherardi:2020qhc, \n@Gherardi:2020det, \n@Gherardi:2020gtv,\n@AlvarengaNogueira:2019zcs,\n@Gherardi:2019zil"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -853,9 +853,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -950,6 +962,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1711,6 +1728,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1788,8 +1811,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1815,12 +1839,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -2408,7 +2433,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2447,7 +2472,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Physics","authors":[],"publishedDate":"2023-10-27T00:00:00.000+02:00"}
+{"title":"Physics","authors":[],"publishedDate":"2023-10-30T00:00:00.000+00:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2505,6 +2530,7 @@ Other links
 
 <div class="d-title">
 <h1>Physics</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2539,26 +2565,26 @@ the PhD degree in Theoretical Particle Physics in 2021, at the International Sch
 <p>Below you can find a complete list of my scientific publications on Particle Physics, in inverse chronological order. More details, including full pdfs and citation metrics, can be found at <a href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">my iNSPIRE HEP author page</a>.</p>
 <p>My PhD thesis is publicly available <a href="https://arxiv.org/abs/2111.00285">on arXiv</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<div id="refs" class="references csl-bib-body" role="list">
-<div id="ref-Gherardi:2021pwm" class="csl-entry" role="listitem">
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-Gherardi:2021pwm" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">V. Gherardi, <a href="https://arxiv.org/abs/2111.00285"><span class="nocase">New Physics Hints from Flavour</span></a>, PhD thesis, 2021.</div>
 </div>
-<div id="ref-Feruglio:2021dte" class="csl-entry" role="listitem">
+<div id="ref-Feruglio:2021dte" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">[2] </div><div class="csl-right-inline">F. Feruglio, V. Gherardi, A. Romanino, and A. Titov, <em><a href="https://doi.org/10.1007/JHEP05(2021)242"><span class="nocase">Modular invariant dynamics and fermion mass hierarchies around <span class="math inline">\(\tau = i\)</span></span></a></em>, JHEP <strong>05</strong>, 242 (2021).</div>
 </div>
-<div id="ref-Gherardi:2020qhc" class="csl-entry" role="listitem">
+<div id="ref-Gherardi:2020qhc" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, and E. Venturini, <em><a href="https://doi.org/10.1007/JHEP01(2021)138"><span class="nocase">Low-energy phenomenology of scalar leptoquarks at one-loop accuracy</span></a></em>, JHEP <strong>01</strong>, 138 (2021).</div>
 </div>
-<div id="ref-Gherardi:2020det" class="csl-entry" role="listitem">
+<div id="ref-Gherardi:2020det" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">[4] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, and E. Venturini, <em><a href="https://doi.org/10.1007/JHEP07(2020)225"><span class="nocase">Matching scalar leptoquarks to the SMEFT at one loop</span></a></em>, JHEP <strong>07</strong>, 225 (2020).</div>
 </div>
-<div id="ref-Gherardi:2020gtv" class="csl-entry" role="listitem">
+<div id="ref-Gherardi:2020gtv" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">[5] </div><div class="csl-right-inline">V. Gherardi, <em><a href="https://doi.org/10.1393/ncc/i2020-20045-0"><span class="nocase">General correlations to <span class="math inline">\(b \to s\mu^+\mu^-\)</span> anomalies from a rank condition</span></a></em>, Nuovo Cim. C <strong>43</strong>, 45 (2020).</div>
 </div>
-<div id="ref-AlvarengaNogueira:2019zcs" class="csl-entry" role="listitem">
+<div id="ref-AlvarengaNogueira:2019zcs" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">[6] </div><div class="csl-right-inline">J. H. Alvarenga Nogueira, D. Colasante, V. Gherardi, T. Frederico, E. Pace, and G. Salmè, <em><a href="https://doi.org/10.1103/PhysRevD.100.016021"><span class="nocase">Solving the Bethe-Salpeter Equation in Minkowski Space for a Fermion-Scalar system</span></a></em>, Phys. Rev. D <strong>100</strong>, 016021 (2019).</div>
 </div>
-<div id="ref-Gherardi:2019zil" class="csl-entry" role="listitem">
+<div id="ref-Gherardi:2019zil" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">[7] </div><div class="csl-right-inline">V. Gherardi, D. Marzocca, M. Nardecchia, and A. Romanino, <em><a href="https://doi.org/10.1007/JHEP10(2019)112"><span class="nocase">Rank-One Flavor Violation and B-meson anomalies</span></a></em>, JHEP <strong>10</strong>, 112 (2019).</div>
 </div>
 </div>

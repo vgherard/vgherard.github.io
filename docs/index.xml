@@ -7,7 +7,7 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>2023-07-27</lastBuildDate>
+    <lastBuildDate>Thu, 27 Jul 2023 00:00:00 +0000</lastBuildDate>
     <item>
       <title>AB tests and repeated checks</title>
       <dc:creator>vgherard</dc:creator>
@@ -19,7 +19,7 @@
       <category>Statistics</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks</guid>
-      <pubDate>2023-07-27</pubDate>
+      <pubDate>Thu, 27 Jul 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -33,7 +33,7 @@
       <category>Linear Models</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression</guid>
-      <pubDate>2023-07-11</pubDate>
+      <pubDate>Tue, 11 Jul 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -44,7 +44,7 @@
       <category>Mathematics</category>
       <category>Probability Theory</category>
       <guid>https://vgherard.github.io/posts/2023-06-14-sum-and-ratio-of-independent-random-variables</guid>
-      <pubDate>2023-06-14</pubDate>
+      <pubDate>Wed, 14 Jun 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Fisher's Randomization Test</title>
@@ -55,7 +55,7 @@
       <category>Frequentist Methods</category>
       <category>Causal Inference</category>
       <guid>https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test</guid>
-      <pubDate>2023-06-07</pubDate>
+      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>p-values and measure theory</title>
@@ -67,7 +67,7 @@ assumptions on the test statistic.</description>
       <category>Measure Theory</category>
       <category>Frequentist Methods</category>
       <guid>https://vgherard.github.io/posts/2023-06-07-p-values-and-measure-theory</guid>
-      <pubDate>2023-06-07</pubDate>
+      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Linear regression with autocorrelated noise</title>
@@ -81,7 +81,7 @@ assumptions on the test statistic.</description>
       <category>Model Misspecification</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise</guid>
-      <pubDate>2023-05-25</pubDate>
+      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -95,7 +95,7 @@ assumptions on the test statistic.</description>
       <category>Model Misspecification</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches</guid>
-      <pubDate>2023-05-14</pubDate>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -108,7 +108,7 @@ assumptions on the test statistic.</description>
       <category>Linear Models</category>
       <category>Model Misspecification</category>
       <guid>https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators</guid>
-      <pubDate>2023-05-12</pubDate>
+      <pubDate>Fri, 12 May 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Bayes, Neyman and the Magic Piggy Bank</title>
@@ -121,7 +121,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Frequentist Methods</category>
       <category>Bayesian Methods</category>
       <guid>https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank</guid>
-      <pubDate>2023-05-01</pubDate>
+      <pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Correlation Without Causation</title>
@@ -130,7 +130,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <description>*Cum hoc ergo propter hoc*</description>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2023-03-10-correlation-without-causation</guid>
-      <pubDate>2023-03-30</pubDate>
+      <pubDate>Thu, 30 Mar 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>How to get away with selection. Part II: Mathematical Framework</title>
@@ -141,7 +141,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Selective Inference</category>
       <category>Model Misspecification</category>
       <guid>https://vgherard.github.io/posts/2022-11-07-posi-2</guid>
-      <pubDate>2022-11-25</pubDate>
+      <pubDate>Fri, 25 Nov 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>How to get away with selection. Part I: Introduction</title>
@@ -152,7 +152,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Selective Inference</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2022-10-18-posi</guid>
-      <pubDate>2022-11-14</pubDate>
+      <pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -163,7 +163,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Natural Language Processing</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</guid>
-      <pubDate>2021-11-13</pubDate>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>R Client for R-universe APIs</title>
@@ -173,7 +173,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
 repository APIs</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</guid>
-      <pubDate>2021-07-25</pubDate>
+      <pubDate>Sun, 25 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
@@ -182,7 +182,7 @@ repository APIs</description>
       <description>Create automatic resumes of your R packages using the R-Universe API.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</guid>
-      <pubDate>2021-07-21</pubDate>
+      <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>{r2r} now on CRAN</title>
@@ -192,7 +192,7 @@ repository APIs</description>
       <category>Data Structures</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
-      <pubDate>2021-07-06</pubDate>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Test post</title>
@@ -201,7 +201,7 @@ repository APIs</description>
       <description>A short description of the post.</description>
       <category>Other</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
-      <pubDate>2021-07-06</pubDate>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>
