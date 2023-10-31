@@ -7,124 +7,17 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>2023-10-30</lastBuildDate>
+    <lastBuildDate>2023-10-31</lastBuildDate>
     <item>
       <title>Prefix-free codes</title>
       <dc:creator>vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2023-10-31-prefix-free-codes</link>
-      <description>
-
-
-&lt;p&gt;Let &lt;span class="math inline"&gt;\(\mathbb X\)&lt;/span&gt; be a finite
-alphabet and denote by &lt;span class="math inline"&gt;\(\mathbb X ^* =
-\coprod _{k = 0} ^{\infty} \mathbb X ^k\)&lt;/span&gt; the set of strings of
-symbols from &lt;span class="math inline"&gt;\(\mathbb X\)&lt;/span&gt;. A binary
-code on &lt;span class="math inline"&gt;\(\mathbb X\)&lt;/span&gt; is a function
-&lt;span class="math inline"&gt;\(f \colon \mathbb X \to \{0,\,1\}^*\)&lt;/span&gt;.
-This is usually extended to a function &lt;span class="math inline"&gt;\(f^*
-\colon \mathbb X ^* \to \{0,\,1\}^*\)&lt;/span&gt; as follows:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-f^* (x_1 \,x_2\,\cdots x_n) = f(x_1) f(x_2)\cdots f(x_n)
-\]&lt;/span&gt; A code is said to be:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Non-singular&lt;/em&gt; if &lt;span class="math inline"&gt;\(f\)&lt;/span&gt; is
-injective.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Uniquely decodable&lt;/em&gt; if &lt;span
-class="math inline"&gt;\(f^*\)&lt;/span&gt; is injective.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Prefix-free&lt;/em&gt; if &lt;span class="math inline"&gt;\(x&amp;#39; \neq
-x\)&lt;/span&gt; implies that &lt;span class="math inline"&gt;\(f(x^\prime) \neq
-f(x)s\)&lt;/span&gt; for any &lt;span class="math inline"&gt;\(s\)&lt;/span&gt; in &lt;span
-class="math inline"&gt;\(\{0,1\}^*\)&lt;/span&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For example: &lt;span class="math display"&gt;\[
-a \mapsto 0,\quad b\mapsto 00
-\]&lt;/span&gt; is a non-singular but not uniquely decodable code for the
-alphabet &lt;span class="math inline"&gt;\(\mathbb X = \{a,\,b\}\)&lt;/span&gt;,
-while the code:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-a \mapsto 0,\quad b\mapsto 01
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;is uniquely decodable, but not prefix-free. Finally, the
-assignments:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-a \mapsto 0, \quad b \mapsto 10, \quad c \mapsto 110, \quad
-d\mapsto1110,\quad\cdots
-\]&lt;/span&gt; show that there exist prefix-free codes for any finite or
-countable alphabet.&lt;/p&gt;
-&lt;p&gt;The importance of prefix-free codes lies in the fact that they allow
-for real-time decoding, as soon as the string corresponding to a symbol
-is received (which is why they are also called “instantaneous codes”) &lt;a
-href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. Binary
-prefix-free codes can also be interpreted as representing sequences of
-“Yes-No” questions that univocally identify the elements of &lt;span
-class="math inline"&gt;\(\mathbb X\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;An important property satisfied by all uniquely decodable binary
-codes, and in particular by prefix-free codes, is the Kraft-McMillan
-inequality:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\sum _{x\in \mathbb X} 2 ^{-L(x)} \leq 1
-\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(L (x)\)&lt;/span&gt; is the length
-of the code for &lt;span class="math inline"&gt;\(x\)&lt;/span&gt;. A converse is
-also true: for any set of positive integers &lt;span
-class="math inline"&gt;\((\ell _{i})_{1\leq i\leq N}\)&lt;/span&gt; satisfying
-the Kraft-McMillan inequality, there exists a prefix-free code over
-&lt;span class="math inline"&gt;\(\mathbb X = \{1,\,2,\,\dots,\,N\}\)&lt;/span&gt;
-such that &lt;span class="math inline"&gt;\(\ell _i = L(i)\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;This allows to immediately prove the entropy bound for the expected
-length of uniquely decodable codes. Given a probability distribution
-&lt;span class="math inline"&gt;\(p\)&lt;/span&gt; over &lt;span
-class="math inline"&gt;\(\mathbb X\)&lt;/span&gt;, we have:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\begin{split}
-\mathbb E(L(X))&amp;amp;=\sum _{x\in \mathbb X} p(x) L(x) \\
-                             &amp;amp;=-\sum _{x\in \mathbb X} p(x) \log
-_2(2^{-L(x)}) \\
-                             &amp;amp;=-\sum _{x\in \mathbb X} p(x) \log
-_2(p(x))-\sum _{x\in \mathbb X} p(x) \log _2(\frac{2^{-L(x)}}{p(x)})
-\end{split}
-\]&lt;/span&gt; The first term is recognized as the entropy (in bits) of &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt;, &lt;span
-class="math inline"&gt;\(H_2(X)\)&lt;/span&gt;, whereas the second term can be
-bounded using the Jensen and Kraft-McMillan inequalities:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
--\sum _{x\in \mathbb X} p(x) \log _2(\frac{2^{-L(x)}}{p(x)}) \geq -\log
-_2\left(\sum _{x\in \mathbb X} 2^{-L(x)} \right) \geq 0.
-\]&lt;/span&gt; We obtain:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\mathbb E (L(X)) \geq H_2(X)
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Furthermore, noticing that the positive integers &lt;span
-class="math inline"&gt;\(\ell _i = \lceil \log _2\frac{1}{p(x_i)}
-\rceil\)&lt;/span&gt; satisfy the Kraft-McMillan inequality, we can
-immediately construct a prefix-free code (the Shannon-Fano code) for
-which &lt;span class="math inline"&gt;\(L(x_i) = \ell _i\)&lt;/span&gt;. For this
-code:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\mathbb E (L(X)) \leq H_2(X) + 1.
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div class="footnotes footnotes-end-of-document"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;The decoding algorithm works as follows: given a binary
-string &lt;span class="math inline"&gt;\(y_1y_2\cdots y_M = f^*(x_1 x_2 \cdots
-x_N)\)&lt;/span&gt; we start reading the substrings &lt;span
-class="math inline"&gt;\(y_1y_2 \cdots y_k\)&lt;/span&gt; until we find a match
-with some code &lt;span class="math inline"&gt;\(s \in \text{Im}(f)\)&lt;/span&gt;,
-which is the code of the first symbol &lt;span
-class="math inline"&gt;\(x_1\)&lt;/span&gt; of the original sequence. We remove
-this substring and start reading again, to find the code of the second
-symbol &lt;span class="math inline"&gt;\(x_2\)&lt;/span&gt;,and so on and so forth.
-This procedure can obviously be implemented in an online setting.&lt;a
-href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-      <distill:md5>9a36b9b9eba6beccd522c15db8d2d9c1</distill:md5>
+      <description>Generalities about prefix-free (a.k.a. instantaneous) codes</description>
       <category>Information Theory</category>
       <category>Entropy</category>
       <category>Probability Theory</category>
       <guid>https://vgherard.github.io/posts/2023-10-31-prefix-free-codes</guid>
-      <pubDate>2023-10-30</pubDate>
+      <pubDate>2023-10-31</pubDate>
     </item>
     <item>
       <title>AB tests and repeated checks</title>
