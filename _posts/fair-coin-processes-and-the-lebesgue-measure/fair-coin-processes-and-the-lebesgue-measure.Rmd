@@ -1,0 +1,28 @@
+---
+title: "Fair coin processes and the Lebesgue measure"
+description: |
+  A short description of the post.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2023-11-01
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+A sequence of binary random variables $Z_1,\,Z_2,\,\dots$ is said to be a fair coin process if:
+
+$$
+\text{Pr}(Z_1 = z_1,\,Z_{2}=z_{2},\,\dots,\, Z_{n}=z_{n}) = 2^{-n}
+$$
+for all $z_i \in \{0,\,1\}$.
+
+
+..... Is it obvious? for instance Pr(X > 1/2) is clearly 1/2 = uniform measure
