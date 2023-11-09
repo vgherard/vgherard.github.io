@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Conditional Probability</title>
 
-  <meta property="description" itemprop="description" content="A short description of the post."/>
+  <meta property="description" itemprop="description" content="Notes on the formal definition of conditional probability."/>
 
 
   <!--  https://schema.org/Article -->
@@ -122,13 +122,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Conditional Probability"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="A short description of the post."/>
+  <meta property="og:description" content="Notes on the formal definition of conditional probability."/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Conditional Probability"/>
-  <meta property="twitter:description" content="A short description of the post."/>
+  <meta property="twitter:description" content="Notes on the formal definition of conditional probability."/>
 
   <!--/radix_placeholder_meta_tags-->
   
@@ -136,7 +136,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography","draft"]}},"value":[{"type":"character","attributes":{},"value":["Conditional Probability"]},{"type":"character","attributes":{},"value":["A short description of the post.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2023-11-03"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"logical","attributes":{},"value":[true]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","bibliography","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["Conditional Probability"]},{"type":"character","attributes":{},"value":["Notes on the formal definition of conditional probability.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2023-11-03"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["biblio.bib"]},{"type":"character","attributes":{},"value":["Probability Theory","Measure Theory"]},{"type":"logical","attributes":{},"value":[false]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1519,7 +1519,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Conditional Probability","description":"A short description of the post.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-11-03T00:00:00.000+01:00","citationText":"vgherard, 2023"}
+{"title":"Conditional Probability","description":"Notes on the formal definition of conditional probability.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2023-11-03T00:00:00.000+01:00","citationText":"vgherard, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1531,8 +1531,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-title">
 <h1>Conditional Probability</h1>
 <!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt-tag">Probability Theory</div>
+<div class="dt-tag">Measure Theory</div>
+</div>
 <!--/radix_placeholder_categories-->
-<p><p>A short description of the post.</p></p>
+<p><p>Notes on the formal definition of conditional probability.</p></p>
 </div>
 
 <div class="d-byline">
@@ -1556,7 +1560,7 @@ if and only if <span class="math inline">\(f\circ X\)</span> is integrable with 
 \intop _\mathcal X f\,\text d(X_*P) = \intop _\mathcal \Omega (f \circ X)\,\text dP.
 \]</span>
 Now, given an arbitrary event <span class="math inline">\(E\in \mathcal E\)</span> define
-<span class="math inline">\((X_*P)_E(B)=P(E\cap X^{-1}(B))\)</span>. Then <span class="math inline">\((X_*P)_E\)</span> is a measure on
+<span class="math inline">\((X_*P)_E(A)=P(E\cap X^{-1}(A))\)</span>. Then <span class="math inline">\((X_*P)_E\)</span> is a measure on
 <span class="math inline">\(\mathcal X\)</span> which is clearly dominated by <span class="math inline">\(X_*P\)</span>, and there exists a
 Radon-Nikodym derivative
 <span class="math inline">\(\frac{\text d (X_*P)_E}{\text d (X_*P)} \in L_1(X_*P)\)</span>. We define the
@@ -1566,15 +1570,14 @@ the random variable:</p>
 P(E\vert X)\equiv \frac{\text d (X_*P)_E}{\text d (X_*P)}.
 \]</span></p>
 <p>The intuition behind this definition comes from the tautology (given the
-definition in terms of Radon-Nikodyn derivative):</p>
+definition in terms of Radon-Nikodym derivative):</p>
 <p><span class="math display">\[
-P(E \cap (X\in B)) = \intop _{B} P(E\vert X)\,\text d(X_*P).
+P(E \cap (X\in A)) = \intop _{A} P(E\vert X)\,\text d(X_*P).
 \]</span>
 On one hand, from elementary probability theory, one would expect any
 sensible definition of conditional probability to satisfy this theorem.
 On the other hand, the theorem univocally identifies <span class="math inline">\(P(E\vert X)\)</span> as the
-Radon-Nikodym derivative <span class="math inline">\(\frac{\text d (X_*P)_E}{\text d (X_*P)}\)</span>, modulo a set
-of <span class="math inline">\(X_*P\)</span> measure zero.</p>
+Radon-Nikodym derivative <span class="math inline">\(\frac{\text d (X_*P)_E}{\text d (X_*P)}\)</span>, modulo a set of <span class="math inline">\(X_*P\)</span> measure zero.</p>
 <p>It is fairly easy to verify the following properties of conditional probability:</p>
 <ul>
 <li><p><em>Countable additivity</em>. For any finite or countable family <span class="math inline">\((E_i)_{i\in I}\)</span> of
@@ -1594,7 +1597,7 @@ Functions <span class="math inline">\(\nu \colon \mathcal E \times \Omega _X \to
 <span class="math inline">\(\nu (E,\cdot)\)</span> is <span class="math inline">\(\mathcal X\)</span>-measurable for all <span class="math inline">\(E\in \mathcal E\)</span> are called
 <em>random measures</em>. If <span class="math inline">\(\nu\)</span> satisfies
 <span class="math display">\[
-P(E \cap (X\in B)) = \intop _{B} \nu (E,\cdot)\,\text d(X_*P)
+P(E \cap (X\in A)) = \intop _{A} \nu (E,\cdot)\,\text d(X_*P)
 \]</span>
 (or, equivalently, if <span class="math inline">\(\nu (E,\cdot)\)</span> is a version of
 <span class="math inline">\(\frac{\text d (X_*P)_E}{\text d (X_*P)}\)</span>) for all <span class="math inline">\(E\in \mathcal E\)</span>, <span class="math inline">\(\nu\)</span> is
@@ -1602,29 +1605,24 @@ called a <em>regular conditional probability</em> for the random variable <span 
 space <span class="math inline">\((\Omega,\, \mathcal E)\)</span> is regular enough (<em>e.g.</em> if it is a Borel space)
 one can prove that a regular conditional probability exists for any random
 variable <span class="math inline">\(X\)</span>, see <em>e.g.</em> <span class="citation" data-cites="kallenberg1997foundations">(<a href="#ref-kallenberg1997foundations" role="doc-biblioref">Kallenberg 1997</a>)</span>.</p>
-<p>In order to gain some intuition into this definition, we consider some simple
-examples. If <span class="math inline">\(X = \chi _A \colon \Omega \to \{0,1\}\)</span>, where <span class="math inline">\(A\in \mathcal E\)</span>
-has positive probability <span class="math inline">\(0&lt;P(A)&lt;1\)</span>, we immediately find:</p>
+<p>If <span class="math inline">\(X = \chi _A \colon \Omega \to \{0,1\}\)</span>, where <span class="math inline">\(A\in \mathcal E\)</span>
+has positive probability <span class="math inline">\(0&lt;P(A)&lt;1\)</span>, we can easily compute:</p>
 <p><span class="math display">\[
-P(E\vert \chi _A)(t) = t\cdot \frac{P(E\cap A)}{P(A)} + (1-t)\cdot \frac{P(E\cap A^c)}{P(A^c)}
+P(E\vert \chi _A) = \chi _A\cdot \frac{P(E\cap A)}{P(A)} + (1-\chi _A)\cdot \frac{P(E\cap A^c)}{P(A^c)}
 \]</span>
-In particular, <span class="math inline">\(P(E\vert A) \equiv P(E\vert \chi _A)(1)\)</span> agrees with the
-elementary definition of conditional probability.</p>
-<p>If <span class="math inline">\(X = \text {id} _\Omega\)</span>, where the target space is equipped with a
-sub-<span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal F \subseteq \mathcal E\)</span>, we have:</p>
+In particular, <span class="math inline">\(P(E\vert A) \equiv P(E\vert \chi _A = 1)\)</span> agrees with the
+usual elementary definition of conditional probability.</p>
+<p>More generally, if <span class="math inline">\(X = \text {id} _\Omega\)</span>, where the target space is equipped with a sub-<span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal F \subseteq \mathcal E\)</span>, we have:</p>
 <p><span class="math display">\[
 P(E\vert \mathcal F)\equiv \frac{\text d (P\vert _\mathcal F)_E}{\text d (P\vert _\mathcal F)},
 \]</span>
-which agrees with the definition of conditional probability with respect to a
-sub-<span class="math inline">\(\sigma\)</span>-algebra. In particular, if <span class="math inline">\(\mathcal F\)</span> is the <span class="math inline">\(\sigma\)</span>-algebra
-generated by a finite or countable partition <span class="math inline">\(\mathcal A = (A_i)_{i\in I}\)</span> of
-<span class="math inline">\(\mathcal \Omega\)</span> such that <span class="math inline">\(P(A_i)&gt;0\)</span> for all <span class="math inline">\(i\in I\)</span>, we have:</p>
+which is sometimes taken as the definition of conditional probability with respect to a sub-<span class="math inline">\(\sigma\)</span>-algebra. When <span class="math inline">\(\mathcal F\)</span> is the <span class="math inline">\(\sigma\)</span>-algebra generated by a finite or countable partition <span class="math inline">\(\mathcal A = (A_i)_{i\in I}\)</span> of
+<span class="math inline">\(\mathcal \Omega\)</span> such that <span class="math inline">\(P(A_i)&gt;0\)</span> for all <span class="math inline">\(i\in I\)</span>, we find:</p>
 <p><span class="math display">\[
 P(E\vert \mathcal A)=\sum _{i\in I} \frac{P(E\cap A_i)}{P(A_i)}\chi _{A_i},
 \]</span>
 again in agreement with elementary definitions.</p>
-<p>Finally, if <span class="math inline">\(X\colon \Omega \to \mathbb R\)</span> is a regular random variable, where
-<span class="math inline">\(\mathbb R\)</span> is equipped with the Borel <span class="math inline">\(\sigma\)</span>-algebra, <span class="math inline">\(X_*P\)</span>
+<p>Finally, if <span class="math inline">\(X\colon \Omega \to \mathbb R\)</span> is a real-valued random variable, where <span class="math inline">\(\mathbb R\)</span> is equipped with the Borel <span class="math inline">\(\sigma\)</span>-algebra, <span class="math inline">\(X_*P\)</span>
 coincides with the Stieltjes measure generated by the cumulative distribution
 function <span class="math inline">\(P_X\)</span> of <span class="math inline">\(X\)</span>. Denoting <span class="math inline">\(P(E\vert X)(x) \equiv P(E\vert X = x)\)</span>, we may
 write:</p>

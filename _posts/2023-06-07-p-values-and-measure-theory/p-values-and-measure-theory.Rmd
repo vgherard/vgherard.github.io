@@ -11,9 +11,10 @@ output:
   distill::distill_article:
     self_contained: false
 categories: 
-  - Statistics
+  - Probability Theory
   - Measure Theory
   - Frequentist Methods
+  - Statistics
 draft: false
 ---
 
