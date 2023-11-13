@@ -7,178 +7,16 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>2023-11-02</lastBuildDate>
+    <lastBuildDate>Fri, 03 Nov 2023 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Conditional Probability</title>
       <dc:creator>vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2023-11-03-conditional-probability</link>
-      <description>
-
-
-&lt;p&gt;Let &lt;span class="math inline"&gt;\((\Omega, \,\mathcal E,\,P)\)&lt;/span&gt;
-be a probability space, and let &lt;span class="math inline"&gt;\(X\colon
-\Omega \to \Omega _X\)&lt;/span&gt; be a random variable with target space
-&lt;span class="math inline"&gt;\((\Omega _X, \mathcal X)\)&lt;/span&gt;. We denote
-the corresponding push-forward measure on &lt;span
-class="math inline"&gt;\(\mathcal X\)&lt;/span&gt; by &lt;span
-class="math inline"&gt;\(X_*P\)&lt;/span&gt;, so that:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-(X_*P)(B)= P(X^{-1}(B))
-\]&lt;/span&gt; for all &lt;span class="math inline"&gt;\(B\in \mathcal X\)&lt;/span&gt;.
-A measurable function &lt;span class="math inline"&gt;\(f\colon \Omega _X \to
-\mathbb R\)&lt;/span&gt; is integrable with respect to &lt;span
-class="math inline"&gt;\(X_*P\)&lt;/span&gt; if and only if &lt;span
-class="math inline"&gt;\(f\circ X\)&lt;/span&gt; is integrable with respect to
-&lt;span class="math inline"&gt;\(P\)&lt;/span&gt;, in which case&lt;a href="#fn1"
-class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;: &lt;span
-class="math display"&gt;\[
-\intop _\mathcal X f\,\text d(X_*P) = \intop _\mathcal \Omega (f \circ
-X)\,\text dP.
-\]&lt;/span&gt; Now, given an arbitrary event &lt;span class="math inline"&gt;\(E\in
-\mathcal E\)&lt;/span&gt; define &lt;span
-class="math inline"&gt;\((X_*P)_E(A)=P(E\cap X^{-1}(A))\)&lt;/span&gt;. Then
-&lt;span class="math inline"&gt;\((X_*P)_E\)&lt;/span&gt; is a measure on &lt;span
-class="math inline"&gt;\(\mathcal X\)&lt;/span&gt; which is clearly dominated by
-&lt;span class="math inline"&gt;\(X_*P\)&lt;/span&gt;, and there exists a
-Radon-Nikodym derivative &lt;span class="math inline"&gt;\(\frac{\text d
-(X_*P)_E}{\text d (X_*P)} \in L_1(X_*P)\)&lt;/span&gt;. We define the
-conditional probability of event &lt;span class="math inline"&gt;\(E\)&lt;/span&gt;
-with respect to the random variable &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt; as the random variable:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-P(E\vert X)\equiv \frac{\text d (X_*P)_E}{\text d (X_*P)}.
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;The intuition behind this definition comes from the tautology (given
-the definition in terms of Radon-Nikodym derivative):&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-P(E \cap (X\in A)) = \intop _{A} P(E\vert X)\,\text d(X_*P).
-\]&lt;/span&gt; On one hand, from elementary probability theory, one would
-expect any sensible definition of conditional probability to satisfy
-this theorem. On the other hand, the theorem univocally identifies &lt;span
-class="math inline"&gt;\(P(E\vert X)\)&lt;/span&gt; as the Radon-Nikodym
-derivative &lt;span class="math inline"&gt;\(\frac{\text d (X_*P)_E}{\text d
-(X_*P)}\)&lt;/span&gt;, modulo a set of &lt;span
-class="math inline"&gt;\(X_*P\)&lt;/span&gt; measure zero.&lt;/p&gt;
-&lt;p&gt;It is fairly easy to verify the following properties of conditional
-probability:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;em&gt;Countable additivity&lt;/em&gt;. For any finite or countable family
-&lt;span class="math inline"&gt;\((E_i)_{i\in I}\)&lt;/span&gt; of disjoint events,
-&lt;span class="math inline"&gt;\(E_i \cap E_j = \emptyset\)&lt;/span&gt;, we have:
-&lt;span class="math display"&gt;\[
-P(\cup _{i\in I} E_i \vert X = x) = \sum _{i \in I}P(E_i \vert X = x)
-\]&lt;/span&gt; for almost all &lt;span class="math inline"&gt;\(x\in
-\Omega_X\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;em&gt;Positivity&lt;/em&gt;. For any event &lt;span
-class="math inline"&gt;\(E\)&lt;/span&gt; we have &lt;span class="math inline"&gt;\(P(E
-\vert X=x) \geq 0\)&lt;/span&gt; for almost all &lt;span class="math inline"&gt;\(x
-\in \Omega\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;em&gt;Normalization&lt;/em&gt;. &lt;span class="math inline"&gt;\(P(\Omega
-\vert X = x) = 1\)&lt;/span&gt; for almost all &lt;span class="math inline"&gt;\(x
-\in \Omega\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;This, however, does not generally imply that &lt;span
-class="math inline"&gt;\(P(\cdot \vert X = x)\)&lt;/span&gt; is a probability
-measure for almost all &lt;span class="math inline"&gt;\(x\in
-\Omega_X\)&lt;/span&gt;&lt;a href="#fn2" class="footnote-ref"
-id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;. Functions &lt;span class="math inline"&gt;\(\nu
-\colon \mathcal E \times \Omega _X \to \mathbb R^+\)&lt;/span&gt; such that
-&lt;span class="math inline"&gt;\(\nu(\cdot, x)\)&lt;/span&gt; is a measure for all
-&lt;span class="math inline"&gt;\(x\in \Omega _X\)&lt;/span&gt;, and &lt;span
-class="math inline"&gt;\(\nu (E,\cdot)\)&lt;/span&gt; is &lt;span
-class="math inline"&gt;\(\mathcal X\)&lt;/span&gt;-measurable for all &lt;span
-class="math inline"&gt;\(E\in \mathcal E\)&lt;/span&gt; are called &lt;em&gt;random
-measures&lt;/em&gt;. If &lt;span class="math inline"&gt;\(\nu\)&lt;/span&gt; satisfies
-&lt;span class="math display"&gt;\[
-P(E \cap (X\in A)) = \intop _{A} \nu (E,\cdot)\,\text d(X_*P)
-\]&lt;/span&gt; (or, equivalently, if &lt;span class="math inline"&gt;\(\nu
-(E,\cdot)\)&lt;/span&gt; is a version of &lt;span
-class="math inline"&gt;\(\frac{\text d (X_*P)_E}{\text d (X_*P)}\)&lt;/span&gt;)
-for all &lt;span class="math inline"&gt;\(E\in \mathcal E\)&lt;/span&gt;, &lt;span
-class="math inline"&gt;\(\nu\)&lt;/span&gt; is called a &lt;em&gt;regular conditional
-probability&lt;/em&gt; for the random variable &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt;. If the space &lt;span
-class="math inline"&gt;\((\Omega,\, \mathcal E)\)&lt;/span&gt; is regular enough
-(&lt;em&gt;e.g.&lt;/em&gt; if it is a Borel space) one can prove that a regular
-conditional probability exists for any random variable &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt;, see &lt;em&gt;e.g.&lt;/em&gt; &lt;span
-class="citation"&gt;(Kallenberg 1997)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;If &lt;span class="math inline"&gt;\(X = \chi _A \colon \Omega \to
-\{0,1\}\)&lt;/span&gt;, where &lt;span class="math inline"&gt;\(A\in \mathcal
-E\)&lt;/span&gt; has positive probability &lt;span
-class="math inline"&gt;\(0&amp;lt;P(A)&amp;lt;1\)&lt;/span&gt;, we can easily
-compute:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-P(E\vert \chi _A) = \chi _A\cdot \frac{P(E\cap A)}{P(A)} + (1-\chi
-_A)\cdot \frac{P(E\cap A^c)}{P(A^c)}
-\]&lt;/span&gt; In particular, &lt;span class="math inline"&gt;\(P(E\vert A) \equiv
-P(E\vert \chi _A = 1)\)&lt;/span&gt; agrees with the usual elementary
-definition of conditional probability.&lt;/p&gt;
-&lt;p&gt;More generally, if &lt;span class="math inline"&gt;\(X = \text {id}
-_\Omega\)&lt;/span&gt;, where the target space is equipped with a sub-&lt;span
-class="math inline"&gt;\(\sigma\)&lt;/span&gt;-algebra &lt;span
-class="math inline"&gt;\(\mathcal F \subseteq \mathcal E\)&lt;/span&gt;, we
-have:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-P(E\vert \mathcal F)\equiv \frac{\text d (P\vert _\mathcal F)_E}{\text d
-(P\vert _\mathcal F)},
-\]&lt;/span&gt; which is sometimes taken as the definition of conditional
-probability with respect to a sub-&lt;span
-class="math inline"&gt;\(\sigma\)&lt;/span&gt;-algebra. When &lt;span
-class="math inline"&gt;\(\mathcal F\)&lt;/span&gt; is the &lt;span
-class="math inline"&gt;\(\sigma\)&lt;/span&gt;-algebra generated by a finite or
-countable partition &lt;span class="math inline"&gt;\(\mathcal A = (A_i)_{i\in
-I}\)&lt;/span&gt; of &lt;span class="math inline"&gt;\(\mathcal \Omega\)&lt;/span&gt; such
-that &lt;span class="math inline"&gt;\(P(A_i)&amp;gt;0\)&lt;/span&gt; for all &lt;span
-class="math inline"&gt;\(i\in I\)&lt;/span&gt;, we find:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-P(E\vert \mathcal A)=\sum _{i\in I} \frac{P(E\cap A_i)}{P(A_i)}\chi
-_{A_i},
-\]&lt;/span&gt; again in agreement with elementary definitions.&lt;/p&gt;
-&lt;p&gt;Finally, if &lt;span class="math inline"&gt;\(X\colon \Omega \to \mathbb
-R\)&lt;/span&gt; is a real-valued random variable, where &lt;span
-class="math inline"&gt;\(\mathbb R\)&lt;/span&gt; is equipped with the Borel
-&lt;span class="math inline"&gt;\(\sigma\)&lt;/span&gt;-algebra, &lt;span
-class="math inline"&gt;\(X_*P\)&lt;/span&gt; coincides with the Stieltjes measure
-generated by the cumulative distribution function &lt;span
-class="math inline"&gt;\(P_X\)&lt;/span&gt; of &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt;. Denoting &lt;span
-class="math inline"&gt;\(P(E\vert X)(x) \equiv P(E\vert X = x)\)&lt;/span&gt;, we
-may write:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-P(E \cap (X \in B))=\intop _B P(E\vert X=x) \,\text dP_X(x).
-\]&lt;/span&gt; and, in particular:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-P(E)=\intop _\mathbb R P(E\vert X=x) \,\text dP_X(x).
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-kallenberg1997foundations" class="csl-entry"&gt;
-Kallenberg, Olav. 1997. &lt;em&gt;Foundations of Modern Probability&lt;/em&gt;. Vol.
-2. Springer.
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="footnotes footnotes-end-of-document"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt; These claims can be proved by a standard argument using
-approximations by simple functions.&lt;a href="#fnref1"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn2"&gt;&lt;p&gt;For instance, denoting by &lt;span
-class="math inline"&gt;\(N_E = \{x \in \Omega_X \vert P(E\vert X = x) \geq
-0\}\)&lt;/span&gt;, positivity implies that &lt;span
-class="math inline"&gt;\((X_*P)(N_E)=0\)&lt;/span&gt;. However, there’s no
-guarantee that &lt;span class="math inline"&gt;\(\cup _{E\in \mathcal E}
-N_E\)&lt;/span&gt; is also a measure zero set (and in fact it does not need to
-be measurable, since the union is generally uncountable).&lt;a
-href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-      <distill:md5>ad3ae03bc8b7b243a97e1a4ca3b9744a</distill:md5>
+      <description>Notes on the formal definition of conditional probability.</description>
       <category>Probability Theory</category>
       <category>Measure Theory</category>
       <guid>https://vgherard.github.io/posts/2023-11-03-conditional-probability</guid>
-      <pubDate>2023-11-02</pubDate>
+      <pubDate>Fri, 03 Nov 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Prefix-free codes</title>
@@ -189,7 +27,7 @@ href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Entropy</category>
       <category>Probability Theory</category>
       <guid>https://vgherard.github.io/posts/2023-10-31-prefix-free-codes</guid>
-      <pubDate>2023-10-31</pubDate>
+      <pubDate>Tue, 31 Oct 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>AB tests and repeated checks</title>
@@ -202,7 +40,7 @@ href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Statistics</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks</guid>
-      <pubDate>2023-07-27</pubDate>
+      <pubDate>Thu, 27 Jul 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -216,7 +54,7 @@ href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Linear Models</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression</guid>
-      <pubDate>2023-07-11</pubDate>
+      <pubDate>Tue, 11 Jul 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -227,7 +65,7 @@ href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Mathematics</category>
       <category>Probability Theory</category>
       <guid>https://vgherard.github.io/posts/2023-06-14-sum-and-ratio-of-independent-random-variables</guid>
-      <pubDate>2023-06-14</pubDate>
+      <pubDate>Wed, 14 Jun 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Fisher's Randomization Test</title>
@@ -238,98 +76,20 @@ href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Frequentist Methods</category>
       <category>Causal Inference</category>
       <guid>https://vgherard.github.io/posts/2023-06-07-fishers-randomization-test</guid>
-      <pubDate>2023-06-07</pubDate>
+      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>p-values and measure theory</title>
       <dc:creator>vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2023-06-07-p-values-and-measure-theory</link>
-      <description>
-
-
-&lt;p&gt;Let &lt;span class="math inline"&gt;\((\Omega, \mathcal E,
-\text{Pr})\)&lt;/span&gt; be a probability space, where &lt;span
-class="math inline"&gt;\(\Omega\)&lt;/span&gt; is the space of random outcomes,
-&lt;span class="math inline"&gt;\(\mathcal E\)&lt;/span&gt; the &lt;span
-class="math inline"&gt;\(\sigma\)&lt;/span&gt;-algebra of measurable events, and
-&lt;span class="math inline"&gt;\(P\)&lt;/span&gt; the probability measure.&lt;/p&gt;
-&lt;p&gt;Given a random variable &lt;span class="math inline"&gt;\(T\colon \Omega
-\to \mathbb R\)&lt;/span&gt;, define &lt;span class="math inline"&gt;\(p_T\colon
-\Omega \to \left[0,1\right]\)&lt;/span&gt; as:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-p_T(\omega) = \text{Pr}(\{\omega&amp;#39;\in \Omega\,\vert\,
-T(\omega&amp;#39;)\geq T(\omega)\})
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Theorem.&lt;/strong&gt; &lt;span class="math inline"&gt;\(p_T\)&lt;/span&gt; is
-measurable and &lt;span class="math inline"&gt;\(\text{Pr}(p_T\leq \alpha)
-\leq \alpha\)&lt;/span&gt; for all &lt;span class="math inline"&gt;\(\alpha \in
-\left[0,1\right]\)&lt;/span&gt;. Equality holds if and only if there exists a
-sequence &lt;span class="math inline"&gt;\(\{\omega_n\}_{n\in \mathbb
-N}\)&lt;/span&gt; such that &lt;span class="math inline"&gt;\(p_T(\omega_n) \leq
-\alpha\)&lt;/span&gt;, and &lt;span class="math inline"&gt;\(p_T(\omega _n)\to
-\alpha\)&lt;/span&gt; as &lt;span class="math inline"&gt;\(n \to
-\infty\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Proof.&lt;/em&gt; Let &lt;span
-class="math inline"&gt;\(\alpha\in\left[0,1\right]\)&lt;/span&gt;, and denote:
-&lt;span class="math display"&gt;\[
-E_T(\omega) = \{\omega&amp;#39;\in \Omega\,\vert\, T(\omega&amp;#39;)\geq
-T(\omega)\},
-\]&lt;/span&gt; so that &lt;span class="math inline"&gt;\(p_T(\omega) =
-\text{Pr}(E_T(\omega))\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Assume first that there exists &lt;span
-class="math inline"&gt;\(\omega_\alpha \in p_T^{-1}(\alpha)\)&lt;/span&gt;, that
-is to say &lt;span class="math inline"&gt;\(\text{Pr}(E_T(\omega)) =
-\alpha\)&lt;/span&gt;. We can show that:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-N_T(\omega_\alpha) = \{\omega \vert p_T(\omega) \leq \alpha\} \backslash
-E_T(\omega_\alpha)
-\]&lt;/span&gt; is a measurable, zero probability set, which proves the thesis
-for this particular case. As a matter of fact, for any &lt;span
-class="math inline"&gt;\(\omega \in \Omega\)&lt;/span&gt;, if &lt;span
-class="math inline"&gt;\(p_T(\omega)\leq \alpha\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(T(\omega) &amp;lt;T(\omega_\alpha)\)&lt;/span&gt;, then we
-must have:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}(\{\omega&amp;#39;\in \Omega\,\vert\,
-                                                                T(\omega_\alpha)&amp;gt;T(\omega&amp;#39;)\geq
-T(\omega)\}
-                                                                ) =
-p_T(\omega) - \alpha=0.
-\]&lt;/span&gt; If &lt;span class="math inline"&gt;\(t_* = \inf_{p_T(\omega)\leq
-\alpha}T(\omega)\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\{a _n\}_{n
-\in \mathbb N}\)&lt;/span&gt; is a sequence in &lt;span
-class="math inline"&gt;\(\Omega\)&lt;/span&gt; such that &lt;span
-class="math inline"&gt;\(T(a _n)\to t_*\)&lt;/span&gt; as &lt;span
-class="math inline"&gt;\(n\to \infty\)&lt;/span&gt;, then:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-N_T(\omega _\alpha) \subseteq \cup _n \{\omega&amp;#39;\in \Omega\,\vert\,
-                                                                T(\omega_\alpha)&amp;gt;T(\omega&amp;#39;)\geq
-T(a_n)\},
-\]&lt;/span&gt; the right hand side being a probability zero set.&lt;/p&gt;
-&lt;p&gt;If &lt;span class="math inline"&gt;\(p_T^{-1}(\alpha)\)&lt;/span&gt; is empty,
-let &lt;span class="math inline"&gt;\(\alpha^* = \sup _{p_T(\omega)\leq
-\alpha}p(\omega)\)&lt;/span&gt;, and let &lt;span class="math inline"&gt;\(\{b
-_n\}_{n\in \mathbb N}\)&lt;/span&gt; be a sequence in &lt;span
-class="math inline"&gt;\(\Omega\)&lt;/span&gt; such that &lt;span
-class="math inline"&gt;\(p_T(b_n)\to \alpha^*\)&lt;/span&gt; as &lt;span
-class="math inline"&gt;\(n\to \infty\)&lt;/span&gt;. Then:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\{\omega \vert p_T(\omega) \leq \alpha\}=
-\{\omega \vert p_T(\omega) \leq \alpha^*\}=
-\cup _n \{\omega \vert p_T(\omega) \leq p_T(b_n)\},
-\]&lt;/span&gt; so that, from the particular case proved earlier, we have:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}(p_T \leq \alpha) = \lim _{n \to \infty} \text{Pr}(p_T \leq
-p_T(b_n)) \leq \lim _{n \to \infty} p_T(b_n) = \alpha ^* \leq \alpha,
-\]&lt;/span&gt; as was to be proved.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>3cf54cba7024479ba59a80d0ee4695f3</distill:md5>
+      <description>Self-reassurance that p-value properties don't depend on regularity 
+assumptions on the test statistic.</description>
       <category>Probability Theory</category>
       <category>Measure Theory</category>
       <category>Frequentist Methods</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2023-06-07-p-values-and-measure-theory</guid>
-      <pubDate>2023-06-07</pubDate>
+      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Linear regression with autocorrelated noise</title>
@@ -343,7 +103,7 @@ p_T(b_n)) \leq \lim _{n \to \infty} p_T(b_n) = \alpha ^* \leq \alpha,
       <category>Model Misspecification</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise</guid>
-      <pubDate>2023-05-25</pubDate>
+      <pubDate>Thu, 25 May 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -357,7 +117,7 @@ p_T(b_n)) \leq \lim _{n \to \infty} p_T(b_n) = \alpha ^* \leq \alpha,
       <category>Model Misspecification</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches</guid>
-      <pubDate>2023-05-14</pubDate>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -370,7 +130,7 @@ p_T(b_n)) \leq \lim _{n \to \infty} p_T(b_n) = \alpha ^* \leq \alpha,
       <category>Linear Models</category>
       <category>Model Misspecification</category>
       <guid>https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators</guid>
-      <pubDate>2023-05-12</pubDate>
+      <pubDate>Fri, 12 May 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Bayes, Neyman and the Magic Piggy Bank</title>
@@ -383,7 +143,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Frequentist Methods</category>
       <category>Bayesian Methods</category>
       <guid>https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank</guid>
-      <pubDate>2023-05-01</pubDate>
+      <pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Correlation Without Causation</title>
@@ -392,7 +152,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <description>*Cum hoc ergo propter hoc*</description>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2023-03-10-correlation-without-causation</guid>
-      <pubDate>2023-03-30</pubDate>
+      <pubDate>Thu, 30 Mar 2023 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>How to get away with selection. Part II: Mathematical Framework</title>
@@ -403,7 +163,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Selective Inference</category>
       <category>Model Misspecification</category>
       <guid>https://vgherard.github.io/posts/2022-11-07-posi-2</guid>
-      <pubDate>2022-11-25</pubDate>
+      <pubDate>Fri, 25 Nov 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>How to get away with selection. Part I: Introduction</title>
@@ -414,7 +174,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Selective Inference</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2022-10-18-posi</guid>
-      <pubDate>2022-11-14</pubDate>
+      <pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate>
       <media:content url="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -425,7 +185,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
       <category>Natural Language Processing</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</guid>
-      <pubDate>2021-11-13</pubDate>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>R Client for R-universe APIs</title>
@@ -435,7 +195,7 @@ intervals in a gambling game involving a magic piggy bank.</description>
 repository APIs</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</guid>
-      <pubDate>2021-07-25</pubDate>
+      <pubDate>Sun, 25 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
@@ -444,7 +204,7 @@ repository APIs</description>
       <description>Create automatic resumes of your R packages using the R-Universe API.</description>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</guid>
-      <pubDate>2021-07-21</pubDate>
+      <pubDate>Wed, 21 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>{r2r} now on CRAN</title>
@@ -454,7 +214,7 @@ repository APIs</description>
       <category>Data Structures</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
-      <pubDate>2021-07-06</pubDate>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Test post</title>
@@ -463,7 +223,7 @@ repository APIs</description>
       <description>A short description of the post.</description>
       <category>Other</category>
       <guid>https://vgherard.github.io/posts/2021-07-06-test-post</guid>
-      <pubDate>2021-07-06</pubDate>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>
