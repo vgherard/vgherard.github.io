@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:distill="https://distill.pub/journal/" version="2.0">
+  <channel>
+    <title>Valerio Gherardi</title>
+    <link>https://vgherard.github.io/</link>
+    <atom:link href="https://vgherard.github.io/index.xml" rel="self" type="application/rss+xml"/>
+    <description>Valerio Gherardi
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>2023-11-14</lastBuildDate>
+    <item>
+      <title>Interpreting the Likelihood Ratio cost</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost</link>
+      <description>
+
+
+&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;During the last few months, I’ve been working on a machine learning
+algorithm with applications in &lt;a
+href="https://en.wikipedia.org/wiki/Forensic_science"&gt;Forensic
+Science&lt;/a&gt;, a.k.a. Criminalistics. In this field, one common task for
+the data analyst is to present the &lt;em&gt;trier-of-fact&lt;/em&gt; (the person or
+people who determine the facts in a legal proceeding) with a numerical
+assessment of the strength of the evidence provided by available data
+towards different hypotheses. In more familiar terms, the forensic
+expert is responsible of computing the likelihoods (or likelihood
+ratios) of data under competing hypotheses, which are then used by the
+trier-of-fact to produce Bayesian posterior probabilities for the
+hypotheses in question&lt;a href="#fn1" class="footnote-ref"
+id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In relation to this, forensic scientists have developed a bunch of
+techniques to evaluate the performance of a likelihood ratio model in
+discriminating between two alternative hypothesis. In particular, I have
+come across the so called &lt;em&gt;Likelihood Ratio Cost&lt;/em&gt;, usually
+defined as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+C_{\text{LLR}} = \frac{1}{2N_1} \sum _{Y_i=1} \log(1+r(X_i)
+^{-1})+\frac{1}{2N_0} \sum _{Y_i=0} \log(1+r(X_i)), (\#eq:CLLR)
+\]&lt;/span&gt; where we assume we have data consisting of &lt;span
+class="math inline"&gt;\(N_1+N_0\)&lt;/span&gt; independent identically
+distributed observations &lt;span
+class="math inline"&gt;\((X_i,\,Y_i)\)&lt;/span&gt;, with binary &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt;; &lt;span
+class="math inline"&gt;\(N_1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(N_0\)&lt;/span&gt; stand for the number of positive
+(&lt;span class="math inline"&gt;\(Y=1\)&lt;/span&gt;) and negative (&lt;span
+class="math inline"&gt;\(Y=0\)&lt;/span&gt;) cases; and &lt;span
+class="math inline"&gt;\(r(X)\)&lt;/span&gt; is a model for the likelihood ratio
+&lt;span class="math inline"&gt;\(\Lambda(X) \equiv \frac{\text{Pr}(X\vert Y =
+1)}{\text{Pr}(X\vert Y = 0)}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The main reason for writing this note was to understand a bit better
+what it means to optimize Eq. @ref(eq:CLLR), which does not look
+immediately obvious to me from its definition&lt;a href="#fn2"
+class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;. In particular: is the
+population minimizer of Eq. @ref(eq:CLLR) the actual likelihood ratio?
+And in what sense is a model with lower &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; better than one with a
+correspondingly higher value?&lt;/p&gt;
+&lt;p&gt;The short answers to these questions are: yes; and: &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; optimization seeks for the
+model with the best predictive performance in a Bayesian inference
+setting with uninformative prior on &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt;, assuming that this prior actually
+reflects reality (&lt;em&gt;i.e.&lt;/em&gt; &lt;span
+class="math inline"&gt;\(\text{Pr}(Y=1) = \text{Pr}(Y=0) =
+\frac{1}{2}\)&lt;/span&gt;). The mathematical details are given in the rest of
+the post.&lt;/p&gt;
+&lt;!-- Strictly speaking, there are several aspects to what I have simply referred to as the "performance of a likelihood ratio model". First of all, there is the --&gt;
+&lt;!-- left-over uncertainty on $Y$ after measuring $X$, which is an intrinsic property of the data and is independent of modeling. Second, $X$ may not correspond to raw data, but rather be the result of some data-processing/summary, which will in general reduce the amount of available information on $Y$. Finally, in the general case, the likelihood ratio $r(X)$ will not be an exact model, but only an approximation estimated from data. All this aspects get captured and mixed by Eq. \@ref(eq:CLLR), luckily in a way that can be actually decomposed (see below). --&gt;
+&lt;h2 id="cross-entropy-with-random-weights"&gt;Cross-entropy with random
+weights&lt;/h2&gt;
+&lt;p&gt;We start with a mathematical digression, which will turn out useful
+for further developments. Let &lt;span
+class="math inline"&gt;\(\{(X_i,\,Y_i)\}_{i=1,\,2,\,\dots,N}\)&lt;/span&gt; be
+independent draws from a joint distribution, with binary &lt;span
+class="math inline"&gt;\(Y_i \in \{0,\,1\}\)&lt;/span&gt;. Given a function &lt;span
+class="math inline"&gt;\(w=w(\boldsymbol Y)\)&lt;/span&gt; that is symmetric in
+its arguments&lt;a href="#fn3" class="footnote-ref"
+id="fnref3"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;, we define the random functional:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathcal L_N^w[f] = -\frac{1}{N}\sum_{i=1} ^N \left[w(\boldsymbol Y)Y_i
+\log(f(X_i))+ w({\boldsymbol Y}^c)( Y_i^c)
+\log(f(X_i)^c)\right],(\#eq:WeightedLoss)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(f=f(X)\)&lt;/span&gt; is any
+function satisfying &lt;span class="math inline"&gt;\(f(X)\in [0,\,1]\)&lt;/span&gt;
+for all &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;, and we let &lt;span
+class="math inline"&gt;\(q^c = 1-q\)&lt;/span&gt; for any number &lt;span
+class="math inline"&gt;\(q \in [0,\,1]\)&lt;/span&gt;. Notice that for &lt;span
+class="math inline"&gt;\(w(\boldsymbol{Y}) \equiv 1\)&lt;/span&gt;, this is just
+the usual cross-entropy loss.&lt;/p&gt;
+&lt;p&gt;We now look for the population minimizer of @ref(eq:WeightedLoss),
+&lt;em&gt;i.e.&lt;/em&gt; the function &lt;span class="math inline"&gt;\(f_*\)&lt;/span&gt; that
+minimizes the functional &lt;span class="math inline"&gt;\(f \mapsto \mathbb
+E(\mathcal L _N ^w [f])\)&lt;/span&gt;&lt;a href="#fn4" class="footnote-ref"
+id="fnref4"&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt;. Writing the expectation as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E(\mathcal L _N ^w [f]) = -\frac{1}{N}\sum _{i=1} ^N \mathbb
+E\left[ \mathbb E(Y_i\cdot w(\boldsymbol Y)\vert X_i)\cdot
+\log(f(X_i))+E(Y_i^c\cdot w(\boldsymbol Y ^c)\vert X_i)\cdot
+\log(f^c(X_i))\right],
+\]&lt;/span&gt; we can easily see that &lt;span class="math inline"&gt;\(\mathbb
+E(\mathcal L _N ^w [f])\)&lt;/span&gt; is a convex functional with a unique
+minimum given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+f_*(X_i) = \frac{1}{1+r(X_i)^{-1}},\quad r_*(X_i) = \dfrac{E(Y_i\cdot
+w(\boldsymbol Y)\vert X_i)}{E(Y_i^c\cdot w(\boldsymbol Y^c)\vert
+X_i)}.(\#eq:PopMinimizer)
+\]&lt;/span&gt; The corresponding expected loss is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E(\mathcal L _N ^w [f_*]) = \mathbb E\left[ \mathbb E(Y_i\cdot
+w(\boldsymbol Y) + Y_i^c\cdot w(\boldsymbol Y^c)\vert X_i)\cdot \mathcal
+H(f_*(X_i))\right],
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\mathcal H(p) = -p \log (p)
+-(1-p) \log(1-p)\)&lt;/span&gt; is the entropy of a binary random variable
+&lt;span class="math inline"&gt;\(Z\)&lt;/span&gt; with probability &lt;span
+class="math inline"&gt;\(p = \text{Pr}(Z=1)\)&lt;/span&gt; (the index &lt;span
+class="math inline"&gt;\(i\)&lt;/span&gt; in the previous expression can be any
+index, since data points are assumed to be identically distributed).&lt;/p&gt;
+&lt;p&gt;Before looking at values of &lt;span class="math inline"&gt;\(f\)&lt;/span&gt;
+other than &lt;span class="math inline"&gt;\(f_*\)&lt;/span&gt;, we observe that the
+previous expectation can be succintly expressed as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E(\mathcal L _N ^w [f_*]) = k \cdot H^\prime(Y\vert X),
+\]&lt;/span&gt; where &lt;span class="math display"&gt;\[
+k = \mathbb E(Y_i\cdot w(\boldsymbol Y) + Y_i^c\cdot w(\boldsymbol
+Y^c))(\#eq:DefKappa)
+\]&lt;/span&gt; and &lt;span class="math inline"&gt;\(H&amp;#39;(Y\vert X)\)&lt;/span&gt; is
+the conditional entropy of &lt;span class="math inline"&gt;\(Y\vert X\)&lt;/span&gt;
+with respect to a &lt;em&gt;different&lt;/em&gt; probability measure &lt;span
+class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt;, defined by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}^\prime(E) = t \cdot \text {Pr}(E \vert Y = 1) + (1-t)\cdot
+\text {Pr}(E \vert Y = 0), (\#eq:DefPrPrime)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(t=\text{Pr}^\prime(Y=1)\in
+[0,\,1]\)&lt;/span&gt; is fixed by the requirement&lt;a href="#fn5"
+class="footnote-ref" id="fnref5"&gt;&lt;sup&gt;5&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\dfrac{\text {Pr}^\prime (Y=1)}{\text{Pr}^\prime (Y=0)}=\dfrac{\text
+{Pr} (Y=1)}{\text{Pr} (Y=0)}\cdot\dfrac{\mathbb E(w(\boldsymbol Y)\vert
+\sum _i Y_i &amp;gt;0)}{\mathbb E(w(\boldsymbol Y^c)\vert \sum _i Y_i^c
+&amp;gt;0)}. (\#eq:DefPrPrime2)
+\]&lt;/span&gt; In terms of &lt;span
+class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt;, the population
+minimizers &lt;span class="math inline"&gt;\(f_*\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(r_*\)&lt;/span&gt; in Eq. @ref(eq:PopMinimizer) can be
+simply expressed as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+r_*(X)=\dfrac{\text {Pr}^\prime(Y=1\vert X)}{\text {Pr}^\prime(Y=0\vert
+X)},\qquad f_*(X)=\text {Pr}^\prime(Y=1\vert X). (\#eq:PopMinimizer2)
+\]&lt;/span&gt; If now &lt;span class="math inline"&gt;\(f\)&lt;/span&gt; is an arbitrary
+function, we have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb E(\mathcal L _N ^w [f]) - \mathbb E(\mathcal L _N ^w [f_*])
+&amp;amp;= \mathbb E\left[ \mathbb E(Y_i\cdot w(\boldsymbol Y) + Y_i^c\cdot
+w(\boldsymbol Y^c)\vert X_i)\cdot \mathcal D(f_*(X_i)\vert \vert
+f(X_i))\right]
+&amp;amp;= k\cdot D(\text{Pr}^\prime\vert \vert \text{Pr}^\prime _f)
+\end{split}
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\mathcal D(p\vert \vert q) =
+p \log (\frac{p}{q}) + (1-p) \log (\frac{1-p}{1-q})\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(D(\text{Pr}^\prime\vert \vert \text{Pr}^\prime
+_f)\)&lt;/span&gt; is the Kullback-Liebler divergence between the measure
+&lt;span class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt; and the measure
+&lt;span class="math inline"&gt;\(\text{Pr}^\prime _f\)&lt;/span&gt; defined by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}^\prime _f(Y = 1\vert X)=f(X),\qquad \text{Pr}^\prime
+_f(X)=\text{Pr}^\prime(X)
+\]&lt;/span&gt; (notice that &lt;span class="math inline"&gt;\(\text {Pr} ^{\prime}
+_{f_*} \equiv \text{Pr} ^{\prime}\)&lt;/span&gt; by definition). Finally,
+suppose that &lt;span class="math inline"&gt;\(X = g(\widetilde X)\)&lt;/span&gt;
+for some random variable &lt;span class="math inline"&gt;\(\widetilde
+X\)&lt;/span&gt;, and define the corresponding functional:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\widetilde{\mathcal L} _N^w[\widetilde f]  = -\frac{1}{N}\sum_{i=1} ^N
+\left[w(\boldsymbol Y)Y_i \log(\widetilde f(\widetilde X))+
+w({\boldsymbol Y}^c)( Y_i^c) \log(\widetilde f(\widetilde X)^c)\right].
+\]&lt;/span&gt; Then &lt;span class="math inline"&gt;\(\mathcal L _N ^w [f] =
+\widetilde{\mathcal L} _N^w[f \circ g]\)&lt;/span&gt;. If &lt;span
+class="math inline"&gt;\(\widetilde f _* =\)&lt;/span&gt; is the population
+minimizer of &lt;span class="math inline"&gt;\(\widetilde{\mathcal L}
+_N^w\)&lt;/span&gt;, it follows that &lt;span class="math inline"&gt;\(\mathbb E
+(\widetilde{\mathcal L} _N^w[\widetilde f _*]) \leq \mathbb E(\mathcal L
+_N ^w [f_*])\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Putting everything together, we can decompose the expected loss for a
+function &lt;span class="math inline"&gt;\(f=f(X)\)&lt;/span&gt;, where &lt;span
+class="math inline"&gt;\(X= g(\widetilde X)\)&lt;/span&gt;, in the following
+suggestive way:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb E(\mathcal L _N ^w [f]) &amp;amp;= (L_N ^w)_\text{min}+(L_N
+^w)_\text{proc} +(L_N ^w)_\text{missp},\\
+(L_N ^w)_\text{min}&amp;amp;\equiv\mathbb E(\widetilde{\mathcal L}
+_N^w[{\widetilde f} _*])  \\ &amp;amp;=
+\mathbb E\left[ \mathbb E(Y_i\cdot w(\boldsymbol Y) + Y_i^c\cdot
+w(\boldsymbol Y^c)\vert \widetilde X _i)\cdot \mathcal H({\widetilde f}
+_*(\widetilde X _i))\right]\\
+&amp;amp;=k\cdot H^\prime(Y\vert \widetilde X),\\
+(L_N ^w)_\text{proc}&amp;amp;\equiv\mathbb E(\mathcal L _N ^w
+[f_*]-\widetilde{\mathcal L} _N^w[\phi_*])  \\&amp;amp; =
+\mathbb E\left[ \mathbb E(Y_i\cdot w(\boldsymbol Y) + Y_i^c\cdot
+w(\boldsymbol Y^c)\vert X_i)\cdot  \mathcal H(f_*(X_i))
+\right]- (L_N ^w)_\text{min}\\
+&amp;amp; = k\cdot I^\prime(Y; \widetilde X\vert X),\\
+(L_N ^w)_\text{missp} &amp;amp; \equiv \mathbb E(\mathcal L _N ^w [f]) -
+\mathbb E(\mathcal L _N ^w [f_*]) \\&amp;amp;= \mathbb E\left[ \mathbb
+E(Y_i\cdot w(\boldsymbol Y) + Y_i^c\cdot w(\boldsymbol Y^c)\vert
+X_i)\cdot  \mathcal  D(f_*(X_i)\vert \vert f(X_i))\right]\\ &amp;amp;=k\cdot
+D(\text {Pr}^\prime\vert \vert \text {Pr}^\prime _f),
+\end{split} (\#eq:DecompositionWeightedLoss)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(k\)&lt;/span&gt; is defined in Eq.
+@ref(eq:DefKappa). In the equation for &lt;span class="math inline"&gt;\((L^w
+_N)_\text{proc}\)&lt;/span&gt; we introduced the conditional mutual
+information (with respect to the measure &lt;span
+class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt;), that satisfies &lt;span
+class="citation"&gt;(Cover and Thomas 2006)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+I(\widetilde X;Y\vert X) = I(\widetilde X,Y)-I(X,Y) = H(Y\vert
+X)-H(Y\vert \widetilde X).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The three components in Eq. @ref(eq:DecompositionWeightedLoss) can be
+interpreted as follows: &lt;span class="math inline"&gt;\((L_N
+^w)_\text{min}\)&lt;/span&gt; represents the minimum expected loss achievable,
+given the data available &lt;span class="math inline"&gt;\(\widetilde
+X\)&lt;/span&gt;; &lt;span class="math inline"&gt;\((L_N ^w)_\text{proc}\)&lt;/span&gt;
+accounts for the information lost in the processing transformation &lt;span
+class="math inline"&gt;\(X=g(\widetilde X)\)&lt;/span&gt;; finally &lt;span
+class="math inline"&gt;\((L_N ^w)_\text{missp}\)&lt;/span&gt; is due to
+misspecification, &lt;em&gt;i.e.&lt;/em&gt; the fact that the model &lt;span
+class="math inline"&gt;\(f(X)\)&lt;/span&gt; for the true posterior probability
+&lt;span class="math inline"&gt;\(f_*(X)\)&lt;/span&gt; is an approximation.&lt;/p&gt;
+&lt;p&gt;All the information-theoretic quantities (and their corresponding
+operative interpretations hinted in the previous paragraph) make
+reference to the measure &lt;span
+class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt; defined by Eqs.
+@ref(eq:DefPrPrime) and @ref(eq:DefPrPrime2). This is merely the result
+of altering the proportion of positive (&lt;span
+class="math inline"&gt;\(Y=1\)&lt;/span&gt;) and negative (&lt;span
+class="math inline"&gt;\(Y=0\)&lt;/span&gt;) examples in the &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;-&lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;
+joint distribution by a factor dictated by the weight function &lt;span
+class="math inline"&gt;\(w\)&lt;/span&gt; - while keeping conditional
+distributions such as &lt;span class="math inline"&gt;\(X\vert Y\)&lt;/span&gt;
+unchanged.&lt;/p&gt;
+&lt;h2 id="a-familiar-case-cross-entropy-loss"&gt;A familiar case:
+cross-entropy loss&lt;/h2&gt;
+&lt;p&gt;For &lt;span class="math inline"&gt;\(w(\boldsymbol {Y}) = 1\)&lt;/span&gt;, the
+functional &lt;span class="math inline"&gt;\(\mathcal {L} _{N}
+^{w}[f]\)&lt;/span&gt; coincides with the usual cross-entropy loss&lt;a
+href="#fn6" class="footnote-ref" id="fnref6"&gt;&lt;sup&gt;6&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{CE}[f] = -\frac{1}{N}\sum_{i=1} ^N \left[Y_i \log(f(X_i))+ (1-Y_i)
+\log(1-f(X_i))\right].(\#eq:CrossEntropyLoss)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;From Eq. @ref(eq:DefPrPrime2) we see that the measure &lt;span
+class="math inline"&gt;\(\text{Pr}^{\prime}\)&lt;/span&gt; coincides with the
+original &lt;span class="math inline"&gt;\(\text{Pr}\)&lt;/span&gt;, so that by Eq.
+@ref(eq:PopMinimizer) the population minimizer of
+@ref(eq:CrossEntropyLoss) is &lt;span class="math inline"&gt;\(f_{*}(X) =
+\text{Pr}(Y=1\vert X)\)&lt;/span&gt; (independently of sample size). Since
+&lt;span class="math inline"&gt;\(k = 1\)&lt;/span&gt; (&lt;em&gt;cf.&lt;/em&gt; Eq.
+@ref(eq:DefKappa)), the decomposition @ref(eq:DecompositionWeightedLoss)
+reads:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb E(\text{CE} [f]) &amp;amp;=
+(\text{CE})_\text{min}+(\text{CE})_\text{proc}
++(\text{CE})_\text{missp},\\
+(\text{CE})_\text{min}&amp;amp;=H(Y\vert \widetilde X),\\
+(\text{CE})_\text{proc}&amp;amp;= I(Y; \widetilde X\vert X),\\
+(\text{CE})_\text{missp} &amp;amp;=D(\text {Pr}\vert \vert \text {Pr} _{f}),
+\end{split} (\#eq:DecompositionCE)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where conditional entropy &lt;span class="math inline"&gt;\(H\)&lt;/span&gt;,
+mutual information &lt;span class="math inline"&gt;\(I\)&lt;/span&gt; and relative
+entropy &lt;span class="math inline"&gt;\(D\)&lt;/span&gt; now simply refer to the
+original measure &lt;span class="math inline"&gt;\(\text{Pr}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h2 id="the-likelihood-ratio-cost"&gt;The Likelihood Ratio Cost&lt;/h2&gt;
+&lt;p&gt;The quantity &lt;span class="math inline"&gt;\(C_{\text{LLR}}\)&lt;/span&gt;
+defined in Eq. @ref(eq:CLLR) can be put in the general form
+@ref(eq:WeightedLoss), if we let &lt;span class="math inline"&gt;\(f(X) =
+(1+r(X)^{-1})^{-1}\)&lt;/span&gt; and&lt;a href="#fn7" class="footnote-ref"
+id="fnref7"&gt;&lt;sup&gt;7&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+w(\boldsymbol Y) = \left(\dfrac{2}{N}\sum _{i = 1}^{N}Y_j \right)^{-1}
+\]&lt;/span&gt; In what follows, I will consider a slight modification of the
+usual &lt;span class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt;, defined by the
+weight function:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+w(\boldsymbol Y) = \dfrac{1}{2(N-1)}\sum _{i = 1}^{N}(1-Y_j).
+\]&lt;/span&gt; This yields Eq. @ref(eq:CLLR) multiplied by &lt;span
+class="math inline"&gt;\(\dfrac{N_1N_0}{N(N-1)}\)&lt;/span&gt;, which I will keep
+denoting as &lt;span class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt;, with a
+slight abuse of notation.&lt;/p&gt;
+&lt;p&gt;We can easily compute&lt;a href="#fn8" class="footnote-ref"
+id="fnref8"&gt;&lt;sup&gt;8&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\dfrac{\text {Pr}^\prime (Y=1)}{\text{Pr}^\prime (Y=0)}=1,
+(\#eq:PriorCLLR)
+\]&lt;/span&gt; so that, by Eq. @ref(eq:PopMinimizer), the population
+minimizer of &lt;span class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+r_*(X) = \Lambda (X),\quad f_*(X)=\dfrac{1}{1+\Lambda(X)^{-1}},
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class="math inline"&gt;\(\Lambda(X)\)&lt;/span&gt; denotes the
+&lt;em&gt;likelihood-ratio&lt;/em&gt; of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;,
+schematically:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\Lambda(X)\equiv \dfrac{\text{Pr}(X\vert Y = 1)}{\text{Pr}(X\vert Y =
+0)}.
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The constant &lt;span class="math inline"&gt;\(k\)&lt;/span&gt; in Eq.
+@ref(eq:DefKappa) is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+k = \text{Pr}(Y = 1)\text{Pr}(Y = 0)=\text{Var}(Y)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The general decomposition @ref(eq:DecompositionWeightedLoss) becomes:
+&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb E(C_\text{LLR} [f]) &amp;amp;=
+(C_\text{LLR})_\text{min}+(C_\text{LLR})_\text{proc}
++(C_\text{LLR})_\text{missp},\\
+(C_\text{LLR})_\text{min}&amp;amp;=\text{Var}(Y)\cdot H^{\prime}(Y\vert
+\widetilde X),\\
+(C_\text{LLR})_\text{proc}&amp;amp;= \text{Var}(Y)\cdot I^{\prime}(Y;
+\widetilde X\vert X),\\
+(C_\text{LLR})_\text{missp} &amp;amp;=\text{Var}(Y)\cdot D^{\prime}(\text
+{Pr}\vert \vert \text {Pr} _{f}),
+\end{split} (\#eq:DecompositionCE)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt; is now
+given by @ref(eq:PriorCLLR).&lt;/p&gt;
+&lt;h2 id="discussion"&gt;Discussion&lt;/h2&gt;
+&lt;p&gt;The table below provides a comparison between cross-entropy and
+likelihood-ratio cost, summarizing the results from previous
+sections.&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width="15%" /&gt;
+&lt;col width="38%" /&gt;
+&lt;col width="46%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class="header"&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Cross-entropy&lt;/th&gt;
+&lt;th&gt;Likelihood Ratio Cost&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(f_*(X)\)&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(\text{Pr}(Y = 1\vert X)\)&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\((1+\Lambda(X)^{-1})^{-1}\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(r_*(X)\)&lt;/span&gt;`&lt;/td&gt;
+&lt;td&gt;Posterior odds ratio&lt;/td&gt;
+&lt;td&gt;Likelihood ratio&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;Minimum Loss&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(H(Y\vert \widetilde X)\)&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(\text{Var}(Y) \cdot H^\prime(Y\vert
+\widetilde X)\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;Processing Loss&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(I(Y; \widetilde X\vert X)\)&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(\text{Var}(Y) \cdot I^\prime(Y;
+\widetilde X\vert X)\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;Misspecification Loss&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(D(f_*\vert\vert f)\)&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(\text{Var}(Y) \cdot
+D^\prime(f_*\vert\vert f)\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;Reference measure&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(\text{Pr}\)&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="math inline"&gt;\(\text{Pr}^{\prime} =
+\frac{\text{Pr}(\cdot \vert Y = 1)+\text{Pr}(\cdot \vert Y =
+0)}{2}\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The objective of &lt;span class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; is
+found to be the likelihood ratio, as terminology suggests. The
+interpretation of model selection according to &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; minimization turns out to be
+slightly more involved, compared to cross-entropy, which we first
+review.&lt;/p&gt;
+&lt;p&gt;Suppose we are given a set of predictive models &lt;span
+class="math inline"&gt;\(\{\mathcal M_i\}_{i\in I}\)&lt;/span&gt;, each of which
+consists of a processing transformation, &lt;span
+class="math inline"&gt;\(\widetilde X \mapsto X\)&lt;/span&gt;, and an estimate
+of the posterior probability &lt;span class="math inline"&gt;\(\text{Pr}(Y =
+1\vert X)\)&lt;/span&gt;. When the sample size &lt;span class="math inline"&gt;\(N
+\to \infty\)&lt;/span&gt;, cross-entropy minimization will almost certainly
+select the model that minimizes &lt;span class="math inline"&gt;\(I(Y;
+\widetilde X\vert X) + D(f_*\vert \vert f)\)&lt;/span&gt;. Following standard
+Information Theory arguments, we can interpret this model as the
+statistically optimal compression algorithm for &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt;, assuming &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; to be available at both the encoding
+and decoding ends.&lt;/p&gt;
+&lt;p&gt;The previous argument carries over &lt;em&gt;mutatis mutandi&lt;/em&gt; to &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; minimization, with an
+important qualification: optimal average compression is now achieved for
+data distributed according to a different probability measure &lt;span
+class="math inline"&gt;\(\text{Pr}&amp;#39;(\cdot) = \frac{1}{2}\text
+{Pr}(\cdot\vert Y = 1) + \frac{1}{2}\text {Pr}(\cdot\vert Y =
+0)\)&lt;/span&gt;. In particular, according to &lt;span
+class="math inline"&gt;\(\text{Pr}&amp;#39;\)&lt;/span&gt;, the likelihood ratio
+coincides with the posterior odds ratio, and &lt;span
+class="math inline"&gt;\((1+\Lambda(X)^{-1})^{-1}\)&lt;/span&gt; coincides with
+posterior probability, which clarifies why we can measure differences
+from the true likelihood-ratio through the Kullback-Liebler
+divergence.&lt;/p&gt;
+&lt;p&gt;The measure &lt;span class="math inline"&gt;\(\text{Pr}&amp;#39;\)&lt;/span&gt; is
+not just an abstruse mathematical construct: it is the result of
+balanced sampling from the original distribution, &lt;em&gt;i.e.&lt;/em&gt; taking
+an equal number of positive and negative cases&lt;a href="#fn9"
+class="footnote-ref" id="fnref9"&gt;&lt;sup&gt;9&lt;/sup&gt;&lt;/a&gt;. If the &lt;span
+class="math inline"&gt;\((X,\,Y)\)&lt;/span&gt; distribution is already balanced,
+either by design or because of some underlying symmetry in the data
+generating process, our analysis implies that likelihood-ratio cost and
+cross-entropy minimization are essentially equivalent for &lt;span
+class="math inline"&gt;\(N\to \infty\)&lt;/span&gt;. In general, with &lt;span
+class="math inline"&gt;\(\text{Pr} (Y=1) \neq \text{Pr} (Y=0)\)&lt;/span&gt;,
+this is not the case&lt;a href="#fn10" class="footnote-ref"
+id="fnref10"&gt;&lt;sup&gt;10&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The fact that &lt;span class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; seeks
+for optimal predictors according to the balanced measure &lt;span
+class="math inline"&gt;\(\text{Pr}&amp;#39;\)&lt;/span&gt; is, one could argue, not
+completely crazy from the point of view of forensic science, where
+“&lt;span class="math inline"&gt;\(Y\in\{0,1\}\)&lt;/span&gt;” often stands for a
+sort verdict (guilty &lt;em&gt;vs.&lt;/em&gt; not guilty, say). Indeed, optimizing
+with respect to &lt;span class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt;
+means that our predictions are designed to be optimal in a world in
+which the verdict could be &lt;em&gt;a priori&lt;/em&gt; &lt;span
+class="math inline"&gt;\(Y=0\)&lt;/span&gt; or &lt;span
+class="math inline"&gt;\(Y=1\)&lt;/span&gt; with equal probability - which is
+what an unbiased trier-of-fact should ideally assume. Minimizing &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt;, we guard ourselves against
+any bias that may be implicit in the training dataset, extraneous to the
+&lt;span class="math inline"&gt;\(X\)&lt;/span&gt;-&lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; relation and not explicitly modeled, a
+feature that may be regarded as desirable from a legal standpoint.&lt;/p&gt;
+&lt;h2 id="simulated-example"&gt;Simulated example&lt;/h2&gt;
+&lt;p&gt;In general, the posterior odd ratio and likelihood ratio differ only
+by a constant, so it is reasonable to try to fit the same functional
+form to both of them. Let us illustrate with a simulated example of this
+type the differences between cross-entropy and &lt;span
+class="math inline"&gt;\(C_{\text{LLR}}\)&lt;/span&gt; optimization mentioned in
+the previous Section.&lt;/p&gt;
+&lt;p&gt;Suppose that &lt;span class="math inline"&gt;\(X \in \mathbb R\)&lt;/span&gt; has
+conditional density: &lt;span class="math display"&gt;\[
+\phi(X\vert Y) = (2\pi\sigma _Y^2)^{-\frac{1}{2}}
+\exp(-\frac{(X-\mu_Y)^2}{2\sigma _Y^2})
+\]&lt;/span&gt; and &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; has marginal
+probability &lt;span class="math inline"&gt;\(\text{Pr}(Y = 1) = \pi\)&lt;/span&gt;.
+The true likelihood-ratio and posterior odds ratio are respectively
+given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\Lambda (X) &amp;amp;
+    \equiv \frac{\phi(X\vert Y=1)}{\phi(X\vert Y=0)}
+    = e ^ {a X^2 + bX +c},\\
+\rho (X) &amp;amp;
+    \equiv \frac{\text{Pr}(Y = 1\vert X)}{\text{Pr}(Y = 0\vert X)}
+    = e ^ {a X ^ 2 + bX +c+d},
+\end{split}
+\]&lt;/span&gt; where we have defined:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+a  \equiv \dfrac{\sigma _1 ^2 -\sigma_0 ^2}{2\sigma _0 ^2\sigma_1
+^2},\quad
+b  \equiv \mu _1 - \mu _0, \quad
+c  \equiv \dfrac{\mu_0^2}{2\sigma_0^2} -\dfrac{\mu_1 ^2}{2\sigma
+_1^2}+\ln(\frac{\sigma _0 }{\sigma _1 }),\quad
+d  \equiv \ln (\frac {\pi}{1-\pi}) .
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Suppose that we fit an exponential function &lt;span
+class="math inline"&gt;\(r(X)=e^{mX +q}\)&lt;/span&gt; to &lt;span
+class="math inline"&gt;\(\Lambda(X)\)&lt;/span&gt; by likelihood-ratio cost
+minimization, and similarly &lt;span
+class="math inline"&gt;\(r&amp;#39;(X)=e^{m&amp;#39;X+q&amp;#39;}\)&lt;/span&gt; to &lt;span
+class="math inline"&gt;\(\rho(X)\)&lt;/span&gt; by cross-entropy minimization&lt;a
+href="#fn11" class="footnote-ref" id="fnref11"&gt;&lt;sup&gt;11&lt;/sup&gt;&lt;/a&gt;. Due to
+the previous discussion, one could reasonably expect the results of the
+two procedure to differ in some way, which is demonstrated below by
+simulation.&lt;/p&gt;
+&lt;p&gt;The chunk of R code below defines the function and data used for the
+simulation. In particular, I’m considering a heavily unbalanced case
+(&lt;span class="math inline"&gt;\(\text{Pr}(Y = 1) = 0.1\%\)&lt;/span&gt;) in which
+negative cases give rise to a sharply localized &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; peak around &lt;span
+class="math inline"&gt;\(X=0\)&lt;/span&gt; (&lt;span class="math inline"&gt;\(\mu _0 =
+0\)&lt;/span&gt;, &lt;span class="math inline"&gt;\(\sigma_0 = .25\)&lt;/span&gt;), while
+the few positive cases give rise to a broader signal centered at &lt;span
+class="math inline"&gt;\(X=1\)&lt;/span&gt; (&lt;span class="math inline"&gt;\(\mu _1 =
+1\)&lt;/span&gt;, &lt;span class="math inline"&gt;\(\sigma _1 = 1\)&lt;/span&gt;).&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# Tidyverse facilities for plotting
+library(dplyr)
+library(ggplot2) 
+
+# Loss functions
+weighted_loss &amp;lt;- function(par, data, w) {
+    m &amp;lt;- par[[1]]
+    q &amp;lt;- par[[2]]
+    x &amp;lt;- data$x
+    y &amp;lt;- data$y
+    
+    z &amp;lt;- m * x + q
+    p &amp;lt;- 1 / (1 + exp(-z))
+    
+    -mean(y * w(y) * log(p) + (1-y) * w(1-y) * log(1-p))
+}
+
+cross_entropy &amp;lt;- function(par, data) 
+    weighted_loss(par, data, w = \(y) 1)
+
+cllr &amp;lt;- function(par, data) 
+    weighted_loss(par, data, w = \(y) mean(1-y))
+
+
+# Data generating process
+rxy &amp;lt;- function(n, pi = .001, mu1 = 1, mu0 = 0, sd1 = 1, sd0 = 0.25) { 
+    y &amp;lt;- runif(n) &amp;lt; pi
+    x &amp;lt;- rnorm(n, mean = y * mu1 + (1-y) * mu0, sd = y * sd1 + (1-y) * sd0)
+    data.frame(x = x, y = y)
+}
+pi &amp;lt;- formals(rxy)$pi
+
+
+# Simulation
+set.seed(840)
+data &amp;lt;- rxy(n = 1e6)
+par_cllr &amp;lt;- optim(c(1,0), cllr, data = data)$par
+par_cross_entropy &amp;lt;- optim(c(1,0), cross_entropy, data = data)$par
+par_cross_entropy[2] &amp;lt;- par_cross_entropy[2] - log(pi / (1-pi))
+
+
+# Helpers to extract LLRs from models
+llr &amp;lt;- function(x, par)
+    par[1] * x + par[2] 
+
+llr_true &amp;lt;- function(x) {
+    mu1 &amp;lt;- formals(rxy)$mu1 
+    mu0 &amp;lt;- formals(rxy)$mu0 
+    sd1 &amp;lt;- formals(rxy)$sd1
+    sd0 &amp;lt;- formals(rxy)$sd0
+        
+    a &amp;lt;- 0.5 * (sd1 ^2 - sd0 ^2) / (sd1 ^2 * sd0 ^2)
+    b &amp;lt;- mu1 / (sd1^2) - mu0 / (sd0^2)
+    c &amp;lt;- 0.5 * (mu0^2 / (sd0^2) - mu1^2 / (sd1^2)) + log(sd0 / sd1)
+    a * x * x + b * x + c
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So, what do our best estimates look like? The plot below shows the
+best fit lines for the log-likelihood ratio from &lt;span
+class="math inline"&gt;\(C_{\text{LLR}}\)&lt;/span&gt; minimization (in solid
+red) and cross-entropy minimization (in solid blue). The true
+log-likelihood ratio parabola is the black line. Also shown are the
+&lt;span class="math inline"&gt;\(\text{LLR}=0\)&lt;/span&gt; line (in dashed red)
+and the &lt;span
+class="math inline"&gt;\(\text{LLR}=\ln(\frac{1-\pi}{\pi})\)&lt;/span&gt; (in
+dashed blue), which are the appropriate Bayes thresholds for classifying
+a data point as positive (&lt;span class="math inline"&gt;\(Y=1\)&lt;/span&gt;),
+assuming data comes from a balanced and unbalanced distribution,
+respectively.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ggplot() + 
+    geom_function(fun = \(x) llr(x, par_cllr), color = &amp;quot;red&amp;quot;) + 
+    geom_function(fun = \(x) llr(x, par_cross_entropy), color = &amp;quot;blue&amp;quot;) +
+    geom_function(fun = \(x) llr_true(x), color = &amp;quot;black&amp;quot;) +
+    geom_hline(aes(yintercept = 0), linetype = &amp;quot;dashed&amp;quot;, color = &amp;quot;red&amp;quot;) +
+        geom_hline(aes(yintercept = -log(pi / (1-pi))), 
+                             linetype = &amp;quot;dashed&amp;quot;, color = &amp;quot;blue&amp;quot;) +
+        ylim(c(-10,10)) + xlim(c(-1, 2)) +
+    xlab(&amp;quot;X&amp;quot;) + ylab(&amp;quot;Log-Likelihood Ratio&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="file1d5854377d46_files/figure-html/unnamed-chunk-3-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;The reason why the lines differ is that they are designed to solve a
+different predictive problem: as we’ve argued above, minimizing &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; looks for the best &lt;span
+class="math inline"&gt;\(Y\vert X\)&lt;/span&gt; conditional probability estimate
+according to the balanced measure &lt;span
+class="math inline"&gt;\(\text{Pr}&amp;#39;\)&lt;/span&gt;, whereas cross-entropy
+minimization does the same for the original measure &lt;span
+class="math inline"&gt;\(\text{Pr}\)&lt;/span&gt;. This is how data looks like
+under the two measures (the histograms are stacked - in the unbalanced
+case, positive examples are invisible on the linear scale of the
+plot):&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;test_data &amp;lt;- bind_rows(
+    rxy(n = 1e6, pi = 0.5) |&amp;gt; mutate(type = &amp;quot;Balanced&amp;quot;, llr_thresh = 0),
+    rxy(n = 1e6) |&amp;gt; mutate(type = &amp;quot;Unbalanced&amp;quot;, llr_thresh = -log(pi / (1-pi)))
+    )
+
+test_data |&amp;gt; 
+    ggplot(aes(x = x, fill = y)) + 
+    geom_histogram(bins = 100) +
+    facet_grid(type ~ ., scales = &amp;quot;free_y&amp;quot;) +
+    xlim(c(-2, 4))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="file1d5854377d46_files/figure-html/unnamed-chunk-4-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;These differences are reflected in the misclassification rates of the
+resulting classifiers defined by &lt;span class="math inline"&gt;\(\hat
+Y(X)=I(\text{LLR}(X)&amp;gt;\text{threshold})\)&lt;/span&gt;, where the
+appropriate threshold is zero in the balanced case, and &lt;span
+class="math inline"&gt;\(\ln(\frac{1-\pi}{\pi})\)&lt;/span&gt; in the unbalanced
+case. According to intuition, we see that the &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; optimizer beats the
+cross-entropy optimizer on the balanced sample, while performing
+significantly worse on the unbalanced one.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;test_data |&amp;gt;
+    mutate(
+        llr_cllr = llr(x, par_cllr),
+        llr_cross_entropy = llr(x, par_cross_entropy),
+        llr_true = llr_true(x)
+        ) |&amp;gt;
+    group_by(type) |&amp;gt;
+    summarise(
+        cllr = 1 - mean((llr_cllr &amp;gt; llr_thresh) == y),
+        cross_entropy = 1 - mean((llr_cross_entropy &amp;gt; llr_thresh) == y),
+        true_llr = 1 - mean((llr_true &amp;gt; llr_thresh) == y)
+        )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 2 × 4
+  type           cllr cross_entropy true_llr
+  &amp;lt;chr&amp;gt;         &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+1 Balanced   0.166         0.185    0.140   
+2 Unbalanced 0.000994      0.000637 0.000518&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="final-remarks"&gt;Final remarks&lt;/h2&gt;
+&lt;p&gt;Our main conclusion in a nutshell is that &lt;span
+class="math inline"&gt;\(C_\text{LLR}\)&lt;/span&gt; minimization is equivalent,
+&lt;em&gt;in the infinite sample limit&lt;/em&gt;, to cross-entropy minimization on
+a balanced version of the original distribution. We haven’t discussed
+what happens for finite samples where variance starts to play a role,
+affecting the &lt;em&gt;efficiency&lt;/em&gt; of loss functions as model
+optimization and selection criteria. For instance, for a well specified
+model of likelihood ratio, how do the convergence properties of &lt;span
+class="math inline"&gt;\(C_{\text{LLR}}\)&lt;/span&gt; and cross-entropy
+estimators compare to each other? I expect that answering questions like
+this would require a much more in-depth study than the one performed
+here (likely, with simulation playing a central role).&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-BRUMMER2006230" class="csl-entry"&gt;
+Brümmer, Niko, and Johan du Preez. 2006. &lt;span&gt;“Application-Independent
+Evaluation of Speaker Detection.”&lt;/span&gt; &lt;em&gt;Computer Speech &amp;amp;
+Language&lt;/em&gt; 20 (2): 230–75. https://doi.org/&lt;a
+href="https://doi.org/10.1016/j.csl.2005.08.001"&gt;https://doi.org/10.1016/j.csl.2005.08.001&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id="ref-Cover2006" class="csl-entry"&gt;
+Cover, Thomas M., and Joy A. Thomas. 2006. &lt;em&gt;Elements of Information
+Theory 2nd Edition (Wiley Series in Telecommunications and Signal
+Processing)&lt;/em&gt;. Hardcover; Wiley-Interscience.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;This is how I understood things should
+&lt;em&gt;theoretically&lt;/em&gt; work, from discussions with friends who are
+actually working on this field. I have no idea on how much day-to-day
+practice comes close to this mathematical ideal, and whether there exist
+alternative frameworks to the one I have just described.&lt;a
+href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;The Likelihood Ratio Cost was introduced in &lt;span
+class="citation"&gt;(Brümmer and du Preez 2006)&lt;/span&gt;. The reference looks
+very complete, but I find its notation and terminology so unfamiliar
+that I decided to do my own investigation and leave this reading for a
+second moment.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn3"&gt;&lt;p&gt;That is to say, &lt;span
+class="math inline"&gt;\(w(Y_{\sigma(1)},\,Y_{\sigma(2)},\dots,\,Y_{\sigma(N)})=w(Y_1,\,Y_2,\dots,\,Y_N)\)&lt;/span&gt;
+for any permutation &lt;span class="math inline"&gt;\(\sigma\)&lt;/span&gt; of the
+set &lt;span class="math inline"&gt;\(\{1,\,2,\,\dots,\,N\}\)&lt;/span&gt;.&lt;a
+href="#fnref3" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn4"&gt;&lt;p&gt;&lt;em&gt;Nota bene:&lt;/em&gt; the function &lt;span
+class="math inline"&gt;\(f\)&lt;/span&gt; is here assumed to be fixed, whereas
+the randomness in the quantity &lt;span class="math inline"&gt;\(L _N ^w
+[f]\)&lt;/span&gt; only comes from the paired observations &lt;span
+class="math inline"&gt;\(\{(X_i,\,Y_i)\}_{i=1,\,2,\,\dots,N}\)&lt;/span&gt;.&lt;a
+href="#fnref4" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn5"&gt;&lt;p&gt;Notice that, due to symmetry &lt;span
+class="math inline"&gt;\(\mathbb E(w(\boldsymbol Y)\vert \sum _i Y_i &amp;gt;0)
+= \mathbb E(w(\boldsymbol Y)\vert Y_1 = 1)\)&lt;/span&gt;, which might be
+easier to compute.&lt;a href="#fnref5" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn6"&gt;&lt;p&gt;Here and below I relax a bit the notation, as most
+details should be clear from context.&lt;a href="#fnref6"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn7"&gt;&lt;p&gt;The quantity &lt;span class="math inline"&gt;\(w(\boldsymbol
+Y)\)&lt;/span&gt; is not defined when all &lt;span
+class="math inline"&gt;\(Y_i\)&lt;/span&gt;’s are zero, as the right-hand side of
+Eq. @ref(eq:CLLR) itself. In this case, we make the convention &lt;span
+class="math inline"&gt;\(w(\boldsymbol Y) = 0\)&lt;/span&gt;.&lt;a href="#fnref7"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn8"&gt;&lt;p&gt;For the original loss in Eq. @ref(eq:CLLR), without the
+modification discussed above, the result would have been &lt;span
+class="math inline"&gt;\(\dfrac{\text {Pr}^\prime (Y=1)}{\text{Pr}^\prime
+(Y=0)}=\dfrac{1-\text {Pr}(Y=0)^N}{1-\text {Pr}(Y=1)^N}.\)&lt;/span&gt;&lt;a
+href="#fnref8" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn9"&gt;&lt;p&gt;Formally, given an i.i.d. stochastic process &lt;span
+class="math inline"&gt;\(Z_i = (X_i,\,Y_i)\)&lt;/span&gt;, we can define a new
+stochastic process &lt;span class="math inline"&gt;\(Z_i ^\prime =
+(X_i^\prime,\,Y_i^\prime)\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\(Z_i ^\prime = Z_{2i - 1}\)&lt;/span&gt; if &lt;span
+class="math inline"&gt;\(Y_{2i-1}\neq Y_{2i}\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(Z_i ^\prime = \perp\)&lt;/span&gt; (not defined)
+otherwise. Discarding &lt;span class="math inline"&gt;\(\perp\)&lt;/span&gt; values,
+we obtain an i.i.d. stochastic process whose individual observations are
+distributed according to &lt;span
+class="math inline"&gt;\(\text{Pr}^\prime\)&lt;/span&gt;.&lt;a href="#fnref9"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn10"&gt;&lt;p&gt;There is another case in which &lt;span
+class="math inline"&gt;\(C_{\text{LLR}}\)&lt;/span&gt; and cross-entropy
+minimization converge to the same answer as &lt;span
+class="math inline"&gt;\(N\to \infty\)&lt;/span&gt;: when used for model
+selection among a class of models for the likelihood or posterior odds
+ratio that contains their correct functional form.&lt;a href="#fnref10"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn11"&gt;&lt;p&gt;This is just logistic regression. It could be a
+reasonable approximation if &lt;span class="math inline"&gt;\(\sigma_0
+^2\approx \sigma_1 ^2\)&lt;/span&gt;, which however I will assume below to be
+badly violated.&lt;a href="#fnref11" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">a83630c521f4c8dbc3db0af08af3bc24</distill:md5>
+      <category>Forensic Science</category>
+      <category>Bayesian Methods</category>
+      <category>Information Theory</category>
+      <category>Probability Theory</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost</guid>
+      <pubDate>2023-11-14</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>AB tests and repeated checks</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks</link>
+      <description>False Positive Rates under repeated checks - a simulation study using R.</description>
+      <category>AB testing</category>
+      <category>Sequential Hypothesis Testing</category>
+      <category>Frequentist Methods</category>
+      <category>Statistics</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks</guid>
+      <pubDate>2023-07-27</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Testing functional specification in linear regression</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression</link>
+      <description>Some options in R, using the `{lmtest}` package.</description>
+      <category>Statistics</category>
+      <category>Model Misspecification</category>
+      <category>Regression</category>
+      <category>Linear Models</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression</guid>
+      <pubDate>2023-07-11</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Linear regression with autocorrelated noise</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise</link>
+      <description>Effects of noise autocorrelation on linear regression. Explicit formulae and a simple simulation.</description>
+      <category>Statistics</category>
+      <category>Regression</category>
+      <category>Time Series</category>
+      <category>Linear Models</category>
+      <category>Model Misspecification</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise</guid>
+      <pubDate>2023-05-25</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Model Misspecification and Linear Sandwiches</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches</link>
+      <description>Being wrong in the right way. With R excerpts.</description>
+      <category>Statistics</category>
+      <category>Regression</category>
+      <category>Linear Models</category>
+      <category>Model Misspecification</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches</guid>
+      <pubDate>2023-05-14</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>How to get away with selection. Part I: Introduction</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2022-10-18-posi</link>
+      <description>Introducing the problem of Selective Inference, illustrated through a simple simulation in R.</description>
+      <category>Statistics</category>
+      <category>Selective Inference</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2022-10-18-posi</guid>
+      <pubDate>2022-11-14</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>kgrams v0.1.2 on CRAN</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</link>
+      <description>kgrams: Classical k-gram Language Models in R.</description>
+      <category>Natural Language Processing</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released</guid>
+      <pubDate>2021-11-13</pubDate>
+    </item>
+    <item>
+      <title>R Client for R-universe APIs</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</link>
+      <description>Introducing W.I.P. {runiv}, an R package to interact with R-universe 
+repository APIs</description>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis</guid>
+      <pubDate>2021-07-25</pubDate>
+    </item>
+    <item>
+      <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</link>
+      <description>Create automatic resumes of your R packages using the R-Universe API.</description>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api</guid>
+      <pubDate>2021-07-21</pubDate>
+    </item>
+    <item>
+      <title>{r2r} now on CRAN</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">vgherard</dc:creator>
+      <link>https://vgherard.github.io/posts/2021-07-06-r2r</link>
+      <description>Introducing {r2r}, an R implementation of hash tables.</description>
+      <category>Data Structures</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2021-07-06-r2r</guid>
+      <pubDate>2021-07-06</pubDate>
+    </item>
+  </channel>
+</rss>
