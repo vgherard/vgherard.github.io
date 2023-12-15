@@ -16,7 +16,10 @@ twitter:
 # -------------------------------------------------------------------- Rendering
 
 output_dir: "docs"
-output: distill::distill_article
+output:
+  distill::distill_article:
+    includes:
+      in_header: _comments.html
 
 
 
