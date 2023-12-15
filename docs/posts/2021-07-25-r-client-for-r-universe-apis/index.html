@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -85,10 +86,11 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
 <title>Valerio Gherardi: R Client for R-universe APIs</title>
 
-<meta property="description" itemprop="description" content="Introducing W.I.P. {runiv}, an R package to interact with R-universe &#10;repository APIs"/>
+<meta property="description" itemprop="description" content="{runi}, an R package to interact with R-universe repository APIs"/>
 
 <link rel="canonical" href="https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/"/>
 <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
@@ -101,7 +103,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
 <meta property="og:title" content="Valerio Gherardi: R Client for R-universe APIs"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="Introducing W.I.P. {runiv}, an R package to interact with R-universe &#10;repository APIs"/>
+<meta property="og:description" content="{runi}, an R package to interact with R-universe repository APIs"/>
 <meta property="og:url" content="https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="Valerio Gherardi"/>
@@ -109,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
 <meta property="twitter:title" content="Valerio Gherardi: R Client for R-universe APIs"/>
-<meta property="twitter:description" content="Introducing W.I.P. {runiv}, an R package to interact with R-universe &#10;repository APIs"/>
+<meta property="twitter:description" content="{runi}, an R package to interact with R-universe repository APIs"/>
 <meta property="twitter:url" content="https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/"/>
 <meta property="twitter:site" content="@ValerioGherardi"/>
 
@@ -124,12 +126,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","output","categories","draft","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY-SA"]},{"type":"character","attributes":{},"value":["R Client for R-universe APIs"]},{"type":"character","attributes":{},"value":["Introducing W.I.P. {runiv}, an R package to interact with R-universe \nrepository APIs"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2021-07-25"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["R"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","output","categories","draft","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY-SA"]},{"type":"character","attributes":{},"value":["R Client for R-universe APIs"]},{"type":"character","attributes":{},"value":["{runi}, an R package to interact with R-universe repository APIs"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2021-07-25"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["R"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io/posts/2021-07-25-r-client-for-r-universe-apis/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"NULL"}
+  {"type":"character","attributes":{},"value":["r-client-for-r-universe-apis_files/anchor-4.2.2/anchor.min.js","r-client-for-r-universe-apis_files/bowser-1.9.3/bowser.min.js","r-client-for-r-universe-apis_files/distill-2.2.21/template.v2.js","r-client-for-r-universe-apis_files/header-attrs-2.24/header-attrs.js","r-client-for-r-universe-apis_files/header-attrs-2.9/header-attrs.js","r-client-for-r-universe-apis_files/jquery-1.11.3/jquery.min.js","r-client-for-r-universe-apis_files/jquery-3.6.0/jquery-3.6.0.js","r-client-for-r-universe-apis_files/jquery-3.6.0/jquery-3.6.0.min.js","r-client-for-r-universe-apis_files/jquery-3.6.0/jquery-3.6.0.min.map","r-client-for-r-universe-apis_files/popper-2.6.0/popper.min.js","r-client-for-r-universe-apis_files/tippy-6.2.7/tippy-bundle.umd.min.js","r-client-for-r-universe-apis_files/tippy-6.2.7/tippy-light-border.css","r-client-for-r-universe-apis_files/tippy-6.2.7/tippy.css","r-client-for-r-universe-apis_files/tippy-6.2.7/tippy.umd.min.js","r-client-for-r-universe-apis_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2402,8 +2404,8 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.24/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2481,7 +2483,7 @@ gtag('config', 'G-BM2Y0430QE');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"R Client for R-universe APIs","description":"Introducing W.I.P. {runiv}, an R package to interact with R-universe \nrepository APIs","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-25T00:00:00.000+02:00","citationText":"vgherard, 2021"}
+{"title":"R Client for R-universe APIs","description":"{runi}, an R package to interact with R-universe repository APIs","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-25T00:00:00.000+02:00","citationText":"vgherard, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2544,7 +2546,7 @@ Other links
   <a href="../../index.html#category:R" class="dt-tag">R</a>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>Introducing W.I.P. {runiv}, an R package to interact with R-universe repository APIs</p></p>
+<p><p>{runi}, an R package to interact with R-universe repository APIs</p></p>
 </div>
 
 <div class="d-byline">
@@ -2561,37 +2563,36 @@ Other links
 <blockquote>
 <p>The package server provides REST APIs for managing package submissions and querying information about individual packages as well as on the repository level. These data can be accessed programmatically or displayed in a front-end dashboard.</p>
 </blockquote>
-<h1 id="runiv">{runiv}</h1>
-<p>Since this has already proved to be useful to me (and could hopefully be so also to others), I started playing around to implement an R client for R-universe APIs. The package is called <code>runiv</code> and the code is <a href="https://github.com/vgherard/runiv">here</a>. Up to now, only a small subset of the full API features are available. You can peek at the development version from GitHub, using:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;vgherard/runiv&quot;</span>)</span></code></pre></div>
-<p>For instance, the procedure for obtaining your packages DESCRIPTION outlined in my <a href="https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/">previous post</a> is performed by:</p>
+<h1 id="runi">{runi}</h1>
+<p>I started playing around to implement an R client for R-universe APIs. The package is called <code>runi</code> and the code is <a href="https://github.com/vgherard/runi">here</a>. Up to now, only a small subset of the full API features are available. You can peek at the development version from GitHub, using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;vgherard/runi&quot;</span>)</span></code></pre></div>
+<p>For instance, the procedure for obtaining your packages DESCRIPTION outlined in
+my <a href="https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/">previous post</a> is performed by:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>runiv</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/runiv/man/runiv_descriptions.html'>runiv_descriptions</a></span><span class='op'>(</span><span class='st'>"vgherard"</span><span class='op'>)</span> <span class='co'># 'vgherard' is my R-universe name.</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>runi</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/runi/man/runi_stats_descriptions.html'>runi_stats_descriptions</a></span><span class='op'>(</span><span class='st'>"vgherard"</span><span class='op'>)</span> <span class='co'># 'vgherard' is my R-universe name.</span></span></code></pre>
 </div>
 </div>
 <p><code>df</code> is a dataframe containing all the entries of the DESCRIPTION files of my packages:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Package"</span>, <span class='st'>"Title"</span><span class='op'>)</span><span class='op'>]</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>df</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Package"</span>, <span class='st'>"Title"</span><span class='op'>)</span><span class='op'>]</span></span></code></pre>
 </div>
-<pre><code>   Package                                             Title
-1      r2r                    R-Object to R-Object Hash Maps
-2   kgrams                  Classical k-gram Language Models
-3 scribblr                          A Notepad Inside RStudio
-4  gsample   Efficient Weighted Sampling Without Replacement
-5      sbo Text Prediction via Stupid Back-Off N-Gram Models
-6     fcci              Feldman-Cousins Confidence Intervals</code></pre>
+<pre><code># A tibble: 7 × 2
+  Package  Title                                            
+  &lt;chr&gt;    &lt;chr&gt;                                            
+1 kgrams   Classical k-gram Language Models                 
+2 scribblr A Notepad Inside RStudio                         
+3 fcci     Feldman-Cousins Confidence Intervals             
+4 runi     Client for R-universe APIs                       
+5 r2r      R-Object to R-Object Hash Maps                   
+6 gsample  Efficient Weighted Sampling Without Replacement  
+7 sbo      Text Prediction via Stupid Back-Off N-Gram Models</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span><span class='op'>[</span><span class='fl'>1</span>, <span class='st'>"Description"</span><span class='op'>]</span> |&gt; <span class='fu'><a href='https://rdrr.io/r/base/strtrim.html'>strtrim</a></span><span class='op'>(</span><span class='fl'>60</span><span class='op'>)</span> |&gt; <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"[...]"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>df</span><span class='op'>[</span><span class='fl'>1</span>, <span class='st'>"Description"</span><span class='op'>]</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/strtrim.html'>strtrim</a></span><span class='op'>(</span><span class='fl'>60</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"[...]"</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] &quot;Implementation of hash tables (hash sets and hash maps) in R [...]&quot;</code></pre>
+<pre><code>[1] &quot;Training and evaluating k-gram language models in R,\nsupporti [...]&quot;</code></pre>
 </div>
-<h1 id="conclusion">Conclusion</h1>
-<p>I hope you find this useful. I have very little experience with web API R packages (this was another personal reason to tackle this), so that if you have any suggestion, or maybe want to collaborate on <code>runiv</code>, you are welcome to reach out to me through <a href="https://github.com/vgherard/runiv">GitHub</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">

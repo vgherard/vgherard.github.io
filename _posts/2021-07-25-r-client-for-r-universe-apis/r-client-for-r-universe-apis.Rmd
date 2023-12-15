@@ -1,8 +1,7 @@
 ---
 title: "R Client for R-universe APIs"
 description: |
-  Introducing W.I.P. {runiv}, an R package to interact with R-universe 
-  repository APIs
+  {runi}, an R package to interact with R-universe repository APIs
 author:
   - name: vgherard
     url: https://vgherard.github.io
@@ -30,22 +29,19 @@ Among other features, each repository has associated a RESTful API with which us
 
 > The package server provides REST APIs for managing package submissions and querying information about individual packages as well as on the repository level. These data can be accessed programmatically or displayed in a front-end dashboard.
 
-# {runiv}
+# {runi}
 
-Since this has already proved to be useful to me (and could hopefully be so 
-also to others), I started playing around to implement an R client for R-universe APIs. The package is called `runiv` and the code is [here](https://github.com/vgherard/runiv). Up to now, only a small subset of the 
-full API features are available. You can peek at the development version from 
-GitHub, using:
+I started playing around to implement an R client for R-universe APIs. The package is called `runi` and the code is [here](https://github.com/vgherard/runi). Up to now, only a small subset of the full API features are available. You can peek at the development version from GitHub, using:
 
 ``` r
-remotes::install_github("vgherard/runiv")
+remotes::install_github("vgherard/runi")
 ```
 
 For instance, the procedure for obtaining your packages DESCRIPTION outlined in 
 my [previous post](https://vgherard.github.io/posts/2021-07-21-automatically-resume-your-r-package-portfolio-using-the-r-universe-api/) is performed by:
 
 ```{r}
-df <- runiv::runiv_descriptions("vgherard") # 'vgherard' is my R-universe name.
+df <- runi::runi_stats_descriptions("vgherard") # 'vgherard' is my R-universe name.
 ```
 
 `df` is a dataframe containing all the entries of the DESCRIPTION files of my packages:
@@ -55,10 +51,4 @@ df[, c("Package", "Title")]
 df[1, "Description"] |> strtrim(60) |> paste("[...]")
 ```
 
-# Conclusion
-
-I hope you find this useful. I have very little experience with web API R 
-packages (this was another personal reason to tackle this), so that if you have
-any suggestion, or maybe want to collaborate on `runiv`, you are welcome to reach 
-out to me through [GitHub](https://github.com/vgherard/runiv).
  
