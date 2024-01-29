@@ -1,0 +1,66 @@
+---
+title: "Binary digits of uniform random variables"
+description: |
+  ... are independent fair coin tosses.
+author:
+  - name: vgherard
+    url: https://vgherard.github.io
+date: 2024-01-29
+output:
+  distill::distill_article:
+    self_contained: false
+categories: 
+  - Probability Theory
+draft: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Let $X$ be a random number in the unit interval $[0,\,1]$, and let 
+$Z \equiv (Z_k)_{k\in \mathbb N}$ represent the sequence of its binary digits, 
+so that $Z_k \in \{0,\,1\}$ for all $k$ and:
+
+$$
+X = \sum _{k = 1} ^\infty Z_k \cdot 2^{-k}
+$$
+Notice that the representation $Z$ is unique for all $X$ outside of a countable subset of the unit interval.^[That is, the set of numbers that have a *finite* expansion $X = \sum _{k = 1} ^N Z_k \cdot 2^{-k}$ for some finite $N$, with $Z_N = 1$. These numbers also have the equivalent infinite expansion $X = \sum _{k = 1} ^{N-1} Z_k \cdot 2^{-k} + \sum _{k = N+1} ^{\infty}2^{-k}$. For these numbers we can make the convention of using the first (finite) representation.]
+
+The cool theorem proved below is that $X$ is uniformly distributed in $[0,\,1]$ 
+if and only if all $Z_k$'s are independent and 
+$\text{Pr}(Z_k = 1) = \text{Pr}(Z_k = 0) = \frac{1}{2}$. That is to say, 
+the binary representation $Z$ of a random variable $X\sim \text{Unif}(0,\,1)$ 
+amounts to a sequence of independent fair coin tosses. 
+
+We fix $n \in \mathbb N$ and decompose the unit interval as follows:
+
+$$
+[0,1) = \cup _{j = 1} ^{2^n} I^n_j,\quad I^n_j = [(j-1) \cdot2^{-n},j\cdot2^{-n})
+$$
+Each interval $I^n_j$ corresponds to a specific set of values for the first $n$ digits $Z_1,\,Z_2,\,\dots,\,Z_n$, that is $X\in I^n _j$ if and only if $Z_1 = z_1,\,Z_2 =z_2,\,\dots,\,Z_n=z_n$ for some $z_1,\,z_2,\,\dots,\,z_n$ that depend
+on the interval $I^n _j$. Therefore:
+
+$$
+\text{Pr}(X\in I^n _j) = \text{Pr}(Z_1 = z_1,\,Z_2 = z_2,\,\dots,\,Z_n = z_n)
+$$
+Now, $X$ is uniformly distributed if and only if the left hand side of this 
+equation equals $2^{-n}$ for all $n\in \mathbb N$ and $1\leq j \leq 2^{n}$ ^[
+That this is sufficient follows from the fact that any interval of the real line
+can be obtained by taking countable unions and intersections of intervals of the form $I^n _j$.]. Furthermore, the $2^{n}$ possible values of $j$ correspond to 
+the $2^{n}$ possible values of $z_1,\,z_2,\,\dots,\,z_n$ in the right hand side. 
+Therefore, $X$ is uniform if and only if:
+
+$$
+\text{Pr}(Z_1 = z_1,\,Z_2 = z_2,\,\dots,\,Z_n = z_n) = 2^{-n}
+$$
+for all $z_1,\,z_2,\,\dots,\,z_n \in \{0,\,1\}$. More generally, this implies 
+that, for any $k \in \mathbb N \cup \{0\}$ we have:
+
+$$
+\text{Pr}(Z_{k+1} = z_1,\,Z_{k+2} = z_2,\,\dots,\,Z_{k+n} = z_n) = 2^{-n} = \prod _{i=1}^{n}\text{Pr}(Z_{k+i} = z_i),
+$$
+
+where the second equality follows from the special case $n=1$. This is 
+equivalent to saying that all $Z_k$'s are independent, each having $\text{Pr}(Z_k = 1) = \text{Pr}(Z_k = 0) = \frac{1}{2}$.
