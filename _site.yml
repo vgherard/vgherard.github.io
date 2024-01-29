@@ -31,6 +31,8 @@ collections:
     categories_metadata: true
     authors_metadata: true
     subscribe: _subscribe.html
+    share: [twitter, linkedin]
+
 
 rss:
   full_content: true

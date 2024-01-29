@@ -7,102 +7,15 @@
     <description>Valerio Gherardi
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>2024-01-28</lastBuildDate>
+    <lastBuildDate>2024-01-29</lastBuildDate>
     <item>
       <title>Binary digits of uniform random variables</title>
       <dc:creator>vgherard</dc:creator>
       <link>https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables</link>
-      <description>
-
-
-&lt;p&gt;Let &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; be a random number in the
-unit interval &lt;span class="math inline"&gt;\([0,\,1]\)&lt;/span&gt;, and let
-&lt;span class="math inline"&gt;\(Z \equiv (Z_k)_{k\in \mathbb N}\)&lt;/span&gt;
-represent the sequence of its binary digits, so that &lt;span
-class="math inline"&gt;\(Z_k \in \{0,\,1\}\)&lt;/span&gt; for all &lt;span
-class="math inline"&gt;\(k\)&lt;/span&gt; and:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-X = \sum _{k = 1} ^\infty Z_k \cdot 2^{-k}
-\]&lt;/span&gt; Notice that the representation &lt;span
-class="math inline"&gt;\(Z\)&lt;/span&gt; is unique for all &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt; outside of a countable subset of the
-unit interval.&lt;a href="#fn1" class="footnote-ref"
-id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The cool theorem proved below is that &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt; is uniformly distributed in &lt;span
-class="math inline"&gt;\([0,\,1]\)&lt;/span&gt; if and only if all &lt;span
-class="math inline"&gt;\(Z_k\)&lt;/span&gt;’s are independent and &lt;span
-class="math inline"&gt;\(\text{Pr}(Z_k = 1) = \text{Pr}(Z_k = 0) =
-\frac{1}{2}\)&lt;/span&gt;. That is to say, the binary representation &lt;span
-class="math inline"&gt;\(Z\)&lt;/span&gt; of a random variable &lt;span
-class="math inline"&gt;\(X\sim \text{Unif}(0,\,1)\)&lt;/span&gt; amounts to a
-sequence of independent fair coin tosses.&lt;/p&gt;
-&lt;p&gt;We fix &lt;span class="math inline"&gt;\(n \in \mathbb N\)&lt;/span&gt; and
-decompose the unit interval as follows:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-[0,1) = \cup _{j = 1} ^{2^n} I^n_j,\quad I^n_j = [(j-1)
-\cdot2^{-n},j\cdot2^{-n})
-\]&lt;/span&gt; Each interval &lt;span class="math inline"&gt;\(I^n_j\)&lt;/span&gt;
-corresponds to a specific set of values for the first &lt;span
-class="math inline"&gt;\(n\)&lt;/span&gt; digits &lt;span
-class="math inline"&gt;\(Z_1,\,Z_2,\,\dots,\,Z_n\)&lt;/span&gt;, that is &lt;span
-class="math inline"&gt;\(X\in I^n _j\)&lt;/span&gt; if and only if &lt;span
-class="math inline"&gt;\(Z_1 = z_1,\,Z_2 =z_2,\,\dots,\,Z_n=z_n\)&lt;/span&gt;
-for some &lt;span class="math inline"&gt;\(z_1,\,z_2,\,\dots,\,z_n\)&lt;/span&gt;
-that depend on the interval &lt;span class="math inline"&gt;\(I^n _j\)&lt;/span&gt;.
-Therefore:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}(X\in I^n _j) = \text{Pr}(Z_1 = z_1,\,Z_2 = z_2,\,\dots,\,Z_n =
-z_n)
-\]&lt;/span&gt; Now, &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; is uniformly
-distributed if and only if the left hand side of this equation equals
-&lt;span class="math inline"&gt;\(2^{-n}\)&lt;/span&gt; for all &lt;span
-class="math inline"&gt;\(n\in \mathbb N\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(1\leq j \leq 2^{n}\)&lt;/span&gt; &lt;a href="#fn2"
-class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;. Furthermore, the
-&lt;span class="math inline"&gt;\(2^{n}\)&lt;/span&gt; possible values of &lt;span
-class="math inline"&gt;\(j\)&lt;/span&gt; correspond to the &lt;span
-class="math inline"&gt;\(2^{n}\)&lt;/span&gt; possible values of &lt;span
-class="math inline"&gt;\(z_1,\,z_2,\,\dots,\,z_n\)&lt;/span&gt; in the right hand
-side. Therefore, &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; is uniform if
-and only if:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}(Z_1 = z_1,\,Z_2 = z_2,\,\dots,\,Z_n = z_n) = 2^{-n}
-\]&lt;/span&gt; for all &lt;span class="math inline"&gt;\(z_1,\,z_2,\,\dots,\,z_n
-\in \{0,\,1\}\)&lt;/span&gt;. More generally, this implies that, for any &lt;span
-class="math inline"&gt;\(k \in \mathbb N \cup \{0\}\)&lt;/span&gt; we have:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}(Z_{k+1} = z_1,\,Z_{k+2} = z_2,\,\dots,\,Z_{k+n} = z_n) =
-2^{-n} = \prod _{i=1}^{n}\text{Pr}(Z_{k+i} = z_i),
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;where the second equality follows from the special case &lt;span
-class="math inline"&gt;\(n=1\)&lt;/span&gt;. This is equivalent to saying that
-all &lt;span class="math inline"&gt;\(Z_k\)&lt;/span&gt;’s are independent, each
-having &lt;span class="math inline"&gt;\(\text{Pr}(Z_k = 1) = \text{Pr}(Z_k =
-0) = \frac{1}{2}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div class="footnotes footnotes-end-of-document"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;That is, the set of numbers that have a &lt;em&gt;finite&lt;/em&gt;
-expansion &lt;span class="math inline"&gt;\(X = \sum _{k = 1} ^N Z_k \cdot
-2^{-k}\)&lt;/span&gt; for some finite &lt;span class="math inline"&gt;\(N\)&lt;/span&gt;,
-with &lt;span class="math inline"&gt;\(Z_N = 1\)&lt;/span&gt;. These numbers also
-have the equivalent infinite expansion &lt;span class="math inline"&gt;\(X =
-\sum _{k = 1} ^{N-1} Z_k \cdot 2^{-k} + \sum _{k = N+1}
-^{\infty}2^{-k}\)&lt;/span&gt;. For these numbers we can make the convention
-of using the first (finite) representation.&lt;a href="#fnref1"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn2"&gt;&lt;p&gt; That this is sufficient follows from the fact that any
-interval of the real line can be obtained by taking countable unions and
-intersections of intervals of the form &lt;span class="math inline"&gt;\(I^n
-_j\)&lt;/span&gt;.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-      <distill:md5>eee69c308badf4839d300612997f0cfa</distill:md5>
+      <description>... are independent fair coin tosses.</description>
       <category>Probability Theory</category>
       <guid>https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables</guid>
-      <pubDate>2024-01-28</pubDate>
+      <pubDate>2024-01-29</pubDate>
     </item>
     <item>
       <title>Interpreting the Likelihood Ratio cost</title>
