@@ -15,8 +15,8 @@ knitr::opts_chunk$set(echo = FALSE)
 <br>
 Valerio, class 1992, Italian based in València (Spain). 
 
-Formally trained in [Theoretical Physics](physics.html), later drifted towards data analysis.
+Formally trained in Theoretical Physics, later drifted towards data analysis.
 
-I use this space to share little notes, mainly about statistics, mathematics, physics, whatever^[*Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.* - V.I. Arnold, On Teaching Mathematics.]. I also like [messing with statistical code, usually in R](code.html).
+I use this space to share little notes, mainly about statistics, mathematics, physics, whatever^[*Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.* - V.I. Arnold, On Teaching Mathematics.]. I also like messing with statistical code, usually in R.
 
 If you want to get in touch, you can follow the contact links in the navigation bar above. My CV can be downloaded [here](https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf). 

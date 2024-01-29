@@ -1,5 +1,5 @@
 ---
-title: "Valerio Gherardi"
+title: "Valerio Gherardi's Personal Website"
 date: "`r Sys.Date()`"
 site: distill::distill_website
 listing: posts
@@ -8,7 +8,6 @@ listing: posts
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-
 
 
 

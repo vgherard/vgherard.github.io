@@ -1,9 +1,9 @@
 # ---------------------------------------------------------------------- General
 
 name: "vgherard"
-title: "Valerio Gherardi"
+title: "vgherard"
 description: |
-  Valerio Gherardi
+  Valerio Gherardi's Personal Website
 creative_commons: CC BY-SA
 base_url: https://vgherard.github.io/
 repository_url: https://github.com/vgherard/vgherard.github.io/
@@ -50,20 +50,17 @@ theme: theme.css
 # --------------------------------------------------------------------- Elements
 
 navbar:
-  # title: "Valerio Gherardi"
+  # title: "Custom Title"
   type: inverse
   search: true
   left:
-
-  right:
     - text: "Home"
       href: index.html
-    - text: "Code"
-      href: code.html
     - text: "About me"
       href: about.html
     - icon: fa fa-rss
       href: index.xml
+  right:
     - icon: fab fa-github fa-1x
       href: https://github.com/vgherard
     - icon: fab fa-linkedin fa-1x
@@ -78,18 +75,18 @@ navbar:
       menu:
         - text: "vgherard @ r-bloggers"
           href: https://www.r-bloggers.com/author/vgherard/
-        - text: "vgherard @ datascience+"
-          href: https://datascienceplus.com/author/vgherard/
+        # - text: "vgherard @ datascience+"
+        #   href: https://datascienceplus.com/author/vgherard/
         - text: "vgherard @ StackExchange"
           href: https://stackexchange.com/users/2261006/pppqqq
         - text: "vgherard @ iNSPIRE HEP"
           href: https://inspirehep.net/authors/1728353?ui-citation-summary=true
-        - text: "vgherard @ exercism"
-          href: https://exercism.io/profiles/vgherard
+        # - text: "vgherard @ exercism"
+        #   href: https://exercism.io/profiles/vgherard
         - text: "vgherard @ lichess.org"
           href: https://lichess.org/@/vgherard
-        - text: "vgherard @ Chess.com"
-          href: https://www.chess.com/member/vgherard
+        # - text: "vgherard @ Chess.com"
+        #   href: https://www.chess.com/member/vgherard
         - text: "vgherard @ FIDE"
           href: https://ratings.fide.com/profile/94715360
 
