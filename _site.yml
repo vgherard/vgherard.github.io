@@ -32,7 +32,10 @@ collections:
     authors_metadata: true
     subscribe: _subscribe.html
     share: [twitter, linkedin]
-
+  notebooks:
+    categories: true
+    categories_metadata: true
+    authors_metadata: true
 
 rss:
   full_content: true
@@ -56,6 +59,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Notebooks"
+      href: notebooks.html
     - text: "About me"
       href: about.html
     - icon: fa fa-rss
