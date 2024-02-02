@@ -1,7 +1,5 @@
 ---
-title: "Linear Regression"
-description: |
-  A short description of the post.
+title: "Ordinary Least Squares"
 author:
   - name: Valerio Gherardi
     url: https://vgherard.github.io
