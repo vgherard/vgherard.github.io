@@ -3,9 +3,9 @@ title: "Correlation Without Causation"
 description: |
   *Cum hoc ergo propter hoc*
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
-date: 2023-03-30
+date: "2023-03-30"
 output:
   distill::distill_article:
     self_contained: false

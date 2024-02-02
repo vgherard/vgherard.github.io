@@ -4,7 +4,7 @@ description: |
   Self-reassurance that p-value properties don't depend on regularity 
   assumptions on the test statistic.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-06-07
 output:

@@ -3,7 +3,7 @@ title: "How to get away with selection. Part II: Mathematical Framework"
 description: |
   Mathematicals details on Selective Inference, model misspecification and coverage guarantees.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2022-11-25
 output:

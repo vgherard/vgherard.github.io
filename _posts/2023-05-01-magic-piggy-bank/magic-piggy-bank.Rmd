@@ -4,7 +4,7 @@ description: |
   Compares frequentist properties of credible intervals and confidence 
   intervals in a gambling game involving a magic piggy bank.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-05-01
 output:

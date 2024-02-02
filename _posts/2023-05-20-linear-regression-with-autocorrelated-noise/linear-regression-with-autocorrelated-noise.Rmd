@@ -3,7 +3,7 @@ title: "Linear regression with autocorrelated noise"
 description: |
   Effects of noise autocorrelation on linear regression. Explicit formulae and a simple simulation.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-05-25
 output:

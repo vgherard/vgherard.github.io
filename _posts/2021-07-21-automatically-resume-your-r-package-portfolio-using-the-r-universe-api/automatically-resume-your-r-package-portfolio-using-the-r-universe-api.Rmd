@@ -3,7 +3,7 @@ title: "Automatic resumes of your R-developer portfolio from your R-Universe"
 description: |
   Create automatic resumes of your R packages using the R-Universe API.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2021-07-21
 output:

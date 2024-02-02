@@ -3,7 +3,7 @@ title: "Testing functional specification in linear regression"
 description: |
   Some options in R, using the `{lmtest}` package.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-07-11
 output:

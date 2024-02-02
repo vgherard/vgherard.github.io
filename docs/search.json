@@ -5,8 +5,8 @@
       "title": "About me",
       "author": [],
       "date": "`r Sys.Date()`",
-      "contents": "\r\n\r\n\r\n\r\nValerio, class 1992, Italian based in València (Spain).\r\nFormally trained in Theoretical Physics, later drifted towards data analysis.\r\nI use this space to share little notes, mainly about statistics, mathematics, physics, whatever1. I also like messing with statistical code, usually in R.\r\nIf you want to get in touch, you can follow the contact links in the navigation bar above. My CV can be downloaded here.\r\n\r\nPhysics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap. - V.I. Arnold, On Teaching Mathematics.↩︎\r\n",
-      "last_modified": "2024-01-29T18:34:29+01:00"
+      "contents": "\r\n\r\n\r\n\r\nI am Valerio, class 1992, Italian based in València (Spain).\r\nFormally trained in Theoretical Physics, later drifted towards data analysis.\r\nI use this space to share little notes, mainly about statistics, mathematics, physics, whatever1. I also like messing with statistical code, usually in R.\r\nIf you want to get in touch, you can follow the contact links in the navigation bar above. My CV can be downloaded here.\r\n\r\nPhysics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap. - V.I. Arnold, On Teaching Mathematics.↩︎\r\n",
+      "last_modified": "2024-02-01T10:10:01+01:00"
     },
     {
       "path": "index.html",
@@ -14,14 +14,14 @@
       "author": [],
       "date": "`r Sys.Date()`",
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2024-01-29T18:34:31+01:00"
+      "last_modified": "2024-02-01T10:10:02+01:00"
     },
     {
       "path": "notebooks.html",
       "title": "Notebooks",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2024-01-29T18:34:31+01:00"
+      "last_modified": "2024-02-01T10:10:03+01:00"
     }
   ],
   "collections": ["posts/posts.json", "notebooks/notebooks.json"]

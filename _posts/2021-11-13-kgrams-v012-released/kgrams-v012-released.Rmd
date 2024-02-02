@@ -3,7 +3,7 @@ title: "kgrams v0.1.2 on CRAN"
 description: |
   kgrams: Classical k-gram Language Models in R.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2021-11-13
 output:

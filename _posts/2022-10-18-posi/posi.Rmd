@@ -3,7 +3,7 @@ title: "How to get away with selection. Part I: Introduction"
 description: |
   Introducing the problem of Selective Inference, illustrated through a simple simulation in R.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2022-11-14
 output:

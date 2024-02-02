@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,9 +74,9 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
 code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
@@ -84,6 +85,7 @@ code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Automatic resumes of your R-developer portfolio from your R-Universe</title>
@@ -94,7 +96,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2021-07-21"/>
   <meta property="article:created" itemprop="dateCreated" content="2021-07-21"/>
-  <meta name="article:author" content="vgherard"/>
+  <meta name="article:author" content="Valerio Gherardi"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Automatic resumes of your R-developer portfolio from your R-Universe"/>
@@ -111,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["Automatic resumes of your R-developer portfolio from your R-Universe"]},{"type":"character","attributes":{},"value":["Create automatic resumes of your R packages using the R-Universe API.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["vgherard"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2021-07-21"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["R"]},{"type":"logical","attributes":{},"value":[false]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories","draft"]}},"value":[{"type":"character","attributes":{},"value":["Automatic resumes of your R-developer portfolio from your R-Universe"]},{"type":"character","attributes":{},"value":["Create automatic resumes of your R packages using the R-Universe API.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Valerio Gherardi"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2021-07-21"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["R"]},{"type":"logical","attributes":{},"value":[false]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -187,6 +189,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -428,10 +431,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1263,9 +1262,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1277,6 +1288,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1376,6 +1412,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1398,7 +1436,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -1437,8 +1475,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="automatically-resume-your-r-package-portfolio-using-the-r-universe-api_files/header-attrs-2.9/header-attrs.js"></script>
-  <script src="automatically-resume-your-r-package-portfolio-using-the-r-universe-api_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="automatically-resume-your-r-package-portfolio-using-the-r-universe-api_files/header-attrs-2.24/header-attrs.js"></script>
+  <script src="automatically-resume-your-r-package-portfolio-using-the-r-universe-api_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="automatically-resume-your-r-package-portfolio-using-the-r-universe-api_files/popper-2.6.0/popper.min.js"></script>
   <link href="automatically-resume-your-r-package-portfolio-using-the-r-universe-api_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="automatically-resume-your-r-package-portfolio-using-the-r-universe-api_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1458,7 +1496,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Automatic resumes of your R-developer portfolio from your R-Universe","description":"Create automatic resumes of your R packages using the R-Universe API.","authors":[{"author":"vgherard","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-21T00:00:00.000+02:00","citationText":"vgherard, 2021"}
+{"title":"Automatic resumes of your R-developer portfolio from your R-Universe","description":"Create automatic resumes of your R packages using the R-Universe API.","authors":[{"author":"Valerio Gherardi","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-07-21T00:00:00.000+02:00","citationText":"Gherardi, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1471,14 +1509,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1>Automatic resumes of your R-developer portfolio from your R-Universe</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
-<div class="dt=tag">R</div>
+<div class="dt-tag">R</div>
 </div>
 <!--/radix_placeholder_categories-->
 <p><p>Create automatic resumes of your R packages using the R-Universe API.</p></p>
 </div>
 
 <div class="d-byline">
-  vgherard <a href="https://vgherard.github.io" class="uri">https://vgherard.github.io</a> 
+  Valerio Gherardi <a href="https://vgherard.github.io" class="uri">https://vgherard.github.io</a> 
   
 <br/>2021-07-21
 </div>
@@ -1496,9 +1534,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>The JSON stream can be read with <code>jsonlite</code>, as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/connections.html'>url</a></span><span class='op'>(</span><span class='st'>"https://vgherard.r-universe.dev/stats/descriptions"</span><span class='op'>)</span>
-<span class='va'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'>jsonlite</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/jsonlite/man/stream_in.html'>stream_in</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/connections.html'>url</a></span><span class='op'>(</span><span class='st'>"https://vgherard.r-universe.dev/stats/descriptions"</span><span class='op'>)</span></span>
+<span><span class='va'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'>jsonlite</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/jsonlite/man/stream_in.html'>stream_in</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>
  Found 6 records...
@@ -1507,61 +1544,63 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>The result is a dataframe with alll the entries of your packages’ DESCRIPTION file, e.g.:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pkgs</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Package"</span>, <span class='st'>"Title"</span>, <span class='st'>"Version"</span><span class='op'>)</span><span class='op'>]</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>pkgs</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Package"</span>, <span class='st'>"Title"</span>, <span class='st'>"Version"</span><span class='op'>)</span><span class='op'>]</span></span></code></pre>
 </div>
-<pre><code>   Package                                             Title
-1      r2r                    R-Object to R-Object Hash Maps
-2   kgrams                  Classical k-gram Language Models
-3 scribblr                          A Notepad Inside RStudio
-4  gsample   Efficient Weighted Sampling Without Replacement
-5      sbo Text Prediction via Stupid Back-Off N-Gram Models
-6     fcci              Feldman-Cousins Confidence Intervals
-     Version
-1 0.1.1.9000
-2      0.1.0
-3 0.2.0.9000
-4      0.1.0
-5      0.5.0
-6      1.0.0</code></pre>
+<pre><code>   Package                                             Title Version
+1 scribblr                          A Notepad Inside RStudio   0.2.1
+2   kgrams                  Classical k-gram Language Models   0.2.0
+3     fcci              Feldman-Cousins Confidence Intervals   1.0.1
+4      r2r                    R-Object to R-Object Hash Maps   0.1.1
+5  gsample   Efficient Weighted Sampling Without Replacement   0.1.0
+6      sbo Text Prediction via Stupid Back-Off N-Gram Models   0.5.0</code></pre>
 </div>
 <p>I use this query on <a href="vgherard.github.io/code">my personal website</a> to automatically generate a resume of the packages available on my R-universe (this is combined with a GitHub Action scheduled workflow which periodically updates the <code>Code</code> section of my website). More precisely, I define an R string <code>txt</code> containing the Markdown code for my resume, and I inline it in R Markdown using the synthax <code>`r `</code>. This is the code I use on my website:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='st'>""</span>
-<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>pkgs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span>
-    <span class='va'>txt</span>, 
-    <span class='st'>"### [`"</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Package"</span><span class='op'>]</span>, <span class='st'>"`]("</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"RemoteUrl"</span><span class='op'>]</span>, <span class='st'>")"</span>, <span class='st'>"\n"</span>,
-    <span class='st'>"[![CRAN status](https://www.r-pkg.org/badges/version/"</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>,<span class='st'>"Package"</span><span class='op'>]</span>,
-    <span class='st'>")](https://CRAN.R-project.org/package="</span>,<span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Package"</span><span class='op'>]</span>, <span class='st'>")"</span>,
-    <span class='st'>"\n\n"</span>,
-    <span class='st'>"*"</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Title"</span><span class='op'>]</span>, <span class='st'>".* "</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Description"</span><span class='op'>]</span>,
-    <span class='st'>"\n\n"</span>
-    <span class='op'>)</span>
-<span class='op'>}</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='st'>""</span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>pkgs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>txt</span>, </span>
+<span>    <span class='st'>"### [`"</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Package"</span><span class='op'>]</span>, <span class='st'>"`]("</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"RemoteUrl"</span><span class='op'>]</span>, <span class='st'>")"</span>, <span class='st'>"\n"</span>,</span>
+<span>    <span class='st'>"[![CRAN status](https://www.r-pkg.org/badges/version/"</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>,<span class='st'>"Package"</span><span class='op'>]</span>,</span>
+<span>    <span class='st'>")](https://CRAN.R-project.org/package="</span>,<span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Package"</span><span class='op'>]</span>, <span class='st'>")"</span>,</span>
+<span>    <span class='st'>"\n\n"</span>,</span>
+<span>    <span class='st'>"*"</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Title"</span><span class='op'>]</span>, <span class='st'>".* "</span>, <span class='va'>pkgs</span><span class='op'>[</span><span class='va'>i</span>, <span class='st'>"Description"</span><span class='op'>]</span>,</span>
+<span>    <span class='st'>"\n\n"</span></span>
+<span>    <span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
 <p>and this is the output:</p>
-<h3 id="r2r"><a href="https://github.com/vgherard/r2r"><code>r2r</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a></p>
-<p><em>R-Object to R-Object Hash Maps.</em> Implementation of hash tables (hash sets and hash maps) in R, featuring arbitrary R objects as keys, arbitrary hash and key-comparison functions, and customizable behaviour upon queries of missing keys.</p>
-<h3 id="kgrams"><a href="https://github.com/vgherard/kgrams"><code>kgrams</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=kgrams"><img src="https://www.r-pkg.org/badges/version/kgrams" alt="CRAN status" /></a></p>
-<p><em>Classical k-gram Language Models.</em> Tools for training and evaluating k-gram language models in R, supporting several probability smoothing techniques, perplexity computations, random text generation and more.</p>
 <h3 id="scribblr"><a href="https://github.com/vgherard/scribblr"><code>scribblr</code></a></h3>
 <p><a href="https://CRAN.R-project.org/package=scribblr"><img src="https://www.r-pkg.org/badges/version/scribblr" alt="CRAN status" /></a></p>
-<p><em>A Notepad Inside RStudio.</em> A project aware notepad inside RStudio, for taking quick project-related notes without distractions. RStudio addin.</p>
-<h3 id="gsample"><a href="https://github.com/vgherard/gsample"><code>gsample</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=gsample"><img src="https://www.r-pkg.org/badges/version/gsample" alt="CRAN status" /></a></p>
-<p><em>Efficient Weighted Sampling Without Replacement.</em> Sample without replacement using the Gumbel-Max trick (c.f. ).</p>
-<h3 id="sbo"><a href="https://github.com/vgherard/sbo"><code>sbo</code></a></h3>
-<p><a href="https://CRAN.R-project.org/package=sbo"><img src="https://www.r-pkg.org/badges/version/sbo" alt="CRAN status" /></a></p>
-<p><em>Text Prediction via Stupid Back-Off N-Gram Models.</em> Utilities for training and evaluating text predictors based on Stupid Back-Off N-gram models (Brants et al., 2007, <a href="https://www.aclweb.org/anthology/D07-1090/" class="uri">https://www.aclweb.org/anthology/D07-1090/</a>).</p>
+<p><em>A Notepad Inside RStudio.</em> A project aware notepad inside RStudio, for taking quick
+project-related notes without distractions. RStudio addin.</p>
+<h3 id="kgrams"><a href="https://github.com/vgherard/kgrams"><code>kgrams</code></a></h3>
+<p><a href="https://CRAN.R-project.org/package=kgrams"><img src="https://www.r-pkg.org/badges/version/kgrams" alt="CRAN status" /></a></p>
+<p><em>Classical k-gram Language Models.</em> Training and evaluating k-gram language models in R,
+supporting several probability smoothing techniques, perplexity
+computations, random text generation and more.</p>
 <h3 id="fcci"><a href="https://github.com/vgherard/fcci"><code>fcci</code></a></h3>
 <p><a href="https://CRAN.R-project.org/package=fcci"><img src="https://www.r-pkg.org/badges/version/fcci" alt="CRAN status" /></a></p>
-<p><em>Feldman-Cousins Confidence Intervals.</em> Provides support for building Feldman-Cousins confidence intervals [G. J. Feldman and R. D. Cousins (1998) <a href="doi:10.1103/PhysRevD.57.3873" class="uri">doi:10.1103/PhysRevD.57.3873</a>].</p>
+<p><em>Feldman-Cousins Confidence Intervals.</em> Provides support for building Feldman-Cousins confidence
+intervals [G. J. Feldman and R. D. Cousins (1998)
+<a href="doi:10.1103/PhysRevD.57.3873" class="uri">doi:10.1103/PhysRevD.57.3873</a>].</p>
+<h3 id="r2r"><a href="https://github.com/vgherard/r2r"><code>r2r</code></a></h3>
+<p><a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a></p>
+<p><em>R-Object to R-Object Hash Maps.</em> Implementation of hash tables (hash sets and hash maps) in
+R, featuring arbitrary R objects as keys, arbitrary hash and
+key-comparison functions, and customizable behaviour upon
+queries of missing keys.</p>
+<h3 id="gsample"><a href="https://github.com/vgherard/gsample"><code>gsample</code></a></h3>
+<p><a href="https://CRAN.R-project.org/package=gsample"><img src="https://www.r-pkg.org/badges/version/gsample" alt="CRAN status" /></a></p>
+<p><em>Efficient Weighted Sampling Without Replacement.</em> Sample without replacement using the Gumbel-Max trick
+(c.f. ).</p>
+<h3 id="sbo"><a href="https://github.com/vgherard/sbo"><code>sbo</code></a></h3>
+<p><a href="https://CRAN.R-project.org/package=sbo"><img src="https://www.r-pkg.org/badges/version/sbo" alt="CRAN status" /></a></p>
+<p><em>Text Prediction via Stupid Back-Off N-Gram Models.</em> Utilities for training and evaluating text predictors
+based on Stupid Back-Off N-gram models (Brants et al., 2007,
+<a href="https://www.aclweb.org/anthology/D07-1090/" class="uri">https://www.aclweb.org/anthology/D07-1090/</a>).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

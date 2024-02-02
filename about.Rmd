@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = FALSE)
 </center>
 <br>
 <br>
-Valerio, class 1992, Italian based in València (Spain). 
+I am Valerio, class 1992, Italian based in València (Spain). 
 
 Formally trained in Theoretical Physics, later drifted towards data analysis.
 

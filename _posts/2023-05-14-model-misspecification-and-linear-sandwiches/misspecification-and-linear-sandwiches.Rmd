@@ -3,7 +3,7 @@ title: "Model Misspecification and Linear Sandwiches"
 description: |
   Being wrong in the right way. With R excerpts.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-05-14
 bibliography: biblio.bib

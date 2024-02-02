@@ -3,7 +3,7 @@ title: "Consistency and bias of OLS estimators"
 description: |
   OLS estimators are consistent but generally biased - here's an example.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-05-12
 output:

@@ -3,7 +3,7 @@ title: "Sum and ratio of independent random variables"
 description: |
   Sufficient conditions for independence of sum and ratio.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-06-14
 output:

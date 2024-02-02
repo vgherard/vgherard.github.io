@@ -3,7 +3,7 @@ title: "Fisher's Randomization Test"
 description: |
   Notes and proofs of basic theorems
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-06-07
 output:

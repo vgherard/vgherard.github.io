@@ -3,7 +3,7 @@ title: "R Client for R-universe APIs"
 description: |
   {runi}, an R package to interact with R-universe repository APIs
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2021-07-25
 output:

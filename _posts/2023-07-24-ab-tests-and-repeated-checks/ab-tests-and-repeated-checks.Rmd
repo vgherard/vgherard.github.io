@@ -3,7 +3,7 @@ title: "AB tests and repeated checks"
 description: |
   False Positive Rates under repeated checks - a simulation study using R.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-07-27
 output:

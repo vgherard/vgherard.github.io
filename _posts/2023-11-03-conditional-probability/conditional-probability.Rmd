@@ -3,7 +3,7 @@ title: "Conditional Probability"
 description: |
   Notes on the formal definition of conditional probability.
 author:
-  - name: vgherard
+  - name: Valerio Gherardi
     url: https://vgherard.github.io
 date: 2023-11-03
 output:
