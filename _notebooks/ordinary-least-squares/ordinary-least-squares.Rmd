@@ -3,14 +3,14 @@ title: "Ordinary Least Squares"
 author:
   - name: Valerio Gherardi
     url: https://vgherard.github.io
-date: 2024-02-01
+date: 2024-02-07
 output:
   distill::distill_article:
     self_contained: false
     toc: true
     toc_depth: 3
 bibliography: biblio.bib
-draft: true
+draft: false
 
 ---
 

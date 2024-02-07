@@ -13,6 +13,10 @@
     <lastmod>2024-01-29T18:44:23+01:00</lastmod>
   </url>
   <url>
+    <loc>https://vgherard.github.io/software.html</loc>
+    <lastmod>2024-02-07T13:18:22+01:00</lastmod>
+  </url>
+  <url>
     <loc>https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables/</loc>
     <lastmod>2024-02-02T09:03:45+01:00</lastmod>
   </url>
@@ -95,5 +99,9 @@
   <url>
     <loc>https://vgherard.github.io/posts/2021-07-06-test-post/</loc>
     <lastmod>2024-02-01T10:18:41+01:00</lastmod>
+  </url>
+  <url>
+    <loc>https://vgherard.github.io/notebooks/ordinary-least-squares/</loc>
+    <lastmod>2024-02-07T13:20:42+01:00</lastmod>
   </url>
 </urlset>

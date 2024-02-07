@@ -59,6 +59,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Software"
+      href: software.html
     - text: "Notebooks"
       href: notebooks.html
     - text: "About me"

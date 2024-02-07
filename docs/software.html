@@ -88,7 +88,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>vgherard: About me</title>
+  <title>vgherard: Software</title>
 
 
   <link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"/>
@@ -98,21 +98,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="article:created" itemprop="dateCreated" content="2024-02-07"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="vgherard: About me"/>
+  <meta property="og:title" content="vgherard: Software"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="vgherard"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="vgherard: About me"/>
+  <meta property="twitter:title" content="vgherard: Software"/>
   <meta property="twitter:site" content="@ValerioGherardi"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output"]}},"value":[{"type":"character","attributes":{},"value":["About me"]},{"type":"character","attributes":{},"value":["2024-02-07"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Software"]},{"type":"character","attributes":{},"value":["2024-02-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2489,7 +2489,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"About me","authors":[],"publishedDate":"2024-02-07T00:00:00.000+01:00"}
+{"title":"Software","authors":[],"publishedDate":"2024-02-07T00:00:00.000+01:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2544,7 +2544,7 @@ Other links
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>About me</h1>
+<h1>Software</h1>
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
@@ -2553,22 +2553,39 @@ Other links
 
 
 <div class="d-article">
-<center>
-<img src="img/me-circle-cropped.png" style="width:33.0%" />
-</center>
-<p><br>
-<br>
-I am Valerio, class 1992, Italian based in València (Spain).</p>
-<p>Formally trained in Theoretical Physics, later drifted towards data analysis.</p>
-<p>I use this space to share little notes, mainly about statistics, mathematics, physics, whatever<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. I also like messing with statistical code, usually in R.</p>
-<p>If you want to get in touch, you can follow the contact links in the navigation bar above. My CV can be downloaded <a href="https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf">here</a>.</p>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#kgrams" id="toc-kgrams">kgrams</a></li>
+<li><a href="#fcci" id="toc-fcci">fcci</a></li>
+<li><a href="#r2r" id="toc-r2r">r2r</a></li>
+</ul>
+</nav>
+</div>
+<p>This page contains some selected software projects - mainly R libraries - I am currently or have been working on. See also my <a href="https://github.com/vgherard">GitHub profile</a> and my <a href="https://vgherard.r-universe.dev/">R-universe website</a>.</p>
+<h2 id="kgrams">kgrams</h2>
+<p><a href="https://CRAN.R-project.org/package=kgrams"><img src="https://www.r-pkg.org/badges/version/kgrams" alt="CRAN status" /></a>
+<a href="https://vgherard.r-universe.dev/"><img src="https://vgherard.r-universe.dev/badges/kgrams" alt="R-universe status" /></a>
+<a href="https://vgherard.github.io/kgrams/"><img src="https://img.shields.io/badge/Website-here-blue" alt="Website" /></a></p>
+<p><a href="https://vgherard.github.io/kgrams/"><code>kgrams</code></a> provides tools for training and evaluating <span class="math inline">\(k\)</span>-gram language models, including several probability smoothing methods, perplexity computations, random text generation and more. It is based on an C++ back-end which makes <code>kgrams</code> fast, coupled with an accessible R API which aims at streamlining the process of model building, and can be suitable for small- and medium-sized NLP experiments, baseline model building, and for pedagogical purposes.</p>
+<h2 id="fcci">fcci</h2>
+<p><a href="https://CRAN.R-project.org/package=fcci"><img src="https://www.r-pkg.org/badges/version/fcci" alt="CRAN status" /></a>
+<a href="https://vgherard.r-universe.dev/"><img src="https://vgherard.r-universe.dev/badges/fcci" alt="R-universe status" /></a>
+<a href="https://vgherard.github.io/fcci/"><img src="https://img.shields.io/badge/Website-here-blue" alt="Website" /></a></p>
+<p><code>fcci</code> is an R package providing support for building <a href="https://doi.org/10.1103/PhysRevD.57.3873">Feldman-Cousins</a> confidence
+intervals.</p>
+<h2 id="r2r">r2r</h2>
+<p><a href="https://CRAN.R-project.org/package=r2r"><img src="https://www.r-pkg.org/badges/version/r2r" alt="CRAN status" /></a>
+<a href="https://vgherard.r-universe.dev/"><img src="https://vgherard.r-universe.dev/badges/r2r" alt="R-universe status" /></a>
+<a href="https://vgherard.github.io/r2r/"><img src="https://img.shields.io/badge/Website-here-blue" alt="Website" /></a></p>
+<p><a href="https://vgherard.github.io/r2r/"><code>r2r</code></a> provides a flexible implementation of hash tables in R, allowing for:</p>
+<ul>
+<li>arbitrary R objects as keys and values,</li>
+<li>arbitrary key comparison and hash functions,</li>
+<li>customizable behaviour (throw or return a default value) on missing key exceptions.</li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p><em>Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.</em> - V.I. Arnold, On Teaching Mathematics.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2576,6 +2593,15 @@ I am Valerio, class 1992, Italian based in València (Spain).</p>
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
