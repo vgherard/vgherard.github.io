@@ -7,10 +7,144 @@ date: 2024-02-01
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_depth: 3
+bibliography: biblio.bib
 draft: true
-toc: true
+
 ---
 
+## Generalities
 
+Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor $\hat Y = X\beta$ of a response $Y \in \mathbb R$ in terms of a vector of regressors $X\in \mathbb R ^p$, which we will frequently identify with an $1\times p$ row matrix. Here, "best" is understood in terms of the $L_2$ error:
 
+$$
+\beta = \arg \min _{\beta '}  \mathbb E[(Y - X\beta ^\prime)^2]=\mathbb E (X^TX)^{-1}\mathbb E(X^T Y), (\#eq:BLP)
+$$
+where the first equation is the defining one, while the second one follows from elementary calculus. 
 
+Given i.i.d. data $\{(X_i,\,Y_i)\}_{i=1,\,2,\,\dots,\,N}$, and denoting by $\mathbf Y$ and $\mathbf X$ the $N\times 1$ and $N\times p$ matrices obtained by vertically stacking independent observations of $Y$ and $X$, respectively, the OLS estimate of \@ref(eq:BLP) is defined by:
+
+$$
+\hat \beta = \arg \min _{\beta '}  \sum _{i=1} ^N \frac{1}{N}(Y_i - X_i\beta ^\prime)^2 = (\mathbf X ^T \mathbf X) ^{-1} \mathbf X ^T \mathbf Y, (\#eq:OLS)
+$$
+which is readily recognized to be the plugin estimate of $\beta$. Correspondingly, we define the OLS predictor:
+
+$$
+\hat Y (x) = x \hat \beta. (\#eq:OLSPredictor)
+$$
+
+What motivates the use of an $L_2$ criterion in \@ref(eq:BLP)?
+
+1. *Mathematical tractability.* The fact that \@ref(eq:BLP) admits a closed form solution, which is furthermore linear in the response variable $Y$, greatly simplifies the analysis of the properties of $\beta$ and its estimators such as the OLS one \@ref(eq:OLS), making it a perfect study case.
+
+2. *Numerical tractability.* A consequence of the previous point, but worth a separate mention. Computing the plugin estimate in \@ref(eq:OLS) is just a matter of basic linear algebra manipulations, which, with modern software libraries, is a relatively cheap operation.
+
+3. *Normal theory.* Focusing on the consequence of Eq. \@ref(eq:BLP), namely the plugin estimate \@ref(eq:OLS), if the conditional distribution of $Y$ given $X$ is normal with constant variance, and if $\mathbb E(Y\vert X)$ is truly linear, $\beta$ coincides with the maximum likelihood estimate of $\beta$.
+
+## The linear model
+
+The term generally refers to a model for the conditional distribution of $Y\vert X$ that requires the conditional mean $\mathbb E(Y\vert X)$ to be a linear function of $X$. In its most parsimonious form, this is just:
+
+$$
+Y = X \beta + \varepsilon, \quad \mathbb E(\varepsilon\vert X) = 0.(\#eq:LinearModel)
+$$
+That said, depending on context, \@ref(eq:LinearModel) is usually supplemented with additional assumptions that further characterise the conditional distribution of the error term^[I use the notation $A\perp B$ to indicate that the random variables $A$ and $B$ are statistically independent.], typically (with increasing strength of assumptions):
+
+- *Constant Variance.* $\mathbb V(\varepsilon \vert X) = \sigma ^2$, independently of $X$. 
+- *$X$-Independent Errors.* $\varepsilon \perp X$.
+- *Normal Errors.* $\varepsilon \vert X \sim \mathcal N (0,\sigma ^2)$.
+
+While the OLS estimator is well-defined irrespective of the validity of any of these models, it is clear that, in order for $\hat \beta$ to represent a meaningful summary of the $Y$-$X$ dependence, one should require at least \@ref(eq:LinearModel) to hold in some approximate sense. Correspondingly, while some general features of $\hat \beta$ can be discussed independently of linear model assumptions, its most important properties crucially depend on Eq. \@ref(eq:LinearModel).
+
+## Properties of OLS estimates
+
+### Distributional properties of $\hat \beta$
+
+As an estimator of $\beta$ as defined in Eq. \@ref(eq:BLP), the OLS estimator $\hat \beta$ is consistent (converges in probability to $\beta$) but generally biased (an example is provided [here](https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/)). However, due to the plugin nature of $\hat \beta$, the bias is generally of order $\mathcal O (N^{-1})$, which makes it often negligible in comparison to its $\mathcal O(N^{-1/2})$ sampling variability (see below).
+
+Explicitly, the bias is given by:
+$$
+\mathbb E(\hat \beta) - \beta = \mathbb E\lbrace((\mathbf X ^T \mathbf X) ^{-1}-\mathbb E[(\mathbf X ^T \mathbf X) ^{-1}])\cdot \mathbf X ^T f (\mathbf X)\rbrace, (\#eq:BiasOLS)
+$$
+where $f(X) \equiv \mathbb E(Y \vert X)$ is the true conditional mean function. In general, this vanishes only if $f(X)=X\beta$, as in the linear expectation model \@ref(eq:LinearModel).
+
+The $\mathbf X$-conditional variance of $\hat \beta$ can be derived directly from Eq. \@ref(eq:OLS):
+
+$$
+\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1} \mathbf X ^T  \mathbb V (\mathbf Y\vert \mathbf X) \mathbf X (\mathbf X ^T \mathbf X), (\#eq:VarBetaHatCond) 
+$$
+where $\mathbb V (\mathbf Y\vert \mathbf X)$ is diagonal for i.i.d. observations. For homoskedastic errors we get:
+
+$$
+\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1} \sigma ^2 \quad (\mathbb V(Y\vert X)=\sigma ^2).\  (\#eq:VarBetaHatCondHomo)
+$$
+Under the normal linear model, this allows to obtain finite-sample correct confidence sets for $\beta$. In the general case, confidence sets can be derived from the Central Limit Theorem satisfied by $\hat \beta$ [@buja2019models]:
+
+$$
+\sqrt N (\hat \beta -\beta) \to \mathcal N (0,V ) (\#eq:CLTBetaHat)
+$$
+where the asymptotic variance is given by:
+
+$$
+V = \mathbb E[X^TX] ^{-1} \cdot \mathbb E[X^T(Y-X\beta)^2X] \cdot \mathbb E[X^TX] ^{-1}.(\#eq:AsyVarBetaHat)
+$$
+The plugin estimate of \@ref(eq:AsyVarBetaHat) leads to the so called Sandwich variance estimator:
+
+$$
+V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf {r^2}\mathbf X (\mathbf X^T \mathbf X)^{-1},(\#eq:SandwichEstimate)
+$$
+where $D_{\mathbf r^2}$ is the diagonal matrix whose $i$-th entry is the squared residual $r_i ^2 = (Y_i-X_i\beta)^2$.
+
+### Variance estimates
+
+These can be based on:
+
+$$
+s ^2 = \frac{1}{N}(\mathbf Y-\mathbf X \hat \beta)^T(\mathbf Y-\mathbf X \hat \beta)
+$$
+which has expectation
+
+$$
+\mathbb E\left[s^2\right]=\frac{1}{N}\text {Tr}\,\mathbb E \left[ (1-\mathbf H) \cdot \left(\mathbb E(\mathbf Y \vert \mathbf X)\mathbb E(\mathbf Y \vert \mathbf X)^T + \mathbb V(\mathbf Y\vert\mathbf X)\right) \right] (\#eq:ExpectedInSampleError)
+$$
+
+where the hat matrix $\mathbf H$ is defined as usual:
+
+$$
+\mathbf H \equiv \mathbf X(\mathbf X^T\mathbf X)^{-1}\mathbf X^T(\#eq:HatMatrix)
+$$
+
+If the general linear model \@ref(eq:LinearModel) holds, so that $E(\mathbf Y \vert \mathbf X) = \mathbf X \beta$, we have $(1-\mathbf H) \mathbb E(\mathbf Y \vert \mathbf X) = 0$. If we furthermore assume homoskedasticity, we obtain:
+
+$$
+\mathbb E\left[s^2\right]=\frac{N-p}{N}\sigma^2 \quad(\text{Homoskedastic linear model}), (\#eq:VarianceEstimateHomo)
+$$
+where $p = \text {Tr}(\mathbf H)$ is the number of independent covariates. On the other hand, if homoskedasticity holds, but $E(\mathbf Y \vert \mathbf X)$ is not linear, the left-hand side of the previous equation is an overestimate of $\mathbf V \vert X$. 
+
+### More on residuals
+
+In order to study the properties of residuals, it is convenient to define the functional:
+
+$$
+\beta (Q) \equiv \arg \min _{\beta '}  \mathbb E_Q[(Y - X\beta ^\prime)^2]=\mathbb E_Q (X^TX)^{-1}\mathbb E_Q(X^T Y), (\#eq:BetaQ)
+$$
+
+which depends on the arbitrary measure $Q$. If $Q=P$ is the original joint $XY$ probability measure, we get $\beta(P) \equiv \beta$ as defined by Eq. \@ref(eq:BLP), whereas if $Q = \hat P$ is the empirical $XY$ distribution, we get $\beta (\hat P) \equiv \hat \beta$ of Eq. \@ref(eq:OLS).
+
+From the definition it easily follows that:
+
+$$
+\mathbb E _Q [X^T (Y-X\beta(Q))]=0. (\#eq:QResidualOrthogonality)
+$$
+With $Q=P$, the previous equation yields:
+
+$$
+\mathbb E(X^T(Y-X\beta))=0, (\#eq:PopulationResidualOrthogonality)
+$$
+while setting $Q=\hat P$ we obtain:
+
+$$
+\mathbf X^T(\mathbf Y - \mathbf X \hat \beta)=0. (\#eq:SampleResidualOrthogonality)
+$$
+These orthogonality properties, satisfied by the sample and population residuals respectively, are independent of the actual distribution of $X$ and $Y$, and are simple consequences of the definition of $\beta$. In particular, if $X$ contains an intercept term, for example $X^1 = 1$, Eqs. \@ref(eq:PopulationResidualOrthogonality) and \@ref(eq:SampleResidualOrthogonality) imply that population (sample) residuals have vanishing expectation (sample mean).
