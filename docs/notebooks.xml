@@ -163,6 +163,29 @@ V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf
 the diagonal matrix whose &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;-th
 entry is the squared residual &lt;span class="math inline"&gt;\(r_i ^2 =
 (Y_i-X_i\beta)^2\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h5 id="proof-of-central-limit-theorem-for-hat-beta"&gt;Proof of Central
+Limit Theorem for &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt;&lt;/h5&gt;
+&lt;p&gt;Convergence to the normal distribution @ref(eq:CLTBetaHat) with
+variance @ref(eq:AsyVarBetaHat) can be proved using the formalism of
+influence functions. From Eq. @ref(eq:BLP), we see that a small
+variation &lt;span class="math inline"&gt;\(P\to P+\delta P\)&lt;/span&gt; to the
+joint &lt;span class="math inline"&gt;\(XY\)&lt;/span&gt; probability measure
+induces a first order shift:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text
+d(\delta P)(\#eq:BetaDifferential)
+\]&lt;/span&gt; in the best linear predictor. The influence function of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt; is defined by the measurable
+representation of &lt;span class="math inline"&gt;\(\delta \beta\)&lt;/span&gt;,
+namely:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X).
+(\#eq:BetaInfluenceFunction)
+\]&lt;/span&gt; A general result for plugin estimates then tells us that &lt;span
+class="math inline"&gt;\(\sqrt N (\hat \beta -\beta) \to \mathcal N (0,
+\mathbb E (\phi _\beta ^2))\)&lt;/span&gt; in distribution, and using the
+explicit form of @ref(eq:BetaInfluenceFunction) we readily obtain
+@ref(eq:AsyVarBetaHat).&lt;/p&gt;
 &lt;h3 id="variance-estimates"&gt;Variance estimates&lt;/h3&gt;
 &lt;p&gt;These can be based on:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[

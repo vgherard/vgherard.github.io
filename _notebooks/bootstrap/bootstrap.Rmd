@@ -1,0 +1,56 @@
+---
+title: "Bootstrap"
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-02-07
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_depth: 3
+bibliography: biblio.bib
+draft: true
+---
+
+## Introduction
+
+The Bootstrap [@EfronBootstrap79] is a set of computational techniques for statistical inference that generally operate by approximating the true, unknown distribution of a population of interest with the empirical distribution observed in a finite sample. 
+
+## Theoretical Motivation
+
+The main theoretical ideas behind the bootstrap can be sketched with a non-parametric example. Consider a functional $t=t(P)$ of a probability measure $P$ which admits a first order expansion :
+
+$$
+t(Q) \approx t(P) + L(P; Q - P),(\#eq:FunctionalApprox)
+$$
+where $L(P;\nu)$ is assumed to be a *linear* functional of $\nu$. If $Q$ has finite support, linearity implies that:
+
+$$
+L(P,Q-P) = \intop \psi _P\,\text dQ(\#eq:GateauxIntegralRep),
+$$
+and we shall further assume that such a representation is valid for any $Q$^[The integral representation \@ref(eq:GateauxIntegralRep) with bounded $\psi _P$ automatically follows if $L$ is (weak-star) continuous and Frechét differentiable [@huber2004robust]. In the most general case, the sense in which Eq. \@ref(eq:FunctionalApprox) is assumed to hold is that of a directional (Gateaux) derivative, and we assume Eq. \@ref(eq:GateauxIntegralRep) to hold for some measurable (not necessarily bounded) function $\psi _P$, which is usually easy to verify in concrete cases.]. Notice in particular, that from this definition we have: 
+
+$$
+\mathbb E(\psi _P) = L(P,P-P) = 0(\#eq:PsiZeroExp)
+$$
+
+Suppose now that we have a sample of $N$ i.i.d. observations $\{X_1,\,X_2,\,\dots,\,X_N\}$ coming from  $P$, and let $Q=\hat P _N$ in the previous expression, where $\hat P _N = \frac{1}{N}\sum _{i=1}^N\delta _{X_i}$ stands for the empirical distribution. Then:
+
+$$
+t(\hat P _N) \approx t(P) + L(P; \hat P _N - P) = t(P) + \frac{1}{N}\sum _{i = 1} ^N \psi(X_i).(\#eq:FunctionalApproxEmpDist)
+$$
+It follows that $t(\hat P _N)$, *i.e.* the so-called "plugin" estimate, is a consistent estimate of $t(P)$, with:
+
+$$
+\mathbb E(t(\hat P _N)) \approx t(P),\quad \mathbb V(t(\hat P_N)) \approx \frac{1}{N}\mathbb V(\psi(X)),(\#eq:PluginPrinciple)
+$$
+where the first equation follows from \@ref(eq:PsiZeroExp), while the second one follows from the i.i.d. nature of the sample.
+
+In many practical applications, the functional of interest $t(P)$ would itself depend on $N$, so that we should actually write $t_N(P)$. A relevant example would be the variance $\mathbb V _P(\hat \beta _N)$ of a regression slope $\hat \beta _N$ estimated from a linear fit of $N$ data points. The heuristics provided above may look wrong for this case, since the parameter of interest $t_N(P)=\mathcal O (N^{-1})$ itself, which is *a priori* of the same order of the sampling variability. In this and similar cases, the argument can be repeated *mutatis mutandis* for the functional $T_N = N\cdot t_N$, which has a finite limit $T_N \to T$, under the reasonable assumption that the differential of $T_N$ is itself $\mathcal O(1)$. Then, $\mathbb V(T_N(\hat P_N))=\mathcal O (N^{-1})$ is still the dominating source of error in the estimation of $T(P)$ or $T_N(P)$ through $T_N(\hat P _N)$.
+
+## The role of simulation
+
+These considerations form the theoretical basis for the universal prescription of $t(\hat P _N)$ as an estimate of $t(P)$, which would be deemed the "ideal" bootstrap estimate in the present context. The second, more case specific, ingredient of a practical bootstrap estimate would be an *approximation scheme* (often a Monte-Carlo one) for effectively computing $t(\hat P _N)$, which, apart from trivial examples, is by itself impossible to compute exactly - either analytically or numerically. This is best clarified in the example above 
+
+

@@ -96,6 +96,21 @@ V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf {r^2}\m
 $$
 where $D_{\mathbf r^2}$ is the diagonal matrix whose $i$-th entry is the squared residual $r_i ^2 = (Y_i-X_i\beta)^2$.
 
+##### Proof of Central Limit Theorem for $\hat \beta$
+
+Convergence to the normal distribution \@ref(eq:CLTBetaHat) with variance \@ref(eq:AsyVarBetaHat) can be proved using the formalism of influence functions. From Eq. \@ref(eq:BLP), we see that a small variation $P\to P+\delta P$ to the joint $XY$ probability measure induces a first order shift:
+
+$$
+\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text d(\delta P)(\#eq:BetaDifferential)
+$$
+in the best linear predictor. The influence function of $\beta$ is defined by the measurable representation of $\delta \beta$, namely:
+
+$$
+\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X). (\#eq:BetaInfluenceFunction)
+$$
+A general result for plugin estimates then tells us that $\sqrt N (\hat \beta -\beta) \to \mathcal N (0, \mathbb E (\phi _\beta ^2))$ in distribution, and using the explicit form of \@ref(eq:BetaInfluenceFunction) we readily obtain \@ref(eq:AsyVarBetaHat). 
+
+
 ### Variance estimates
 
 These can be based on:
