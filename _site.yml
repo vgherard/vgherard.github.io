@@ -59,10 +59,12 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Software"
-      href: software.html
     - text: "Notebooks"
       href: notebooks.html
+    - text: "Software"
+      href: software.html
+    - text: "Publications"
+      href: scientific_publications.html
     - text: "Files"
       href: files.html
     - text: "About me"
