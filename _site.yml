@@ -67,7 +67,7 @@ navbar:
       href: scientific_publications.html
     - text: "Files"
       href: files.html
-    - text: "About me"
+    - text: "About"
       href: about.html
     - icon: fa fa-rss
       href: index.xml
