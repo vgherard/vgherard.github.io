@@ -7,4 +7,5 @@ output:
     toc_depth: 2
 ---
 
-- My PhD thesis [New Physics Hints from Flavour](https://arxiv.org/abs/2111.00285)
+- [**New Physics Hints from Flavour**](https://arxiv.org/abs/2111.00285). My PhD thesis.
+- [**Teoria della Misura e Analisi Funzionale**](https://raw.githubusercontent.com/vgherard/teoria-della-misura-analisi-funzionale/master/teoria-della-misura-analisi-funzionale.pdf). Notes in Italian.
