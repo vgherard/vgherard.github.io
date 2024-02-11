@@ -47,9 +47,11 @@ $$
 $$
 where the first equation follows from \@ref(eq:PsiZeroExp), while the second one follows from the i.i.d. nature of the sample.
 
-These considerations form the theoretical basis for the bootstrap, whose simple prescription is to estimate $t(P)$ with $t(\hat P _N)$ - the so-called "ideal" bootstrap estimate in the present context.
-
-In many practical applications, the functional of interest $t(P)$ would itself depend on $N$, so that we should actually write $t_N(P)$. A relevant example would be the variance $\mathbb V _P(\hat \beta _N)$ of a regression slope $\hat \beta _N$ estimated from a linear fit of $N$ data points. The heuristics provided above may look wrong for this case, since the parameter of interest $t_N(P)=\mathcal O (N^{-1})$ itself, which looks *a priori* of the same order of the sampling variability. In this and similar cases, the argument can be repeated *mutatis mutandis* for the functional $T_N = N\cdot t_N$, which has a finite limit $T_N \to T$. Under the reasonable assumption that the differential of $T_N$ is itself $\mathcal O(1)$ the variance $\mathbb V(T_N(\hat P_N))=\mathcal O (N^{-1})$ is still the dominating source of error in the estimation of $T(P)$ or $T_N(P)$ through $T_N(\hat P _N)$.
+The general idea behind the bootstrap is to estimate $t(P)$ with $t(\hat P _N)$. Equation \@ref(eq:PluginPrinciple) shows that this is justified whenever the $\mathcal O (N^{-1})$ variance can be considered negligible, as is often the case in concrete bootstrap applications^[To be precise, in many practical applications, the functional of interest $t(P)$ would itself depend on $N$, so that we should actually write $t_N(P)$. A relevant example would be the variance of a plugin estimate $v_N(P)\equiv\mathbb V (t(\hat P _N))$. In this and similar cases, in which $v_N=\mathcal O (N^{-\alpha})$ the argument can be repeated *mutatis mutandis* for the functional $V_N = N^\alpha \cdot v_N$, which has a finite limit $V_N \to V$, assumed to be different from zero. Specifically, if we let $V_N = V+\Delta$ we have:
+$$
+V_N(\hat P_N) -V_N(P) = V(\hat P_N)-V(P)+\Delta _N (\hat P_N)-\Delta_N(P).
+$$
+Since both terms in the right hand side have vanishing (to first order) expectation and $\mathcal O (N^{-1})$ variance, this shows that we can use $V_N(\hat P _N)$ to approximate the target quantity $V_N(P)$, or equivalently $v_N(\hat P _N)$ to approximate $v_N(P)$, since $\frac{\mathbb E(v_N(\hat P_N))}{v_N(P)}\approx 1$ and $\frac{\mathbb V(v_N(\hat P_N))}{v_N(P)}=\mathcal O (N^{-1})$.]. 
 
 ## The role of simulation
 
