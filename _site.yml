@@ -63,6 +63,8 @@ navbar:
       href: software.html
     - text: "Notebooks"
       href: notebooks.html
+    - text: "Files"
+      href: files.html
     - text: "About me"
       href: about.html
     - icon: fa fa-rss
