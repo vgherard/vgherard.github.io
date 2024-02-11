@@ -163,3 +163,10 @@ $$
 \mathbf X^T(\mathbf Y - \mathbf X \hat \beta)=0. (\#eq:SampleResidualOrthogonality)
 $$
 These orthogonality properties, satisfied by the sample and population residuals respectively, are independent of the actual distribution of $X$ and $Y$, and are simple consequences of the definition of $\beta$. In particular, if $X$ contains an intercept term, for example $X^1 = 1$, Eqs. \@ref(eq:PopulationResidualOrthogonality) and \@ref(eq:SampleResidualOrthogonality) imply that population (sample) residuals have vanishing expectation (sample mean).
+
+## Related posts
+
+- [Consistency and bias of OLS estimators](https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/)
+- [Model misspecification and linear sandwiches](https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/)
+- [Linear regression with autocorrelated noise](https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/)
+- [Testing functional specification in linear regression](https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/)
