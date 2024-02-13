@@ -10,7 +10,7 @@ output:
     toc: true
     toc_depth: 3
 bibliography: biblio.bib
-draft: true
+draft: false
 ---
 
 ## Introduction

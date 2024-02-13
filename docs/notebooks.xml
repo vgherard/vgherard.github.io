@@ -16,5 +16,209 @@
       <guid>https://vgherard.github.io/notebooks/ordinary-least-squares</guid>
       <pubDate>Wed, 07 Feb 2024 00:00:00 +0000</pubDate>
     </item>
+    <item>
+      <title>Bootstrap</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/notebooks/bootstrap</link>
+      <description>
+
+
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;The Bootstrap &lt;span class="citation"&gt;(B. Efron 1979; Bradley Efron
+and Tibshirani 1994)&lt;/span&gt; is a set of computational techniques for
+statistical inference that generally operate by approximating the
+distribution of a population of interest with an empirical estimate
+obtained from a finite sample. Such methods find practical use in all
+those situations when the true distribution is either unknown, due to
+limited knowledge of the data generating process, or impossible to
+compute in practice.&lt;/p&gt;
+&lt;p&gt;In general, bootstrap algorithms consist of two ingredients:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A plugin principle, &lt;em&gt;i.e.&lt;/em&gt; a substitution rule &lt;span
+class="math inline"&gt;\(P\to\hat P\)&lt;/span&gt; that replaces the true data
+distribution &lt;span class="math inline"&gt;\(P\)&lt;/span&gt; with an empirical
+estimate &lt;span class="math inline"&gt;\(\hat P\)&lt;/span&gt; obtained from a
+finite sample.&lt;/li&gt;
+&lt;li&gt;A calculation scheme for computing functionals of the plugin
+distribution &lt;span class="math inline"&gt;\(\hat P\)&lt;/span&gt;, usually
+involving simulation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="the-plugin-principle"&gt;The plugin principle&lt;/h2&gt;
+&lt;p&gt;The main theoretical idea behind the bootstrap can be sketched with a
+non-parametric example. Consider a functional &lt;span
+class="math inline"&gt;\(t=t(P)\)&lt;/span&gt; of a probability measure &lt;span
+class="math inline"&gt;\(P\)&lt;/span&gt; which admits a first order expansion
+:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+t(Q) \approx t(P) + L(P; Q - P),(\#eq:FunctionalApprox)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(L(P;\nu)\)&lt;/span&gt; is assumed
+to be a &lt;em&gt;linear&lt;/em&gt; functional of &lt;span
+class="math inline"&gt;\(\nu\)&lt;/span&gt;. If &lt;span
+class="math inline"&gt;\(Q\)&lt;/span&gt; has finite support, linearity implies
+that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+L(P,Q-P) = \intop \psi _P\,\text dQ(\#eq:GateauxIntegralRep),
+\]&lt;/span&gt; and we shall further assume that such a representation is
+valid for any &lt;span class="math inline"&gt;\(Q\)&lt;/span&gt;&lt;a href="#fn1"
+class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. Notice in particular,
+that from this definition we have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E(\psi _P) = L(P,P-P) = 0(\#eq:PsiZeroExp)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Suppose now that we have a sample of &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt; i.i.d. observations &lt;span
+class="math inline"&gt;\(\{X_1,\,X_2,\,\dots,\,X_N\}\)&lt;/span&gt; coming from
+&lt;span class="math inline"&gt;\(P\)&lt;/span&gt;, and let &lt;span
+class="math inline"&gt;\(Q=\hat P _N\)&lt;/span&gt; in the previous expression,
+where &lt;span class="math inline"&gt;\(\hat P _N = \frac{1}{N}\sum
+_{i=1}^N\delta _{X_i}\)&lt;/span&gt; stands for the empirical distribution.
+Then:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+t(\hat P _N) \approx t(P) + L(P; \hat P _N - P) = t(P) + \frac{1}{N}\sum
+_{i = 1} ^N \psi(X_i).(\#eq:FunctionalApproxEmpDist)
+\]&lt;/span&gt; It follows that &lt;span class="math inline"&gt;\(t(\hat P
+_N)\)&lt;/span&gt;, &lt;em&gt;i.e.&lt;/em&gt; the so-called “plugin” estimate, is a
+consistent estimate of &lt;span class="math inline"&gt;\(t(P)\)&lt;/span&gt;,
+with:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E(t(\hat P _N)) \approx t(P),\quad \mathbb V(t(\hat P_N))
+\approx \frac{1}{N}\mathbb V(\psi(X)),(\#eq:PluginPrinciple)
+\]&lt;/span&gt; where the first equation follows from @ref(eq:PsiZeroExp),
+while the second one follows from the i.i.d. nature of the sample.&lt;/p&gt;
+&lt;p&gt;The main idea behind the non-parametric bootstrap is to estimate
+&lt;span class="math inline"&gt;\(t(P)\)&lt;/span&gt; with &lt;span
+class="math inline"&gt;\(t(\hat P _N)\)&lt;/span&gt;, which is justified by Eq.
+@ref(eq:PluginPrinciple) whenever the &lt;span
+class="math inline"&gt;\(\mathcal O (N^{-1})\)&lt;/span&gt; variance can be
+considered negligible (as is often the case in concrete bootstrap
+applications). In a parametric setting, the role of &lt;span
+class="math inline"&gt;\(\hat P_N\)&lt;/span&gt; could be played by some
+parametric estimate of &lt;span class="math inline"&gt;\(P\)&lt;/span&gt;.
+Similarly, sampling schemes other than i.i.d. (&lt;em&gt;e.g.&lt;/em&gt; if dealing
+with time series data) require different empirical estimates of &lt;span
+class="math inline"&gt;\(P\)&lt;/span&gt;, but the basic principle - estimating
+&lt;span class="math inline"&gt;\(t(P)\)&lt;/span&gt; with &lt;span
+class="math inline"&gt;\(t(\hat P_N)\)&lt;/span&gt; - remains the same.&lt;/p&gt;
+&lt;p&gt;Estimates such as &lt;span class="math inline"&gt;\(t(\hat P_N)\)&lt;/span&gt;
+are usually referred to as &lt;em&gt;ideal bootstrap estimates&lt;/em&gt;. As
+implied by the name, they can rarely be computed exactly in practice,
+because no analytic formula exists, and exact numerical calculations
+rapidly become prohibitive with growing &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt;. This leads to &lt;span
+class="math inline"&gt;\(t(\hat P_N)\)&lt;/span&gt; being estimated through
+simulation from &lt;span class="math inline"&gt;\(\hat P _N\)&lt;/span&gt;, as
+explained below.&lt;/p&gt;
+&lt;h4 id="a-technical-refinement"&gt;A technical refinement&lt;/h4&gt;
+&lt;p&gt;In many practical applications, the functional of interest &lt;span
+class="math inline"&gt;\(t(P)\)&lt;/span&gt; would itself depend on &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt;, so that we should actually write &lt;span
+class="math inline"&gt;\(t_N(P)\)&lt;/span&gt;. A relevant example would be the
+variance of a plugin estimate &lt;span
+class="math inline"&gt;\(v_N(P)\equiv\mathbb V (t(\hat P _N))\)&lt;/span&gt;. In
+this and similar cases, in which &lt;span
+class="math inline"&gt;\(v_N=\mathcal O (N^{-\alpha})\)&lt;/span&gt; the argument
+can be repeated &lt;em&gt;mutatis mutandis&lt;/em&gt; for the functional &lt;span
+class="math inline"&gt;\(V_N = N^\alpha \cdot v_N\)&lt;/span&gt;, which has a
+finite limit &lt;span class="math inline"&gt;\(V_N \to V\)&lt;/span&gt;, assumed to
+be different from zero. Specifically, if we let &lt;span
+class="math inline"&gt;\(V_N = V+\Delta _N\)&lt;/span&gt; we have: &lt;span
+class="math display"&gt;\[
+V_N(\hat P_N) -V_N(P) = V(\hat P_N)-V(P)+\Delta _N (\hat
+P_N)-\Delta_N(P).
+\]&lt;/span&gt; Since both terms in the right hand side have vanishing (to
+first order) expectation and &lt;span class="math inline"&gt;\(\mathcal O
+(N^{-1})\)&lt;/span&gt; variance, this shows that we can use &lt;span
+class="math inline"&gt;\(V_N(\hat P _N)\)&lt;/span&gt; to approximate the target
+quantity &lt;span class="math inline"&gt;\(V_N(P)\)&lt;/span&gt;, or equivalently
+&lt;span class="math inline"&gt;\(v_N(\hat P _N)\)&lt;/span&gt; to approximate &lt;span
+class="math inline"&gt;\(v_N(P)\)&lt;/span&gt;, since &lt;span
+class="math inline"&gt;\(\frac{\mathbb E(v_N(\hat P_N))}{v_N(P)}\approx
+1\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\frac{\sqrt {\mathbb
+V(v_N(\hat P_N))}}{v_N(P)}=\mathcal O (N^{-1/2})\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h2 id="the-role-of-simulation"&gt;The role of simulation&lt;/h2&gt;
+&lt;p&gt;The second, more case specific, ingredient of a practical bootstrap
+estimate is an approximation scheme for effectively computing &lt;span
+class="math inline"&gt;\(t(\hat P _N)\)&lt;/span&gt;. These methods typically
+involve simulating from &lt;span class="math inline"&gt;\(\hat P_N\)&lt;/span&gt;,
+the reason being that the functional &lt;span
+class="math inline"&gt;\(t(Q)\)&lt;/span&gt; usually involves expectations and/or
+quantiles of random variables of samples from &lt;span
+class="math inline"&gt;\(Q\)&lt;/span&gt;. When &lt;span class="math inline"&gt;\(Q =
+\hat P_N\)&lt;/span&gt;, simulation allows to obtain &lt;span
+class="math inline"&gt;\(t(\hat P_N)\)&lt;/span&gt; by brute force.&lt;/p&gt;
+&lt;p&gt;This is best clarified with an example. Given a functional &lt;span
+class="math inline"&gt;\(\theta(P)\)&lt;/span&gt;, we let:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+v_N (P) = \mathbb V_P(\theta (\hat P_N))(\#eq:VariancePluginEstimate)
+\]&lt;/span&gt; denote the variance (with respect to the original measure
+&lt;span class="math inline"&gt;\(P\)&lt;/span&gt;) of its plugin estimate from a
+dataset of &lt;span class="math inline"&gt;\(N\)&lt;/span&gt; i.i.d. observations.
+The ideal bootstrap estimate is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+v_N(\hat P_N) = \mathbb V_{\hat P _N}(\theta(\hat
+P_N^*)),(\#eq:IdealBootstrapVariance)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\hat P _N ^*\)&lt;/span&gt;
+denotes the empirical distribution of an i.i.d. sample of &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt; elements from &lt;span
+class="math inline"&gt;\(\hat P_N\)&lt;/span&gt; - obviously, i.i.d. sampling
+from &lt;span class="math inline"&gt;\(\hat P _N\)&lt;/span&gt; is the same as
+sampling with replacement from the original dataset. Suppose now we
+generate &lt;span class="math inline"&gt;\(B\)&lt;/span&gt; synthetic datasets of
+size &lt;span class="math inline"&gt;\(N\)&lt;/span&gt; by sampling with
+replacement, and let &lt;span class="math inline"&gt;\(\hat P_N
+^{(b)*}\)&lt;/span&gt; denote the corresponding empirical distributions. We
+can then estimate @ref(eq:IdealBootstrapVariance) by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\widetilde {v_N(\hat P_N)} = \dfrac{1}{B-1}\sum_{b=1}^{B}(\theta(\hat
+P_N ^{(b)*})- \overline \theta^*)^2,(\#eq:PracticalBootstrapVariance)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\overline \theta^* =
+\frac{1}{B}\sum_{b=1}^{B}\theta(\hat P_N ^{(b)*})\)&lt;/span&gt;. This would
+be our &lt;em&gt;practical&lt;/em&gt; (as opposed to ideal) bootstrap estimate of
+&lt;span class="math inline"&gt;\(v_N(P)\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Strictly speaking, the practical bootstrap estimate involves again an
+application of the plugin principle mentioned in the previous section,
+in which however the role of the true distribution &lt;span
+class="math inline"&gt;\(P\)&lt;/span&gt; is played by the empirical estimate
+&lt;span class="math inline"&gt;\(\hat P_N\)&lt;/span&gt;, from which we can sample
+without any limits. This means that (re)sampling variability associated
+with @ref(eq:PracticalBootstrapVariance) can be always made arbitrarily
+small, at least in principle, simply by increasing &lt;span
+class="math inline"&gt;\(B\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-EfronBootstrap79" class="csl-entry"&gt;
+Efron, B. 1979. &lt;span&gt;“&lt;span class="nocase"&gt;Bootstrap Methods: Another
+Look at the Jackknife&lt;/span&gt;.”&lt;/span&gt; &lt;em&gt;The Annals of Statistics&lt;/em&gt;
+7 (1): 1–26. &lt;a
+href="https://doi.org/10.1214/aos/1176344552"&gt;https://doi.org/10.1214/aos/1176344552&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id="ref-efron1994introduction" class="csl-entry"&gt;
+Efron, Bradley, and Robert J Tibshirani. 1994. &lt;em&gt;An Introduction to
+the Bootstrap&lt;/em&gt;. CRC press.
+&lt;/div&gt;
+&lt;div id="ref-huber2004robust" class="csl-entry"&gt;
+Huber, Peter J. 2004. &lt;em&gt;Robust Statistics&lt;/em&gt;. Vol. 523. John Wiley
+&amp;amp; Sons.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;The integral representation @ref(eq:GateauxIntegralRep)
+with bounded &lt;span class="math inline"&gt;\(\psi _P\)&lt;/span&gt; automatically
+follows if &lt;span class="math inline"&gt;\(L\)&lt;/span&gt; is (weak-star)
+continuous and Frechét differentiable &lt;span class="citation"&gt;(Huber
+2004)&lt;/span&gt;. In the most general case, the sense in which Eq.
+@ref(eq:FunctionalApprox) is assumed to hold is that of a directional
+(Gateaux) derivative, and we assume Eq. @ref(eq:GateauxIntegralRep) to
+hold for some measurable (not necessarily bounded) function &lt;span
+class="math inline"&gt;\(\psi _P\)&lt;/span&gt;, which is usually easy to verify
+in concrete cases.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>891e04a47f9ba5d9f146e8d543110965</distill:md5>
+      <guid>https://vgherard.github.io/notebooks/bootstrap</guid>
+      <pubDate>Tue, 06 Feb 2024 00:00:00 +0000</pubDate>
+    </item>
   </channel>
 </rss>
