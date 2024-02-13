@@ -130,6 +130,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_meta_tags-->
   
   <meta name="citation_reference" content="citation_title=Bootstrap Methods: Another Look at the Jackknife;citation_publisher=Institute of Mathematical Statistics;citation_volume=7;citation_doi=10.1214/aos/1176344552;citation_author=B. Efron"/>
+  <meta name="citation_reference" content="citation_title=An introduction to the bootstrap;citation_publisher=CRC press;citation_author=Bradley Efron;citation_author=Robert J Tibshirani"/>
   <meta name="citation_reference" content="citation_title=Robust statistics;citation_publisher=John Wiley &amp; Sons;citation_volume=523;citation_author=Peter J Huber"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
@@ -1571,15 +1572,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h3>Contents</h3>
 <ul>
 <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
-<li><a href="#theoretical-motivation" id="toc-theoretical-motivation">Theoretical Motivation</a></li>
+<li><a href="#the-plugin-principle" id="toc-the-plugin-principle">The plugin principle</a></li>
 <li><a href="#the-role-of-simulation" id="toc-the-role-of-simulation">The role of simulation</a></li>
 </ul>
 </nav>
 </div>
 <h2 id="introduction">Introduction</h2>
-<p>The Bootstrap <span class="citation" data-cites="EfronBootstrap79">(<a href="#ref-EfronBootstrap79" role="doc-biblioref">Efron 1979</a>)</span> is a set of computational techniques for statistical inference that generally operate by approximating the true, unknown distribution of a population of interest with the empirical distribution observed in a finite sample.</p>
-<h2 id="theoretical-motivation">Theoretical Motivation</h2>
-<p>The main theoretical ideas behind the bootstrap can be sketched with a non-parametric example. Consider a functional <span class="math inline">\(t=t(P)\)</span> of a probability measure <span class="math inline">\(P\)</span> which admits a first order expansion :</p>
+<p>The Bootstrap <span class="citation" data-cites="EfronBootstrap79 efron1994introduction">(<a href="#ref-EfronBootstrap79" role="doc-biblioref">B. Efron 1979</a>; <a href="#ref-efron1994introduction" role="doc-biblioref">Bradley Efron and Tibshirani 1994</a>)</span> is a set of computational techniques for statistical inference that generally operate by approximating the distribution of a population of interest with an empirical estimate obtained from a finite sample. Such methods find practical use in all those situations when the true distribution is either unknown, due to limited knowledge of the data generating process, or impossible to compute in practice.</p>
+<p>In general, bootstrap algorithms consist of two ingredients:</p>
+<ul>
+<li>A plugin principle, <em>i.e.</em> a substitution rule <span class="math inline">\(P\to\hat P\)</span> that replaces the true data distribution <span class="math inline">\(P\)</span> with an empirical estimate <span class="math inline">\(\hat P\)</span> obtained from a finite sample.</li>
+<li>A calculation scheme for computing functionals of the plugin distribution <span class="math inline">\(\hat P\)</span>, usually involving simulation.</li>
+</ul>
+<h2 id="the-plugin-principle">The plugin principle</h2>
+<p>The main theoretical idea behind the bootstrap can be sketched with a non-parametric example. Consider a functional <span class="math inline">\(t=t(P)\)</span> of a probability measure <span class="math inline">\(P\)</span> which admits a first order expansion :</p>
 <p><span class="math display" id="eq:FunctionalApprox">\[
 t(Q) \approx t(P) + L(P; Q - P),\tag{1}
 \]</span>
@@ -1600,13 +1606,37 @@ It follows that <span class="math inline">\(t(\hat P _N)\)</span>, <em>i.e.</em>
 \mathbb E(t(\hat P _N)) \approx t(P),\quad \mathbb V(t(\hat P_N)) \approx \frac{1}{N}\mathbb V(\psi(X)),\tag{5}
 \]</span>
 where the first equation follows from <a href="#eq:PsiZeroExp">(3)</a>, while the second one follows from the i.i.d. nature of the sample.</p>
-<p>The general idea behind the bootstrap is to estimate <span class="math inline">\(t(P)\)</span> with <span class="math inline">\(t(\hat P _N)\)</span>. Equation <a href="#eq:PluginPrinciple">(5)</a> shows that this is justified whenever the <span class="math inline">\(\mathcal O (N^{-1})\)</span> variance can be considered negligible, as is often the case in concrete bootstrap applications<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>The main idea behind the non-parametric bootstrap is to estimate <span class="math inline">\(t(P)\)</span> with <span class="math inline">\(t(\hat P _N)\)</span>, which is justified by Eq. <a href="#eq:PluginPrinciple">(5)</a> whenever the <span class="math inline">\(\mathcal O (N^{-1})\)</span> variance can be considered negligible (as is often the case in concrete bootstrap applications). In a parametric setting, the role of <span class="math inline">\(\hat P_N\)</span> could be played by some parametric estimate of <span class="math inline">\(P\)</span>. Similarly, sampling schemes other than i.i.d. (<em>e.g.</em> if dealing with time series data) require different empirical estimates of <span class="math inline">\(P\)</span>, but the basic principle - estimating <span class="math inline">\(t(P)\)</span> with <span class="math inline">\(t(\hat P_N)\)</span> - remains the same.</p>
+<p>Estimates such as <span class="math inline">\(t(\hat P_N)\)</span> are usually referred to as <em>ideal bootstrap estimates</em>. As implied by the name, they can rarely be computed exactly in practice, because no analytic formula exists, and exact numerical calculations rapidly become prohibitive with growing <span class="math inline">\(N\)</span>. This leads to <span class="math inline">\(t(\hat P_N)\)</span> being estimated through simulation from <span class="math inline">\(\hat P _N\)</span>, as explained below.</p>
+<h4 id="a-technical-refinement">A technical refinement</h4>
+<p>In many practical applications, the functional of interest <span class="math inline">\(t(P)\)</span> would itself depend on <span class="math inline">\(N\)</span>, so that we should actually write <span class="math inline">\(t_N(P)\)</span>. A relevant example would be the variance of a plugin estimate <span class="math inline">\(v_N(P)\equiv\mathbb V (t(\hat P _N))\)</span>. In this and similar cases, in which <span class="math inline">\(v_N=\mathcal O (N^{-\alpha})\)</span> the argument can be repeated <em>mutatis mutandis</em> for the functional <span class="math inline">\(V_N = N^\alpha \cdot v_N\)</span>, which has a finite limit <span class="math inline">\(V_N \to V\)</span>, assumed to be different from zero. Specifically, if we let <span class="math inline">\(V_N = V+\Delta _N\)</span> we have:
+<span class="math display">\[
+V_N(\hat P_N) -V_N(P) = V(\hat P_N)-V(P)+\Delta _N (\hat P_N)-\Delta_N(P).
+\]</span>
+Since both terms in the right hand side have vanishing (to first order) expectation and <span class="math inline">\(\mathcal O (N^{-1})\)</span> variance, this shows that we can use <span class="math inline">\(V_N(\hat P _N)\)</span> to approximate the target quantity <span class="math inline">\(V_N(P)\)</span>, or equivalently <span class="math inline">\(v_N(\hat P _N)\)</span> to approximate <span class="math inline">\(v_N(P)\)</span>, since <span class="math inline">\(\frac{\mathbb E(v_N(\hat P_N))}{v_N(P)}\approx 1\)</span> and <span class="math inline">\(\frac{\sqrt {\mathbb V(v_N(\hat P_N))}}{v_N(P)}=\mathcal O (N^{-1/2})\)</span>.</p>
 <h2 id="the-role-of-simulation">The role of simulation</h2>
-<p>The second, more case specific, ingredient of a practical bootstrap estimate would be an <em>approximation scheme</em> (often a Monte-Carlo one) for effectively computing <span class="math inline">\(t(\hat P _N)\)</span>, which, apart from trivial examples, is by itself impossible to compute exactly - either analytically or numerically. This is best clarified in the example above</p>
+<p>The second, more case specific, ingredient of a practical bootstrap estimate is an approximation scheme for effectively computing <span class="math inline">\(t(\hat P _N)\)</span>. These methods typically involve simulating from <span class="math inline">\(\hat P_N\)</span>, the reason being that the functional <span class="math inline">\(t(Q)\)</span> usually involves expectations and/or quantiles of random variables of samples from <span class="math inline">\(Q\)</span>. When <span class="math inline">\(Q = \hat P_N\)</span>, simulation allows to obtain <span class="math inline">\(t(\hat P_N)\)</span> by brute force.</p>
+<p>This is best clarified with an example. Given a functional <span class="math inline">\(\theta(P)\)</span>, we let:</p>
+<p><span class="math display" id="eq:VariancePluginEstimate">\[
+v_N (P) = \mathbb V_P(\theta (\hat P_N))\tag{6}
+\]</span>
+denote the variance (with respect to the original measure <span class="math inline">\(P\)</span>) of its plugin estimate from a dataset of <span class="math inline">\(N\)</span> i.i.d. observations. The ideal bootstrap estimate is given by:</p>
+<p><span class="math display" id="eq:IdealBootstrapVariance">\[
+v_N(\hat P_N) = \mathbb V_{\hat P _N}(\theta(\hat P_N^*)),\tag{7}
+\]</span>
+where <span class="math inline">\(\hat P _N ^*\)</span> denotes the empirical distribution of an i.i.d. sample of <span class="math inline">\(N\)</span> elements from <span class="math inline">\(\hat P_N\)</span> - obviously, i.i.d. sampling from <span class="math inline">\(\hat P _N\)</span> is the same as sampling with replacement from the original dataset. Suppose now we generate <span class="math inline">\(B\)</span> synthetic datasets of size <span class="math inline">\(N\)</span> by sampling with replacement, and let <span class="math inline">\(\hat P_N ^{(b)*}\)</span> denote the corresponding empirical distributions. We can then estimate <a href="#eq:IdealBootstrapVariance">(7)</a> by:</p>
+<p><span class="math display" id="eq:PracticalBootstrapVariance">\[
+\widetilde {v_N(\hat P_N)} = \dfrac{1}{B-1}\sum_{b=1}^{B}(\theta(\hat P_N ^{(b)*})- \overline \theta^*)^2,\tag{8}
+\]</span>
+where <span class="math inline">\(\overline \theta^* = \frac{1}{B}\sum_{b=1}^{B}\theta(\hat P_N ^{(b)*})\)</span>. This would be our <em>practical</em> (as opposed to ideal) bootstrap estimate of <span class="math inline">\(v_N(P)\)</span>.</p>
+<p>Strictly speaking, the practical bootstrap estimate involves again an application of the plugin principle mentioned in the previous section, in which however the role of the true distribution <span class="math inline">\(P\)</span> is played by the empirical estimate <span class="math inline">\(\hat P_N\)</span>, from which we can sample without any limits. This means that (re)sampling variability associated with <a href="#eq:PracticalBootstrapVariance">(8)</a> can be always made arbitrarily small, at least in principle, simply by increasing <span class="math inline">\(B\)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-EfronBootstrap79" class="csl-entry" role="listitem">
 Efron, B. 1979. <span>“<span class="nocase">Bootstrap Methods: Another Look at the Jackknife</span>.”</span> <em>The Annals of Statistics</em> 7 (1): 1–26. <a href="https://doi.org/10.1214/aos/1176344552">https://doi.org/10.1214/aos/1176344552</a>.
+</div>
+<div id="ref-efron1994introduction" class="csl-entry" role="listitem">
+Efron, Bradley, and Robert J Tibshirani. 1994. <em>An Introduction to the Bootstrap</em>. CRC press.
 </div>
 <div id="ref-huber2004robust" class="csl-entry" role="listitem">
 Huber, Peter J. 2004. <em>Robust Statistics</em>. Vol. 523. John Wiley &amp; Sons.
@@ -1616,11 +1646,6 @@ Huber, Peter J. 2004. <em>Robust Statistics</em>. Vol. 523. John Wiley &amp; Son
 <hr />
 <ol>
 <li id="fn1"><p>The integral representation <a href="#eq:GateauxIntegralRep">(2)</a> with bounded <span class="math inline">\(\psi _P\)</span> automatically follows if <span class="math inline">\(L\)</span> is (weak-star) continuous and Frechét differentiable <span class="citation" data-cites="huber2004robust">(<a href="#ref-huber2004robust" role="doc-biblioref">Huber 2004</a>)</span>. In the most general case, the sense in which Eq. <a href="#eq:FunctionalApprox">(1)</a> is assumed to hold is that of a directional (Gateaux) derivative, and we assume Eq. <a href="#eq:GateauxIntegralRep">(2)</a> to hold for some measurable (not necessarily bounded) function <span class="math inline">\(\psi _P\)</span>, which is usually easy to verify in concrete cases.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>To be precise, in many practical applications, the functional of interest <span class="math inline">\(t(P)\)</span> would itself depend on <span class="math inline">\(N\)</span>, so that we should actually write <span class="math inline">\(t_N(P)\)</span>. A relevant example would be the variance of a plugin estimate <span class="math inline">\(v_N(P)\equiv\mathbb V (t(\hat P _N))\)</span>. In this and similar cases, in which <span class="math inline">\(v_N=\mathcal O (N^{-\alpha})\)</span> the argument can be repeated <em>mutatis mutandis</em> for the functional <span class="math inline">\(V_N = N^\alpha \cdot v_N\)</span>, which has a finite limit <span class="math inline">\(V_N \to V\)</span>, assumed to be different from zero. Specifically, if we let <span class="math inline">\(V_N = V+\Delta\)</span> we have:
-<span class="math display">\[
-V_N(\hat P_N) -V_N(P) = V(\hat P_N)-V(P)+\Delta _N (\hat P_N)-\Delta_N(P).
-\]</span>
-Since both terms in the right hand side have vanishing (to first order) expectation and <span class="math inline">\(\mathcal O (N^{-1})\)</span> variance, this shows that we can use <span class="math inline">\(V_N(\hat P _N)\)</span> to approximate the target quantity <span class="math inline">\(V_N(P)\)</span>, or equivalently <span class="math inline">\(v_N(\hat P _N)\)</span> to approximate <span class="math inline">\(v_N(P)\)</span>, since <span class="math inline">\(\frac{\mathbb E(v_N(\hat P_N))}{v_N(P)}\approx 1\)</span> and <span class="math inline">\(\frac{\mathbb V(v_N(\hat P_N))}{v_N(P)}=\mathcal O (N^{-1})\)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
