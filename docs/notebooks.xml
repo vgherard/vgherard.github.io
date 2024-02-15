@@ -184,6 +184,16 @@ without any limits. This means that (re)sampling variability associated
 with @ref(eq:PracticalBootstrapVariance) can be always made arbitrarily
 small, at least in principle, simply by increasing &lt;span
 class="math inline"&gt;\(B\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h2 id="todo-standard-bootstrap-estimates"&gt;[TODO] Standard bootstrap
+estimates&lt;/h2&gt;
+&lt;h3 id="variance-of-an-estimator"&gt;Variance of an estimator&lt;/h3&gt;
+&lt;h3 id="confidence-intervals"&gt;Confidence intervals&lt;/h3&gt;
+&lt;h3 id="p-values"&gt;&lt;span class="math inline"&gt;\(p\)&lt;/span&gt;-values&lt;/h3&gt;
+&lt;h3 id="prediction-error"&gt;Prediction error&lt;/h3&gt;
+&lt;h2 id="todo-bootstrap-for-time-series-data"&gt;[TODO] Bootstrap for time
+series data&lt;/h2&gt;
+&lt;h2 id="todo-bootstrap-for-text-data"&gt;[TODO] Bootstrap for text
+data&lt;/h2&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
 &lt;div id="ref-EfronBootstrap79" class="csl-entry"&gt;

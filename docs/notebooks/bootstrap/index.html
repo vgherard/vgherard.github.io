@@ -2608,6 +2608,15 @@ Other links
 <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
 <li><a href="#the-plugin-principle" id="toc-the-plugin-principle">The plugin principle</a></li>
 <li><a href="#the-role-of-simulation" id="toc-the-role-of-simulation">The role of simulation</a></li>
+<li><a href="#todo-standard-bootstrap-estimates" id="toc-todo-standard-bootstrap-estimates">[TODO] Standard bootstrap estimates</a>
+<ul>
+<li><a href="#variance-of-an-estimator" id="toc-variance-of-an-estimator">Variance of an estimator</a></li>
+<li><a href="#confidence-intervals" id="toc-confidence-intervals">Confidence intervals</a></li>
+<li><a href="#p-values" id="toc-p-values"><span class="math inline">\(p\)</span>-values</a></li>
+<li><a href="#prediction-error" id="toc-prediction-error">Prediction error</a></li>
+</ul></li>
+<li><a href="#todo-bootstrap-for-time-series-data" id="toc-todo-bootstrap-for-time-series-data">[TODO] Bootstrap for time series data</a></li>
+<li><a href="#todo-bootstrap-for-text-data" id="toc-todo-bootstrap-for-text-data">[TODO] Bootstrap for text data</a></li>
 </ul>
 </nav>
 </div>
@@ -2664,6 +2673,13 @@ where <span class="math inline">\(\hat P _N ^*\)</span> denotes the empirical di
 \]</span>
 where <span class="math inline">\(\overline \theta^* = \frac{1}{B}\sum_{b=1}^{B}\theta(\hat P_N ^{(b)*})\)</span>. This would be our <em>practical</em> (as opposed to ideal) bootstrap estimate of <span class="math inline">\(v_N(P)\)</span>.</p>
 <p>Strictly speaking, the practical bootstrap estimate involves again an application of the plugin principle mentioned in the previous section, in which however the role of the true distribution <span class="math inline">\(P\)</span> is played by the empirical estimate <span class="math inline">\(\hat P_N\)</span>, from which we can sample without any limits. This means that (re)sampling variability associated with <a href="#eq:PracticalBootstrapVariance">(8)</a> can be always made arbitrarily small, at least in principle, simply by increasing <span class="math inline">\(B\)</span>.</p>
+<h2 id="todo-standard-bootstrap-estimates">[TODO] Standard bootstrap estimates</h2>
+<h3 id="variance-of-an-estimator">Variance of an estimator</h3>
+<h3 id="confidence-intervals">Confidence intervals</h3>
+<h3 id="p-values"><span class="math inline">\(p\)</span>-values</h3>
+<h3 id="prediction-error">Prediction error</h3>
+<h2 id="todo-bootstrap-for-time-series-data">[TODO] Bootstrap for time series data</h2>
+<h2 id="todo-bootstrap-for-text-data">[TODO] Bootstrap for text data</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-EfronBootstrap79" class="csl-entry" role="listitem">

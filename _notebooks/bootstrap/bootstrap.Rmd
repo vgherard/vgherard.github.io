@@ -87,3 +87,17 @@ where $\overline \theta^* = \frac{1}{B}\sum_{b=1}^{B}\theta(\hat P_N ^{(b)*})$. 
 
 Strictly speaking, the practical bootstrap estimate involves again an application of the plugin principle mentioned in the previous section, in which however the role of the true distribution $P$ is played by the empirical estimate $\hat P_N$, from which we can sample without any limits. This means that (re)sampling variability associated with \@ref(eq:PracticalBootstrapVariance) can be always made arbitrarily small, at least in principle, simply by increasing $B$.
 
+## [TODO] Standard bootstrap estimates
+
+### Variance of an estimator
+
+### Confidence intervals
+
+### $p$-values
+
+### Prediction error
+
+## [TODO] Bootstrap for time series data
+
+## [TODO] Bootstrap for text data
+
