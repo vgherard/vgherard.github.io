@@ -1,0 +1,282 @@
+---
+title: "Gravity waves in an ideal fluid"
+description: |
+  Compares the "parcel" method with standard linearization of fluid dynamics equations.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-02-22
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+categories: 
+  - Atmospheric Physics
+  - Fluid Dynamics
+  - Waves
+  - Physics
+draft: false
+---
+
+## Intro
+
+We compare two derivations of the stability conditions for hydrostatic equilibrium of an ideal fluid: 
+
+- A "parcel" argument, that follows the motion of a small particle of fluid, ignoring the dynamics of the surroundings.
+- Standard linearization of the ideal fluid equations.
+
+The two derivations turn out to give the same answer, but the intermediate steps in the parcel argument contain some hidden assumptions, which are clarified in the second approach.
+
+## The parcel method
+
+We start with a fluid at rest in a constant gravitational field $\mathbf g = -g\hat {\mathbf z}$, and consider a small portion of fluid initially located at height $z_0$. We imagine that this parcel is now vertically displaced to height $z_1 = z_0 + \delta z$, and that no heat is transferred between the parcel and the surroundings during this process. We further assume that the pressure inside the parcel rapidly equalizes with the pressure outside of it (on a time scale much shorter than the one involved in the displacement). Finally, *we assume that the whole process does not appreciably alter the pressure field $p$ with respect to its equilibrium configuration*, satisfying $\frac{\text d p}{\text d z}= -\rho g$, where $\rho$ is the fluid's density at rest. To anticipate, in the second derivation below, we will see that the last assumption may actually fail, giving rise to different dynamics than the one discussed in these Section. 
+
+The derivation below follows [@landau2013fluid]. The parcel's acceleration in the vertical direction is given by Newton's second law:
+
+$$
+\rho _\text{p}\ddot {\delta z}=-\rho _\text{p}g-\frac{\text{d}p}{\text{d}z}=-(\rho _\text{p}-\rho)g,(\#eq:Newton2)
+$$
+where the equilibrium assumption was used in the second equality,  where $\rho _\text{p}$ is the parcel's density, while $\rho$ is the density of the surroundings evaluated at the parcel's height $z_1=z_0 + \delta z$. 
+
+Using the thermodynamic state equation of the fluid, we can express densities in terms of pressure $p$ and specific entropy $s$. For the fluid density, this means:
+
+$$
+\rho = \rho(p(z_1),\,s(z_1)),
+$$
+while for the parcel we have:
+
+$$
+\rho _\text{p} = \rho (p(z_1), s(z_0)),
+$$ 
+due to the fact that the process is adiabatic. Hence, expanding the right hand side of \@ref(eq:Newton2) to first order in $\delta z$, we obtain:
+
+$$
+\ddot {\delta z} = -\Omega  ^2 \delta z,(\#eq:OscArm)
+$$
+where:
+
+$$
+\Omega  ^2 \equiv -\dfrac{g}{\rho}\left(\frac{\partial \rho }{\partial s}\right)_p\frac{\text d s}{\text d z}=-\dfrac{g}{\rho}\left(\frac{\partial \rho }{\partial s}\right)_p\frac{\text d s}{\text d z},(\#eq:BVFreq)
+$$
+is called the *Brunt–Väisälä frequency*, or *buoyancy frequency* (all quantities in this equation can be evaluated at $z = z_0$ in the linear approximation we are considering). Equations \@ref(eq:OscArm) imply that, in order for hydrostatic equilibrium to be stable, we must have $\Omega ^2 > 0$, that is:
+
+$$
+-\left(\frac{\partial \rho }{\partial s}\right)_p\frac{\text d s}{\text d z} > 0(\#eq:EquilibriumCond)
+$$
+
+There are a few alternative ways to express \@ref(eq:EquilibriumCond) [@landau2013fluid]. First of all, using the Maxwell relation $\left(\frac{\partial \rho }{\partial s}\right)_p=\frac{T}{c_p}\left(\frac{\partial \rho }{\partial T}\right)_p$, we see that equilibrium requires:
+
+$$
+-\left(\frac{\partial \rho }{\partial T}\right)_p\frac{\text d s}{\text d z}>0.(\#eq:EquilibriumCond1)
+$$
+Moreover, assuming $\left(\frac{\partial \rho }{\partial T}\right)_p<0$, this simplifies to:
+
+$$
+\frac{\text d s}{\text d z} >0(\#eq:EquilibriumCond2)
+$$
+Considering $s$ as a function of $p$ and $T$, we have: 
+
+$$
+\frac{\text d s}{\text d z} = \left(\frac{\partial s}{\partial T}\right)_p \frac{\text d T}{\text d z}+\left(\frac{\partial s}{\partial p}\right)_T \frac{\text d p}{\text d z}=c_p \frac{\text d T}{\text d z}+\left(\frac{\partial V}{\partial T}\right)_p\frac{\text d p}{\text d z}>0,(\#eq:EquilibriumCond3)
+$$
+
+where the Maxwell relation $\left(\frac{\partial s}{\partial p}\right)_T=\left(\frac{\partial V}{\partial T}\right)_p$ and the definition of the specific heat at constant pressure $c_p \equiv \left(\frac{\partial s}{\partial p}\right)_T$ were used. Finally, using again the equilibrium condition $\frac{\text d p}{\text d z} = -g /V$, we obtain
+
+$$
+-\frac{\text d T}{\text d z} < -\frac{\beta Tg}{\rho c_p},(\#eq:EquilibriumCond4)
+$$
+where $\beta \equiv -\frac{1}{\rho}\left(\frac{\partial \rho}{\partial T}\right)_p$ is the thermal expansion coefficient. For an ideal gas, the right hand side is just $\frac{g}{c_p}$.
+
+The Brunt–Väisälä oscillation frequency (Eq. \@ref(eq:BVFreq)) is actually correct only in a certain limit, which is best clarified in the more careful approach, that proceeds from the ideal fluid equations. Nonetheless, the equilibrium condition $\Omega ^2 >0$ turns out to be correct.
+
+## Linearization of the ideal fluid equations
+
+In fluid dynamics, our system would be described by the ideal fluid equations: 
+
+$$
+\begin{split}
+\frac {\text D \mathbf v}{\text D t}&=-\frac{\nabla p}{\rho }+\mathbf g,
+\\
+\frac{\text D \rho }{\text D t} &=-\rho (\nabla \cdot \mathbf v),
+\\
+\frac{\text D s}{\text D t}&=0,
+\end{split} (\#eq:IdealFluidEquations)
+$$
+where $\frac{\text D}{\text D t} = \frac{\partial}{\partial t}+\mathbf v \cdot \nabla$ denotes the material derivative. The last equation can be exchanged for^[In order to see this, we simply write $p = p(\rho, s)$ as a function of $\rho$ and $s$ and take the material derivative.]:
+
+$$
+\frac{\text{D}p}{\text Dt}=c_s^2\frac{\text D \rho}{\text D t}(\#eq:PressureMatDer)
+$$
+
+where $c_s^2 \equiv (\frac{\partial p}{\partial \rho})_s$ is the speed of sound. Denoting by $p_0$ and $\rho_0$ the pressure and density field of the hydrostatic solution, satisfying $\nabla p _0 = \mathbf g \rho _0$, we consider a perturbation of the form:
+
+$$
+\mathbf v = \delta \mathbf v,\quad p=p_0+\delta p,\quad \rho=\rho_0+\delta \rho.(\#eq:DefPerturbation)
+$$
+To linear order in the small quantities $\delta \mathbf v$, $\delta p$ and $\delta \rho$, the equations of motion read:
+
+$$
+\begin{split}
+0 &=-\frac {\partial  \delta \mathbf v}{\partial t}-\frac{\nabla (\delta p)}{\rho _0}+\mathbf g\frac{\delta \rho }{\rho _0},
+\\
+0 &=\frac{\partial (\delta \rho) }{\partial t}+\delta\mathbf v \cdot \nabla \rho _0+\rho_0 (\nabla \cdot \delta \mathbf v) ,
+\\
+0&=\frac{\partial (\delta p )}{\partial t}+\delta \mathbf v \cdot \nabla p_0-c_s^2\frac{\partial (\delta \rho )}{\partial t}-c_s^2\mathbf \delta \mathbf v \cdot \nabla \rho_0.
+\end{split} (\#eq:LinSystem1)
+$$
+
+These equations take a rather simple form if we re-express them in terms of the mass flux density $\mathbf j = \rho \mathbf v$, that is $\delta \mathbf j = \rho _0 \delta \mathbf v$ to linear order. Before doing so, we notice that:
+
+$$
+\nabla \rho_0=(\frac {\partial \rho}{\partial p})_s\nabla p_0+(\frac {\partial \rho}{\partial s})_p\nabla s=-(\frac{g}{c_s^2} +\frac{\Omega ^2}{g}) \rho_0 \hat {\mathbf z},(\#eq:GradRho)
+$$
+where $\Omega ^2$ is the buoyancy frequency defined above (*cf.* \@ref(eq:BVFreq)) and we assume, consistent with cylindrical
+symmetry, $\nabla s$ to lie in the $\hat {\mathbf z}$^[From the pure mathematical point of view, this is not a strict consequence of the Eqs. \@ref(eq:IdealFluidEquations), which are in fact consistent with any static density configuration, as long as $\nabla p = \mathbf g \rho$ is satisfied. The physical reason is, of course, that we're neglecting thermal conductivity, which allows for an arbitrary temperature gradient to persist forever in the absence of motion.]. Putting everything together, we obtain:
+
+
+$$
+\begin{split}
+0 &=-\frac {\partial (\delta \mathbf j)}{\partial t}-\nabla (\delta p)+\mathbf g\delta \rho,
+\\
+0 &=\frac{\partial (\delta \rho) }{\partial t}+\nabla \cdot (\delta\mathbf j) ,
+\\
+0&=\frac{\partial (\delta p )}{\partial t}+c_s^2\nabla \cdot  (\delta \mathbf j)+\frac{c_s^2\Omega ^2}{g}(\delta \mathbf j) \cdot  \hat {\mathbf z}.
+\end{split}(\#eq:LinSystem2)
+$$
+
+Strictly speaking, the quantities $c_s^2$ and $\Omega ^2$ appearing in this equation are scalar fields with a non-trivial spatial variation. However, assuming that the spatial scale of the perturbation is much smaller than the typical scale of variation of $\Omega ^2$ and $c_s^2$, we can treat these two numbers as constants. For simplicity, we will work with units such that $c_s = g = 1$ (this is the same as using $L=c_s^2g^{-1}$ and $T = c_sg^{-1}$ as units of time and length, respectively; the dependence from $c_s$ and $g$ can be reintroduced in the final formulas through dimensional analysis). 
+
+The system becomes then a linear system with constant coefficients, which suggests to search for simple solutions of the form:
+
+$$
+\mathbf j = \mathbf u e^{i(\omega t-\mathbf q  \cdot \mathbf r)},\quad \mathbf \delta \rho = \alpha e^{i(\omega t-\mathbf q  \cdot \mathbf r)},\quad\delta p = \beta e^{i(\omega t-\mathbf q  \cdot \mathbf r)}.
+$$
+
+Plugging these into the linearized system, we obtain:
+
+$$
+\begin{split}
+0 &=-i\omega \mathbf u+i\mathbf q \beta -\hat {\mathbf z}\alpha,
+\\
+0 &=i\omega \alpha-i\mathbf q \cdot \mathbf u ,
+\\
+0&=i\omega \beta +\Omega ^2\mathbf u \cdot \hat{\mathbf z}-i\mathbf q \cdot \mathbf u,
+\end{split}(\#eq:LinSystem3)
+$$
+
+In order to solve these equations, we write:
+
+$$
+\mathbf q = q_z \hat {\mathbf z}+q_\perp \hat {\mathbf x}.
+$$
+From the first equation we obtain:
+
+$$
+\mathbf u \cdot \hat {\mathbf x} = \frac{\beta q_\perp}{\omega},\quad \mathbf u \cdot \hat{\mathbf y} = 0, \quad
+\mathbf u \cdot \hat {\mathbf z} = \frac{\beta q_z+i\alpha }{\omega}.
+$$
+
+The second equation then yields:
+
+$$
+\dfrac{\alpha}{\beta}=\dfrac {\mathbf q^2}{\omega ^2 -i q_z}
+$$
+
+Finally, from the third equation we obtain:
+
+$$
+0 =\omega ^4 -\omega ^2 [i(1+\Omega ^2) q_z+\mathbf q^2]+q_\perp ^2\Omega ^2
+$$
+
+We now require $\mathbf q$ to have an imaginary part $\text {Im}(\mathbf q) = -\frac{1+\Omega ^2}{2}\hat {\mathbf z}$, as we rigorously justify below. Under this assumption, the equation for $\omega ^2$ has two real roots:
+
+$$
+\omega ^2_\pm = \frac {c_s^2 (\mathbf k ^2+\lambda^{-2})}{2}\left(1\pm \sqrt {1-\dfrac{4\Omega ^2k_\perp^2}{c_s^2 (\mathbf k ^2+\lambda^{-2})^2}}\right),(\#eq:IFFreq)
+$$
+with:
+
+$$
+\mathbf k = \text{Re}(\mathbf q),\qquad  \lambda^{-1}\equiv \frac{1}{2}( \frac{g}{c_s^2} +\frac{\Omega ^2}{g})(\#eq:Lambda)
+$$
+
+($g$ and $c_s$ have been reintroduced in these formulas as explained above).
+
+Before proceeding further, we notice that the frequencies $\omega _-$ (those from the minus sign branch in Eq. \@ref(eq:IFFreq)) are real if and only if $\Omega ^2 > 0$, which is the same as the equilibrium condition derived from the parcel argument. The actual frequencies of oscillation are not given by $\Omega$, in general.
+
+## Physical interpretation
+
+In order to understand the two branches of Eq. \@ref(eq:IFFreq), we start by noticing that, for the whole linearization approach to be valid, we must have (in natural units $g=c_s=1$):
+
+$$
+\dfrac{4\Omega ^2k_\perp^2}{(\mathbf k ^2+\lambda^{-2})^2} \ll 1,(\#eq:SmallScaleApprox)
+$$
+This must be the case for the perturbation to be localized in the $\hat {\mathbf z}$ direction, which requires $k_z \gg 1$ (notice that $\Omega, \lambda \sim \mathcal O(1)$ in natural units). 
+
+Assuming \@ref(eq:SmallScaleApprox), we can approximate the two roots in Eq. \@ref(eq:IFFreq) as follows:
+
+$$
+\omega ^2_+ \approx\mathbf k ^2,\qquad\omega ^2_- \approx \frac{ k_\perp ^2}{k_z^2+k_\perp ^2}\Omega ^2. (\#eq:IFFreqApprox)
+$$
+We also notice that the fluid velocity field satisfies (without any approximation):
+
+$$
+\frac{v_z}{v_\perp} = \frac{k_z}{k_\perp}\left(\dfrac{1+i\frac{k_\perp^2}{k_z\omega^2}-i\frac{1+\Omega ^2}{2k_z}}{1-i\frac{k_z}{\omega^2}-\frac{1+\Omega ^2}{2\omega^2}}\right)
+$$
+Let us first consider waves associated with $\omega _+$, which are essentially sound waves and for which gravity plays very little role. These have both phase and group velocity  aligned with $\mathbf k$ and close to $1$ (the speed of sound), and the fluid velocity is also in the direction of $\mathbf k$ (the waves are longitudinal):
+
+$$
+\frac{v_z}{v_\perp}\approx \frac{k_z}{k_\perp },
+$$
+
+In contrast, waves associated with $\omega _{-}$, called *gravity waves*, have vanishing phase and group velocity in the limit $k_z \to \infty$, in general. The material velocity is perpendicular to $\mathbf k$:
+
+$$
+\frac{v_z}{v_\perp}\approx -\frac{k_\perp}{k_z },
+$$
+The wave frequency depends on the angle $\theta$ between $k$ and $\mathbf g$, since $\omega _{-}^2 = \sin^2 \theta \cdot \Omega ^2$. In particular, in the limit of plane waves in the $\hat {\mathbf z}$ direction, *i.e.* $\theta \to 0$, we have $\omega _{-}^2 \to 0$, while plane waves orthogonal to gravity $\theta \to \frac{\pi}{2}$ have frequency $\omega _{-}^2 \approx \Omega ^2$. From the physical point of view, these two limits correspond to the cases in which the horizontal spatial scale of the perturbation is much larger/smaller than the vertical scale, respectively.
+
+We realize that the kind of perturbation analysed in the parcel argument implicitly refers to gravity waves of the second type (with small horizontal scales). From \@ref(eq:IFFreqApprox), we see that the oscillation frequency coincides with the buoyancy frequency \@ref(eq:BVFreq) only if $k _\perp \gg k_z$, that is, if the vertical spatial scale of the perturbation is much larger than its horizontal scale.
+
+#### Mathematical details on the wave solution
+
+In order to justify the procedure used in the derivation of the plane waves solutions, consider a *localized* perturbation (say with compact support) at $t = 0$ and let $\Psi(t=0)$ denote the vector of quantities $\delta \rho(t=0)$, $\delta p (t=0)$ and $\delta \mathbf j (t=0)$. Since $\Psi(t=0)$ is localized, we can define:
+
+$$
+\widetilde \Psi(\mathbf k,t=0)=\intop \text d ^3 \mathbf r \,e^{i\mathbf k \cdot \mathbf r} e^{z/\lambda} \Psi(\mathbf r, t=0)(\#eq:ModifiedFourier)
+$$
+and the inverse of the Fourier transform gives:
+
+$$
+\Psi(\mathbf r, t=0) = e^{-z/\lambda}\intop  \frac{\text d ^3\mathbf k}{(2\pi)^3} e^{-i\mathbf k \cdot \mathbf r}\widetilde \Psi(\mathbf k,t=0).(\#eq:ModifiedFourierInverse)
+$$
+The Fourier components $\widetilde \Psi (\mathbf k, t)$ for a fixed $\mathbf k$ 
+satisfy a linear system of ordinary differential equations, for which we already found four independent solutions (two for each frequency) in the previous Section. The fifth solution can be easily verified to correspond to a static, divergence-less velocity perturbation, with the velocity field orthogonal to the $\hat {\mathbf z}$ axis:
+
+$$
+\widetilde {\delta \mathbf j}(\mathbf k ,t) = f(\mathbf k) \,{\mathbf k} \times \mathbf g,\qquad \widetilde {\delta p}=0\qquad\widetilde {\delta \rho} = 0(\#eq:LastSolution)
+$$
+
+In momentum space, in the basis provided by the four eigenvectors 
+with eigenvalues given by \@ref(eq:IFFreq), plus this last (static) solution, time evolution is trivial.
+
+As a parenthetical remark, we notice that if we drop the requirement of a *localized* perturbation, we can have additional solutions that are not covered by the previous remarks. A trivial example is that of an hydrostatic equations - $\nabla p = \mathbf g \rho$, with $\delta \mathbf j = \mathbf 0$, all fields being independent of time. These solutions are clearly not localized, since the pressure field changes only in the $\hat {\mathbf z }$ direction. Another example is provided by Lamb waves, that satisfy the constraint:
+
+$$
+\delta \mathbf j \cdot \hat {\mathbf z} = 0
+$$
+
+and take the general form:
+
+$$
+\Psi(\mathbf r,t) = e^{-(\frac{\Omega ^2}{g}-\frac{g}{c_s^2})z}\intop \frac{\text d ^2 \mathbf k _\perp}{(2\pi)^2} e^{-i\mathbf k _\perp \cdot \mathbf r}  \left[a(\mathbf k _\perp)e^{i kc_st}+b(\mathbf k _\perp)e^{-i kc_st}\right].(\#eq:LambWaves)
+$$
+These waves are clearly not localized in the $\hat {\mathbf z}$ direction. 
+
+## Further problems
+
+This is the point where I felt the algebra was getting a bit too involved and I left the problem. There are still a few things that it may be interesting to investigate. In particular, it would be nice to derive the explicit evolution of a wave packet, say:
+
+$$
+\delta \mathbf v (\mathbf r, 0) = \mathbf V \exp\left[{-\frac{x^2+y^2}{2\sigma _\perp^2}-\frac{z^2}{2\sigma _z^2}}\right].
+$$
+with vanishing density and pressure perturbation (to simplify the algebra a little bit). One should compute the "modified" Fourier transform \@ref(eq:ModifiedFourier) and express the coefficients in terms of the five eigenvectors derived above. Perturbations like this will in general give rise to a combination of acoustic and longitudinal waves, depending on the direction of $\mathbf V$ and on the ratio of vertical and horizontal scales, $\sigma _z$ and $\sigma _\perp$.
