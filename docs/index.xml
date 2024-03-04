@@ -7,7 +7,298 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 21 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>On the first and second laws of thermodynamics for open systems</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-02-29-on-the-first-and-second-laws-of-thermodynamics-for-open-systems</link>
+      <description>
+
+
+&lt;p&gt;The first and second laws of thermodynamics for closed systems are
+commonly expressed as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{d}U -\delta W= \delta Q \leq T&amp;#39;\,\text dS \qquad\text{[closed
+system]}(\#eq:12LawClosedGen),
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(U\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(S\)&lt;/span&gt; denote the internal energy and entropy
+of the system, &lt;span class="math inline"&gt;\(T&amp;#39;\)&lt;/span&gt; is the
+temperature of the heat source, and &lt;span class="math inline"&gt;\(\delta
+W\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\delta Q\)&lt;/span&gt; are the
+amounts of energy transferred to the system in the form of heat and
+work, respectively. For concreteness, I will focus on volume work &lt;span
+class="math inline"&gt;\(\delta W = -p\,\text d V\)&lt;/span&gt; and reversible
+processes, so that the equal sign in Eq. @ref(eq:12LawClosedGen) holds
+with the temperature of the source &lt;span
+class="math inline"&gt;\(T&amp;#39;\)&lt;/span&gt; being equal to &lt;span
+class="math inline"&gt;\(T\)&lt;/span&gt;, the temperature of the system. Eqs.
+@ref(eq:12LawClosedGen) then imply the single equation:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d U = T\,\text d S - p \,\text d V\qquad\text{[closed
+system]}(\#eq:12LawClosedPV),
+\]&lt;/span&gt; from which we can identify:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\left(\frac{\partial U}{\partial S}\right)_{V,N} = T, \quad
+\left(\frac{\partial U}{\partial V}\right)_{S,N} = -p
+(\#eq:PartialDerivatives)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In the previous equation, &lt;span class="math inline"&gt;\(N\)&lt;/span&gt;
+represents the quantity of matter (say number of moles) in the system.
+The suffixes indicate that the partial derivatives are taken at constant
+&lt;span class="math inline"&gt;\(N\)&lt;/span&gt;, which may look trivial for
+closed systems. In open systems, however, &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt; can vary due to matter exchanges with
+the surrounding, so that the internal energy &lt;span
+class="math inline"&gt;\(U = U(S,V,N)\)&lt;/span&gt; is also a function of &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt;, and this dependence defines the
+&lt;em&gt;chemical potential&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mu \equiv \left(\frac{\partial U}{\partial
+N}\right)_{S,V}(\#eq:ChemicalPotential).
+\]&lt;/span&gt; Putting this together with Eqs. @ref(eq:PartialDerivatives),
+we obtain a generalization of Eq. @ref(eq:12LawClosedPV) for an open
+system:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d U = T\text d S - p \text d V + \mu \text dN.(\#eq:12LawOpenPV)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;One should realize that this equation represents, at the present
+stage, no more than a &lt;em&gt;mathematical definition&lt;/em&gt; of the partial
+derivatives of &lt;span class="math inline"&gt;\(U\)&lt;/span&gt;. In order to
+attach some physical content to it, we should connect the various terms
+appearing in Eq. @ref(eq:12LawOpenPV) with &lt;em&gt;operatively defined&lt;/em&gt;
+quantities.&lt;/p&gt;
+&lt;p&gt;To appreciate this point, let us make a step back to the closed
+system case, and examine the physical content of the first two laws of
+thermodynamics. For a closed system we have the relations &lt;span
+class="math inline"&gt;\(\delta W = - p\,\text dV\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\delta Q = T\,\text d S\)&lt;/span&gt;. It is important
+to realize that &lt;span class="math inline"&gt;\(\delta W\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\delta Q\)&lt;/span&gt; have independent operative
+definitions: &lt;span class="math inline"&gt;\(\delta W\)&lt;/span&gt; is defined as
+the work performed by external forces during the process considered,
+whereas &lt;span class="math inline"&gt;\(\delta Q\)&lt;/span&gt; is defined as the
+difference &lt;span class="math inline"&gt;\(\delta Q=\text d U - \delta
+W\)&lt;/span&gt;. It is in light of these operative definitions that the laws
+of thermodynamics acquire physical content&lt;a href="#fn1"
+class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In order to establish a similar physical interpretation for the open
+system case, let us decompose the change in internal energy as
+follows:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d U = \delta Q + \delta W + \delta X.(\#eq:dUOpenSystem)
+\]&lt;/span&gt; Here the first two terms correspond to heat and work, as
+before, while the new term &lt;span class="math inline"&gt;\(\delta X\)&lt;/span&gt;
+accounts for energy exchange due to matter transfer. Comparing Eqs.
+@ref(eq:dUOpenSystem) and @ref(eq:12LawOpenPV), and given the
+expressions of &lt;span class="math inline"&gt;\(\delta Q\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\delta W\)&lt;/span&gt; in the closed system case, it is
+tempting to conclude that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta Q \overset{?}{=} T \text d S,\quad \delta W \overset{?}{=}-p\text
+d V,\quad
+\delta X \overset{?}{=} \mu \text d N, (\#eq:WrongdQdWdX)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;but these identifications are easily seen to be &lt;em&gt;wrong&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Before discussing the correct version of Eqs. @ref(eq:WrongdQdWdX),
+let us comment why these identifications can be dangerously misleading.
+Consider a gas enclosed by rigid and thermally insulating walls, so that
+no energy exchange with the exterior in the form of heat is possible
+and, since volume is constant, also no work is possible (according to
+@ref(eq:WrongdQdWdX)). Suppose now that we have some mechanism to inject
+a number &lt;span class="math inline"&gt;\(\delta N\)&lt;/span&gt; of additional
+particles into the system. Due to what was said above, we would be lead
+to conclude that the corresponding variation of internal energy should
+be &lt;span class="math inline"&gt;\(\text{d}U \overset{?}{=} \mu \text d
+N\)&lt;/span&gt;, which is incorrect (the correct answer is discussed
+below).&lt;/p&gt;
+&lt;p&gt;The physical reason why Eqs. @ref(eq:WrongdQdWdX) are wrong is that
+exchanged matter also carries an amount &lt;span
+class="math inline"&gt;\(\text{d}S^{\text{(e)}} = s\,\text dN\)&lt;/span&gt; of
+entropy and has a volume &lt;span
+class="math inline"&gt;\(\text{d}V^{\text{(e)}} = v\,\text dN\)&lt;/span&gt;,
+where &lt;span class="math inline"&gt;\(s\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(v\)&lt;/span&gt; are the entropy and volume per particle
+of the external source of matter (&lt;span class="math inline"&gt;\(s =
+\frac{S}{N}\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(v =
+\frac{V}{N}\)&lt;/span&gt; if the exchanged particles are in thermal
+equilibrium with the open system). This additional entropy and volume
+flows must be kept into account in the corresponding variations for
+opens system, that become:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{d} S = \frac{\delta Q}{T}+s\,\text dN,\quad -p\text dV= \delta
+W-p\text dV^{\text{(e)}},(\#eq:CorrectdSdV)
+\]&lt;/span&gt; Plugging this into Eq. @ref(eq:12LawOpenPV) and comparing with
+@ref(eq:dUOpenSystem), we obtain:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta Q =T \text d S-Ts\,\text dN,\quad \delta W =-p\text d V+p v\text
+dN,\quad
+\delta X = u\text d N,(\#eq:CorrectdQdWdX)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(u \equiv \mu +
+Ts-pv\)&lt;/span&gt; is the internal energy per particle (the chemical
+potential can be shown to be equal to the Gibbs energy per
+particle).&lt;/p&gt;
+&lt;p&gt;The meaning of @ref(eq:CorrectdQdWdX) is best clarified with a few
+examples. Consider first a process which simply consists in bringing
+together two quantities &lt;span class="math inline"&gt;\(N\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\text d N\)&lt;/span&gt; of gas molecules kept at the
+same temperature &lt;span class="math inline"&gt;\(T\)&lt;/span&gt; and pressure
+&lt;span class="math inline"&gt;\(p\)&lt;/span&gt;. This amounts to a mere rescaling
+of the original system by a factor &lt;span class="math inline"&gt;\(\lambda =
+(1+\frac{\text d N}{N})\)&lt;/span&gt;, so that all extensive quantities are
+simply scaled by this same factor:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d S = s\text dN=(\lambda -1)S,\quad \text d V = v\text dN=
+(\lambda -1)V.
+\]&lt;/span&gt; Clearly, this process involves no energy exchange in the form
+of heat or work, and we see indeed from Eq. @ref(eq:CorrectdQdWdX)
+that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta Q = \delta W = 0,\quad \text d U = \delta X = u \text d
+N=(\lambda - 1)U
+\]&lt;/span&gt; Had we neglected the extra terms &lt;span
+class="math inline"&gt;\(-T\text d S ^{\text{(e)}}\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(+p\text d V ^{\text{(e)}}\)&lt;/span&gt; in the
+equations for &lt;span class="math inline"&gt;\(\delta Q\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\delta W\)&lt;/span&gt;, we would have concluded that
+the system has exchanged heat or performed work during such a null
+process.&lt;/p&gt;
+&lt;p&gt;As our second example, we consider a vapor-liquid phase transition.
+The vapor-liquid system, assumed to be in equilibrium, is enclosed in a
+cylinder with thermal conducting walls and surrounded by a medium at
+constant temperature &lt;span class="math inline"&gt;\(T\)&lt;/span&gt;. A piston on
+one extremity of the cylinder allows to condense vapor by
+compression.&lt;/p&gt;
+&lt;p&gt;If we consider either the vapor or liquid phases as open systems, in
+an isobaric and isothermal transformation in which a quantity &lt;span
+class="math inline"&gt;\(\text d N\)&lt;/span&gt; of vapor molecules is
+condensed, we have as in Eq. @ref(eq:CorrectdQdWdX):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\text d U _i &amp;amp;= \delta Q_i + \delta W_i + \delta X_i,\\
+\delta Q_i &amp;amp;= T\,\text dS_i-T\,s_i \,\text dN_i,\\
+\delta W_i &amp;amp;=-p\,\text d V_i+p\,v_i\,\text dN_i,\\
+\delta X_i &amp;amp;= u_i\,\text dN_i,
+\end{split}
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(i = \text {l or v}\)&lt;/span&gt;
+(denoting liquid or vapor), and &lt;span class="math inline"&gt;\(\text
+dN_{\text{l}} = -\text dN_{\text{v}} \equiv \text d N\)&lt;/span&gt;. But,
+since specific quantities at the phase transition only depend on
+temperature, which is held constant, the overall changes in entropy and
+volume are simply equal to the amounts due to matter transfer &lt;span
+class="math inline"&gt;\(\text d S_i = s_i\,\text d N_i\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\text d V_i = v_i\,\text d N_i\)&lt;/span&gt;, which
+implies:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta Q_i = \delta W_i = 0,\quad \delta X_i =u_i\,\text dN_i.
+\]&lt;/span&gt; This is not unreasonable since, from the point of view of the
+open system, what is happening is simply that a quantity &lt;span
+class="math inline"&gt;\(\text d N\)&lt;/span&gt; of vapor or liquid (that was
+produced before, somehow), is getting transferred to the system. This is
+entirely analogous to the previous example, in which two chunks of
+identical substance were simply joined together.&lt;/p&gt;
+&lt;p&gt;On the other hand, the conventional approach to the same problem
+treats the vapor-liquid system as a closed system. For this system, we
+can directly relate the changes in entropy and volume to heat and
+work:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta Q = T(s_\text l-s_\text v )\text dN,\quad\delta W = -p(v_\text
+l-v_\text v )\text dN, \quad \delta X=0,
+\]&lt;/span&gt; which looks superficially different from the open system point
+of view.&lt;/p&gt;
+&lt;p&gt;There is no contradiction in the fact that &lt;span
+class="math inline"&gt;\(\delta Q \neq \delta Q_1+\delta Q _2\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(\delta W \neq \delta W_1 + \delta
+W_2\)&lt;/span&gt;, since the open and closed system points of view are
+describing the condensation process from a very different angle. In
+order to see this, let’s imagine breaking down the process as follows.
+Starting with our system with internal energy &lt;span
+class="math inline"&gt;\(U_0\)&lt;/span&gt;:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;We separate an amount &lt;span class="math inline"&gt;\(\text d N\)&lt;/span&gt;
+of vapor from the rest of the system, leaving the system with energy
+&lt;span class="math inline"&gt;\(U_1 = U_0 - u_\text{v}\text
+dN\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;We heat and compress the small portion &lt;span
+class="math inline"&gt;\(\text{dN}\)&lt;/span&gt; while keeping it at constant
+temperature and pressure, until it condenses completely. The energy
+transferred to the small mass is &lt;span
+class="math inline"&gt;\((u_\text{l}-u_\text{v})\text d N\)&lt;/span&gt;, while
+the vapor-liquid system’s energy of course does not change, &lt;span
+class="math inline"&gt;\(U_2 = U_1\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;We add the condensed liquid &lt;span class="math inline"&gt;\(\text d
+N\)&lt;/span&gt; back to the vapor-liquid system, whose energy becomes &lt;span
+class="math inline"&gt;\(U_3 = U_2 + u_\text{l}\text d N=U_0 +
+(u_\text{l}-u_\text{v})\text dN\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The crucial observation is that the open system point of view is only
+describing steps 1 and 3, while the closed system only describes step 2.
+The fact that &lt;span class="math inline"&gt;\(U_3 - U_0 =
+(u_\text{l}-u_\text{v})\text d N\)&lt;/span&gt;, implies that the two points
+of view lead to the same energy balance, as it should be. This can be
+easily verified:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\text d U &amp;amp;= \delta Q + \delta W\\
+&amp;amp;=[T\text(s_\text l-s_\text v)-p(v_\text l-v_\text v)]\text dN\\
+&amp;amp;=\delta X_\text l+ \delta X_\text v\\
+&amp;amp;= \text dU_\text l+ \text d U_\text v
+\end{split}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where in the third equality we used the fact that &lt;span
+class="math inline"&gt;\(\mu_\text l = \mu_\text v\)&lt;/span&gt; at the phase
+transition, so that &lt;span class="math inline"&gt;\(u_\text l - u_\text v =
+T\text(s_\text l-s_\text v)-p(v_\text l-v_\text v)\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;As a final note, let me mention that some references (especially from
+the engineering field) include the work required to transfer matter
+across the open system boundary in the definition of &lt;span
+class="math inline"&gt;\(\delta X\)&lt;/span&gt;, which thus becomes proportional
+to the molar &lt;em&gt;enthalpy&lt;/em&gt; &lt;span class="math inline"&gt;\(h = u +
+pv\)&lt;/span&gt; (see &lt;em&gt;e.g.&lt;/em&gt; &lt;span class="citation"&gt;(Knuiman,
+Barneveld, and Besseling 2012)&lt;/span&gt;). As a consequence, the external
+work performed on an open system simply reads &lt;span
+class="math inline"&gt;\(\delta W = - p \text d V\)&lt;/span&gt;, as in the
+closed system case. The reason why this could make sense is that if the
+“open system” is defined in terms of a (physical or imaginary) spatial
+boundary surface, which allows the flow of matter through some injection
+mechanism, one could be interested in the work resulting from the
+expansion of the boundary only - sometimes called &lt;em&gt;shaft work&lt;/em&gt;,
+in contrast with the &lt;em&gt;flow work&lt;/em&gt; &lt;span class="math inline"&gt;\(-p
+\,\text d V^{\text{(e)}}\)&lt;/span&gt; included in the enthalpy. In the way I
+see it, this leads to a cumbersome physical description in the context
+of the examples mentioned above.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-knuiman2012relation" class="csl-entry"&gt;
+Knuiman, Jan T, Peter A Barneveld, and Nicolaas AM Besseling. 2012.
+&lt;span&gt;“On the Relation Between the Fundamental Equation of
+Thermodynamics and the Energy Balance Equation in the Context of Closed
+and Open Systems.”&lt;/span&gt; &lt;em&gt;Journal of Chemical Education&lt;/em&gt; 89 (8):
+968–72.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;The first law, in its essence, postulates the existence
+of certain experimental conditions (thermal insulation) under which the
+work required by any transformation of a thermodynamic system depends
+only on the initial and final states - allowing the definition of a
+state function &lt;span class="math inline"&gt;\(U\)&lt;/span&gt;, the internal
+energy. Similarly, the second law postulates the existence of a state
+function &lt;span class="math inline"&gt;\(S\)&lt;/span&gt; that bounds the heat
+exchange with a source at temperature &lt;span
+class="math inline"&gt;\(T&amp;#39;\)&lt;/span&gt; by &lt;span
+class="math inline"&gt;\(\delta Q \leq T&amp;#39; \,\text d S\)&lt;/span&gt;.&lt;a
+href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>80c049fb4237a612f1d5fc84aea0dedb</distill:md5>
+      <category>Open Systems</category>
+      <category>Thermodynamics</category>
+      <category>Physics</category>
+      <guid>https://vgherard.github.io/posts/2024-02-29-on-the-first-and-second-laws-of-thermodynamics-for-open-systems</guid>
+      <pubDate>Sun, 03 Mar 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Gravity waves in an ideal fluid</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -456,7 +747,7 @@ class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Waves</category>
       <category>Physics</category>
       <guid>https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid</guid>
-      <pubDate>Wed, 21 Feb 2024 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 22 Feb 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Binary digits of uniform random variables</title>
