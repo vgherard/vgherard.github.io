@@ -1,0 +1,39 @@
+---
+title: "\"A Closer Look at the Deviance\" by T. Hastie"
+description: |
+  A nice review of properties of Deviance for one parameter exponential 
+  families.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-03-07
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+categories: 
+  - Good Papers
+  - Maximum Likelihood Estimation
+  - Linear Models
+  - Statistics
+draft: false
+---
+
+[@CloserLookDeviance]. This short review provides a compendium of useful results
+on the *deviance* defined by $\text -2 \log \mathcal L +2\log\mathcal L^*$, 
+where $\mathcal L^*$ denotes the likelihood of a "saturated" model, as explained
+in the paper. From the paper's abstract:
+
+> Prediction error and Kullback-Leibler distance provide a useful link between 
+least squares and maximum likelihood estimation. This article is a summary of 
+some existing results, with special reference to the deviance function popular 
+in the GLIM literature.
+
+Of particular interest:
+
+- Clarifies the definition of a "saturated" model for i.i.d. samples. 
+- Highlights the parallels between $L_2$ and Kullback-Leibler loss. In 
+particular, the expectation is shown to be the optimal regression function for 
+the general KL loss.
+- Discusses optimism in the training error estimate of the in-sample (fixed predictors) error rate in terms of KL loss, within the context of Generalized 
+Linear models. 

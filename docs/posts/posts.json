@@ -22,6 +22,28 @@
     "input_file": "no-overdispersion-from-individual-variation.knit.md"
   },
   {
+    "path": "posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie/",
+    "title": "\"A Closer Look at the Deviance\" by T. Hastie",
+    "description": "A nice review of properties of Deviance for one parameter exponential \nfamilies.",
+    "author": [
+      {
+        "name": "Valerio Gherardi",
+        "url": "https://vgherard.github.io"
+      }
+    ],
+    "date": "2024-03-07",
+    "categories": [
+      "Good Papers",
+      "Maximum Likelihood Estimation",
+      "Linear Models",
+      "Statistics"
+    ],
+    "contents": "\r\n(Hastie 1987). This short review provides a compendium of useful results\r\non the deviance defined by \\(\\text -2 \\log \\mathcal L +2\\log\\mathcal L^*\\),\r\nwhere \\(\\mathcal L^*\\) denotes the likelihood of a “saturated” model, as explained\r\nin the paper. From the paper’s abstract:\r\n\r\nPrediction error and Kullback-Leibler distance provide a useful link between\r\nleast squares and maximum likelihood estimation. This article is a summary of\r\nsome existing results, with special reference to the deviance function popular\r\nin the GLIM literature.\r\n\r\nOf particular interest:\r\nClarifies the definition of a “saturated” model for i.i.d. samples.\r\nHighlights the parallels between \\(L_2\\) and Kullback-Leibler loss. In\r\nparticular, the expectation is shown to be the optimal regression function for\r\nthe general KL loss.\r\nDiscusses optimism in the training error estimate of the in-sample (fixed predictors) error rate in terms of KL loss, within the context of Generalized\r\nLinear models.\r\n\r\n\r\n\r\nHastie, Trevor. 1987. “A Closer Look at the Deviance.” The American Statistician 41 (1): 16–20. https://doi.org/10.1080/00031305.1987.10475434.\r\n\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2024-03-07T10:14:01+01:00",
+    "input_file": "a-closer-look-at-the-deviance-by-t-hastie.knit.md"
+  },
+  {
     "path": "posts/2024-02-29-on-the-first-and-second-laws-of-thermodynamics-for-open-systems/",
     "title": "On the first and second laws of thermodynamics for open systems",
     "description": "Matter transfer in open systems changes the relationship between heat and entropy, and work and volume.",

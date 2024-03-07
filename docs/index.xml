@@ -7,7 +7,7 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 05 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Mar 2024 00:00:00 +0000</lastBuildDate>
     <item>
       <title>No binomial overdispersion from variations at the individual level</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -140,7 +140,54 @@ simply correlate with) survival probability at the population level.&lt;/p&gt;
       <category>Ecology</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-03-06-no-binomial-overdispersion-from-variations-at-the-individual-level</guid>
-      <pubDate>Tue, 05 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>"A Closer Look at the Deviance" by T. Hastie</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(Hastie 1987)&lt;/span&gt;. This short review
+provides a compendium of useful results on the &lt;em&gt;deviance&lt;/em&gt; defined
+by &lt;span class="math inline"&gt;\(\text -2 \log \mathcal L +2\log\mathcal
+L^*\)&lt;/span&gt;, where &lt;span class="math inline"&gt;\(\mathcal L^*\)&lt;/span&gt;
+denotes the likelihood of a “saturated” model, as explained in the
+paper. From the paper’s abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Prediction error and Kullback-Leibler distance provide a useful link
+between least squares and maximum likelihood estimation. This article is
+a summary of some existing results, with special reference to the
+deviance function popular in the GLIM literature.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Of particular interest:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Clarifies the definition of a “saturated” model for i.i.d.
+samples.&lt;/li&gt;
+&lt;li&gt;Highlights the parallels between &lt;span
+class="math inline"&gt;\(L_2\)&lt;/span&gt; and Kullback-Leibler loss. In
+particular, the expectation is shown to be the optimal regression
+function for the general KL loss.&lt;/li&gt;
+&lt;li&gt;Discusses optimism in the training error estimate of the in-sample
+(fixed predictors) error rate in terms of KL loss, within the context of
+Generalized Linear models.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-CloserLookDeviance" class="csl-entry"&gt;
+Hastie, Trevor. 1987. &lt;span&gt;“A Closer Look at the Deviance.”&lt;/span&gt;
+&lt;em&gt;The American Statistician&lt;/em&gt; 41 (1): 16–20. &lt;a
+href="https://doi.org/10.1080/00031305.1987.10475434"&gt;https://doi.org/10.1080/00031305.1987.10475434&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>18e32305f6b9ec6f7a5980d2f5908a3a</distill:md5>
+      <category>Good Papers</category>
+      <category>Maximum Likelihood Estimation</category>
+      <category>Linear Models</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie</guid>
+      <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>On the first and second laws of thermodynamics for open systems</title>
