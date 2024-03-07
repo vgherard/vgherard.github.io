@@ -7,7 +7,54 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 06 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>"A Closer Look at the Deviance" by T. Hastie</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(Hastie 1987)&lt;/span&gt;. This short review
+provides a compendium of useful results on the &lt;em&gt;deviance&lt;/em&gt; defined
+by &lt;span class="math inline"&gt;\(\text -2 \log \mathcal L +2\log\mathcal
+L^*\)&lt;/span&gt;, where &lt;span class="math inline"&gt;\(\mathcal L^*\)&lt;/span&gt;
+denotes the likelihood of a “saturated” model, as explained in the
+paper. From the paper’s abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Prediction error and Kullback-Leibler distance provide a useful link
+between least squares and maximum likelihood estimation. This article is
+a summary of some existing results, with special reference to the
+deviance function popular in the GLIM literature.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Of particular interest:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Clarifies the definition of a “saturated” model for i.i.d.
+samples.&lt;/li&gt;
+&lt;li&gt;Highlights the parallels between &lt;span
+class="math inline"&gt;\(L_2\)&lt;/span&gt; and Kullback-Leibler loss. In
+particular, the expectation is shown to be the optimal regression
+function for the general KL loss.&lt;/li&gt;
+&lt;li&gt;Discusses optimism in the training error estimate of the in-sample
+(fixed predictors) error rate in terms of KL loss, within the context of
+Generalized Linear models.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-CloserLookDeviance" class="csl-entry"&gt;
+Hastie, Trevor. 1987. &lt;span&gt;“A Closer Look at the Deviance.”&lt;/span&gt;
+&lt;em&gt;The American Statistician&lt;/em&gt; 41 (1): 16–20. &lt;a
+href="https://doi.org/10.1080/00031305.1987.10475434"&gt;https://doi.org/10.1080/00031305.1987.10475434&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>18e32305f6b9ec6f7a5980d2f5908a3a</distill:md5>
+      <category>Good Papers</category>
+      <category>Maximum Likelihood Estimation</category>
+      <category>Linear Models</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie</guid>
+      <pubDate>Thu, 07 Mar 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>No binomial overdispersion from variations at the individual level</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -133,6 +180,28 @@ individual level. Quite the contrary, what can easily make data look
 non-binomial is the presence of unobserved global factors that can
 change randomly between experimental repetitions, and influence (or
 simply correlate with) survival probability at the population level.&lt;/p&gt;
+&lt;p&gt;A few concluding remarks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;From a pure mathematical point of view, in the limit in which
+initial cohorts are sampled from a single, infinite population, the
+validity of the i.i.d. assumption is guaranteed by &lt;a
+href="https://en.wikipedia.org/wiki/De_Finetti%27s_theorem"&gt;De Finetti’s
+theorem on infinite exchangeable sequences&lt;/a&gt; (in the finite case there
+are also guarantees of approximate validity). Clearly, if the
+experimental design involves sampling individuals from several
+populations in a systematic way, the resulting sequence of Bernoulli
+variables (alive/dead) is not exchangeable.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If the De Finetti measure in the previous point can change
+between different cohort releases, depending on some random and
+unmeasured parameter &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;, this will
+effectively lead to the same kind of dependence between individual
+probability parameters illustrated above.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Another form in which dependence may arise is when survival of
+one individual may influence, or simply correlate with, survival of
+other individuals. Imagine, for instance, that we may only observe
+individuals in pairs. Mathematically, this will again manifest in the
+form of non-exchangeability.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>38687da76dc9747304c1166418f126a0</distill:md5>
       <category>Population Analysis</category>
@@ -140,54 +209,7 @@ simply correlate with) survival probability at the population level.&lt;/p&gt;
       <category>Ecology</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-03-06-no-binomial-overdispersion-from-variations-at-the-individual-level</guid>
-      <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>"A Closer Look at the Deviance" by T. Hastie</title>
-      <dc:creator>Valerio Gherardi</dc:creator>
-      <link>https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie</link>
-      <description>
-
-
-&lt;p&gt;&lt;span class="citation"&gt;(Hastie 1987)&lt;/span&gt;. This short review
-provides a compendium of useful results on the &lt;em&gt;deviance&lt;/em&gt; defined
-by &lt;span class="math inline"&gt;\(\text -2 \log \mathcal L +2\log\mathcal
-L^*\)&lt;/span&gt;, where &lt;span class="math inline"&gt;\(\mathcal L^*\)&lt;/span&gt;
-denotes the likelihood of a “saturated” model, as explained in the
-paper. From the paper’s abstract:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Prediction error and Kullback-Leibler distance provide a useful link
-between least squares and maximum likelihood estimation. This article is
-a summary of some existing results, with special reference to the
-deviance function popular in the GLIM literature.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Of particular interest:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Clarifies the definition of a “saturated” model for i.i.d.
-samples.&lt;/li&gt;
-&lt;li&gt;Highlights the parallels between &lt;span
-class="math inline"&gt;\(L_2\)&lt;/span&gt; and Kullback-Leibler loss. In
-particular, the expectation is shown to be the optimal regression
-function for the general KL loss.&lt;/li&gt;
-&lt;li&gt;Discusses optimism in the training error estimate of the in-sample
-(fixed predictors) error rate in terms of KL loss, within the context of
-Generalized Linear models.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-CloserLookDeviance" class="csl-entry"&gt;
-Hastie, Trevor. 1987. &lt;span&gt;“A Closer Look at the Deviance.”&lt;/span&gt;
-&lt;em&gt;The American Statistician&lt;/em&gt; 41 (1): 16–20. &lt;a
-href="https://doi.org/10.1080/00031305.1987.10475434"&gt;https://doi.org/10.1080/00031305.1987.10475434&lt;/a&gt;.
-&lt;/div&gt;
-&lt;/div&gt;</description>
-      <distill:md5>18e32305f6b9ec6f7a5980d2f5908a3a</distill:md5>
-      <category>Good Papers</category>
-      <category>Maximum Likelihood Estimation</category>
-      <category>Linear Models</category>
-      <category>Statistics</category>
-      <guid>https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie</guid>
-      <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 05 Mar 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>On the first and second laws of thermodynamics for open systems</title>

@@ -2616,6 +2616,14 @@ Then, unconditionally:</p>
 \]</span></p>
 <p>where <span class="math inline">\(\text d F(X)\)</span> is the marginal distribution of <span class="math inline">\(X\)</span>. Crucially, this is in general not a product measure, and (looking back at our derivation, Eq. <a href="#eq:BinomialDerivation">(2)</a>) we see that this dependence can indeed change the form of the resulting distribution - and lead to overdispersion with respect to the binomial expectation, in particular.</p>
 <p>I think the discussion above clearly shows that binomial overdispersion is not caused by inhomogeneities in the population, if these are understood as random (patternless) variations at the individual level. Quite the contrary, what can easily make data look non-binomial is the presence of unobserved global factors that can change randomly between experimental repetitions, and influence (or simply correlate with) survival probability at the population level.</p>
+<p>A few concluding remarks:</p>
+<ul>
+<li><p>From a pure mathematical point of view, in the limit in which initial cohorts are sampled from a single, infinite population, the validity of the i.i.d. assumption is guaranteed by <a href="https://en.wikipedia.org/wiki/De_Finetti%27s_theorem">De Finetti’s theorem on infinite exchangeable sequences</a> (in the finite case there are also guarantees of approximate validity). Clearly, if the experimental design involves sampling individuals from several populations in a systematic way, the resulting sequence of Bernoulli variables (alive/dead) is not exchangeable.</p></li>
+<li><p>If the De Finetti measure in the previous point can change between different
+cohort releases, depending on some random and unmeasured parameter <span class="math inline">\(X\)</span>, this will effectively lead to the same kind of dependence between individual probability parameters illustrated above.</p></li>
+<li><p>Another form in which dependence may arise is when survival of one individual may influence, or simply correlate with, survival of other individuals. Imagine,
+for instance, that we may only observe individuals in pairs. Mathematically, this will again manifest in the form of non-exchangeability.</p></li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">

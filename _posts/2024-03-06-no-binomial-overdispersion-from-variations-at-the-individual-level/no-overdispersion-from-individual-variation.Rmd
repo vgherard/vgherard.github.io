@@ -61,5 +61,15 @@ $$
 $$
 
 where $\text d F(X)$ is the marginal distribution of $X$. Crucially, this is in general not a product measure, and (looking back at our derivation, Eq. \@ref(eq:BinomialDerivation)) we see that this dependence can indeed change the form of the resulting distribution - and lead to overdispersion with respect to the binomial expectation, in particular.
- 
+
 I think the discussion above clearly shows that binomial overdispersion is not caused by inhomogeneities in the population, if these are understood as random (patternless) variations at the individual level. Quite the contrary, what can easily make data look non-binomial is the presence of unobserved global factors that can change randomly between experimental repetitions, and influence (or simply correlate with) survival probability at the population level.
+
+A few concluding remarks:
+
+- From a pure mathematical point of view, in the limit in which initial cohorts are sampled from a single, infinite population, the validity of the i.i.d. assumption is guaranteed by [De Finetti's theorem on infinite exchangeable sequences](https://en.wikipedia.org/wiki/De_Finetti%27s_theorem) (in the finite case there are also guarantees of approximate validity). Clearly, if the experimental design involves sampling individuals from several populations in a systematic way, the resulting sequence of Bernoulli variables (alive/dead) is not exchangeable.
+
+- If the De Finetti measure in the previous point can change between different
+cohort releases, depending on some random and unmeasured parameter $X$, this will effectively lead to the same kind of dependence between individual probability parameters illustrated above.
+
+- Another form in which dependence may arise is when survival of one individual may influence, or simply correlate with, survival of other individuals. Imagine,
+for instance, that we may only observe individuals in pairs. Mathematically, this will again manifest in the form of non-exchangeability. 

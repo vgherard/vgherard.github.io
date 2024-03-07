@@ -15,6 +15,7 @@ draft: true
 
 Let $Y\in\mathbb{R}^{n\times1}$ and $X\in\mathbb{R}^{n\times p}$ be random 
 variables and denote $H=X(X^{T}X)^{-1}X^{T}$. The usual OLS estimator is:
+
 $$
 \hat{Y}=HY=X\hat{\beta}
 \\
@@ -22,6 +23,7 @@ $$
 $$
 We assume that data are i.i.d. draws from a joint distribution 
 $\mathcal{F}(X,Y)$, and we denote:
+
 $$
 \beta	=\arg\min_{\beta^{\prime}}\mathbb{E}((Y-X\beta^{\prime})^{2}),\\
 \epsilon	=Y-X\beta.
