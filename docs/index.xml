@@ -70,9 +70,9 @@ data encountered in Biology and Ecology. The term generally refers to a
 variance inflation with respect to the prediction of a specific
 statistical model (or family of models) for the data generating process
 under study. Such extra variability is sometimes ascribed to
-“inhomogeneities in the population”, a phrase that does not make too
-much sense from a mathematical point of view, and can be misleading
-without further qualification.&lt;/p&gt;
+“inhomogeneities in the population”, a phrase that is not very precise
+from a mathematical point of view, and can be misleading without further
+qualification.&lt;/p&gt;
 &lt;p&gt;Let’s get to the point. Consider a binomial model: &lt;span
 class="math display"&gt;\[
 B_{N,\,p}(k) = \binom{N}{k}p^k(1-p)^{N-k}(\#eq:Binomial).
@@ -202,9 +202,20 @@ other individuals. Imagine, for instance, that we may only observe
 individuals in pairs. Mathematically, this will again manifest in the
 form of non-exchangeability.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;p&gt;&lt;strong&gt;Further references:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="citation"&gt;(Cox and Snell 1989)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-cox1989analysis" class="csl-entry"&gt;
+Cox, D. R., and E. J. Snell. 1989. &lt;em&gt;Analysis of Binary Data, Second
+Edition&lt;/em&gt;. Chapman &amp;amp; Hall/CRC Monographs on Statistics &amp;amp;
+Applied Probability. Taylor &amp;amp; Francis.
+&lt;/div&gt;
+&lt;/div&gt;</description>
       <distill:md5>38687da76dc9747304c1166418f126a0</distill:md5>
-      <category>Population Analysis</category>
+      <category>Population Dynamics</category>
       <category>Biology</category>
       <category>Ecology</category>
       <category>Statistics</category>

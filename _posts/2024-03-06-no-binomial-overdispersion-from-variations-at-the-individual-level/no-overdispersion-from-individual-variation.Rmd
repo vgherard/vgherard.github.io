@@ -9,21 +9,17 @@ date: 2024-03-06
 output:
   distill::distill_article:
     self_contained: false
+bibliography: biblio.bib
 categories: 
-  - Population Analysis
+  - Population Dynamics
   - Biology
   - Ecology
   - Statistics
 draft: false
 ---
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
-
 I came across some confusing statements  regarding how *overdispersion* can arise in binary or count data, such as the typical [capture-recapture](https://en.wikipedia.org/wiki/Mark_and_recapture) data encountered in Biology and Ecology. The term generally refers to a variance inflation with respect to the prediction of a specific statistical model (or family of models) for the data generating process under study. 
-Such extra variability is sometimes ascribed to "inhomogeneities in the population", a phrase that does not make too much sense from a mathematical point of view, and can be misleading without further qualification.
+Such extra variability is sometimes ascribed to "inhomogeneities in the population", a phrase that is not very precise from a mathematical point of view, and can be misleading without further qualification.
 
 Let's get to the point. Consider a binomial model:
 $$
@@ -73,3 +69,7 @@ cohort releases, depending on some random and unmeasured parameter $X$, this wil
 
 - Another form in which dependence may arise is when survival of one individual may influence, or simply correlate with, survival of other individuals. Imagine,
 for instance, that we may only observe individuals in pairs. Mathematically, this will again manifest in the form of non-exchangeability. 
+
+**Further references:**
+
+- [@cox1989analysis]
