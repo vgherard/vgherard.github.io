@@ -7,7 +7,59 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 07 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Akaike for the normal linear model: known vs. unknown variance</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-03-13-akaike-criterion-for-the-gaussian-linear-model-known-vs-unknown-variance</link>
+      <description>
+
+
+&lt;p&gt;The Akaike Information Criterion (AIC) for the normal linear model
+&lt;span class="math inline"&gt;\(Y = X \beta + \varepsilon\)&lt;/span&gt;, where
+&lt;span class="math inline"&gt;\(\varepsilon \sim \mathcal N (0,\sigma
+^2)\)&lt;/span&gt; takes the form:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{AIC}^{\text{(k)}} = \frac{(\mathbf Y-\mathbf X\hat \beta
+)^2}{\sigma ^2} + 2p
+\]&lt;/span&gt; if the noise variance &lt;span class="math inline"&gt;\(\sigma
+^2\)&lt;/span&gt; is known, and:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{AIC}^{\text{(u)}} = \ln(\hat \sigma ^2) + 2p
+\]&lt;/span&gt; if &lt;span class="math inline"&gt;\(\sigma^2\)&lt;/span&gt; is unknown.
+Here &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; is the
+maximum-likelihood estimate of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(\hat \sigma ^2 = \frac{1}{N-p}(\mathbf Y -\mathbf
+X \hat \beta)^2\)&lt;/span&gt; the corresponding estimate of &lt;span
+class="math inline"&gt;\(\sigma ^2\)&lt;/span&gt; if the latter is unknown.&lt;/p&gt;
+&lt;p&gt;Asymptotically, whether the variance is known or not should make
+little difference on our model selection for the mean. In practice,
+&lt;span class="math inline"&gt;\(\text{AIC}^{\text{(u)}}\)&lt;/span&gt; differences
+can be expanded using &lt;span class="math inline"&gt;\(\ln (1+x)\approx 1 +
+x\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\text{AIC}^{\text{(u)}}_1-\text{AIC}^{\text{(u)}}_2 &amp;amp;=
+\ln(\frac{\hat \sigma ^2_1}{\hat \sigma ^2_2}) + 2(p_1-p_2)\\
+&amp;amp;\approx \frac{\hat \sigma _{1}^2-\hat \sigma _2 ^2}{\hat \sigma _2
+^2} + 2(p_1-p_2).
+\end{split}
+\]&lt;/span&gt; This will be approximately equal to &lt;span
+class="math inline"&gt;\(\text{AIC}^{\text{(k)}}_1-\text{AIC}^{\text{(k)}}_2\)&lt;/span&gt;
+provided that &lt;span class="math inline"&gt;\(\hat \sigma _1 ^2 \approx\hat
+\sigma _2 ^2\approx \sigma ^2\)&lt;/span&gt; - that is, &lt;em&gt;provided that the
+models involved in the AIC comparison estimate reasonably well the true
+variance&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>128c0b711f74f01e0522af70a48a99ce</distill:md5>
+      <category>Model Selection</category>
+      <category>Linear Models</category>
+      <category>Regression</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-03-13-akaike-criterion-for-the-gaussian-linear-model-known-vs-unknown-variance</guid>
+      <pubDate>Tue, 12 Mar 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>"A Closer Look at the Deviance" by T. Hastie</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -220,7 +272,7 @@ Applied Probability. Taylor &amp;amp; Francis.
       <category>Ecology</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-03-06-no-binomial-overdispersion-from-variations-at-the-individual-level</guid>
-      <pubDate>Tue, 05 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>On the first and second laws of thermodynamics for open systems</title>
