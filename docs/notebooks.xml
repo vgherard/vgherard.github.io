@@ -7,7 +7,445 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 07 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Exponential Dispersion Models</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/notebooks/exponential-dispersion-models</link>
+      <description>
+
+
+&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Exponential Dispersion Models (EDMs) provide a natural generalization
+of the normal distribution, in which the modeled variable &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; is assumed to follow a probability
+density:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d P _{\lambda,\,\mu}(y)=e^{-\frac{\lambda}{2}d(y,\,\mu)}\text d
+\nu _{\lambda}(y)
+\]&lt;/span&gt; with respect to a certain dominating measure &lt;span
+class="math inline"&gt;\(\nu _{\lambda}\)&lt;/span&gt;. Here &lt;span
+class="math inline"&gt;\(\mu = \intop y\,\text d
+P_{\lambda,\,\mu}(y)\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(d(y,\,\mu)
+\geq 0\)&lt;/span&gt;, with equality only for &lt;span class="math inline"&gt;\(y =
+\mu\)&lt;/span&gt;. The function &lt;span
+class="math inline"&gt;\(d(y,\,\mu)\)&lt;/span&gt; is called the &lt;em&gt;unit
+deviance&lt;/em&gt;, and plays for EDMs the same role of squared distance
+&lt;span class="math inline"&gt;\((y-\mu)^2\)&lt;/span&gt; for the normal model. Not
+surprisingly, EDMs provide a sound framework for the maximum-likelihood
+based formulation of generalized linear models, additive models, and
+similar beasts.&lt;/p&gt;
+&lt;h2 id="exponential-dispersion-models"&gt;Exponential Dispersion
+Models&lt;/h2&gt;
+&lt;p&gt;We start with a probability measure on &lt;span
+class="math inline"&gt;\(\mathbb R ^n\)&lt;/span&gt; in the form of an
+&lt;em&gt;additive EDM&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d P ^* _{\lambda, \theta} (z) = e^{\theta ^T
+z-\lambda\kappa(\theta)}\text dQ^*_\lambda (z) (\#eq:EDstar)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\lambda &amp;gt; 0\)&lt;/span&gt;,
+&lt;span class="math inline"&gt;\(\text Q^*_\lambda\)&lt;/span&gt; is a Borelian
+probability measure on &lt;span class="math inline"&gt;\(\mathbb R\)&lt;/span&gt;,
+and &lt;span class="math inline"&gt;\(\kappa(\theta)\)&lt;/span&gt; is a
+differentiable strictly convex function, with &lt;span
+class="math inline"&gt;\(\kappa&amp;#39;&amp;#39;(\theta) &amp;gt; 0\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\kappa(0) =0\)&lt;/span&gt;. For a random variable &lt;span
+class="math inline"&gt;\(Z\)&lt;/span&gt; distributed according to @ref(eq:ED) we
+write &lt;span class="math inline"&gt;\(Z\sim \text{ED}^*(\lambda,
+\,\theta,\,\kappa)\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;For any given &lt;span class="math inline"&gt;\(\lambda\)&lt;/span&gt;,
+normalization of @ref(eq:EDstar) requires: &lt;span class="math display"&gt;\[
+e^{\lambda \kappa(\theta)}=\intop e^{\theta ^Ty}\text
+dQ^*_\lambda(z)(\#eq:NormCond)
+\]&lt;/span&gt; to hold for all &lt;span class="math inline"&gt;\(\theta\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(\lambda\)&lt;/span&gt;. In other words, &lt;span
+class="math inline"&gt;\(M_\lambda(\theta) \equiv e^{\lambda
+\kappa(\theta)}\)&lt;/span&gt; must be the moment generating function of the
+measure &lt;span class="math inline"&gt;\(Q^* _\lambda(y)\)&lt;/span&gt; for a given
+&lt;span class="math inline"&gt;\(\theta\)&lt;/span&gt;, which we assume to be
+uniquely determined by its moments&lt;a href="#fn1" class="footnote-ref"
+id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, so that we can omit the mention of the
+measure &lt;span class="math inline"&gt;\(Q^*_\lambda\)&lt;/span&gt; in the notation
+&lt;span class="math inline"&gt;\(\text{ED}^*(\lambda,
+\,\theta,\,\kappa)\)&lt;/span&gt;^. This requires, in particular &lt;span
+class="math inline"&gt;\(\kappa (0) = 0\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;A closely related parametrization is the so-called &lt;em&gt;reproductive
+EDM&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d P _{\lambda, \theta} (y) = e^{\lambda(\theta ^T
+y-\kappa(\theta))}\text dQ_\lambda (y)(\#eq:ED).
+\]&lt;/span&gt; For a random variable &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;
+distributed according to @ref(eq:ED) we write &lt;span
+class="math inline"&gt;\(Y\sim \text{ED}(\lambda,
+\,\theta,\,\kappa)\)&lt;/span&gt;. The link between @ref(eq:ED) and
+@ref(eq:EDstar) is that &lt;span class="math inline"&gt;\(Y\sim
+\text{ED}(\lambda, \,\theta,\,\kappa)\)&lt;/span&gt; if and only if &lt;span
+class="math inline"&gt;\(Z=\lambda Y\sim \text{ED}^*(\lambda,
+\,\theta,\,\kappa)\)&lt;/span&gt;, so that reproductive and additive EDMs can
+be interchanged whenever convenient, at least for theoretical
+considerations. The probability measures &lt;span
+class="math inline"&gt;\(\text d Q_\lambda\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\text d Q ^*_\lambda\)&lt;/span&gt;, which are uniquely
+determined by normalization, are related by push-forward:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+Q_\lambda ^* = (m_\lambda )_*(Q_\lambda),(\#eq:PushForward)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(m_\lambda\)&lt;/span&gt; denotes
+multiplication by &lt;span class="math inline"&gt;\(\lambda\)&lt;/span&gt;,
+&lt;em&gt;i.e.&lt;/em&gt; &lt;span class="math inline"&gt;\(m_\lambda(y)=\lambda
+y\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;In cases of practical interest (see the examples below), &lt;span
+class="math inline"&gt;\(Q_\lambda\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Q_\lambda^*\)&lt;/span&gt; are absolutely continuous
+either with respect to the Lebesgue measure, or with respect some
+measure concentrated on &lt;span class="math inline"&gt;\(c \cdot \mathbb
+N\)&lt;/span&gt; for some &lt;span class="math inline"&gt;\(c&amp;gt;0\)&lt;/span&gt;. The two
+cases are referred to as the “continuous” and “discrete” case,
+respectively, for obvious reasons.&lt;/p&gt;
+&lt;h2 id="general-properties"&gt;General Properties&lt;/h2&gt;
+&lt;h3 id="moment-generating-function"&gt;Moment generating function&lt;/h3&gt;
+&lt;p&gt;Consider first the reproductive EDM @ref(eq:ED). If &lt;span
+class="math inline"&gt;\(Y\sim \text
+{ED}(\lambda,\,\theta,\,\kappa)\)&lt;/span&gt;, its moment generating function
+is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+M_Y(s)=\mathbb E(e^{sY})=\exp\left[\lambda\left(\kappa(\theta
++\frac{s}{\lambda})-\kappa(\theta)\right)\right],(\#eq:MGF)
+\]&lt;/span&gt; from which we can derive, in particular:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb E(Y) &amp;amp;= \frac{\text d}{\text ds}\vert_{s=0}\log M(s)
+=\kappa&amp;#39;(\theta),\\
+\mathbb V(Y) &amp;amp;= \frac{\text d^2}{\text ds ^2}\vert_{s=0}\log M(s)
+=\frac{\kappa&amp;#39;&amp;#39;(\theta)}{\lambda}.\\
+\end{split}(\#eq:ExpVar)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;For the additive EDM @ref(eq:EDstar), the corresponding results for
+&lt;span class="math inline"&gt;\(Z\sim
+\text{ED}^*(\lambda,\,\theta,\,\kappa)\)&lt;/span&gt; are:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+M_Z(s)&amp;amp;=\exp\left[\lambda\left(\kappa(\theta +
+s)-\kappa(\theta)\right)\right],\\
+\mathbb E(Z) &amp;amp;= \lambda\kappa&amp;#39;(\theta),\\
+\mathbb V(Z) &amp;amp;= \lambda \kappa&amp;#39;&amp;#39;(\theta).
+\end{split}(\#eq:MGFResultsEDstar)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id="legendre-transform-of-kappa-theta"&gt;Legendre Transform of &lt;span
+class="math inline"&gt;\(\kappa (\theta)\)&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;Since &lt;span class="math inline"&gt;\(\kappa\)&lt;/span&gt; is strictly convex,
+the mapping:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mu = \frac{\partial\kappa}{\partial\theta}(\#eq:MuThetaMapping)
+\]&lt;/span&gt; is invertible, and we may equivalently parametrize the
+reproductive EDM in terms of &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(\lambda\)&lt;/span&gt; as follows:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d P _{\lambda, \mu} (y) = e^{\lambda(\theta(\mu) ^T
+(y-\mu)+\tau(\mu))}\text dQ_\lambda (y)(\#eq:EDmu).
+\]&lt;/span&gt; where:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\tau(\mu) = \theta(\mu)^T\mu - \kappa(\theta(\mu))
+(\#eq:LegendreTransform).
+\]&lt;/span&gt; is the Legendre transform of &lt;span
+class="math inline"&gt;\(\kappa\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h2 id="deviance"&gt;Deviance&lt;/h2&gt;
+&lt;p&gt;Consider two reproductive EDMs &lt;span class="math inline"&gt;\(P
+_{\lambda,\mu _1}\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(P
+_{\lambda,\mu _2}\)&lt;/span&gt; with the same dispersion parameter &lt;span
+class="math inline"&gt;\(\lambda\)&lt;/span&gt; (the function &lt;span
+class="math inline"&gt;\(\kappa\)&lt;/span&gt; is assumed to be fixed
+throughout). The likelihood ratio at a given &lt;span
+class="math inline"&gt;\(Y=y\)&lt;/span&gt; is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\ln (\frac{\text d P_{\lambda,\mu_1}}{\text d
+P_{\lambda,\mu_2}}(y))=\lambda\cdot\left[(\theta_1-\theta_2)y-(\kappa_1-\kappa_2)\right],(\#eq:LogLikelihood)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\theta _1 =
+\theta(\mu_1)\)&lt;/span&gt;, &lt;span class="math inline"&gt;\(\kappa_1=
+\kappa(\theta(\mu _1))\)&lt;/span&gt;, &lt;em&gt;etc.&lt;/em&gt;. Setting &lt;span
+class="math inline"&gt;\(\mu _1 = y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\mu _2 = \mu\)&lt;/span&gt; in this expression and
+multiplying by a convenient factor, we obtain the so called &lt;em&gt;unit
+scaled deviance&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+d_\lambda(y,\mu) &amp;amp;\equiv 2\left.\ln (\frac{\text d
+P_{\lambda,\mu_0}}{\text d P_{\lambda,\mu}}(y)) \right \vert
+_{\mu_0=y}\\&amp;amp;=2\lambda\cdot\left[(\theta(y)-\theta(\mu))y-\kappa(\theta(y))+\kappa(\theta(\mu))\right].
+\end{split}(\#eq:UnitScaledDeviance)
+\]&lt;/span&gt; The &lt;em&gt;unit deviance&lt;/em&gt; is defined as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+d(y,\mu) &amp;amp;\equiv
+d_1(y,\mu)\\&amp;amp;=2\cdot\left[(\theta(y)-\theta(\mu))y-\kappa(\theta(y))+\kappa(\theta(\mu))\right]
+\end{split}(\#eq:UnitDeviance)
+\]&lt;/span&gt; It is also useful to express &lt;span
+class="math inline"&gt;\(d_\lambda\)&lt;/span&gt; in terms of the Legendre
+transform &lt;span class="math inline"&gt;\(\tau\)&lt;/span&gt; of &lt;span
+class="math inline"&gt;\(\kappa\)&lt;/span&gt;, as defined in
+@ref(eq:LegendreTransform):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+d_\lambda(y,\mu)
+=2\lambda\cdot\left[-\theta(\mu)^T(y-\mu)+\tau(y)-\tau(\mu)\right](\#eq:UnitDevianceLegendre)
+\]&lt;/span&gt; Using the convexity of &lt;span
+class="math inline"&gt;\(\kappa\)&lt;/span&gt;, it is easy to show that &lt;span
+class="math inline"&gt;\(d_\lambda(y,\mu) \geq 0\)&lt;/span&gt; for all &lt;span
+class="math inline"&gt;\(y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\mu\)&lt;/span&gt;, and that &lt;span
+class="math inline"&gt;\(d_\lambda(y,\mu) = 0\)&lt;/span&gt; requires &lt;span
+class="math inline"&gt;\(\mu = y\)&lt;/span&gt;. The probability measure can be
+expressed in terms of the unit deviance as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d P _{\lambda, \mu} (y) =
+e^{-\frac{\lambda}{2}d(y,\,\mu)}e^{\lambda \tau(y)}\text dQ_\lambda
+(y)(\#eq:EDvsDeviance).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id="maximum-likelihood-estimation"&gt;Maximum Likelihood
+Estimation&lt;/h2&gt;
+&lt;p&gt;Let &lt;span class="math inline"&gt;\(Y_i\sim
+\text{ED}(\lambda,\,\mu^{(0)}_ i ,\,\kappa)\)&lt;/span&gt; be independent for
+&lt;span class="math inline"&gt;\(i=1,\,2,\,\dots,\,N\)&lt;/span&gt; and let &lt;span
+class="math inline"&gt;\(M\subseteq \mathbb R ^N\)&lt;/span&gt; be a family of
+models for the mean &lt;span class="math inline"&gt;\(\boldsymbol \mu ^{(0)} =
+(\mu _1^{(0)},\,\mu_2^{(0)},\dots,\,\mu_N^{(0)})^T\)&lt;/span&gt; (in a GLM
+context, &lt;span class="math inline"&gt;\(M\)&lt;/span&gt; would be the linear
+subspace spanned by the covariates, &lt;span
+class="math inline"&gt;\(\boldsymbol \mu _\beta = \mathbf X
+\beta\)&lt;/span&gt;). From Eq. @ref(eq:EDvsDeviance), we see that the
+likelihood of a model &lt;span class="math inline"&gt;\(\boldsymbol \mu \in
+M\)&lt;/span&gt; is, modulo a &lt;span class="math inline"&gt;\(\boldsymbol
+\mu\)&lt;/span&gt;-independent term, equal to its total deviance:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\log \mathcal L (\boldsymbol \mu,\,\lambda;\mathbf Y) =
+-\frac{\lambda}{2}\mathcal D(\mathbf Y,\boldsymbol
+\mu)+g_\lambda(\mathbf Y),(\#eq:LikelihoodVsDeviance)
+\]&lt;/span&gt; with:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathcal D (\mathbf Y,\boldsymbol \mu)\equiv\sum_{i=1}^Nd(Y_i,\mu_i)
+(\#eq:TotalDeviance)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Hence, the Maximum Likelihood Estimate (MLE) of &lt;span
+class="math inline"&gt;\(\boldsymbol \mu\)&lt;/span&gt; corresponds to the
+minimum deviance estimate:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\hat {\boldsymbol \mu}\equiv \arg \max _{\boldsymbol \mu \in M} \mathcal
+L (\boldsymbol \mu,\,\lambda;\,\mathbf Y)=\arg \min _{\boldsymbol \mu
+\in M} \mathcal D (\mathbf Y;\boldsymbol \mu).(\#eq:MLEisMDE)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In particular, the MLE &lt;span class="math inline"&gt;\(\hat {\boldsymbol
+\mu}\)&lt;/span&gt; is obtained by minimizing a function of &lt;span
+class="math inline"&gt;\(\boldsymbol \mu\)&lt;/span&gt; only, and is independent
+on whether the dispersion parameter &lt;span
+class="math inline"&gt;\(\lambda\)&lt;/span&gt; is being estimated itself or
+not.&lt;/p&gt;
+&lt;p&gt;These results are sometimes formulated in terms of a “saturated”
+model &lt;span class="math inline"&gt;\(\boldsymbol \mu _\text{s} = \mathbf
+Y\)&lt;/span&gt;. From Eq. @ref(eq:LikelihoodVsDeviance) we see that such a
+model has likelihood equal to &lt;span
+class="math inline"&gt;\(g_{\lambda}(\boldsymbol \mu)\)&lt;/span&gt;, implying
+that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\lambda\mathcal D(\mathbf Y,\boldsymbol \mu) = -2\log
+\left(\frac{\mathcal L (\boldsymbol \mu,\lambda;\mathbf Y)}{\mathcal L
+(\mathbf Y,\lambda;\mathbf Y)}\right) (\#eq:DevianceLogLik).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;We note the asymptotic results &lt;span class="citation"&gt;(B. Jørgensen
+1992, sec. 3.6)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\lambda \mathcal D(\mathbf Y,\,\hat {\boldsymbol
+\mu})\overset{d}{\to}  \chi ^2 _{N-p} \qquad (\lambda \to
+\infty)(\#eq:DevianceAsymptotics),\\
+\]&lt;/span&gt; for a correctly specified model family &lt;span
+class="math inline"&gt;\(M\)&lt;/span&gt; with &lt;span class="math inline"&gt;\(\dim
+(M) = p\)&lt;/span&gt;, and:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\lambda \mathcal D(\mathbf Y,\,\hat {\boldsymbol \mu}_1)-\lambda
+D(\mathbf Y,\,\hat {\boldsymbol \mu}_2)\overset{d}{\to} \chi ^2
+_{p_2-p_1} \qquad (\lambda \to \infty \text { or } N\to
+\infty)(\#eq:DevianceDiffAsymptotics),
+\]&lt;/span&gt; for a correctly specified model family &lt;span
+class="math inline"&gt;\(M_1\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(M_2
+\supseteq M_1\)&lt;/span&gt;, with &lt;span class="math inline"&gt;\(p_i =\dim
+(M_i)\)&lt;/span&gt;. Eq. @ref(eq:DevianceAsymptotics) can be seen as the
+limiting case of @ref(eq:DevianceDiffAsymptotics) when &lt;span
+class="math inline"&gt;\(M_2 = \mathbb R ^N\)&lt;/span&gt;, as in the saturated
+model. The manifolds &lt;span class="math inline"&gt;\(M\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(M_i\)&lt;/span&gt; are not strictly required to be
+linear subspaces of &lt;span class="math inline"&gt;\(\mathbb R^N\)&lt;/span&gt;,
+because in the limits and under the null hypotheses implied by Eqs.
+@ref(eq:DevianceAsymptotics) and @ref(eq:DevianceDiffAsymptotics) the
+distributions of MLEs are concentrated around the true value &lt;span
+class="math inline"&gt;\(\boldsymbol \mu ^{(0)}\)&lt;/span&gt;, so that the
+manifolds &lt;span class="math inline"&gt;\(M\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(M_i\)&lt;/span&gt; can be effectivley approximated by
+their tangent spaces.&lt;/p&gt;
+&lt;p&gt;Noteworthy, limit @ref(eq:DevianceAsymptotics) holds in the small
+dispersion limit &lt;span class="math inline"&gt;\(\lambda \to \infty\)&lt;/span&gt;
+only, whereas limit @ref(eq:DevianceDiffAsymptotics) is also valid in
+the large sample limit, essentially due to Wilks’ theorem.&lt;/p&gt;
+&lt;h2 id="examples-of-edms"&gt;Examples of EDMs&lt;/h2&gt;
+&lt;h4 id="univariate-gaussian"&gt;Univariate Gaussian&lt;/h4&gt;
+&lt;p&gt;The univariate gaussian family &lt;span class="math inline"&gt;\(N (\mu,
+\sigma^2)\)&lt;/span&gt;, with probability density function (PDF):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+f_{\mu,\sigma}(y)=\frac{1}{\sqrt {2 \pi \sigma
+^2}}\exp\left[-\frac{(y-\mu)^2}{2\sigma ^2}\right] (\#eq:GaussianPDF)
+\]&lt;/span&gt; corresponds to the reproductive EDM &lt;span
+class="math inline"&gt;\(\text{ED}(\lambda, \,\theta,\,\kappa)\)&lt;/span&gt;
+with:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\kappa (\theta) = \frac{\theta ^2}{2},\quad \theta \in \mathbb R,\quad
+\lambda \in \mathbb R^+.(\#eq:GaussianEDM)
+\]&lt;/span&gt; The correspondence is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\theta = \mu,\quad \lambda =
+\frac{1}{\sigma^2}.(\#eq:GaussianIdentification)
+\]&lt;/span&gt; The base probability measure is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d Q_\lambda (y)=\sqrt{\frac \lambda {2\pi}}e^{-\lambda y^2/2}
+\text dy(\#eq:GaussianBaseMeasure)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The Legendre transform of &lt;span class="math inline"&gt;\(\kappa\)&lt;/span&gt;
+is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\tau(\mu) = \frac{\mu ^2}{2} (\#eq:GaussianTau)
+\]&lt;/span&gt; and the unit deviance reads:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+d(y, \hat \mu) =(y-\hat \mu)^2.(\#eq:GaussianDeviance)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id="binomial"&gt;Binomial&lt;/h4&gt;
+&lt;p&gt;The binomial family &lt;span class="math inline"&gt;\(\mathcal
+B(p,N)\)&lt;/span&gt; with probability mass function (PMF):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+f_{p,N}(z) = \binom{N}{z} p^z(1-p)^{N-z}(\#eq:BinomialPMF)
+\]&lt;/span&gt; corresponds to the additive EDM &lt;span
+class="math inline"&gt;\(\text{ED}^*(\lambda, \,\theta;\,\kappa)\)&lt;/span&gt;
+with:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\kappa(\theta) = \ln (\dfrac{1+e^\theta}{2}),\quad \theta\in \mathbb R
+,\quad \lambda \in \mathbb N.(\#eq:BinomialEDM)
+\]&lt;/span&gt; The correspondence is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\theta = \ln\frac{p}{1-p},\quad\lambda =N.(\#eq:BinomialIdentification)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The base probability measure reads:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\frac{\text d Q_\lambda^*(z)}{\text d z} =2^{-\lambda}\sum_{i=0}
+^\lambda \binom{\lambda}{i} \delta (z-i) (\#eq:BinomialBaseMeasure).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The Legendre transform of &lt;span class="math inline"&gt;\(\kappa\)&lt;/span&gt;
+(using &lt;span class="math inline"&gt;\(p\)&lt;/span&gt; for the mean parameter)
+is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\tau(p)= \ln2+p\ln p+(1-p)\ln(1-p)(\#eq:BinomialTau)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;and the unit deviance for the &lt;em&gt;reproductive&lt;/em&gt; EDM:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+d(y,\hat p)=-2y\ln \hat p-2(1-y)\ln (1-\hat p).(\#eq:BinomialDeviance)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id="multinomial"&gt;Multinomial&lt;/h4&gt;
+&lt;p&gt;The multinomial family &lt;span class="math inline"&gt;\(\text{Mult}
+_M(p_1,\,p_2,\dots ,p_{M+1},\,N)\)&lt;/span&gt; for &lt;span
+class="math inline"&gt;\(K+1\)&lt;/span&gt; categories is given by the PMF:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+f_{\boldsymbol p ,N}(z) = \binom{N}{z_1,\,z_2,\,\dots,\,z_{K+1}}\prod
+_{k=1}^{K+1}p_k^{z_k}(\#eq:MultPMF),
+\]&lt;/span&gt; In order to identify this with an EDM, we use the constraints
+&lt;span class="math inline"&gt;\(\sum _{i=1}^{M+1}z_i =1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\sum _{i=1}^{M+1}p_i =1\)&lt;/span&gt; to eliminate one
+dependent variable and parameter, say &lt;span
+class="math inline"&gt;\(z_{M+1}\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(p_{M+1}\)&lt;/span&gt;, respectively. The family of
+densities for the resulting &lt;span
+class="math inline"&gt;\(M\)&lt;/span&gt;-dimensional vector &lt;span
+class="math inline"&gt;\(\boldsymbol z=(z_1\,z_2\,\dots\,z_M)^T\)&lt;/span&gt;
+corresponds to the additive EDM &lt;span
+class="math inline"&gt;\(\text{ED}^*(\lambda, \,\theta;\,\kappa)\)&lt;/span&gt;
+with:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\quad \kappa(\theta) = \ln(\dfrac{1+\sum_{i=1}^K e^{\theta _k}}{K+1}),
+\quad \theta \in \mathbb R^M,\quad \lambda \in \mathbb N(\#eq:MultEDM),
+\]&lt;/span&gt; the correspondence being given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\theta _i = \ln \frac{p_i}{p_{K+1}},\quad \lambda =
+N.(\#eq:MultIdentification)
+\]&lt;/span&gt; The base measure:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\frac{\text d Q_\lambda^*(z)}{\text d \boldsymbol z}
+=(K+1)^{-\lambda}\sum_{\boldsymbol i\in \mathbb N ^{M}\,\colon \,\sum
+_{k=1}^{K}i_k\leq\lambda} \binom{\lambda}{i_1,\,i_2,\dots,i_{K+1}}
+\delta (\boldsymbol z-\boldsymbol i), (\#eq:MultBaseMeasure)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(i_{K+1} = N - \sum _{k=1}
+^{K} i_k\)&lt;/span&gt;. The Legendre transform of &lt;span
+class="math inline"&gt;\(\kappa\)&lt;/span&gt; is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\tau(\boldsymbol p)= \ln (K+1)+\sum _{k=1}^{K+1}p_k\ln p_k(\#eq:MultTau)
+\]&lt;/span&gt; and deviance is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+d(y,\hat {\boldsymbol p}) = -2\sum _{k=1}^{K+1}y_k\ln \hat
+p_k.(\#eq:MultDeviance)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id="poisson"&gt;Poisson&lt;/h4&gt;
+&lt;p&gt;The Poisson PMF is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+f(y) = \frac {\nu ^z} {z!} e^{-\nu}(\#eq:PoissonPMF)
+\]&lt;/span&gt; This can be interpreted as coming from an additive EDM
+with:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\kappa(\theta)=e^\theta-1,\quad \theta \in \mathbb R,\quad \lambda \in
+\mathbb R^+(\#eq:PoissonEDM).
+\]&lt;/span&gt; However, the correspondence is not unique, being given by the
+single relation:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\lambda e^\theta = \nu (\#eq:PoissonIdentification)
+\]&lt;/span&gt; which describes a curve in the &lt;span
+class="math inline"&gt;\(\Theta \times \Lambda\)&lt;/span&gt; space. The
+corresponding base measure is:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\dfrac{\text d Q _\lambda (z)}{\text d z} = e^{-\lambda}\sum
+_{k=0}^{\infty}\frac{\lambda ^k\delta(z-k)}{k!}(\#eq:PoissonBaseMeasure)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;which is nothing but the Poisson measure itself.&lt;/p&gt;
+&lt;h2 id="references"&gt;References&lt;/h2&gt;
+&lt;p&gt;I have mostly followed &lt;span class="citation"&gt;(Bent Jørgensen
+1987)&lt;/span&gt;. References &lt;span class="citation"&gt;(B. Jørgensen
+1992)&lt;/span&gt; &lt;span class="citation"&gt;(Jorgensen 1997)&lt;/span&gt; from the
+same author provide more extensive expositions. A good reference for
+GLMs is &lt;span class="citation"&gt;(McCullagh 2019)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-jorgensen1997theory" class="csl-entry"&gt;
+Jorgensen, Bent. 1997. &lt;em&gt;The Theory of Dispersion Models&lt;/em&gt;. CRC
+Press.
+&lt;/div&gt;
+&lt;div id="ref-jorgensen1992theory" class="csl-entry"&gt;
+Jørgensen, B. 1992. &lt;em&gt;The Theory of Exponential Dispersion Models and
+Analysis of Deviance&lt;/em&gt;. Monografias de Matem&lt;span&gt;á&lt;/span&gt;tica. IMPA.
+&lt;a
+href="https://books.google.es/books?id=twN3vgAACAAJ"&gt;https://books.google.es/books?id=twN3vgAACAAJ&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id="ref-jorgensen1987exponential" class="csl-entry"&gt;
+Jørgensen, Bent. 1987. &lt;span&gt;“Exponential Dispersion Models.”&lt;/span&gt;
+&lt;em&gt;Journal of the Royal Statistical Society: Series B
+(Methodological)&lt;/em&gt; 49 (2): 127–45.
+&lt;/div&gt;
+&lt;div id="ref-mccullagh2019generalized" class="csl-entry"&gt;
+McCullagh, Peter. 2019. &lt;em&gt;Generalized Linear Models&lt;/em&gt;. Routledge.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Whether a set of moments determines a unique probability
+measure is called the &lt;a
+href="https://en.wikipedia.org/wiki/Hamburger_moment_problem"&gt;Hamburger
+moment problem&lt;/a&gt;.&lt;a href="#fnref1"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>b23eab3a239ec49cf932769538e2531d</distill:md5>
+      <guid>https://vgherard.github.io/notebooks/exponential-dispersion-models</guid>
+      <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Bootstrap</title>
       <dc:creator>Valerio Gherardi</dc:creator>
