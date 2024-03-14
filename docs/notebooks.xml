@@ -7,7 +7,222 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 07 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 13 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Maximum Likelihood</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/notebooks/maximum-likelihood</link>
+      <description>
+
+
+&lt;p&gt;&lt;strong&gt;Random notes on MLE - needs to be systematized&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We start off with a functional description of Maximum Likelihood (ML)
+estimation. Let &lt;span class="math inline"&gt;\(\mathcal Q \equiv\{\text d
+Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}\)&lt;/span&gt; be a
+parametric family of probability measures dominated by some common
+measure &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt;. Consider the
+functional&lt;a href="#fn1" class="footnote-ref"
+id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln
+(\frac{1}{q_\theta}) (\#eq:FunctionalThethaStar).
+\]&lt;/span&gt; This is the parameter of the best (in the cross-entropy sense)
+approximation of &lt;span class="math inline"&gt;\(P\)&lt;/span&gt; within &lt;span
+class="math inline"&gt;\(\mathcal Q\)&lt;/span&gt;, which we assume to be
+unique.&lt;/p&gt;
+&lt;p&gt;If &lt;span class="math inline"&gt;\(P\)&lt;/span&gt; represents the true
+probability distribution of the data under study, &lt;span
+class="math inline"&gt;\(\theta ^*(P)\)&lt;/span&gt; is the target of ML
+estimation, in the general case in which &lt;span
+class="math inline"&gt;\(P\)&lt;/span&gt; is not necessarily in &lt;span
+class="math inline"&gt;\(\mathcal Q\)&lt;/span&gt;. The ML estimate &lt;span
+class="math inline"&gt;\(\hat \theta _N\)&lt;/span&gt; of &lt;span
+class="math inline"&gt;\(\theta^*\)&lt;/span&gt; from an i.i.d. sample of &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt; observations is&lt;a href="#fn2"
+class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\hat \theta _N \equiv \theta ^*(\hat P _N)=\arg \max_{\theta \in \Theta}
+\sum_{i=1}^N \ln ({q_\theta(Z_i)}), (\#eq:ThetaMLE)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\hat P _N\)&lt;/span&gt; is the
+empirical distribution of the sample.&lt;/p&gt;
+&lt;p&gt;Denoting:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+c_{P}(\theta) = \intop \text dP\,\ln
+(\frac{1}{q_\theta}),(\#eq:CrossEntIntegral)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;we see that &lt;span class="math inline"&gt;\(\theta^*\)&lt;/span&gt; is
+determined by the condition &lt;span
+class="math inline"&gt;\(c_{P}&amp;#39;(\theta^*)=0\)&lt;/span&gt;. From this, we can
+easily derive the first order variation of &lt;span
+class="math inline"&gt;\(\theta ^*\)&lt;/span&gt; under a variation &lt;span
+class="math inline"&gt;\(P \to P + \delta P\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta \theta ^* =\left(\intop \text dP\,I_{\theta ^*}
+\right)^{-1}\left(\intop \text d(\delta P)u_{\theta
+^*}\right)(\#eq:DifferentialThetaStar)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where we have defined:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+u_\theta = \frac{\partial }{\partial \theta} \ln q_\theta,\quad I_\theta
+= -\frac{\partial^2 }{\partial \theta ^2}  \ln
+q_\theta.(\#eq:ScoreFisherInfo)
+\]&lt;/span&gt; From @ref(eq:DifferentialThetaStar) we can identify the
+influence function of the &lt;span class="math inline"&gt;\(\theta ^*\)&lt;/span&gt;
+functional:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\psi_P(z)=\left(\intop \text dP\,I_{\theta ^*} \right)^{-1}u_{\theta
+^*}(z)(\#eq:InfluenceFunction)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Then, from the standard theory of influence functions, we have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\hat \theta _N \approx \theta ^*+J_{\theta ^*} ^{-1}
+U_{\theta^*}(\#eq:ThetaNFirstOrder)
+\]&lt;/span&gt; where we have defined:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+J_{\theta ^*}\equiv \intop \text dP\,I_{\theta ^*},\quad U_{\theta ^*
+}\equiv\frac{1}{N}\sum _{i=1}^Nu_{\theta
+^*}(Z_i)(\#eq:ScoreFisherInfo2).
+\]&lt;/span&gt; In particular, we obtain the Central Limit Theorem (CLT)&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\sqrt N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0,
+J_{\theta^*}^{-1}K_{\theta ^*}J_{\theta ^*}^{-1}),(\#eq:ThetaCLT)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;with:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+K_{\theta ^*} = \mathbb V(u_{\theta ^*}(Z)). (\#eq:ScoreVariance)
+\]&lt;/span&gt; The matrices &lt;span class="math inline"&gt;\(K_{\theta
+^*}\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(J_{\theta ^*}\)&lt;/span&gt;
+depend on the unknown value &lt;span class="math inline"&gt;\(\theta
+^*\)&lt;/span&gt;, but we can readily construct plugin estimators:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\hat J_N = -\frac{1}{N}\sum _{i=1}^NI_{\hat \theta _N}(z_i),\quad\hat
+K_N = \frac{1}{N}\sum _{i=1}^Nu_{\hat \theta _N}(z_i)u_{\hat \theta
+_N}(z_i)^T,(\#eq:PluginJK)
+\]&lt;/span&gt; and estimate the variance of &lt;span class="math inline"&gt;\(\hat
+\theta _N\)&lt;/span&gt; as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\widehat {\mathbb V}(\hat \theta _N) = \frac{\hat J _N ^{-1}\hat K_N\hat
+J_N ^{-1}}{N}(\#eq:SandwichEstimator),
+\]&lt;/span&gt; which is the usual Sandwich estimator. Finally, if &lt;span
+class="math inline"&gt;\(P = Q_{\theta^*}\)&lt;/span&gt;, then &lt;span
+class="math inline"&gt;\(J _{\theta^*} = K _{\theta^*}\)&lt;/span&gt;, and the
+CLT @ref(eq:ThetaCLT) becomes simply &lt;span class="math inline"&gt;\(\sqrt
+N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0,
+J_{\theta^*}^{-1})\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Let us now consider the following expansion of &lt;span
+class="math inline"&gt;\(c_P(\hat \theta _N)\)&lt;/span&gt; which, we recall, is
+the cross-entropy of the ML model on the true distribution &lt;span
+class="math inline"&gt;\(P\)&lt;/span&gt; (&lt;em&gt;cf.&lt;/em&gt;
+@ref(eq:CrossEntIntegral)):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+c_P(\hat \theta _N)
+    &amp;amp;= -\intop \text d P(z&amp;#39;)\,\ln (q_{\hat \theta}(z&amp;#39;))\\
+    &amp;amp; \approx -\mathbb E&amp;#39;(\ln q_{\theta^*})+\frac{1}{2}(\hat
+\theta-\theta ^*)^TJ_{\theta ^*} (\hat \theta-\theta ^*)\\
+    &amp;amp; \approx -\mathbb E&amp;#39;(\ln q_{\theta^*})+\frac{1}{2}U_{\theta
+^*}^TJ_{\theta ^*}^{-1}U_{\theta ^*}
+\end{split}
+\]&lt;/span&gt; Taking the expectation with respect to the training dataset,
+noting that &lt;span class="math inline"&gt;\(\mathbb E(U_{\theta ^*}U_{\theta
+^*}^T)=K_{\theta ^*}\)&lt;/span&gt;, we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E (c_P(\hat \theta _N))\approx -\mathbb E&amp;#39;(\ln
+q_{\theta^*})+\frac{1}{2N}\text {Tr}(J_{\theta ^*}^{-1}K_{\theta^*})
+(\#eq:CrossEntExp)
+\]&lt;/span&gt; Now consider the in-sample estimate:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+c_{\hat P _N}(\hat \theta _N) &amp;amp;= -\frac{1}{N}\sum _{i=1}^N\ln
+q_{\hat \theta}(Z_i)\\
+&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)-
+U_{\theta ^*}^T(\hat \theta _N-\theta^*)+ \frac{1}{2}(\hat \theta
+_N-\theta^*)^TJ_{\theta ^*}(\hat \theta _N-\theta^*)\\
+&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)-
+U_{\theta ^*}^TJ_{\theta ^*} ^{-1} U_{\theta^*}+ \frac{1}{2}U_{\theta
+^{*}}^TJ_{\theta ^*} ^{-1}\hat J_N J_{\theta ^*} ^{-1}U_{\theta ^{*}}\\
+&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)-
+\frac{1}{2}U_{\theta ^*}^TJ_{\theta ^*} ^{-1} U_{\theta^*}.
+\end{split}
+\]&lt;/span&gt; Taking the expectation :&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E (c_{\hat P _N}(\hat \theta _N)) = -\mathbb E&amp;#39;(\ln
+q_{\theta^*})-\frac{1}{2N}\text{Tr}(J_{\theta
+^*}^{-1}K_{\theta^*})(\#eq:InSampleCrossEntExp)
+\]&lt;/span&gt; Comparing Eqs. @ref(eq:InSampleCrossEntExp) and
+@ref(eq:CrossEntExp) we see that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{TIC}\equiv -\frac{1}{N}\sum _{i=1}^N\ln q_{\hat
+\theta}(Z_i)+\frac{1}{N}\text{Tr}(J_{\theta
+^*}^{-1}K_{\theta^*})(\#eq:TIC)
+\]&lt;/span&gt; provides an asymptotically unbiased estimate of &lt;span
+class="math inline"&gt;\(\mathbb E (c_P(\hat \theta _N))\)&lt;/span&gt;, the
+expected cross-entropy of a model from family &lt;span
+class="math inline"&gt;\(\mathcal Q\)&lt;/span&gt; estimated on a sample of &lt;span
+class="math inline"&gt;\(N\)&lt;/span&gt; observations.&lt;/p&gt;
+&lt;p&gt;In the previous derivation, we could take each &lt;span
+class="math inline"&gt;\(Z_i\)&lt;/span&gt; to be a pair &lt;span
+class="math inline"&gt;\((X_i,\,Y_i)\)&lt;/span&gt; drawn from a joint &lt;span
+class="math inline"&gt;\(X-Y\)&lt;/span&gt; distribution. If we replace the model
+family &lt;span class="math inline"&gt;\(\mathcal Q\)&lt;/span&gt; with a parametric
+family of conditional densities $ Q {d Q_{}(X) = q_{}(X) ,d }_{}$, and
+change the objective function to:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+c_P(\theta) = \intop \text dP(x,y)\,\ln (\frac{1}{q_{\theta}(y\vert
+x)}),(\#eq:CondCrossEntIntegral)
+\]&lt;/span&gt; we can repeat our above argument without any further change.
+This provides a quick and dirty derivation of the CLT @ref(eq:ThetaCLT)
+and of the information criterion @ref(eq:TIC) in a regression setting
+with random regressors.&lt;/p&gt;
+&lt;h2 id="references"&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="citation"&gt;(Shalizi 2024)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="citation"&gt;(Claeskens and Hjort 2008)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="citation"&gt;(Freedman 2006)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-claeskens2008model" class="csl-entry"&gt;
+Claeskens, Gerda, and Nils Lid Hjort. 2008. &lt;span&gt;“Model Selection and
+Model Averaging.”&lt;/span&gt; &lt;em&gt;Cambridge Books&lt;/em&gt;.
+&lt;/div&gt;
+&lt;div id="ref-freedman2006so" class="csl-entry"&gt;
+Freedman, David A. 2006. &lt;span&gt;“On the so-Called &lt;span&gt;‘Huber Sandwich
+Estimator’&lt;/span&gt; and &lt;span&gt;‘Robust Standard Errors’&lt;/span&gt;.”&lt;/span&gt;
+&lt;em&gt;The American Statistician&lt;/em&gt; 60 (4): 299–302.
+&lt;/div&gt;
+&lt;div id="ref-shaliziADA" class="csl-entry"&gt;
+Shalizi, Cosma. 2024. &lt;em&gt;Advanced Data Analysis from an Elementary
+Point of View&lt;/em&gt;. &lt;a
+href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/"&gt;https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;The definition does not depend on the representations
+&lt;span class="math inline"&gt;\(q_\theta = \frac{\text d Q_\theta}{\text d
+\mu}\)&lt;/span&gt; chosen for the &lt;span
+class="math inline"&gt;\(\mu\)&lt;/span&gt;-density of &lt;span
+class="math inline"&gt;\(Q_\theta\)&lt;/span&gt; if &lt;span
+class="math inline"&gt;\(P\)&lt;/span&gt; is also absolutely continuous with
+respect to &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt;, which we tacitly
+assume. Typically &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt; would be some
+relative of Lebesgue or counting measures, in continuous and discrete
+settings respectively.&lt;a href="#fnref1"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;As a random variable, &lt;span class="math inline"&gt;\(\hat
+\theta _N\)&lt;/span&gt; is also independent (modulo a measure zero set) of
+the specific representer &lt;span class="math inline"&gt;\(q_\theta\)&lt;/span&gt;
+if &lt;span class="math inline"&gt;\(P\)&lt;/span&gt; is absolutely continuous with
+respect to &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt;.&lt;a href="#fnref2"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>5752701da8bd0c0a178e71feaa8b8068</distill:md5>
+      <guid>https://vgherard.github.io/notebooks/maximum-likelihood</guid>
+      <pubDate>Wed, 13 Mar 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Exponential Dispersion Models</title>
       <dc:creator>Valerio Gherardi</dc:creator>

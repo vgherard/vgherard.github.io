@@ -1,0 +1,154 @@
+---
+title: "Maximum Likelihood"
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-03-14
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+draft: false
+---
+
+**Random notes on MLE - needs to be systematized**
+
+We start off with a functional description of Maximum Likelihood (ML) 
+estimation. Let  $\mathcal Q \equiv\{\text d Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}$ be a parametric family 
+of probability measures dominated by some common measure $\mu$. Consider the functional^[The definition 
+does not depend on the representations $q_\theta = \frac{\text d Q_\theta}{\text d \mu}$ chosen for the $\mu$-density of $Q_\theta$ if $P$ is also absolutely continuous with respect to $\mu$, which we tacitly assume. Typically $\mu$ would be some relative of Lebesgue or counting measures, in continuous and discrete 
+settings respectively.]:
+
+$$
+\theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln (\frac{1}{q_\theta}) (\#eq:FunctionalThethaStar).
+$$
+This is the parameter of the best (in the cross-entropy sense) approximation of 
+$P$ within $\mathcal Q$, which we assume to be unique. 
+
+If $P$ represents the true probability distribution of the data under study, $\theta ^*(P)$ is the target of ML estimation, in the general case in which $P$ 
+is not necessarily in $\mathcal Q$. The ML estimate $\hat \theta _N$ of $\theta^*$ from an i.i.d. sample of $N$ observations is^[As a random variable, $\hat \theta _N$ is also independent (modulo a measure zero set) of the specific representer $q_\theta$ if $P$ is absolutely continuous with respect to $\mu$.]:
+
+$$
+\hat \theta _N \equiv \theta ^*(\hat P _N)=\arg \max_{\theta \in \Theta} \sum_{i=1}^N \ln ({q_\theta(Z_i)}), (\#eq:ThetaMLE)
+$$
+where $\hat P _N$ is the empirical distribution of the sample.
+
+Denoting:
+
+$$
+c_{P}(\theta) = \intop \text dP\,\ln (\frac{1}{q_\theta}),(\#eq:CrossEntIntegral)
+$$
+
+we see that $\theta^*$ is determined by the condition 
+$c_{P}'(\theta^*)=0$. From this, we can easily derive 
+the first order variation of $\theta ^*$ under a variation 
+$P \to P + \delta P$:
+
+$$
+\delta \theta ^* =\left(\intop \text dP\,I_{\theta ^*} \right)^{-1}\left(\intop \text d(\delta P)u_{\theta ^*}\right)(\#eq:DifferentialThetaStar)
+$$
+
+where we have defined:
+
+$$
+u_\theta = \frac{\partial }{\partial \theta} \ln q_\theta,\quad I_\theta = -\frac{\partial^2 }{\partial \theta ^2}  \ln q_\theta.(\#eq:ScoreFisherInfo)
+$$
+From \@ref(eq:DifferentialThetaStar) we can identify the influence function of 
+the $\theta ^*$ functional:
+
+$$
+\psi_P(z)=\left(\intop \text dP\,I_{\theta ^*} \right)^{-1}u_{\theta ^*}(z)(\#eq:InfluenceFunction)
+$$
+
+Then, from the standard theory of influence functions, we have:
+
+$$
+\hat \theta _N \approx \theta ^*+J_{\theta ^*} ^{-1} U_{\theta^*}(\#eq:ThetaNFirstOrder)
+$$
+where we have defined:
+
+$$
+J_{\theta ^*}\equiv \intop \text dP\,I_{\theta ^*},\quad U_{\theta ^* }\equiv\frac{1}{N}\sum _{i=1}^Nu_{\theta ^*}(Z_i)(\#eq:ScoreFisherInfo2).
+$$
+In particular, we obtain the Central Limit Theorem (CLT)
+
+$$
+\sqrt N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0, J_{\theta^*}^{-1}K_{\theta ^*}J_{\theta ^*}^{-1}),(\#eq:ThetaCLT)
+$$
+
+with:
+
+$$
+K_{\theta ^*} = \mathbb V(u_{\theta ^*}(Z)). (\#eq:ScoreVariance)
+$$
+The matrices $K_{\theta ^*}$ and $J_{\theta ^*}$ depend on the unknown value $\theta ^*$, but we can readily construct plugin estimators:
+
+$$
+\hat J_N = -\frac{1}{N}\sum _{i=1}^NI_{\hat \theta _N}(z_i),\quad\hat K_N = \frac{1}{N}\sum _{i=1}^Nu_{\hat \theta _N}(z_i)u_{\hat \theta _N}(z_i)^T,(\#eq:PluginJK)
+$$
+and estimate the variance of $\hat \theta _N$ as:
+
+$$
+\widehat {\mathbb V}(\hat \theta _N) = \frac{\hat J _N ^{-1}\hat K_N\hat J_N ^{-1}}{N}(\#eq:SandwichEstimator),
+$$
+which is the usual Sandwich estimator. Finally, if $P = Q_{\theta^*}$, then $J _{\theta^*} = K _{\theta^*}$, and the CLT \@ref(eq:ThetaCLT) becomes simply 
+$\sqrt N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0, J_{\theta^*}^{-1})$.
+
+Let us now consider the following expansion of  $c_P(\hat \theta _N)$ which, we recall, is the cross-entropy of the ML model on the true distribution $P$ (*cf.* \@ref(eq:CrossEntIntegral)):
+
+$$
+\begin{split}
+c_P(\hat \theta _N)
+	&= -\intop \text d P(z')\,\ln (q_{\hat \theta}(z'))\\
+	& \approx -\mathbb E'(\ln q_{\theta^*})+\frac{1}{2}(\hat \theta-\theta ^*)^TJ_{\theta ^*} (\hat \theta-\theta ^*)\\
+	& \approx -\mathbb E'(\ln q_{\theta^*})+\frac{1}{2}U_{\theta ^*}^TJ_{\theta ^*}^{-1}U_{\theta ^*}
+\end{split}
+$$
+Taking the expectation with respect to the training dataset, noting that 
+$\mathbb E(U_{\theta ^*}U_{\theta ^*}^T)=K_{\theta ^*}$, we get:
+
+$$
+\mathbb E (c_P(\hat \theta _N))\approx -\mathbb E'(\ln q_{\theta^*})+\frac{1}{2N}\text {Tr}(J_{\theta ^*}^{-1}K_{\theta^*}) (\#eq:CrossEntExp)
+$$
+Now consider the in-sample estimate:
+
+$$
+\begin{split}
+c_{\hat P _N}(\hat \theta _N) &= -\frac{1}{N}\sum _{i=1}^N\ln q_{\hat \theta}(Z_i)\\
+& \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)- U_{\theta ^*}^T(\hat \theta _N-\theta^*)+ \frac{1}{2}(\hat \theta _N-\theta^*)^TJ_{\theta ^*}(\hat \theta _N-\theta^*)\\
+& \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)- U_{\theta ^*}^TJ_{\theta ^*} ^{-1} U_{\theta^*}+ \frac{1}{2}U_{\theta ^{*}}^TJ_{\theta ^*} ^{-1}\hat J_N J_{\theta ^*} ^{-1}U_{\theta ^{*}}\\
+& \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)- \frac{1}{2}U_{\theta ^*}^TJ_{\theta ^*} ^{-1} U_{\theta^*}.
+\end{split}
+$$
+Taking the expectation :
+
+$$
+\mathbb E (c_{\hat P _N}(\hat \theta _N)) = -\mathbb E'(\ln q_{\theta^*})-\frac{1}{2N}\text{Tr}(J_{\theta ^*}^{-1}K_{\theta^*})(\#eq:InSampleCrossEntExp)
+$$
+Comparing Eqs. \@ref(eq:InSampleCrossEntExp) and \@ref(eq:CrossEntExp) we see 
+that:
+
+$$
+\text{TIC}\equiv -\frac{1}{N}\sum _{i=1}^N\ln q_{\hat \theta}(Z_i)+\frac{1}{N}\text{Tr}(J_{\theta ^*}^{-1}K_{\theta^*})(\#eq:TIC)
+$$
+provides an asymptotically unbiased estimate of 
+$\mathbb E (c_P(\hat \theta _N))$, the expected cross-entropy of a model from
+family $\mathcal Q$ estimated on a sample of $N$ observations.
+
+In the previous derivation, we could take each $Z_i$ to be a pair $(X_i,\,Y_i)$ 
+drawn from a joint $X-Y$ distribution. If we replace the model family $\mathcal Q$ 
+with a parametric family of conditional densities $ \mathcal Q \equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X) \,\text d \mu\}_{\theta \in \Theta}$, and change the objective function to:
+
+$$
+c_P(\theta) = \intop \text dP(x,y)\,\ln (\frac{1}{q_{\theta}(y\vert x)}),(\#eq:CondCrossEntIntegral)
+$$
+we can repeat our above argument without any further change. This
+provides a quick and dirty derivation of the CLT \@ref(eq:ThetaCLT) and of the
+information criterion \@ref(eq:TIC) in a regression setting with random 
+regressors.
+
+## References
+
+- [@shaliziADA]
+- [@claeskens2008model]
+- [@freedman2006so]
