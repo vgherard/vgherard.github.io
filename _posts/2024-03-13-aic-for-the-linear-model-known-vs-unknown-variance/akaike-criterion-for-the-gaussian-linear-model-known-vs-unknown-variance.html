@@ -88,7 +88,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>Akaike for the normal linear model: known vs. unknown variance</title>
+  <title>AIC for the linear model: known vs. unknown variance</title>
 
   <meta property="description" itemprop="description" content="Does knowledge of noise variance have any effect on model selection for the mean?"/>
 
@@ -99,21 +99,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="article:author" content="Valerio Gherardi"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Akaike for the normal linear model: known vs. unknown variance"/>
+  <meta property="og:title" content="AIC for the linear model: known vs. unknown variance"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Does knowledge of noise variance have any effect on model selection for the mean?"/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Akaike for the normal linear model: known vs. unknown variance"/>
+  <meta property="twitter:title" content="AIC for the linear model: known vs. unknown variance"/>
   <meta property="twitter:description" content="Does knowledge of noise variance have any effect on model selection for the mean?"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories"]}},"value":[{"type":"character","attributes":{},"value":["Akaike for the normal linear model: known vs. unknown variance"]},{"type":"character","attributes":{},"value":["Does knowledge of noise variance have any effect on model selection for the mean? \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Valerio Gherardi"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2024-03-13"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["Model Selection","Linear Models","Regression","Statistics"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","categories"]}},"value":[{"type":"character","attributes":{},"value":["AIC for the linear model: known vs. unknown variance"]},{"type":"character","attributes":{},"value":["Does knowledge of noise variance have any effect on model selection for the mean? \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Valerio Gherardi"]},{"type":"character","attributes":{},"value":["https://vgherard.github.io"]}]}]},{"type":"character","attributes":{},"value":["2024-03-13"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["Model Selection","Linear Models","Regression","Statistics"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1521,7 +1521,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Akaike for the normal linear model: known vs. unknown variance","description":"Does knowledge of noise variance have any effect on model selection for the mean?","authors":[{"author":"Valerio Gherardi","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2024-03-13T00:00:00.000+01:00","citationText":"Gherardi, 2024"}
+{"title":"AIC for the linear model: known vs. unknown variance","description":"Does knowledge of noise variance have any effect on model selection for the mean?","authors":[{"author":"Valerio Gherardi","authorURL":"https://vgherard.github.io","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2024-03-13T00:00:00.000+01:00","citationText":"Gherardi, 2024"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1531,7 +1531,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Akaike for the normal linear model: known vs. unknown variance</h1>
+<h1>AIC for the linear model: known vs. unknown variance</h1>
 
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
@@ -1551,30 +1551,40 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>The Akaike Information Criterion (AIC) for the normal linear model
-<span class="math inline">\(Y = X \beta + \varepsilon\)</span>, where <span class="math inline">\(\varepsilon \sim \mathcal N (0,\sigma ^2)\)</span>
-takes the form:</p>
+<p>The Akaike Information Criterion (AIC) for the linear model <span class="math inline">\(Y = X \beta + \varepsilon\)</span>, takes the form:</p>
 <p><span class="math display">\[
 \text{AIC}^{\text{(k)}} = \frac{(\mathbf Y-\mathbf X\hat \beta )^2}{\sigma ^2} + 2p
 \]</span>
-if the noise variance <span class="math inline">\(\sigma ^2\)</span> is known, and:</p>
+if the noise variance <span class="math inline">\(\sigma ^2 = \mathbb V(\varepsilon\vert X)\)</span> is known, and:</p>
 <p><span class="math display">\[
-\text{AIC}^{\text{(u)}} = \ln(\hat \sigma ^2) + 2p
-\]</span>
-if <span class="math inline">\(\sigma^2\)</span> is unknown. Here <span class="math inline">\(\hat \beta\)</span> is the maximum-likelihood estimate
-of <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\hat \sigma ^2 = \frac{1}{N-p}(\mathbf Y -\mathbf X \hat \beta)^2\)</span> the corresponding estimate of <span class="math inline">\(\sigma ^2\)</span> if
-the latter is unknown.</p>
-<p>Asymptotically, whether the variance is known or not should make little
-difference on our model selection for the mean. In practice, <span class="math inline">\(\text{AIC}^{\text{(u)}}\)</span> differences can be expanded using
-<span class="math inline">\(\ln (1+x)\approx 1 + x\)</span>:</p>
+\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2p
+\]</span></p>
+<p>if <span class="math inline">\(\sigma^2\)</span> is unknown. Here <span class="math inline">\(\hat \beta\)</span> denotes the maximum-likelihood
+estimate of <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\hat \sigma ^2 = \frac{1}{N}(\mathbf Y -\mathbf X \hat \beta)^2\)</span> the corresponding estimate of <span class="math inline">\(\sigma ^2\)</span> if the latter is unknown.</p>
+<p>One would expect knowledge on variance to have little effect on model selection
+for the mean, at least in a limit in which variance can be considered to be reasonably well estimated. In order to check that this is actually the case, we
+expand <span class="math inline">\(\text{AIC}^{\text{(u)}}\)</span> differences to first order <span class="math inline">\(\hat \sigma _1 ^2 - \hat \sigma _2 ^2\)</span>:</p>
 <p><span class="math display">\[
 \begin{split}
-\text{AIC}^{\text{(u)}}_1-\text{AIC}^{\text{(u)}}_2 &amp;= \ln(\frac{\hat \sigma ^2_1}{\hat \sigma ^2_2}) + 2(p_1-p_2)\\
-&amp;\approx \frac{\hat \sigma _{1}^2-\hat \sigma _2 ^2}{\hat \sigma _2 ^2} + 2(p_1-p_2).
+\text{AIC}^{\text{(u)}}_1-\text{AIC}^{\text{(u)}}_2 &amp;= N\ln(\frac{\hat \sigma ^2_1}{\hat \sigma ^2_2}) + 2(p_1-p_2)\\
+&amp;\approx N\frac{\hat \sigma _{1}^2-\hat \sigma _2 ^2}{\hat \sigma _2 ^2} + 2(p_1-p_2)\\
+&amp; = \text{AIC}^{\text{(k)}}_1-\text{AIC}^{\text{(k)}}_2+N\frac{(\hat \sigma _{1}^2-\hat \sigma _2 ^2)(\sigma ^2-\hat \sigma _2 ^2)}{\hat \sigma _2 ^2\sigma^2}
 \end{split}
 \]</span>
-This will be approximately equal to <span class="math inline">\(\text{AIC}^{\text{(k)}}_1-\text{AIC}^{\text{(k)}}_2\)</span> provided that <span class="math inline">\(\hat \sigma _1 ^2 \approx\hat \sigma _2 ^2\approx \sigma ^2\)</span> - that is,
-<em>provided that the models involved in the AIC comparison estimate reasonably well the true variance</em>.</p>
+The approximation in the second line requires <span class="math inline">\(\vert \hat \sigma _1 ^2 - \hat \sigma _2 ^2\vert \ll\hat \sigma _2 ^2\)</span>. Furthermore, the last term in the final
+expression is a small fraction of <span class="math inline">\(\text{AIC}^{\text{(u)}}_1-\text{AIC}^{\text{(u)}}_2\)</span> if <span class="math inline">\(|\sigma ^2 -\hat \sigma _2 ^2| \ll \sigma ^2\)</span>.</p>
+<p>Putting these two conditions together, we obtain:</p>
+<p><span class="math display">\[
+|\hat \sigma _1 ^2 -\hat \sigma _2 ^2|,|\sigma ^2 -\hat \sigma _2 ^2| \ll \sigma ^2,\qquad
+\]</span>
+which means that <span class="math inline">\(\text{AIC}^{\text{(u)}}\)</span> and <span class="math inline">\(\text{AIC}^{\text{(k)}}\)</span> lead to the same model selection provided that the models involved in the AIC comparison estimate reasonably well the true variance.</p>
+<p>Concluding remarks:</p>
+<ul>
+<li><p>Although the maximum-likelihood estimates plugged in the AIC are derived from normal theory, the theorem about the equivalence of AIC selection in the known
+and unknown variance cases continues to hold irrespective of this assumption.</p></li>
+<li><p>What happens in misspecified cases, in which <span class="math inline">\(\hat \sigma ^2\)</span> does not
+consistently estimate <span class="math inline">\(\mathbb V(\varepsilon \vert X)\)</span>, either because of non-linearity or heteroskedasticity?</p></li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
