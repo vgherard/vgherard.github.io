@@ -11,8 +11,6 @@ bibliography: biblio.bib
 draft: false
 ---
 
-**Random notes on MLE - needs to be systematized**
-
 We start off with a functional description of Maximum Likelihood (ML) 
 estimation. Let  $\mathcal Q \equiv\{\text d Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}$ be a parametric family 
 of probability measures dominated by some common measure $\mu$. Consider the functional^[The definition 
@@ -137,7 +135,7 @@ family $\mathcal Q$ estimated on a sample of $N$ observations.
 
 In the previous derivation, we could take each $Z_i$ to be a pair $(X_i,\,Y_i)$ 
 drawn from a joint $X-Y$ distribution. If we replace the model family $\mathcal Q$ 
-with a parametric family of conditional densities $ \mathcal Q \equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X) \,\text d \mu\}_{\theta \in \Theta}$, and change the objective function to:
+with a parametric family of conditional densities $\mathcal Q \equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X) \,\text d \mu\}_{\theta \in \Theta}$, and change the objective function to:
 
 $$
 c_P(\theta) = \intop \text dP(x,y)\,\ln (\frac{1}{q_{\theta}(y\vert x)}),(\#eq:CondCrossEntIntegral)

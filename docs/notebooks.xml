@@ -15,7 +15,6 @@
       <description>
 
 
-&lt;p&gt;&lt;strong&gt;Random notes on MLE - needs to be systematized&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;We start off with a functional description of Maximum Likelihood (ML)
 estimation. Let &lt;span class="math inline"&gt;\(\mathcal Q \equiv\{\text d
 Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}\)&lt;/span&gt; be a
@@ -165,8 +164,10 @@ class="math inline"&gt;\(Z_i\)&lt;/span&gt; to be a pair &lt;span
 class="math inline"&gt;\((X_i,\,Y_i)\)&lt;/span&gt; drawn from a joint &lt;span
 class="math inline"&gt;\(X-Y\)&lt;/span&gt; distribution. If we replace the model
 family &lt;span class="math inline"&gt;\(\mathcal Q\)&lt;/span&gt; with a parametric
-family of conditional densities $ Q {d Q_{}(X) = q_{}(X) ,d }_{}$, and
-change the objective function to:&lt;/p&gt;
+family of conditional densities &lt;span class="math inline"&gt;\(\mathcal Q
+\equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X)
+\,\text d \mu\}_{\theta \in \Theta}\)&lt;/span&gt;, and change the objective
+function to:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 c_P(\theta) = \intop \text dP(x,y)\,\ln (\frac{1}{q_{\theta}(y\vert
 x)}),(\#eq:CondCrossEntIntegral)

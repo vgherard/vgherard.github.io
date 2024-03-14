@@ -2601,7 +2601,6 @@ Other links
 </div>
 
 <div class="d-article">
-<p><strong>Random notes on MLE - needs to be systematized</strong></p>
 <p>We start off with a functional description of Maximum Likelihood (ML)
 estimation. Let <span class="math inline">\(\mathcal Q \equiv\{\text d Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}\)</span> be a parametric family
 of probability measures dominated by some common measure <span class="math inline">\(\mu\)</span>. Consider the functional<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
@@ -2699,7 +2698,7 @@ provides an asymptotically unbiased estimate of
 family <span class="math inline">\(\mathcal Q\)</span> estimated on a sample of <span class="math inline">\(N\)</span> observations.</p>
 <p>In the previous derivation, we could take each <span class="math inline">\(Z_i\)</span> to be a pair <span class="math inline">\((X_i,\,Y_i)\)</span>
 drawn from a joint <span class="math inline">\(X-Y\)</span> distribution. If we replace the model family <span class="math inline">\(\mathcal Q\)</span>
-with a parametric family of conditional densities $ Q {d Q_{}(X) = q_{}(X) ,d }_{}$, and change the objective function to:</p>
+with a parametric family of conditional densities <span class="math inline">\(\mathcal Q \equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X) \,\text d \mu\}_{\theta \in \Theta}\)</span>, and change the objective function to:</p>
 <p><span class="math display" id="eq:CondCrossEntIntegral">\[
 c_P(\theta) = \intop \text dP(x,y)\,\ln (\frac{1}{q_{\theta}(y\vert x)}),\tag{16}
 \]</span>
