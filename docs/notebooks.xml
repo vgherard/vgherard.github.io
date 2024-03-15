@@ -180,6 +180,7 @@ with random regressors.&lt;/p&gt;
 &lt;li&gt;&lt;span class="citation"&gt;(Shalizi 2024)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class="citation"&gt;(Claeskens and Hjort 2008)&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class="citation"&gt;(Freedman 2006)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="citation"&gt;(White 1982)&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
@@ -196,6 +197,11 @@ Estimator’&lt;/span&gt; and &lt;span&gt;‘Robust Standard Errors’&lt;/span&
 Shalizi, Cosma. 2024. &lt;em&gt;Advanced Data Analysis from an Elementary
 Point of View&lt;/em&gt;. &lt;a
 href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/"&gt;https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id="ref-white1982maximum" class="csl-entry"&gt;
+White, Halbert. 1982. &lt;span&gt;“Maximum Likelihood Estimation of
+Misspecified Models.”&lt;/span&gt; &lt;em&gt;Econometrica: Journal of the
+Econometric Society&lt;/em&gt;, 1–25.
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="footnotes footnotes-end-of-document"&gt;
