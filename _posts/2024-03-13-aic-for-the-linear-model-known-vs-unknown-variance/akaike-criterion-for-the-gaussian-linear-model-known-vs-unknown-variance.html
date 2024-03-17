@@ -1551,16 +1551,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>The Akaike Information Criterion (AIC) for the linear model <span class="math inline">\(Y = X \beta + \varepsilon\)</span>, takes the form:</p>
+<p>The Akaike Information Criterion (AIC) for the linear model <span class="math inline">\(Y = X \beta + \varepsilon\)</span>, with takes the form:</p>
 <p><span class="math display">\[
 \text{AIC}^{\text{(k)}} = \frac{(\mathbf Y-\mathbf X\hat \beta )^2}{\sigma ^2} + 2p
 \]</span>
 if the noise variance <span class="math inline">\(\sigma ^2 = \mathbb V(\varepsilon\vert X)\)</span> is known, and:</p>
 <p><span class="math display">\[
-\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2p
+\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2(p + 1)
 \]</span></p>
 <p>if <span class="math inline">\(\sigma^2\)</span> is unknown. Here <span class="math inline">\(\hat \beta\)</span> denotes the maximum-likelihood
-estimate of <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\hat \sigma ^2 = \frac{1}{N}(\mathbf Y -\mathbf X \hat \beta)^2\)</span> the corresponding estimate of <span class="math inline">\(\sigma ^2\)</span> if the latter is unknown.</p>
+estimate of <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\hat \sigma ^2 = \frac{1}{N}(\mathbf Y -\mathbf X \hat \beta)^2\)</span> the corresponding estimate of <span class="math inline">\(\sigma ^2\)</span> if the latter is unknown;
+<span class="math inline">\(p\)</span> is the dimension of the covariate vector <span class="math inline">\(X\)</span>.</p>
 <p>One would expect knowledge on variance to have little effect on model selection
 for the mean, at least in a limit in which variance can be considered to be reasonably well estimated. In order to check that this is actually the case, we
 expand <span class="math inline">\(\text{AIC}^{\text{(u)}}\)</span> differences to first order <span class="math inline">\(\hat \sigma _1 ^2 - \hat \sigma _2 ^2\)</span>:</p>

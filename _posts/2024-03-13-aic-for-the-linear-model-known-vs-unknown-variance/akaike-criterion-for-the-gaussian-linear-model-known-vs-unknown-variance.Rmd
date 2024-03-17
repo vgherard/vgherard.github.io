@@ -16,7 +16,7 @@ categories:
   - Statistics
 ---
 
-The Akaike Information Criterion (AIC) for the linear model $Y = X \beta + \varepsilon$, takes the form:
+The Akaike Information Criterion (AIC) for the linear model $Y = X \beta + \varepsilon$, with takes the form:
 
 $$
 \text{AIC}^{\text{(k)}} = \frac{(\mathbf Y-\mathbf X\hat \beta )^2}{\sigma ^2} + 2p
@@ -24,11 +24,12 @@ $$
 if the noise variance $\sigma ^2 = \mathbb V(\varepsilon\vert X)$ is known, and:
 
 $$
-\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2p
+\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2(p + 1)
 $$
 
 if $\sigma^2$ is unknown. Here $\hat \beta$ denotes the maximum-likelihood 
-estimate of $\beta$, and $\hat \sigma ^2 = \frac{1}{N}(\mathbf Y -\mathbf X \hat \beta)^2$ the corresponding estimate of $\sigma ^2$ if the latter is unknown. 
+estimate of $\beta$, and $\hat \sigma ^2 = \frac{1}{N}(\mathbf Y -\mathbf X \hat \beta)^2$ the corresponding estimate of $\sigma ^2$ if the latter is unknown; 
+$p$ is the dimension of the covariate vector $X$.
 
 One would expect knowledge on variance to have little effect on model selection 
 for the mean, at least in a limit in which variance can be considered to be reasonably well estimated. In order to check that this is actually the case, we 

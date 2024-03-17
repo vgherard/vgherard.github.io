@@ -16,7 +16,7 @@
 
 
 &lt;p&gt;The Akaike Information Criterion (AIC) for the linear model &lt;span
-class="math inline"&gt;\(Y = X \beta + \varepsilon\)&lt;/span&gt;, takes the
+class="math inline"&gt;\(Y = X \beta + \varepsilon\)&lt;/span&gt;, with takes the
 form:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \text{AIC}^{\text{(k)}} = \frac{(\mathbf Y-\mathbf X\hat \beta
@@ -24,7 +24,7 @@ form:&lt;/p&gt;
 \]&lt;/span&gt; if the noise variance &lt;span class="math inline"&gt;\(\sigma ^2 =
 \mathbb V(\varepsilon\vert X)\)&lt;/span&gt; is known, and:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2p
+\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2(p + 1)
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;if &lt;span class="math inline"&gt;\(\sigma^2\)&lt;/span&gt; is unknown. Here
 &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; denotes the
@@ -32,7 +32,9 @@ maximum-likelihood estimate of &lt;span
 class="math inline"&gt;\(\beta\)&lt;/span&gt;, and &lt;span
 class="math inline"&gt;\(\hat \sigma ^2 = \frac{1}{N}(\mathbf Y -\mathbf X
 \hat \beta)^2\)&lt;/span&gt; the corresponding estimate of &lt;span
-class="math inline"&gt;\(\sigma ^2\)&lt;/span&gt; if the latter is unknown.&lt;/p&gt;
+class="math inline"&gt;\(\sigma ^2\)&lt;/span&gt; if the latter is unknown; &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt; is the dimension of the covariate
+vector &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;One would expect knowledge on variance to have little effect on model
 selection for the mean, at least in a limit in which variance can be
 considered to be reasonably well estimated. In order to check that this
