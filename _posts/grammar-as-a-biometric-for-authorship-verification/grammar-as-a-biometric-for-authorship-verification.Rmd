@@ -1,0 +1,71 @@
+---
+title: "Grammar as a biometric for Authorship Verification"
+description: |
+  Notes on preprint 2403.08462 by A. Nini, O. Halvani, L. Graner, S. Ishihara 
+  and myself.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-03-16
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+categories: 
+  - Authorship Verification
+  - Natural Language Processing
+  - Forensic Science
+  - Machine Learning
+draft: true
+---
+
+A few days ago we finally managed to drop [@nini2024authorship], *"Authorship Verification based on the Likelihood Ratio of Grammar Models"*, on the arXiv.
+Delving into topics such as authorship verification, grammar and forensics, was
+quite a detour for me, and I'd like to summarize here some 
+of the ideas and learnings I got from working with all this new and interesting 
+material.
+
+The main qualitative idea put forward by Ref. [@nini2024authorship] is that 
+*grammar is a fundamentally personal and unique trait of an individual*, 
+therefore providing a sort of "behavioural biometric". One first goal of this 
+work was to put this general principle under test, by applying it to the 
+problem of Authorship Verification: the process of validating whether 
+a certain document was written by a claimed author. Concretely, we built 
+an algorithm for AV that relies entirely on the grammatical features of the 
+examined textual data, and compared it with the state-of-the-art methods for AV. 
+The results were very encouraging.
+
+Besides their genuinely theoretical interest, our results could also have 
+practical repercussions for forensic scientists working with text data. In fact, 
+our method actually turned out to be generally superior to existing ones on the benchmarks we examined. I'm being cautious with generalizations here because, 
+as I will argue more extensively below, our experimental setting with carefully designed text corpora describe a somewhat idealized prototype of real world 
+forensic practice. 
+This has nothing to do in specific with our method, and doesn't downplay its 
+merit in beating the state-of-the-art.
+
+All in all, working ... was very cool... using R package `kgrams` was very satisfying...
+
+## The algorithm
+
+Our algorithm works as follows
+
+Here's an R implementation using `kgrams`
+
+## In silico Authorship Verification *vs.* the real world
+
+As usual, the statistical characterizations of our algorithm are only valid under sampling conditions equivalent to the ones underlying the datasets used to perform the inference. This applies both to predictive performance metrics such as accuracy, precision, etc. *and* to models mapping scores to (partial) likelihood ratios. In order to interpret these quantities, we should be able to regard the AV problems encountered in daily practice as random samples from the same population from which our testing cases were sampled. This looks to me as a highly non-trivial assumption, whose validity is generally not self-evident and hard to check.
+
+In a real case, we would just be given a document $\mathcal D$ with an 
+authorship claim to validate. In order to use our method, we must deal with two additional complications with respect to the ideal scenario studied in our work:
+
+* Building an adequate reference corpus for running the impostor method.
+* Characterize the distribution of the $\lambda$ statistic produced by our 
+algorithm in the present context.
+
+The first issue is a practical one, its relevance coming from the fact that the
+performance of our method is quite sensitive to the underlying impostor corpus,
+and rapidly degrades as this becomes mismatched with the nature of the 
+authorship problems (see Figure 2 from our reference).
+
+The second issue is theoretical: what kind of guarantees can we provide on the
+performance of our model in
