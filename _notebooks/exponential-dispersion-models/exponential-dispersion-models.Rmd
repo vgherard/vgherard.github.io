@@ -271,13 +271,20 @@ $$
 and the unit deviance for the *reproductive* EDM:
 
 $$
-d(y,\hat p)=-2y\ln \hat p-2(1-y)\ln (1-\hat p).(\#eq:BinomialDeviance)
+d(y,\hat p)=-2y\ln (\dfrac{\hat p}{y})-2(1-y)\ln (\dfrac{1-\hat p}{1-y}).(\#eq:BinomialDeviance)
 $$
 
+For the additive EDM, appropriate to an integer valued binomial variable, this 
+is given by:
+
+$$
+d(z,\hat p)=-2\frac{z}{N}\ln (\dfrac{N\hat p}{z})-2(1-\frac{z}{N})\ln (\dfrac{N-N\hat p}{N-z}).(\#eq:BinomialDevianceBis)
+$$
 
 #### Multinomial
 
-The multinomial family $\text{Mult} _M(p_1,\,p_2,\dots ,p_{M+1},\,N)$ for $K+1$ categories is given by the PMF:
+The multinomial family $\text{Mult} _{K+1}(p_1,\,p_2,\dots ,p_{K+1},\,N)$ for 
+$K+1$ categories is given by the PMF:
 
 $$
 f_{\boldsymbol p ,N}(z) = \binom{N}{z_1,\,z_2,\,\dots,\,z_{K+1}}\prod _{k=1}^{K+1}p_k^{z_k}(\#eq:MultPMF),
@@ -288,7 +295,7 @@ dependent variable and parameter, say $z_{M+1}$ and $p_{M+1}$, respectively.
 The family of densities for the resulting $M$-dimensional vector $\boldsymbol z=(z_1\,z_2\,\dots\,z_M)^T$ corresponds to the additive EDM $\text{ED}^*(\lambda, \,\theta;\,\kappa)$ with:
 
 $$
-\quad \kappa(\theta) = \ln(\dfrac{1+\sum_{i=1}^K e^{\theta _k}}{K+1}), \quad \theta \in \mathbb R^M,\quad \lambda \in \mathbb N(\#eq:MultEDM),
+\quad \kappa(\theta) = \ln(\dfrac{1+\sum_{i=1}^K e^{\theta _k}}{K+1}), \quad \theta \in \mathbb R^K,\quad \lambda \in \mathbb N(\#eq:MultEDM),
 $$
 the correspondence being given by:
 
@@ -298,7 +305,7 @@ $$
 The base measure:
 
 $$
-\frac{\text d Q_\lambda^*(z)}{\text d \boldsymbol z} =(K+1)^{-\lambda}\sum_{\boldsymbol i\in \mathbb N ^{M}\,\colon \,\sum _{k=1}^{K}i_k\leq\lambda} \binom{\lambda}{i_1,\,i_2,\dots,i_{K+1}} \delta (\boldsymbol z-\boldsymbol i), (\#eq:MultBaseMeasure)
+\frac{\text d Q_\lambda^*(z)}{\text d \boldsymbol z} =(K+1)^{-\lambda}\sum_{\boldsymbol i\in \mathbb N ^{K}\,\colon \,\sum _{k=1}^{K}i_k\leq\lambda} \binom{\lambda}{i_1,\,i_2,\dots,i_{K+1}} \delta (\boldsymbol z-\boldsymbol i), (\#eq:MultBaseMeasure)
 $$
 where $i_{K+1} = N - \sum _{k=1} ^{K} i_k$. The Legendre transform of $\kappa$ 
 is:
@@ -309,7 +316,13 @@ $$
 and deviance is:
 
 $$
-d(y,\hat {\boldsymbol p}) = -2\sum _{k=1}^{K+1}y_k\ln \hat p_k.(\#eq:MultDeviance)
+d(y,\hat {\boldsymbol p}) = -2\sum _{k=1}^{K+1}y_k\ln (\frac{\hat p_k}{y_k}).(\#eq:MultDeviance)
+$$
+For the additive EDM, appropriate to an integer valued multinomial variable, 
+this is given by:
+
+$$
+d(z,\hat p)=-2\sum _{k=1}^{K+1}\frac{z_k}{N}\ln (\dfrac{N\hat p}{z_k}).(\#eq:MultDevianceBis)
 $$
 
 #### Poisson
