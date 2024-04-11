@@ -2605,18 +2605,19 @@ Other links
 <ul>
 <li><a href="#generalities" id="toc-generalities">Generalities</a></li>
 <li><a href="#the-linear-model" id="toc-the-linear-model">The linear model</a></li>
+<li><a href="#prop-blp" id="toc-prop-blp">Properties of best linear predictors</a></li>
 <li><a href="#properties-of-ols-estimates" id="toc-properties-of-ols-estimates">Properties of OLS estimates</a>
 <ul>
+<li><a href="#algebraic-properties" id="toc-algebraic-properties">Algebraic properties</a></li>
 <li><a href="#distributional-properties-of-hat-beta" id="toc-distributional-properties-of-hat-beta">Distributional properties of <span class="math inline">\(\hat \beta\)</span></a></li>
 <li><a href="#variance-estimates" id="toc-variance-estimates">Variance estimates</a></li>
-<li><a href="#more-on-residuals" id="toc-more-on-residuals">More on residuals</a></li>
 </ul></li>
 <li><a href="#related-posts" id="toc-related-posts">Related posts</a></li>
 </ul>
 </nav>
 </div>
 <h2 id="generalities">Generalities</h2>
-<p>Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor <span class="math inline">\(\hat Y = X\beta\)</span> of a response <span class="math inline">\(Y \in \mathbb R\)</span> in terms of a vector of regressors <span class="math inline">\(X\in \mathbb R ^p\)</span>, which we will frequently identify with an <span class="math inline">\(1\times p\)</span> row matrix. Here, “best” is understood in terms of the <span class="math inline">\(L_2\)</span> error:</p>
+<p>Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor <span class="math inline">\(f^*(X) = X\beta\)</span> of a response <span class="math inline">\(Y \in \mathbb R\)</span> in terms of a vector of regressors <span class="math inline">\(X\in \mathbb R ^p\)</span>, which we will frequently identify with an <span class="math inline">\(1\times p\)</span> row matrix. Here, “best” is understood in terms of the <span class="math inline">\(L_2\)</span> error:</p>
 <p><span class="math display" id="eq:BLP">\[
 \beta = \arg \min _{\beta &#39;}  \mathbb E[(Y - X\beta ^\prime)^2]=\mathbb E (X^TX)^{-1}\mathbb E(X^T Y), \tag{1}
 \]</span>
@@ -2647,45 +2648,95 @@ That said, depending on context, <a href="#eq:LinearModel">(4)</a> is usually su
 <li><em>Normal Errors.</em> <span class="math inline">\(\varepsilon \vert X \sim \mathcal N (0,\sigma ^2)\)</span>.</li>
 </ul>
 <p>While the OLS estimator is well-defined irrespective of the validity of any of these models, it is clear that, in order for <span class="math inline">\(\hat \beta\)</span> to represent a meaningful summary of the <span class="math inline">\(Y\)</span>-<span class="math inline">\(X\)</span> dependence, one should require at least <a href="#eq:LinearModel">(4)</a> to hold in some approximate sense. Correspondingly, while some general features of <span class="math inline">\(\hat \beta\)</span> can be discussed independently of linear model assumptions, its most important properties crucially depend on Eq. <a href="#eq:LinearModel">(4)</a>.</p>
+<h2 id="prop-blp">Properties of best linear predictors</h2>
+<p>Consider the best linear predictor <span class="math inline">\(f*(X) = X\beta\)</span>, with <span class="math inline">\(\beta\)</span> defined as in
+Eq. <a href="#eq:BLP">(1)</a>. We usually assume that the covariate vector <span class="math inline">\(X\)</span> contains an
+intercept term, that is <span class="math inline">\(X=\begin{pmatrix}1 &amp; \widetilde X\end{pmatrix}\)</span> for
+some <span class="math inline">\(p-1\)</span> dimensional random vector <span class="math inline">\(\widetilde X\)</span>. The presence of an
+intercept term leads to <span class="math inline">\(f^*(X)\)</span> having a bunch of nice properties, such as
+being unconditionally unbiased (<span class="math inline">\(\mathbb E(Y-f^*(X))=0\)</span>), as we show below.</p>
+<p>Let us decompose
+<span class="math inline">\(\beta = \begin{pmatrix}\beta_0 &amp; \widetilde \beta\end{pmatrix}\)</span>, where
+<span class="math inline">\(\beta _0\in \mathbb R\)</span> is the intercept term, and
+<span class="math inline">\(\widetilde beta \in \mathbb R^{p-1}\)</span> is the coefficient of <span class="math inline">\(\widetilde X\)</span>.
+We can easily prove that:</p>
+<p><span class="math display" id="eq:BLP0">\[
+\begin{split}
+\widetilde \beta  &amp;=
+\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y),\\
+\beta _0  &amp;= \mathbb E(Y)-\mathbb E(\widetilde X)\widetilde\beta,
+\end{split}\tag{5}
+\]</span>
+where we denote by <span class="math inline">\(\mathbb V (A,B)\)</span> the covariance matrix of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>,
+and by <span class="math inline">\(\mathbb V (A)\equiv \mathbb V (A,A)\)</span>. These expressions can be used to
+recast the error term as:</p>
+<p><span class="math display" id="eq:BLPErrorTerm">\[
+Y-X\beta = (Y-\mathbb E(Y))-(\widetilde X-\mathbb E(\widetilde X))\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y)\tag{6}.
+\]</span></p>
+<p>From this expression we can easily find the first two moments:</p>
+<p><span class="math display" id="eq:BLPExpectedError">\[
+\begin{split}
+\mathbb E(Y-X\beta)&amp;=0,\\
+\mathbb E((Y-X\beta)^2)&amp;=\mathbb V(Y)-\mathbb V(\widetilde X,Y)^T\mathbb V(\widetilde X)^{-1}\mathbb V(\widetilde X,Y),
+\end{split}\tag{7}
+\]</span></p>
+<p>In particular, as anticipated the best linear predictor is unconditionally
+unbiased. More generally, from Eq. <a href="#eq:BLPErrorTerm">(6)</a> it follows one has:</p>
+<p><span class="math display" id="eq:OrthogonalityErrorTerm">\[
+\mathbb E(X^T(Y-X\beta))=0\tag{8},
+\]</span>
+which, since <span class="math inline">\(\mathbb E(Y-X\beta) = 0\)</span>, can also be interpreted as
+saying that the error term <span class="math inline">\(Y-X\beta\)</span> and the covariate vector <span class="math inline">\(X\)</span> are
+uncorrelated.</p>
 <h2 id="properties-of-ols-estimates">Properties of OLS estimates</h2>
+<h3 id="algebraic-properties">Algebraic properties</h3>
+<p>These are simple consequences of the results for the best linear predictor
+discussed in the previous Section. Notice that, since no result there
+depends on the particular probability measure to which expectations refer to, we
+can replace all expectations with sample means. Thus, Eq.
+<a href="#eq:OrthogonalityErrorTerm">(8)</a> translates to:</p>
+<p><span class="math display" id="eq:OrthogonalitySampleResiduals">\[
+\frac{1}{N}\mathbf X^T(\mathbf Y-\mathbf X\hat \beta)=0\tag{9},
+\]</span>
+which implies in particular that sample residuals have vanishing sample means.</p>
 <h3 id="distributional-properties-of-hat-beta">Distributional properties of <span class="math inline">\(\hat \beta\)</span></h3>
 <p>As an estimator of <span class="math inline">\(\beta\)</span> as defined in Eq. <a href="#eq:BLP">(1)</a>, the OLS estimator <span class="math inline">\(\hat \beta\)</span> is consistent (converges in probability to <span class="math inline">\(\beta\)</span>) but generally biased (an example is provided <a href="https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/">here</a>). However, due to the plugin nature of <span class="math inline">\(\hat \beta\)</span>, the bias is generally of order <span class="math inline">\(\mathcal O (N^{-1})\)</span>, which makes it often negligible in comparison to its <span class="math inline">\(\mathcal O(N^{-1/2})\)</span> sampling variability (see below).</p>
 <p>Explicitly, the bias is given by:
 <span class="math display" id="eq:BiasOLS">\[
-\mathbb E(\hat \beta) - \beta = \mathbb E\lbrace((\mathbf X ^T \mathbf X) ^{-1}-\mathbb E[(\mathbf X ^T \mathbf X) ^{-1}])\cdot \mathbf X ^T f (\mathbf X)\rbrace, \tag{5}
+\mathbb E(\hat \beta) - \beta = \mathbb E\lbrace((\mathbf X ^T \mathbf X) ^{-1}-\mathbb E[(\mathbf X ^T \mathbf X) ^{-1}])\cdot \mathbf X ^T f (\mathbf X)\rbrace, \tag{10}
 \]</span>
 where <span class="math inline">\(f(X) \equiv \mathbb E(Y \vert X)\)</span> is the true conditional mean function. In general, this vanishes only if <span class="math inline">\(f(X)=X\beta\)</span>, as in the linear expectation model <a href="#eq:LinearModel">(4)</a>.</p>
 <p>The <span class="math inline">\(\mathbf X\)</span>-conditional variance of <span class="math inline">\(\hat \beta\)</span> can be derived directly from Eq. <a href="#eq:OLS">(2)</a>:</p>
 <p><span class="math display" id="eq:VarBetaHatCond">\[
-\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1} \mathbf X ^T  \mathbb V (\mathbf Y\vert \mathbf X) \mathbf X (\mathbf X ^T \mathbf X), \tag{6}
+\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1} \mathbf X ^T  \mathbb V (\mathbf Y\vert \mathbf X) \mathbf X (\mathbf X ^T \mathbf X), \tag{11}
 \]</span>
 where <span class="math inline">\(\mathbb V (\mathbf Y\vert \mathbf X)\)</span> is diagonal for i.i.d. observations. For homoskedastic errors we get:</p>
 <p><span class="math display" id="eq:VarBetaHatCondHomo">\[
-\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1} \sigma ^2 \quad (\mathbb V(Y\vert X)=\sigma ^2).\  \tag{7}
+\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1} \sigma ^2 \quad (\mathbb V(Y\vert X)=\sigma ^2).\  \tag{12}
 \]</span>
 Under the normal linear model, this allows to obtain finite-sample correct confidence sets for <span class="math inline">\(\beta\)</span>. In the general case, confidence sets can be derived from the Central Limit Theorem satisfied by <span class="math inline">\(\hat \beta\)</span> <span class="citation" data-cites="buja2019models">(<a href="#ref-buja2019models" role="doc-biblioref">Buja et al. 2019</a>)</span>:</p>
 <p><span class="math display" id="eq:CLTBetaHat">\[
-\sqrt N (\hat \beta -\beta) \to \mathcal N (0,V ) \tag{8}
+\sqrt N (\hat \beta -\beta) \to \mathcal N (0,V ) \tag{13}
 \]</span>
 where the asymptotic variance is given by:</p>
 <p><span class="math display" id="eq:AsyVarBetaHat">\[
-V = \mathbb E[X^TX] ^{-1} \cdot \mathbb E[X^T(Y-X\beta)^2X] \cdot \mathbb E[X^TX] ^{-1}.\tag{9}
+V = \mathbb E[X^TX] ^{-1} \cdot \mathbb E[X^T(Y-X\beta)^2X] \cdot \mathbb E[X^TX] ^{-1}.\tag{14}
 \]</span>
-The plugin estimate of <a href="#eq:AsyVarBetaHat">(9)</a> leads to the so called Sandwich variance estimator:</p>
+The plugin estimate of <a href="#eq:AsyVarBetaHat">(14)</a> leads to the so called Sandwich variance estimator:</p>
 <p><span class="math display" id="eq:SandwichEstimate">\[
-V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf {r^2}\mathbf X (\mathbf X^T \mathbf X)^{-1},\tag{10}
+V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf {r^2}\mathbf X (\mathbf X^T \mathbf X)^{-1},\tag{15}
 \]</span>
 where <span class="math inline">\(D_{\mathbf r^2}\)</span> is the diagonal matrix whose <span class="math inline">\(i\)</span>-th entry is the squared residual <span class="math inline">\(r_i ^2 = (Y_i-X_i\beta)^2\)</span>.</p>
 <h5 id="proof-of-central-limit-theorem-for-hat-beta">Proof of Central Limit Theorem for <span class="math inline">\(\hat \beta\)</span></h5>
-<p>Convergence to the normal distribution <a href="#eq:CLTBetaHat">(8)</a> with variance <a href="#eq:AsyVarBetaHat">(9)</a> can be proved using the formalism of influence functions. From Eq. <a href="#eq:BLP">(1)</a>, we see that a small variation <span class="math inline">\(P\to P+\delta P\)</span> to the joint <span class="math inline">\(XY\)</span> probability measure induces a first order shift:</p>
+<p>Convergence to the normal distribution <a href="#eq:CLTBetaHat">(13)</a> with variance <a href="#eq:AsyVarBetaHat">(14)</a> can be proved using the formalism of influence functions. From Eq. <a href="#eq:BLP">(1)</a>, we see that a small variation <span class="math inline">\(P\to P+\delta P\)</span> to the joint <span class="math inline">\(XY\)</span> probability measure induces a first order shift:</p>
 <p><span class="math display" id="eq:BetaDifferential">\[
-\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text d(\delta P)\tag{11}
+\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text d(\delta P)\tag{16}
 \]</span>
 in the best linear predictor. The influence function of <span class="math inline">\(\beta\)</span> is defined by the measurable representation of <span class="math inline">\(\delta \beta\)</span>, namely:</p>
 <p><span class="math display" id="eq:BetaInfluenceFunction">\[
-\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X). \tag{12}
+\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X). \tag{17}
 \]</span>
-A general result for plugin estimates then tells us that <span class="math inline">\(\sqrt N (\hat \beta -\beta) \to \mathcal N (0, \mathbb E (\phi _\beta ^2))\)</span> in distribution, and using the explicit form of <a href="#eq:BetaInfluenceFunction">(12)</a> we readily obtain <a href="#eq:AsyVarBetaHat">(9)</a>.</p>
+A general result for plugin estimates then tells us that <span class="math inline">\(\sqrt N (\hat \beta -\beta) \to \mathcal N (0, \mathbb E (\phi _\beta ^2))\)</span> in distribution, and using the explicit form of <a href="#eq:BetaInfluenceFunction">(17)</a> we readily obtain <a href="#eq:AsyVarBetaHat">(14)</a>.</p>
 <h3 id="variance-estimates">Variance estimates</h3>
 <p>These can be based on:</p>
 <p><span class="math display">\[
@@ -2693,36 +2744,17 @@ s ^2 = \frac{1}{N}(\mathbf Y-\mathbf X \hat \beta)^T(\mathbf Y-\mathbf X \hat \b
 \]</span>
 which has expectation</p>
 <p><span class="math display" id="eq:ExpectedInSampleError">\[
-\mathbb E\left[s^2\right]=\frac{1}{N}\text {Tr}\,\mathbb E \left[ (1-\mathbf H) \cdot \left(\mathbb E(\mathbf Y \vert \mathbf X)\mathbb E(\mathbf Y \vert \mathbf X)^T + \mathbb V(\mathbf Y\vert\mathbf X)\right) \right] \tag{13}
+\mathbb E\left[s^2\right]=\frac{1}{N}\text {Tr}\,\mathbb E \left[ (1-\mathbf H) \cdot \left(\mathbb E(\mathbf Y \vert \mathbf X)\mathbb E(\mathbf Y \vert \mathbf X)^T + \mathbb V(\mathbf Y\vert\mathbf X)\right) \right] \tag{18}
 \]</span></p>
 <p>where the hat matrix <span class="math inline">\(\mathbf H\)</span> is defined as usual:</p>
 <p><span class="math display" id="eq:HatMatrix">\[
-\mathbf H \equiv \mathbf X(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\tag{14}
+\mathbf H \equiv \mathbf X(\mathbf X^T\mathbf X)^{-1}\mathbf X^T\tag{19}
 \]</span></p>
 <p>If the general linear model <a href="#eq:LinearModel">(4)</a> holds, so that <span class="math inline">\(E(\mathbf Y \vert \mathbf X) = \mathbf X \beta\)</span>, we have <span class="math inline">\((1-\mathbf H) \mathbb E(\mathbf Y \vert \mathbf X) = 0\)</span>. If we furthermore assume homoskedasticity, we obtain:</p>
 <p><span class="math display" id="eq:VarianceEstimateHomo">\[
-\mathbb E\left[s^2\right]=\frac{N-p}{N}\sigma^2 \quad(\text{Homoskedastic linear model}), \tag{15}
+\mathbb E\left[s^2\right]=\frac{N-p}{N}\sigma^2 \quad(\text{Homoskedastic linear model}), \tag{20}
 \]</span>
 where <span class="math inline">\(p = \text {Tr}(\mathbf H)\)</span> is the number of independent covariates. On the other hand, if homoskedasticity holds, but <span class="math inline">\(E(\mathbf Y \vert \mathbf X)\)</span> is not linear, the left-hand side of the previous equation is an overestimate of <span class="math inline">\(\mathbf V \vert X\)</span>.</p>
-<h3 id="more-on-residuals">More on residuals</h3>
-<p>In order to study the properties of residuals, it is convenient to define the functional:</p>
-<p><span class="math display" id="eq:BetaQ">\[
-\beta (Q) \equiv \arg \min _{\beta &#39;}  \mathbb E_Q[(Y - X\beta ^\prime)^2]=\mathbb E_Q (X^TX)^{-1}\mathbb E_Q(X^T Y), \tag{16}
-\]</span></p>
-<p>which depends on the arbitrary measure <span class="math inline">\(Q\)</span>. If <span class="math inline">\(Q=P\)</span> is the original joint <span class="math inline">\(XY\)</span> probability measure, we get <span class="math inline">\(\beta(P) \equiv \beta\)</span> as defined by Eq. <a href="#eq:BLP">(1)</a>, whereas if <span class="math inline">\(Q = \hat P\)</span> is the empirical <span class="math inline">\(XY\)</span> distribution, we get <span class="math inline">\(\beta (\hat P) \equiv \hat \beta\)</span> of Eq. <a href="#eq:OLS">(2)</a>.</p>
-<p>From the definition it easily follows that:</p>
-<p><span class="math display" id="eq:QResidualOrthogonality">\[
-\mathbb E _Q [X^T (Y-X\beta(Q))]=0. \tag{17}
-\]</span>
-With <span class="math inline">\(Q=P\)</span>, the previous equation yields:</p>
-<p><span class="math display" id="eq:PopulationResidualOrthogonality">\[
-\mathbb E(X^T(Y-X\beta))=0, \tag{18}
-\]</span>
-while setting <span class="math inline">\(Q=\hat P\)</span> we obtain:</p>
-<p><span class="math display" id="eq:SampleResidualOrthogonality">\[
-\mathbf X^T(\mathbf Y - \mathbf X \hat \beta)=0. \tag{19}
-\]</span>
-These orthogonality properties, satisfied by the sample and population residuals respectively, are independent of the actual distribution of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and are simple consequences of the definition of <span class="math inline">\(\beta\)</span>. In particular, if <span class="math inline">\(X\)</span> contains an intercept term, for example <span class="math inline">\(X^1 = 1\)</span>, Eqs. <a href="#eq:PopulationResidualOrthogonality">(18)</a> and <a href="#eq:SampleResidualOrthogonality">(19)</a> imply that population (sample) residuals have vanishing expectation (sample mean).</p>
 <h2 id="related-posts">Related posts</h2>
 <ul>
 <li><a href="https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/">Consistency and bias of OLS estimators</a></li>

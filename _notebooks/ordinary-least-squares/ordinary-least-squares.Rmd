@@ -16,7 +16,7 @@ draft: false
 
 ## Generalities
 
-Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor $\hat Y = X\beta$ of a response $Y \in \mathbb R$ in terms of a vector of regressors $X\in \mathbb R ^p$, which we will frequently identify with an $1\times p$ row matrix. Here, "best" is understood in terms of the $L_2$ error:
+Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor $f^*(X) = X\beta$ of a response $Y \in \mathbb R$ in terms of a vector of regressors $X\in \mathbb R ^p$, which we will frequently identify with an $1\times p$ row matrix. Here, "best" is understood in terms of the $L_2$ error:
 
 $$
 \beta = \arg \min _{\beta '}  \mathbb E[(Y - X\beta ^\prime)^2]=\mathbb E (X^TX)^{-1}\mathbb E(X^T Y), (\#eq:BLP)
@@ -57,7 +57,69 @@ That said, depending on context, \@ref(eq:LinearModel) is usually supplemented w
 
 While the OLS estimator is well-defined irrespective of the validity of any of these models, it is clear that, in order for $\hat \beta$ to represent a meaningful summary of the $Y$-$X$ dependence, one should require at least \@ref(eq:LinearModel) to hold in some approximate sense. Correspondingly, while some general features of $\hat \beta$ can be discussed independently of linear model assumptions, its most important properties crucially depend on Eq. \@ref(eq:LinearModel).
 
+## Properties of best linear predictors {#prop-blp}
+
+Consider the best linear predictor $f*(X) = X\beta$, with $\beta$ defined as in 
+Eq. \@ref(eq:BLP). We usually assume that the covariate vector $X$ contains an 
+intercept term, that is $X=\begin{pmatrix}1 & \widetilde X\end{pmatrix}$ for
+some $p-1$ dimensional random vector $\widetilde X$. The presence of an 
+intercept term leads to $f^*(X)$ having a bunch of nice properties, such as 
+being unconditionally unbiased ($\mathbb E(Y-f^*(X))=0$), as we show below.
+
+Let us decompose 
+$\beta = \begin{pmatrix}\beta_0 & \widetilde \beta\end{pmatrix}$, where 
+$\beta _0\in \mathbb R$ is the intercept term, and 
+$\widetilde beta \in \mathbb R^{p-1}$ is the coefficient of $\widetilde X$. 
+We can easily prove that:
+
+$$
+\begin{split}
+\widetilde \beta  &=
+\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y),\\
+\beta _0  &= \mathbb E(Y)-\mathbb E(\widetilde X)\widetilde\beta, 
+\end{split}(\#eq:BLP0)
+$$
+where we denote by $\mathbb V (A,B)$ the covariance matrix of $A$ and $B$, 
+and by $\mathbb V (A)\equiv \mathbb V (A,A)$. These expressions can be used to 
+recast the error term as:
+
+$$
+Y-X\beta = (Y-\mathbb E(Y))-(\widetilde X-\mathbb E(\widetilde X))\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y)(\#eq:BLPErrorTerm).
+$$
+
+From this expression we can easily find the first two moments:
+
+$$
+\begin{split}
+\mathbb E(Y-X\beta)&=0,\\
+\mathbb E((Y-X\beta)^2)&=\mathbb V(Y)-\mathbb V(\widetilde X,Y)^T\mathbb V(\widetilde X)^{-1}\mathbb V(\widetilde X,Y), 
+\end{split}(\#eq:BLPExpectedError)
+$$
+
+In particular, as anticipated the best linear predictor is unconditionally 
+unbiased. More generally, from Eq. \@ref(eq:BLPErrorTerm) it follows one has: 
+
+$$
+\mathbb E(X^T(Y-X\beta))=0(\#eq:OrthogonalityErrorTerm),
+$$
+which, since $\mathbb E(Y-X\beta) = 0$, can also be interpreted as
+saying that the error term $Y-X\beta$ and the covariate vector $X$ are 
+uncorrelated.
+
 ## Properties of OLS estimates
+
+### Algebraic properties
+
+These are simple consequences of the results for the best linear predictor 
+discussed in the previous Section. Notice that, since no result there 
+depends on the particular probability measure to which expectations refer to, we
+can replace all expectations with sample means. Thus, Eq. 
+\@ref(eq:OrthogonalityErrorTerm) translates to:
+
+$$
+\frac{1}{N}\mathbf X^T(\mathbf Y-\mathbf X\hat \beta)=0(\#eq:OrthogonalitySampleResiduals),
+$$
+which implies in particular that sample residuals have vanishing sample means.
 
 ### Distributional properties of $\hat \beta$
 
@@ -136,33 +198,6 @@ $$
 \mathbb E\left[s^2\right]=\frac{N-p}{N}\sigma^2 \quad(\text{Homoskedastic linear model}), (\#eq:VarianceEstimateHomo)
 $$
 where $p = \text {Tr}(\mathbf H)$ is the number of independent covariates. On the other hand, if homoskedasticity holds, but $E(\mathbf Y \vert \mathbf X)$ is not linear, the left-hand side of the previous equation is an overestimate of $\mathbf V \vert X$. 
-
-### More on residuals
-
-In order to study the properties of residuals, it is convenient to define the functional:
-
-$$
-\beta (Q) \equiv \arg \min _{\beta '}  \mathbb E_Q[(Y - X\beta ^\prime)^2]=\mathbb E_Q (X^TX)^{-1}\mathbb E_Q(X^T Y), (\#eq:BetaQ)
-$$
-
-which depends on the arbitrary measure $Q$. If $Q=P$ is the original joint $XY$ probability measure, we get $\beta(P) \equiv \beta$ as defined by Eq. \@ref(eq:BLP), whereas if $Q = \hat P$ is the empirical $XY$ distribution, we get $\beta (\hat P) \equiv \hat \beta$ of Eq. \@ref(eq:OLS).
-
-From the definition it easily follows that:
-
-$$
-\mathbb E _Q [X^T (Y-X\beta(Q))]=0. (\#eq:QResidualOrthogonality)
-$$
-With $Q=P$, the previous equation yields:
-
-$$
-\mathbb E(X^T(Y-X\beta))=0, (\#eq:PopulationResidualOrthogonality)
-$$
-while setting $Q=\hat P$ we obtain:
-
-$$
-\mathbf X^T(\mathbf Y - \mathbf X \hat \beta)=0. (\#eq:SampleResidualOrthogonality)
-$$
-These orthogonality properties, satisfied by the sample and population residuals respectively, are independent of the actual distribution of $X$ and $Y$, and are simple consequences of the definition of $\beta$. In particular, if $X$ contains an intercept term, for example $X^1 = 1$, Eqs. \@ref(eq:PopulationResidualOrthogonality) and \@ref(eq:SampleResidualOrthogonality) imply that population (sample) residuals have vanishing expectation (sample mean).
 
 ## Related posts
 

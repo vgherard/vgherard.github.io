@@ -678,7 +678,7 @@ class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/div&gt;</description>
       <distill:md5>b23eab3a239ec49cf932769538e2531d</distill:md5>
       <guid>https://vgherard.github.io/notebooks/exponential-dispersion-models</guid>
-      <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 07 Mar 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Bootstrap</title>
@@ -692,9 +692,315 @@ class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <title>Ordinary Least Squares</title>
       <dc:creator>Valerio Gherardi</dc:creator>
       <link>https://vgherard.github.io/notebooks/ordinary-least-squares</link>
-      <description>Ordinary Least Squares</description>
+      <description>
+
+
+&lt;h2 id="generalities"&gt;Generalities&lt;/h2&gt;
+&lt;p&gt;Ordinary Least Squares (OLS) is a regression algorithm for estimating
+the best linear predictor &lt;span class="math inline"&gt;\(f^*(X) =
+X\beta\)&lt;/span&gt; of a response &lt;span class="math inline"&gt;\(Y \in \mathbb
+R\)&lt;/span&gt; in terms of a vector of regressors &lt;span
+class="math inline"&gt;\(X\in \mathbb R ^p\)&lt;/span&gt;, which we will
+frequently identify with an &lt;span class="math inline"&gt;\(1\times
+p\)&lt;/span&gt; row matrix. Here, “best” is understood in terms of the &lt;span
+class="math inline"&gt;\(L_2\)&lt;/span&gt; error:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\beta = \arg \min _{\beta &amp;#39;}  \mathbb E[(Y - X\beta
+^\prime)^2]=\mathbb E (X^TX)^{-1}\mathbb E(X^T Y), (\#eq:BLP)
+\]&lt;/span&gt; where the first equation is the defining one, while the second
+one follows from elementary calculus.&lt;/p&gt;
+&lt;p&gt;Given i.i.d. data &lt;span
+class="math inline"&gt;\(\{(X_i,\,Y_i)\}_{i=1,\,2,\,\dots,\,N}\)&lt;/span&gt;,
+and denoting by &lt;span class="math inline"&gt;\(\mathbf Y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\mathbf X\)&lt;/span&gt; the &lt;span
+class="math inline"&gt;\(N\times 1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(N\times p\)&lt;/span&gt; matrices obtained by vertically
+stacking independent observations of &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;, respectively, the OLS estimate of
+@ref(eq:BLP) is defined by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\hat \beta = \arg \min _{\beta &amp;#39;}  \sum _{i=1} ^N \frac{1}{N}(Y_i -
+X_i\beta ^\prime)^2 = (\mathbf X ^T \mathbf X) ^{-1} \mathbf X ^T
+\mathbf Y, (\#eq:OLS)
+\]&lt;/span&gt; which is readily recognized to be the plugin estimate of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt;. Correspondingly, we define the OLS
+predictor:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\hat Y (x) = x \hat \beta. (\#eq:OLSPredictor)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;What motivates the use of an &lt;span class="math inline"&gt;\(L_2\)&lt;/span&gt;
+criterion in @ref(eq:BLP)?&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Mathematical tractability.&lt;/em&gt; The fact that @ref(eq:BLP)
+admits a closed form solution, which is furthermore linear in the
+response variable &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;, greatly
+simplifies the analysis of the properties of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt; and its estimators such as the OLS
+one @ref(eq:OLS), making it a perfect study case.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Numerical tractability.&lt;/em&gt; A consequence of the previous
+point, but worth a separate mention. Computing the plugin estimate in
+@ref(eq:OLS) is just a matter of basic linear algebra manipulations,
+which, with modern software libraries, is a relatively cheap
+operation.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Normal theory.&lt;/em&gt; Focusing on the consequence of Eq.
+@ref(eq:BLP), namely the plugin estimate @ref(eq:OLS), if the
+conditional distribution of &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; given
+&lt;span class="math inline"&gt;\(X\)&lt;/span&gt; is normal with constant variance,
+and if &lt;span class="math inline"&gt;\(\mathbb E(Y\vert X)\)&lt;/span&gt; is truly
+linear, &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt; coincides with the
+maximum likelihood estimate of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="the-linear-model"&gt;The linear model&lt;/h2&gt;
+&lt;p&gt;The term generally refers to a model for the conditional distribution
+of &lt;span class="math inline"&gt;\(Y\vert X\)&lt;/span&gt; that requires the
+conditional mean &lt;span class="math inline"&gt;\(\mathbb E(Y\vert
+X)\)&lt;/span&gt; to be a linear function of &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;. In its most parsimonious form, this is
+just:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+Y = X \beta + \varepsilon, \quad \mathbb E(\varepsilon\vert X) =
+0.(\#eq:LinearModel)
+\]&lt;/span&gt; That said, depending on context, @ref(eq:LinearModel) is
+usually supplemented with additional assumptions that further
+characterise the conditional distribution of the error term&lt;a
+href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, typically
+(with increasing strength of assumptions):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Constant Variance.&lt;/em&gt; &lt;span class="math inline"&gt;\(\mathbb
+V(\varepsilon \vert X) = \sigma ^2\)&lt;/span&gt;, independently of &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;span class="math inline"&gt;\(X\)&lt;/span&gt;-Independent Errors.&lt;/em&gt;
+&lt;span class="math inline"&gt;\(\varepsilon \perp X\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Normal Errors.&lt;/em&gt; &lt;span class="math inline"&gt;\(\varepsilon
+\vert X \sim \mathcal N (0,\sigma ^2)\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;While the OLS estimator is well-defined irrespective of the validity
+of any of these models, it is clear that, in order for &lt;span
+class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; to represent a meaningful
+summary of the &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;-&lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; dependence, one should require at least
+@ref(eq:LinearModel) to hold in some approximate sense. Correspondingly,
+while some general features of &lt;span class="math inline"&gt;\(\hat
+\beta\)&lt;/span&gt; can be discussed independently of linear model
+assumptions, its most important properties crucially depend on Eq.
+@ref(eq:LinearModel).&lt;/p&gt;
+&lt;h2 id="prop-blp"&gt;Properties of best linear predictors&lt;/h2&gt;
+&lt;p&gt;Consider the best linear predictor &lt;span class="math inline"&gt;\(f*(X)
+= X\beta\)&lt;/span&gt;, with &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt;
+defined as in Eq. @ref(eq:BLP). We usually assume that the covariate
+vector &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; contains an intercept
+term, that is &lt;span class="math inline"&gt;\(X=\begin{pmatrix}1 &amp;amp;
+\widetilde X\end{pmatrix}\)&lt;/span&gt; for some &lt;span
+class="math inline"&gt;\(p-1\)&lt;/span&gt; dimensional random vector &lt;span
+class="math inline"&gt;\(\widetilde X\)&lt;/span&gt;. The presence of an
+intercept term leads to &lt;span class="math inline"&gt;\(f^*(X)\)&lt;/span&gt;
+having a bunch of nice properties, such as being unconditionally
+unbiased (&lt;span class="math inline"&gt;\(\mathbb E(Y-f^*(X))=0\)&lt;/span&gt;),
+as we show below.&lt;/p&gt;
+&lt;p&gt;Let us decompose &lt;span class="math inline"&gt;\(\beta =
+\begin{pmatrix}\beta_0 &amp;amp; \widetilde \beta\end{pmatrix}\)&lt;/span&gt;,
+where &lt;span class="math inline"&gt;\(\beta _0\in \mathbb R\)&lt;/span&gt; is the
+intercept term, and &lt;span class="math inline"&gt;\(\widetilde beta \in
+\mathbb R^{p-1}\)&lt;/span&gt; is the coefficient of &lt;span
+class="math inline"&gt;\(\widetilde X\)&lt;/span&gt;. We can easily prove
+that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\widetilde \beta  &amp;amp;=
+\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y),\\
+\beta _0  &amp;amp;= \mathbb E(Y)-\mathbb E(\widetilde X)\widetilde\beta,
+\end{split}(\#eq:BLP0)
+\]&lt;/span&gt; where we denote by &lt;span class="math inline"&gt;\(\mathbb V
+(A,B)\)&lt;/span&gt; the covariance matrix of &lt;span
+class="math inline"&gt;\(A\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(B\)&lt;/span&gt;, and by &lt;span
+class="math inline"&gt;\(\mathbb V (A)\equiv \mathbb V (A,A)\)&lt;/span&gt;.
+These expressions can be used to recast the error term as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+Y-X\beta = (Y-\mathbb E(Y))-(\widetilde X-\mathbb E(\widetilde
+X))\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde
+X,Y)(\#eq:BLPErrorTerm).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;From this expression we can easily find the first two moments:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb E(Y-X\beta)&amp;amp;=0,\\
+\mathbb E((Y-X\beta)^2)&amp;amp;=\mathbb V(Y)-\mathbb V(\widetilde
+X,Y)^T\mathbb V(\widetilde X)^{-1}\mathbb V(\widetilde X,Y),
+\end{split}(\#eq:BLPExpectedError)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In particular, as anticipated the best linear predictor is
+unconditionally unbiased. More generally, from Eq. @ref(eq:BLPErrorTerm)
+it follows one has:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E(X^T(Y-X\beta))=0(\#eq:OrthogonalityErrorTerm),
+\]&lt;/span&gt; which, since &lt;span class="math inline"&gt;\(\mathbb E(Y-X\beta) =
+0\)&lt;/span&gt;, can also be interpreted as saying that the error term &lt;span
+class="math inline"&gt;\(Y-X\beta\)&lt;/span&gt; and the covariate vector &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; are uncorrelated.&lt;/p&gt;
+&lt;h2 id="properties-of-ols-estimates"&gt;Properties of OLS estimates&lt;/h2&gt;
+&lt;h3 id="algebraic-properties"&gt;Algebraic properties&lt;/h3&gt;
+&lt;p&gt;These are simple consequences of the results for the best linear
+predictor discussed in the previous Section. Notice that, since no
+result there depends on the particular probability measure to which
+expectations refer to, we can replace all expectations with sample
+means. Thus, Eq. @ref(eq:OrthogonalityErrorTerm) translates to:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\frac{1}{N}\mathbf X^T(\mathbf Y-\mathbf X\hat
+\beta)=0(\#eq:OrthogonalitySampleResiduals),
+\]&lt;/span&gt; which implies in particular that sample residuals have
+vanishing sample means.&lt;/p&gt;
+&lt;h3 id="distributional-properties-of-hat-beta"&gt;Distributional properties
+of &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;As an estimator of &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt; as
+defined in Eq. @ref(eq:BLP), the OLS estimator &lt;span
+class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; is consistent (converges in
+probability to &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt;) but generally
+biased (an example is provided &lt;a
+href="https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/"&gt;here&lt;/a&gt;).
+However, due to the plugin nature of &lt;span class="math inline"&gt;\(\hat
+\beta\)&lt;/span&gt;, the bias is generally of order &lt;span
+class="math inline"&gt;\(\mathcal O (N^{-1})\)&lt;/span&gt;, which makes it often
+negligible in comparison to its &lt;span class="math inline"&gt;\(\mathcal
+O(N^{-1/2})\)&lt;/span&gt; sampling variability (see below).&lt;/p&gt;
+&lt;p&gt;Explicitly, the bias is given by: &lt;span class="math display"&gt;\[
+\mathbb E(\hat \beta) - \beta = \mathbb E\lbrace((\mathbf X ^T \mathbf
+X) ^{-1}-\mathbb E[(\mathbf X ^T \mathbf X) ^{-1}])\cdot \mathbf X ^T f
+(\mathbf X)\rbrace, (\#eq:BiasOLS)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(f(X) \equiv \mathbb E(Y
+\vert X)\)&lt;/span&gt; is the true conditional mean function. In general,
+this vanishes only if &lt;span class="math inline"&gt;\(f(X)=X\beta\)&lt;/span&gt;,
+as in the linear expectation model @ref(eq:LinearModel).&lt;/p&gt;
+&lt;p&gt;The &lt;span class="math inline"&gt;\(\mathbf X\)&lt;/span&gt;-conditional
+variance of &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; can be
+derived directly from Eq. @ref(eq:OLS):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1}
+\mathbf X ^T  \mathbb V (\mathbf Y\vert \mathbf X) \mathbf X (\mathbf X
+^T \mathbf X), (\#eq:VarBetaHatCond)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\mathbb V (\mathbf Y\vert
+\mathbf X)\)&lt;/span&gt; is diagonal for i.i.d. observations. For
+homoskedastic errors we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb V (\hat \beta \vert \mathbf X)=(\mathbf X ^T \mathbf X) ^{-1}
+\sigma ^2 \quad (\mathbb V(Y\vert X)=\sigma
+^2).\  (\#eq:VarBetaHatCondHomo)
+\]&lt;/span&gt; Under the normal linear model, this allows to obtain
+finite-sample correct confidence sets for &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt;. In the general case, confidence
+sets can be derived from the Central Limit Theorem satisfied by &lt;span
+class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; &lt;span class="citation"&gt;(Buja
+et al. 2019)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\sqrt N (\hat \beta -\beta) \to \mathcal N (0,V ) (\#eq:CLTBetaHat)
+\]&lt;/span&gt; where the asymptotic variance is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+V = \mathbb E[X^TX] ^{-1} \cdot \mathbb E[X^T(Y-X\beta)^2X] \cdot
+\mathbb E[X^TX] ^{-1}.(\#eq:AsyVarBetaHat)
+\]&lt;/span&gt; The plugin estimate of @ref(eq:AsyVarBetaHat) leads to the so
+called Sandwich variance estimator:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf
+{r^2}\mathbf X (\mathbf X^T \mathbf X)^{-1},(\#eq:SandwichEstimate)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(D_{\mathbf r^2}\)&lt;/span&gt; is
+the diagonal matrix whose &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;-th
+entry is the squared residual &lt;span class="math inline"&gt;\(r_i ^2 =
+(Y_i-X_i\beta)^2\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h5 id="proof-of-central-limit-theorem-for-hat-beta"&gt;Proof of Central
+Limit Theorem for &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt;&lt;/h5&gt;
+&lt;p&gt;Convergence to the normal distribution @ref(eq:CLTBetaHat) with
+variance @ref(eq:AsyVarBetaHat) can be proved using the formalism of
+influence functions. From Eq. @ref(eq:BLP), we see that a small
+variation &lt;span class="math inline"&gt;\(P\to P+\delta P\)&lt;/span&gt; to the
+joint &lt;span class="math inline"&gt;\(XY\)&lt;/span&gt; probability measure
+induces a first order shift:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text
+d(\delta P)(\#eq:BetaDifferential)
+\]&lt;/span&gt; in the best linear predictor. The influence function of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt; is defined by the measurable
+representation of &lt;span class="math inline"&gt;\(\delta \beta\)&lt;/span&gt;,
+namely:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X).
+(\#eq:BetaInfluenceFunction)
+\]&lt;/span&gt; A general result for plugin estimates then tells us that &lt;span
+class="math inline"&gt;\(\sqrt N (\hat \beta -\beta) \to \mathcal N (0,
+\mathbb E (\phi _\beta ^2))\)&lt;/span&gt; in distribution, and using the
+explicit form of @ref(eq:BetaInfluenceFunction) we readily obtain
+@ref(eq:AsyVarBetaHat).&lt;/p&gt;
+&lt;h3 id="variance-estimates"&gt;Variance estimates&lt;/h3&gt;
+&lt;p&gt;These can be based on:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+s ^2 = \frac{1}{N}(\mathbf Y-\mathbf X \hat \beta)^T(\mathbf Y-\mathbf X
+\hat \beta)
+\]&lt;/span&gt; which has expectation&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E\left[s^2\right]=\frac{1}{N}\text {Tr}\,\mathbb E \left[
+(1-\mathbf H) \cdot \left(\mathbb E(\mathbf Y \vert \mathbf X)\mathbb
+E(\mathbf Y \vert \mathbf X)^T + \mathbb V(\mathbf Y\vert\mathbf
+X)\right) \right] (\#eq:ExpectedInSampleError)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where the hat matrix &lt;span class="math inline"&gt;\(\mathbf H\)&lt;/span&gt;
+is defined as usual:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbf H \equiv \mathbf X(\mathbf X^T\mathbf X)^{-1}\mathbf
+X^T(\#eq:HatMatrix)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If the general linear model @ref(eq:LinearModel) holds, so that &lt;span
+class="math inline"&gt;\(E(\mathbf Y \vert \mathbf X) = \mathbf X
+\beta\)&lt;/span&gt;, we have &lt;span class="math inline"&gt;\((1-\mathbf H)
+\mathbb E(\mathbf Y \vert \mathbf X) = 0\)&lt;/span&gt;. If we furthermore
+assume homoskedasticity, we obtain:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E\left[s^2\right]=\frac{N-p}{N}\sigma^2
+\quad(\text{Homoskedastic linear model}), (\#eq:VarianceEstimateHomo)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(p = \text {Tr}(\mathbf
+H)\)&lt;/span&gt; is the number of independent covariates. On the other hand,
+if homoskedasticity holds, but &lt;span class="math inline"&gt;\(E(\mathbf Y
+\vert \mathbf X)\)&lt;/span&gt; is not linear, the left-hand side of the
+previous equation is an overestimate of &lt;span
+class="math inline"&gt;\(\mathbf V \vert X\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h2 id="related-posts"&gt;Related posts&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a
+href="https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/"&gt;Consistency
+and bias of OLS estimators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a
+href="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/"&gt;Model
+misspecification and linear sandwiches&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a
+href="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/"&gt;Linear
+regression with autocorrelated noise&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a
+href="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/"&gt;Testing
+functional specification in linear regression&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-buja2019models" class="csl-entry"&gt;
+Buja, Andreas, Richard Berk, Lawrence Brown, Edward George, Emil Pitkin,
+Mikhail Traskin, Linda Zhao, and Kai Zhang. 2019. &lt;span&gt;“Models as
+Approximations i: Consequences Illustrated with Linear
+Regression.”&lt;/span&gt; &lt;a
+href="https://arxiv.org/abs/1404.1578"&gt;https://arxiv.org/abs/1404.1578&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;I use the notation &lt;span class="math inline"&gt;\(A\perp
+B\)&lt;/span&gt; to indicate that the random variables &lt;span
+class="math inline"&gt;\(A\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(B\)&lt;/span&gt; are statistically independent.&lt;a
+href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>639b544ad1bc9e40504b8cb76a6eccf1</distill:md5>
       <guid>https://vgherard.github.io/notebooks/ordinary-least-squares</guid>
-      <pubDate>Wed, 07 Feb 2024 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 06 Feb 2024 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>
