@@ -1,0 +1,256 @@
+---
+title: "Capture-Recapture Models"
+description: |
+  A short description of the post.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-03-25
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+draft: true
+---
+
+## Mathematical formulation
+
+We consider a collection $\mathcal H =(H^{(i)})_{i=1,\,2,\,\dots,\,N}$ of binary 
+strings $H^{(i)} = H^{(i)}_1H^{(i)}_2\cdots H^{(i)}_T$ of fixed length $T$, 
+which we will refer to as *encounter histories*. We will assume that 
+$\mathcal H$ can be regarded as a random sample from some underlying population 
+$\mathscr H$ - or, in other words, that the $H^{(i)}$'s can be regarded as 
+independent and identically distributed random variables. Intuitively, 
+$H^{(i)}$ represents the actual encounter history of an individual 
+$i$ released at $t = 0$, at occasions $t =1,\,2,\,\dots,\,T$. Histories of 
+individuals released at different times are also assumed to be independent, 
+though not necessarily identically distributed.
+
+To concretize the mechanism generating encounter histories $H^{(i)}$, we 
+assume the existence of i.i.d. random integers $\Theta ^{(i)}\in \{0,\,T\}$, 
+such that $H^{(i)}_t=0$ for $t\geq \Theta^{(i)}$. The pairs 
+$(H^{(i)},\,\Theta^{(i)})$ are also assumed to be i.i.d. - the 
+$H^{(i)}$'s being stochastic functions of the corresponding $\Theta ^{(i)}$'s.
+The latent variables $\Theta ^{(i)}$ are meant to represent the actual lifetimes 
+of the respective individuals.
+
+Let $H$ and $\Theta$ represent such a random encounter history and 
+corresponding lifetime, respectively. For $h\in \{0,\,1\}^T$, denoting by 
+$\nu(h)=\max \{t\,\colon h_t=1\}$, the probability of observing $h$ is:
+
+$$
+\text{Pr}(H=h)=\sum _{t = \nu(h)}^T \text{Pr}(H=h\vert \Theta =t)\cdot\text{Pr}(\Theta=t),
+$$
+since $\text{Pr}(H=h\vert \Theta =t)=0$ for $t<\nu(h)$. If we now *define*:
+
+$$
+\Phi _{t\leftarrow t-1} = \text{Pr}(\Theta \geq t\vert \Theta \geq t-1)
+$$
+we have:
+
+$$
+\text{Pr}(H=h)=\sum _{t = \nu(h)}^T \text{Pr}(H=h\vert \Theta =t)\cdot(1-\Phi _{t+1\leftarrow t})\cdot\prod _{\theta=1}^t\Phi_{\theta\leftarrow \theta-1},
+$$
+where we make the convention that $\Phi _{T+1 \leftarrow T} = 0$. Finally, we 
+can decompose: 
+
+$$
+\text{Pr}(H=h\vert \Theta =t)=\prod _{\theta=1}^t \text {Pr}(H_{\theta}=h_{\theta}\vert H_{1}^{\theta-1}=h_1^{\theta-1},\,\Theta=t),
+$$
+where $H_1^{t-1}=h_1h_2\cdots h_{t-1}$. Putting everything together, we finally
+obtain:
+
+$$
+\text{Pr}(H=h)=\sum _{t = \nu(h)}^T (1-\Phi _{t+1\leftarrow t})\cdot\prod _{\theta=1}^t\left[ \text {Pr}(H_{\theta}=h_{\theta}\vert H_{1}^{\theta-1}=h_1^{\theta-1},\,\Theta=t)\Phi_{\theta\leftarrow \theta-1} \,\right]
+$$
+Notice that, up to now, we have only used the definition of conditional 
+probability to express the likelihood of a capture history in terms of survival 
+probabilities $\phi_i$, and conditional capture probabilities.
+
+We now come to the crucial assumptions of capture-recapture modeling:
+
+1. The capture probability at some instant of time $\theta$ is (conditionally) 
+independent of previous capture history:
+
+$$
+\text{Pr}(H_{\theta}=h_{\theta}\vert H_{1}^{\theta-1}=h_1^{\theta-1},\,\Theta=t)=\text{Pr}(H_{\theta}=h_{\theta}\vert \,\Theta=t)
+$$
+2. Capture probabilities are (conditionally) independent of future survival 
+history:
+
+$$
+\text{Pr}(H_{\theta}=h_{\theta}\vert H_{1}^{\theta-1}=h_1^{\theta-1},\,\Theta=t)=\text{Pr}(H_{\theta}=h_{\theta}\vert H_{1}^{\theta-1}=h_1^{\theta-1},\,\Theta\geq \theta )
+
+$$
+If both assumptions hold, we obtain:
+
+$$
+\text{Pr}(H_{\theta}=h_{\theta}\vert H_{1}^{\theta-1}=h_1^{\theta-1},\,\Theta=t)=\text{Pr}(H_{\theta}=h_{\theta}\vert \Theta\geq \theta ).
+$$
+In this case, denoting:
+
+$$
+p_{\theta}\equiv \text{Pr}(H_{\theta}=1\vert \Theta\geq \theta )
+$$
+we have
+
+$$
+\text{Pr}(H=h)=\sum _{t = \nu(h)}^T (1-\Phi _{t+1\leftarrow t})\cdot\prod _{\theta=1}^tp_{\theta}^{h_\theta}(1-p_{\theta})^{1-h_{\theta}}\Phi_{\theta\leftarrow \theta-1}.
+$$
+This is precisely the parametrization of the CJS model for a single cohort of 
+individuals released at $t = 0$. We see that such a parametrization is valid 
+independently of (unrealistic) homogeneity assumptions on survival 
+probabilities. On the other hand, capture rates of alive individuals at a given 
+instant are required to be independent of past capture histories and of future 
+survival, which are non-trivial assumptions.
+
+The assumptions may be tested with $T \geq 3$ recaptures. Under model ..., if 
+$N_h$ denotes the number of histories $h$ in a sample of $N$ total histories, 
+we have:
+
+$$
+\dfrac{\mathbb E(N_{011})}{\mathbb E(N_{001})}=\frac{p_2}{1-p_2}=\dfrac{\mathbb E(N_{111})}{\mathbb E(N_{101})}
+$$
+and:
+
+$$
+\dfrac{\mathbb E(N_{110})}{\mathbb E(N_{010})}=\frac{p_1}{1-p_1}=\dfrac{\mathbb E(N_{111})}{\mathbb E(N_{011})}
+$$
+This suggests the definitions:
+
+$$
+A = N_{111}N_{001}-N_{011}N_{101},\qquad B=N_{111}N_{010}-N_{110}N_{011} 
+$$
+which have both vanishing expected values, and variances given by:
+
+$$
+\begin{split}
+\dfrac{\mathbb{V}(A)}{N(N-1)} &=(N-2)(N-3)(\pi_{111}^2\pi_{001}^2+\pi_{011}^2\pi_{101}^2-\pi_{111}\pi_{001}\pi_{011}\pi_{101})+\\
+&+(N-2)[\pi _{111}\pi_{001}(\pi_{111}+\pi_{001})+\pi _{011}\pi_{101}(\pi_{011}+\pi_{101})]\\
+&+\pi_{111}\pi_{001} + \pi_{011}\pi_{101},\\
+\dfrac{\mathbb{V}(B)}{N(N-1)} &=(N-2)(N-3)(\pi_{111}^2\pi_{010}^2+\pi_{110}^2\pi_{011}^2-\pi_{111}\pi_{010}\pi_{110}\pi_{011})+\\
+&+(N-2)[\pi _{111}\pi_{010}(\pi_{111}+\pi_{010})+\pi _{110}\pi_{011}(\pi_{110}+\pi_{011})]\\
+&+\pi_{111}\pi_{010} + \pi_{110}\pi_{011}.\\
+\end{split}
+$$
+A plugin estimate of variances can be readily obtained by substituting 
+$\pi _{xyz}\to N_{xyz} / N$. Notice that the first lines are zero if we assume 
+the CJS model.
+
+A positive (negative) value of $A$ may indicate a positive (negative) 
+correlation between present and past captures. Similarly, a positive (negative) 
+value of $B$ may indicative positive (negative) correlation between capture and 
+survival.
+
+## Goodness of Fit
+
+
+## Relations with age structure
+
+Consider the full age and time dependent model for survival and let $n_{k}(t)$ 
+and $\phi _k(t)$ denote the number of individuals of age $k$ at time $t$, and
+their respective survival probabilities to time $t+1$. Focusing on the adult (
+$k>1$) sector of the population, the age distribution is given by:
+
+$$
+f_k(t)=\frac{n_k(t)}{\sum_{j=1}^\infty n_j(t)}
+$$
+and the mean age is:
+
+$$
+Y(t)= \sum _{k=1}^\infty kf_k(t)=\dfrac{\sum_{k=1}^\infty k \cdot n_k(t)}{\sum_{k=1}^\infty n_k(t)}.
+$$
+For an infinitely large population, we may approximate:
+
+$$
+n_k(t+1) \approx \phi _{k-1}(t)n_{k-1}(t)
+$$
+so that:
+
+$$
+Y(t+1)\approx\dfrac{\sum_{k=0}^\infty (k+1)\,\phi_k (t)n_k(t)}{\sum_{k=0}^\infty \phi_k (t)n_k(t)}.
+$$
+Suppose now that survival probabilities $\phi _k(t)$ are changed by amounts 
+$\delta \phi _k(t)$, with the number of individuals $n_k(t)$ at time $t$ being 
+held constant. The corresponding variation in $Y(t+1)$ is:
+
+$$
+\begin{split}
+\delta Y(t+1) &= \dfrac{\,\sum _{k=0}^\infty n_k(t)(k+1-Y(t+1))\delta\phi_k(t)}{\sum_{k=0}^\infty \phi_k (t)n_k(t)} \\
+& = \sum _{k=1}^\infty f_k(t+1)(k-Y(t+1))\cdot\delta \log \phi_{k-1}(t) \\
+& = [\langle \delta \log \phi_{k-1}(t)k\rangle_{t+1}-\langle \delta \log \phi_{k-1}(t)\rangle_{t+1}\langle k\rangle_{t+1}]
+\end{split}
+$$
+
+where the symbol $\langle \cdot \rangle_{t+1}$ in the last expression denotes an 
+average with respect to the age distribution $f(t+1)$ at time $t+1$. 
+The previous expression is in general hard to constrain in general, and we  
+shall consider a special case in which the change is uniform on some specified 
+scale among the young ($k=1$) and adult ($k>1$) sectors.
+
+##### Uniform changes on the logarithmic scale
+
+Suppose that $\delta \log \phi_k(t)=\delta \log \phi_{1+}(t)$ is constant for 
+$k>0$. Then:
+
+$$
+\delta Y(t+1) = f_{1}(t+1)(Y(t+1)-1)\cdot\delta \log \left(\frac{\phi _{1+}(t)}{\phi_0(t)}\right).
+$$
+The shift in mean age will thus be in the same direction of 
+$\delta \log \left(\frac{\phi _{1+}(t)}{\phi_0(t)}\right)$.
+
+##### Uniform changes on an arbitrary scale
+
+Suppose that $\delta \log \phi_0(t)=G(\phi _0(t))\delta \eta_0$ and 
+$\delta \log \phi_k(t)=G(\phi _k(t))\delta \eta_{1+}$ for $k>0$. 
+This corresponds to uniform 
+changes on some scale $\eta(\phi)$, where 
+$G = \frac{\partial \log \phi}{\partial \eta}$ and we assume $\eta(\phi)$ to be increasing, so that $G(\phi)>0$. The corresponding variation in $Y(t+1)$ is given by:
+
+$$
+\delta Y(t+1)=\delta\eta_{1+}\left[\langle G(\phi_{k-1}(t))k\rangle_{t+1}-\langle G(\phi_{k-1}(t))\rangle_{t+1}\langle k\rangle_{t+1}\right]-(\delta\eta_{0}-\delta\eta_{1+})G(\phi_{0}(t))f_{1}(t+1)
+$$
+
+In particular:
+
+* If $\eta_{1+}=0$ and $\eta_0>0$, the change will always be negative.
+* If $\eta_0 = \eta_{1+}>0$ (a uniform change across age sectors), 
+the change will go in the same direction of the correlation of $G_{k-1}$ with 
+$k$.
+ 
+A very common case is the logit scale $\eta = \log(\frac{\phi}{1-\phi})$, for 
+which $G(\phi) = 1-\phi$ and:
+
+$$
+\delta Y(t+1)=-\delta\eta_{1+}\left[\langle\phi_{k-1}(t)k\rangle_{t+1}-\langle \phi_{k-1}(t)\rangle_{t+1}\langle k\rangle_{t+1}\right]-(\delta\eta_{0}-\delta\eta_{1+})(1-\phi_0(t))f_{1}(t+1).
+$$
+(notice the change of sign in the correlation term). In particular, if 
+$\eta _0 = \eta_{1+} > 0$, the change will go in the opposite direction of the
+correlation of age with survival.
+
+
+
+## References
+
+### General
+
+- [@lebreton1992modeling]. Excellent review on the CJS model and its 
+ramifications. Discusses model selection and goodness-of-fit testing. Presents 
+five case studies using real data.
+
+- [@mccrea2014analysis].
+
+### Model assumptions
+
+- [@pollock1982assumptions]. Studies the effects of heterogeneity in survival
+rates.
+- [@pledger2003open]. Review on CJS model with heterogeneity.
+- [@pollock1985goodness]. Introduces famous Test 2/3 for the CJS model.
+- [@draghici2021understanding]. Studies the effects of pair-bond correlations
+in the CJS model. 
+
+### Software
+
+- [@rmark]
+- [@marked]
+- [@R2ucare]
