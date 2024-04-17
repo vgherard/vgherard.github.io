@@ -695,9 +695,9 @@ class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <description>
 
 
-&lt;h2 id="generalities"&gt;Generalities&lt;/h2&gt;
+&lt;h1 id="generalities"&gt;Generalities&lt;/h1&gt;
 &lt;p&gt;Ordinary Least Squares (OLS) is a regression algorithm for estimating
-the best linear predictor &lt;span class="math inline"&gt;\(f^*(X) =
+the best linear predictor (BLP) &lt;span class="math inline"&gt;\(f^*(X) =
 X\beta\)&lt;/span&gt; of a response &lt;span class="math inline"&gt;\(Y \in \mathbb
 R\)&lt;/span&gt; in terms of a vector of regressors &lt;span
 class="math inline"&gt;\(X\in \mathbb R ^p\)&lt;/span&gt;, which we will
@@ -786,31 +786,32 @@ while some general features of &lt;span class="math inline"&gt;\(\hat
 \beta\)&lt;/span&gt; can be discussed independently of linear model
 assumptions, its most important properties crucially depend on Eq.
 @ref(eq:LinearModel).&lt;/p&gt;
-&lt;h2 id="prop-blp"&gt;Properties of best linear predictors&lt;/h2&gt;
-&lt;p&gt;Consider the best linear predictor &lt;span class="math inline"&gt;\(f*(X)
-= X\beta\)&lt;/span&gt;, with &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt;
-defined as in Eq. @ref(eq:BLP). We usually assume that the covariate
-vector &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; contains an intercept
-term, that is &lt;span class="math inline"&gt;\(X=\begin{pmatrix}1 &amp;amp;
-\widetilde X\end{pmatrix}\)&lt;/span&gt; for some &lt;span
-class="math inline"&gt;\(p-1\)&lt;/span&gt; dimensional random vector &lt;span
-class="math inline"&gt;\(\widetilde X\)&lt;/span&gt;. The presence of an
+&lt;h1 id="properties"&gt;Properties&lt;/h1&gt;
+&lt;h2 id="algebraic-properties-of-blp-and-ols-estimates"&gt;Algebraic
+properties of BLP and OLS estimates&lt;/h2&gt;
+&lt;p&gt;Consider the BLP &lt;span class="math inline"&gt;\(f^*(X) =
+X\beta\)&lt;/span&gt;, with &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt; defined
+as in Eq. @ref(eq:BLP). We usually assume that the covariate vector
+&lt;span class="math inline"&gt;\(X\)&lt;/span&gt; contains an intercept term, that
+is &lt;span class="math display"&gt;\[
+X=\begin{pmatrix}1 &amp;amp; Z\end{pmatrix},\quad Z\in \mathbb R^{p-1}
+(\#eq:XtoZ)
+\]&lt;/span&gt; for some &lt;span class="math inline"&gt;\(p-1\)&lt;/span&gt; dimensional
+random vector &lt;span class="math inline"&gt;\(Z\)&lt;/span&gt;. The presence of an
 intercept term leads to &lt;span class="math inline"&gt;\(f^*(X)\)&lt;/span&gt;
 having a bunch of nice properties, such as being unconditionally
 unbiased (&lt;span class="math inline"&gt;\(\mathbb E(Y-f^*(X))=0\)&lt;/span&gt;),
 as we show below.&lt;/p&gt;
-&lt;p&gt;Let us decompose &lt;span class="math inline"&gt;\(\beta =
-\begin{pmatrix}\beta_0 &amp;amp; \widetilde \beta\end{pmatrix}\)&lt;/span&gt;,
-where &lt;span class="math inline"&gt;\(\beta _0\in \mathbb R\)&lt;/span&gt; is the
-intercept term, and &lt;span class="math inline"&gt;\(\widetilde beta \in
-\mathbb R^{p-1}\)&lt;/span&gt; is the coefficient of &lt;span
-class="math inline"&gt;\(\widetilde X\)&lt;/span&gt;. We can easily prove
-that:&lt;/p&gt;
+&lt;p&gt;Let us decompose &lt;span class="math inline"&gt;\(\beta = \begin{pmatrix}a
+&amp;amp; b\end{pmatrix}\)&lt;/span&gt;, where &lt;span class="math inline"&gt;\(a\in
+\mathbb R\)&lt;/span&gt; is the intercept term, and &lt;span
+class="math inline"&gt;\(b \in \mathbb R^{p-1}\)&lt;/span&gt; is the coefficient
+of &lt;span class="math inline"&gt;\(Z\)&lt;/span&gt;. We can easily prove that:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \begin{split}
-\widetilde \beta  &amp;amp;=
-\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y),\\
-\beta _0  &amp;amp;= \mathbb E(Y)-\mathbb E(\widetilde X)\widetilde\beta,
+b  &amp;amp;=
+\mathbb V (Z)^{-1}\mathbb V(Z,Y),\\
+a  &amp;amp;= \mathbb E(Y)-\mathbb E(Z)b,
 \end{split}(\#eq:BLP0)
 \]&lt;/span&gt; where we denote by &lt;span class="math inline"&gt;\(\mathbb V
 (A,B)\)&lt;/span&gt; the covariance matrix of &lt;span
@@ -819,16 +820,15 @@ class="math inline"&gt;\(B\)&lt;/span&gt;, and by &lt;span
 class="math inline"&gt;\(\mathbb V (A)\equiv \mathbb V (A,A)\)&lt;/span&gt;.
 These expressions can be used to recast the error term as:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-Y-X\beta = (Y-\mathbb E(Y))-(\widetilde X-\mathbb E(\widetilde
-X))\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde
-X,Y)(\#eq:BLPErrorTerm).
+Y-X\beta = (Y-\mathbb E(Y))-(Z-\mathbb E(Z))\mathbb V (Z)^{-1}\mathbb
+V(Z,Y)(\#eq:BLPErrorTerm).
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;From this expression we can easily find the first two moments:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \begin{split}
 \mathbb E(Y-X\beta)&amp;amp;=0,\\
-\mathbb E((Y-X\beta)^2)&amp;amp;=\mathbb V(Y)-\mathbb V(\widetilde
-X,Y)^T\mathbb V(\widetilde X)^{-1}\mathbb V(\widetilde X,Y),
+\mathbb E((Y-X\beta)^2)&amp;amp;=\mathbb V(Y)-\mathbb V(Z,Y)^T\mathbb
+V(Z)^{-1}\mathbb V(Z,Y),
 \end{split}(\#eq:BLPExpectedError)
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;In particular, as anticipated the best linear predictor is
@@ -840,20 +840,22 @@ it follows one has:&lt;/p&gt;
 0\)&lt;/span&gt;, can also be interpreted as saying that the error term &lt;span
 class="math inline"&gt;\(Y-X\beta\)&lt;/span&gt; and the covariate vector &lt;span
 class="math inline"&gt;\(X\)&lt;/span&gt; are uncorrelated.&lt;/p&gt;
-&lt;h2 id="properties-of-ols-estimates"&gt;Properties of OLS estimates&lt;/h2&gt;
-&lt;h3 id="algebraic-properties"&gt;Algebraic properties&lt;/h3&gt;
-&lt;p&gt;These are simple consequences of the results for the best linear
-predictor discussed in the previous Section. Notice that, since no
-result there depends on the particular probability measure to which
-expectations refer to, we can replace all expectations with sample
-means. Thus, Eq. @ref(eq:OrthogonalityErrorTerm) translates to:&lt;/p&gt;
+&lt;p&gt;These properties directly translate to corresponding properties of
+the empirical residuals &lt;span class="math inline"&gt;\(\mathbf Y-\mathbf
+X\hat \beta\)&lt;/span&gt;. Notice that, up to now no result depends on the
+particular probability measure to which expectations refer to. In
+particular, we can choose this measure to be the empirical distribution
+realized in a specific sample, which amounts to replace all expectations
+with sample means. Thus, Eq. @ref(eq:OrthogonalityErrorTerm) translates
+to:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \frac{1}{N}\mathbf X^T(\mathbf Y-\mathbf X\hat
 \beta)=0(\#eq:OrthogonalitySampleResiduals),
 \]&lt;/span&gt; which implies in particular that sample residuals have
 vanishing sample means.&lt;/p&gt;
-&lt;h3 id="distributional-properties-of-hat-beta"&gt;Distributional properties
-of &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt;&lt;/h3&gt;
+&lt;h2 id="distribution-of-coefficient-estimates-hat-beta"&gt;Distribution of
+coefficient estimates &lt;span class="math inline"&gt;\(\hat
+\beta\)&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;As an estimator of &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt; as
 defined in Eq. @ref(eq:BLP), the OLS estimator &lt;span
 class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; is consistent (converges in
@@ -908,30 +910,7 @@ V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf
 the diagonal matrix whose &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;-th
 entry is the squared residual &lt;span class="math inline"&gt;\(r_i ^2 =
 (Y_i-X_i\beta)^2\)&lt;/span&gt;.&lt;/p&gt;
-&lt;h5 id="proof-of-central-limit-theorem-for-hat-beta"&gt;Proof of Central
-Limit Theorem for &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt;&lt;/h5&gt;
-&lt;p&gt;Convergence to the normal distribution @ref(eq:CLTBetaHat) with
-variance @ref(eq:AsyVarBetaHat) can be proved using the formalism of
-influence functions. From Eq. @ref(eq:BLP), we see that a small
-variation &lt;span class="math inline"&gt;\(P\to P+\delta P\)&lt;/span&gt; to the
-joint &lt;span class="math inline"&gt;\(XY\)&lt;/span&gt; probability measure
-induces a first order shift:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text
-d(\delta P)(\#eq:BetaDifferential)
-\]&lt;/span&gt; in the best linear predictor. The influence function of &lt;span
-class="math inline"&gt;\(\beta\)&lt;/span&gt; is defined by the measurable
-representation of &lt;span class="math inline"&gt;\(\delta \beta\)&lt;/span&gt;,
-namely:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X).
-(\#eq:BetaInfluenceFunction)
-\]&lt;/span&gt; A general result for plugin estimates then tells us that &lt;span
-class="math inline"&gt;\(\sqrt N (\hat \beta -\beta) \to \mathcal N (0,
-\mathbb E (\phi _\beta ^2))\)&lt;/span&gt; in distribution, and using the
-explicit form of @ref(eq:BetaInfluenceFunction) we readily obtain
-@ref(eq:AsyVarBetaHat).&lt;/p&gt;
-&lt;h3 id="variance-estimates"&gt;Variance estimates&lt;/h3&gt;
+&lt;h2 id="variance-estimates"&gt;Variance estimates&lt;/h2&gt;
 &lt;p&gt;These can be based on:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 s ^2 = \frac{1}{N}(\mathbf Y-\mathbf X \hat \beta)^T(\mathbf Y-\mathbf X
@@ -963,7 +942,83 @@ if homoskedasticity holds, but &lt;span class="math inline"&gt;\(E(\mathbf Y
 \vert \mathbf X)\)&lt;/span&gt; is not linear, the left-hand side of the
 previous equation is an overestimate of &lt;span
 class="math inline"&gt;\(\mathbf V \vert X\)&lt;/span&gt;.&lt;/p&gt;
-&lt;h2 id="related-posts"&gt;Related posts&lt;/h2&gt;
+&lt;h1 id="measurement-error"&gt;Measurement error&lt;/h1&gt;
+&lt;p&gt;Suppose that, rather than the variables of interest &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;, we can only observe noisy
+versions:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\widetilde Y = Y+\delta_Y,\qquad \widetilde Z=Z+\delta
+_Z(\#eq:NoisyYandZ)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class="math inline"&gt;\(X=\begin{pmatrix}1 &amp;amp;
+Z\end{pmatrix}\)&lt;/span&gt; as in Eq. @ref(eq:XtoZ). We are truly interested
+in &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt; defined by Eq.
+@ref(eq:BLP), but OLS will actually estimate &lt;span
+class="math inline"&gt;\(\widetilde \beta =\begin{pmatrix}\widetilde a
+&amp;amp; \widetilde b\end{pmatrix}\)&lt;/span&gt;, the coefficient of the BLP of
+&lt;span class="math inline"&gt;\(\widetilde Y\)&lt;/span&gt; in terms of &lt;span
+class="math inline"&gt;\(\widetilde X\)&lt;/span&gt;. Focusing on the slope term
+&lt;span class="math inline"&gt;\(\widetilde b\)&lt;/span&gt;, a comparison with Eq.
+@ref(eq:BLP0) yields:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\widetilde b -b&amp;amp;= \Delta_{\mathbb V(Z)^{-1}}\cdot\mathbb V(Z,Y)
++\mathbb V(Z)^{-1} \cdot \Delta _{\mathbb V(Z,Y)}+\Delta_{\mathbb
+V(Z)^{-1}}\cdot\Delta _{\mathbb V(Z,Y)},\\
+\Delta_{\mathbb V(Z)^{-1}}&amp;amp;=\mathbb V (\widetilde Z)^{-1}-V(Z)^{-1},
+\\
+\Delta _{\mathbb V(Z,Y)} &amp;amp;=\mathbb V(\widetilde Z,\widetilde
+Y)-\mathbb V(Z,Y).
+\end{split}(\#eq:Deltab)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where, explicitly:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb V(\widetilde Z)&amp;amp;=\mathbb V(Z)+\mathbb V(\delta _Z)+2\mathbb
+V(Z,\delta _Z),\\
+\mathbb V(\widetilde Z,\widetilde Y)&amp;amp;=\mathbb V(Z,Y)+\mathbb
+V(\delta _Z,Y)+\mathbb V(\delta _Y,Z)+\mathbb V(\delta _Y,\delta _Z).
+\end{split}(\#eq:DeltaVvsNoise)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The effect on the slope estimate generally depends on the correlation
+structure of signal and noise. In the special case of “totally random”
+noise, that is if &lt;span class="math inline"&gt;\(\delta _Z\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(\delta _Y\)&lt;/span&gt; are independent of each
+other and of &lt;span class="math inline"&gt;\(Z\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt;, we see that the only effect is an
+increase &lt;span class="math inline"&gt;\(\mathbb V(\widetilde Z) = \mathbb
+V(Z)+ \mathbb V(\delta _Z)\)&lt;/span&gt;, which shrinks the slope coefficient
+&lt;span class="math inline"&gt;\(\widetilde b\)&lt;/span&gt; towards zero. In
+particular, if random noise is only present in the response (&lt;span
+class="math inline"&gt;\(\delta _Z = 0\)&lt;/span&gt;), the estimation target is
+unaffected (although the variance of the $b $ estimator is, in
+general).&lt;/p&gt;
+&lt;h1 id="proofs"&gt;Proofs&lt;/h1&gt;
+&lt;h2 id="proof-of-central-limit-theorem-for-hat-beta"&gt;Proof of Central
+Limit Theorem for &lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Convergence to the normal distribution @ref(eq:CLTBetaHat) with
+variance @ref(eq:AsyVarBetaHat) can be proved using the formalism of
+influence functions. From Eq. @ref(eq:BLP), we see that a small
+variation &lt;span class="math inline"&gt;\(P\to P+\delta P\)&lt;/span&gt; to the
+joint &lt;span class="math inline"&gt;\(XY\)&lt;/span&gt; probability measure
+induces a first order shift:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text
+d(\delta P)(\#eq:BetaDifferential)
+\]&lt;/span&gt; in the best linear predictor. The influence function of &lt;span
+class="math inline"&gt;\(\beta\)&lt;/span&gt; is defined by the measurable
+representation of &lt;span class="math inline"&gt;\(\delta \beta\)&lt;/span&gt;,
+namely:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X).
+(\#eq:BetaInfluenceFunction)
+\]&lt;/span&gt; A general result for plugin estimates then tells us that &lt;span
+class="math inline"&gt;\(\sqrt N (\hat \beta -\beta) \to \mathcal N (0,
+\mathbb E (\phi _\beta ^2))\)&lt;/span&gt; in distribution, and using the
+explicit form of @ref(eq:BetaInfluenceFunction) we readily obtain
+@ref(eq:AsyVarBetaHat).&lt;/p&gt;
+&lt;h1 id="related-posts"&gt;Related posts&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a
 href="https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/"&gt;Consistency

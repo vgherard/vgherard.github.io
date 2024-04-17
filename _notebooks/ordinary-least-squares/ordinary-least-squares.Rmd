@@ -5,18 +5,19 @@ author:
     url: https://vgherard.github.io
 date: 2024-02-07
 output:
-  distill::distill_article:
-    self_contained: false
+  bookdown::html_document2:
+    base_format: distill::distill_article
     toc: true
     toc_depth: 3
+    pandoc_args: ["--number-sections"]
 bibliography: biblio.bib
 draft: false
 
 ---
 
-## Generalities
+# Generalities
 
-Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor $f^*(X) = X\beta$ of a response $Y \in \mathbb R$ in terms of a vector of regressors $X\in \mathbb R ^p$, which we will frequently identify with an $1\times p$ row matrix. Here, "best" is understood in terms of the $L_2$ error:
+Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor (BLP) $f^*(X) = X\beta$ of a response $Y \in \mathbb R$ in terms of a vector of regressors $X\in \mathbb R ^p$, which we will frequently identify with an $1\times p$ row matrix. Here, "best" is understood in terms of the $L_2$ error:
 
 $$
 \beta = \arg \min _{\beta '}  \mathbb E[(Y - X\beta ^\prime)^2]=\mathbb E (X^TX)^{-1}\mathbb E(X^T Y), (\#eq:BLP)
@@ -57,26 +58,31 @@ That said, depending on context, \@ref(eq:LinearModel) is usually supplemented w
 
 While the OLS estimator is well-defined irrespective of the validity of any of these models, it is clear that, in order for $\hat \beta$ to represent a meaningful summary of the $Y$-$X$ dependence, one should require at least \@ref(eq:LinearModel) to hold in some approximate sense. Correspondingly, while some general features of $\hat \beta$ can be discussed independently of linear model assumptions, its most important properties crucially depend on Eq. \@ref(eq:LinearModel).
 
-## Properties of best linear predictors {#prop-blp}
+# Properties
 
-Consider the best linear predictor $f*(X) = X\beta$, with $\beta$ defined as in 
+## Algebraic properties of BLP and OLS estimates
+
+Consider the BLP $f^*(X) = X\beta$, with $\beta$ defined as in 
 Eq. \@ref(eq:BLP). We usually assume that the covariate vector $X$ contains an 
-intercept term, that is $X=\begin{pmatrix}1 & \widetilde X\end{pmatrix}$ for
-some $p-1$ dimensional random vector $\widetilde X$. The presence of an 
+intercept term, that is 
+$$
+X=\begin{pmatrix}1 & Z\end{pmatrix},\quad Z\in \mathbb R^{p-1} (\#eq:XtoZ)
+$$ 
+for some $p-1$ dimensional random vector $Z$. The presence of an 
 intercept term leads to $f^*(X)$ having a bunch of nice properties, such as 
 being unconditionally unbiased ($\mathbb E(Y-f^*(X))=0$), as we show below.
 
 Let us decompose 
-$\beta = \begin{pmatrix}\beta_0 & \widetilde \beta\end{pmatrix}$, where 
-$\beta _0\in \mathbb R$ is the intercept term, and 
-$\widetilde beta \in \mathbb R^{p-1}$ is the coefficient of $\widetilde X$. 
+$\beta = \begin{pmatrix}a & b\end{pmatrix}$, where 
+$a\in \mathbb R$ is the intercept term, and 
+$b \in \mathbb R^{p-1}$ is the coefficient of $Z$. 
 We can easily prove that:
 
 $$
 \begin{split}
-\widetilde \beta  &=
-\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y),\\
-\beta _0  &= \mathbb E(Y)-\mathbb E(\widetilde X)\widetilde\beta, 
+b  &=
+\mathbb V (Z)^{-1}\mathbb V(Z,Y),\\
+a  &= \mathbb E(Y)-\mathbb E(Z)b, 
 \end{split}(\#eq:BLP0)
 $$
 where we denote by $\mathbb V (A,B)$ the covariance matrix of $A$ and $B$, 
@@ -84,7 +90,7 @@ and by $\mathbb V (A)\equiv \mathbb V (A,A)$. These expressions can be used to
 recast the error term as:
 
 $$
-Y-X\beta = (Y-\mathbb E(Y))-(\widetilde X-\mathbb E(\widetilde X))\mathbb V (\widetilde X)^{-1}\mathbb V(\widetilde X,Y)(\#eq:BLPErrorTerm).
+Y-X\beta = (Y-\mathbb E(Y))-(Z-\mathbb E(Z))\mathbb V (Z)^{-1}\mathbb V(Z,Y)(\#eq:BLPErrorTerm).
 $$
 
 From this expression we can easily find the first two moments:
@@ -92,7 +98,7 @@ From this expression we can easily find the first two moments:
 $$
 \begin{split}
 \mathbb E(Y-X\beta)&=0,\\
-\mathbb E((Y-X\beta)^2)&=\mathbb V(Y)-\mathbb V(\widetilde X,Y)^T\mathbb V(\widetilde X)^{-1}\mathbb V(\widetilde X,Y), 
+\mathbb E((Y-X\beta)^2)&=\mathbb V(Y)-\mathbb V(Z,Y)^T\mathbb V(Z)^{-1}\mathbb V(Z,Y), 
 \end{split}(\#eq:BLPExpectedError)
 $$
 
@@ -106,22 +112,20 @@ which, since $\mathbb E(Y-X\beta) = 0$, can also be interpreted as
 saying that the error term $Y-X\beta$ and the covariate vector $X$ are 
 uncorrelated.
 
-## Properties of OLS estimates
-
-### Algebraic properties
-
-These are simple consequences of the results for the best linear predictor 
-discussed in the previous Section. Notice that, since no result there 
-depends on the particular probability measure to which expectations refer to, we
-can replace all expectations with sample means. Thus, Eq. 
-\@ref(eq:OrthogonalityErrorTerm) translates to:
+These properties directly translate to corresponding properties of the 
+empirical residuals $\mathbf Y-\mathbf X\hat \beta$. Notice that, up to now 
+no result depends on the particular probability measure to which expectations 
+refer to. In particular, we can choose this measure to be the empirical 
+distribution realized in a specific sample, which amounts to replace all 
+expectations with sample means. 
+Thus, Eq. \@ref(eq:OrthogonalityErrorTerm) translates to:
 
 $$
 \frac{1}{N}\mathbf X^T(\mathbf Y-\mathbf X\hat \beta)=0(\#eq:OrthogonalitySampleResiduals),
 $$
 which implies in particular that sample residuals have vanishing sample means.
 
-### Distributional properties of $\hat \beta$
+## Distribution of coefficient estimates $\hat \beta$
 
 As an estimator of $\beta$ as defined in Eq. \@ref(eq:BLP), the OLS estimator $\hat \beta$ is consistent (converges in probability to $\beta$) but generally biased (an example is provided [here](https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/)). However, due to the plugin nature of $\hat \beta$, the bias is generally of order $\mathcal O (N^{-1})$, which makes it often negligible in comparison to its $\mathcal O(N^{-1/2})$ sampling variability (see below).
 
@@ -158,22 +162,9 @@ V_\text{sand} \equiv  (\mathbf X^T \mathbf X)^{-1} \mathbf X^T D_\mathbf {r^2}\m
 $$
 where $D_{\mathbf r^2}$ is the diagonal matrix whose $i$-th entry is the squared residual $r_i ^2 = (Y_i-X_i\beta)^2$.
 
-##### Proof of Central Limit Theorem for $\hat \beta$
-
-Convergence to the normal distribution \@ref(eq:CLTBetaHat) with variance \@ref(eq:AsyVarBetaHat) can be proved using the formalism of influence functions. From Eq. \@ref(eq:BLP), we see that a small variation $P\to P+\delta P$ to the joint $XY$ probability measure induces a first order shift:
-
-$$
-\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text d(\delta P)(\#eq:BetaDifferential)
-$$
-in the best linear predictor. The influence function of $\beta$ is defined by the measurable representation of $\delta \beta$, namely:
-
-$$
-\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X). (\#eq:BetaInfluenceFunction)
-$$
-A general result for plugin estimates then tells us that $\sqrt N (\hat \beta -\beta) \to \mathcal N (0, \mathbb E (\phi _\beta ^2))$ in distribution, and using the explicit form of \@ref(eq:BetaInfluenceFunction) we readily obtain \@ref(eq:AsyVarBetaHat). 
 
 
-### Variance estimates
+## Variance estimates
 
 These can be based on:
 
@@ -199,7 +190,67 @@ $$
 $$
 where $p = \text {Tr}(\mathbf H)$ is the number of independent covariates. On the other hand, if homoskedasticity holds, but $E(\mathbf Y \vert \mathbf X)$ is not linear, the left-hand side of the previous equation is an overestimate of $\mathbf V \vert X$. 
 
-## Related posts
+# Measurement error
+
+Suppose that, rather than the variables of interest $Y$ and $X$, we can only 
+observe noisy versions:
+
+$$
+\widetilde Y = Y+\delta_Y,\qquad \widetilde Z=Z+\delta _Z(\#eq:NoisyYandZ)
+$$
+
+where $X=\begin{pmatrix}1 & Z\end{pmatrix}$ as in Eq. \@ref(eq:XtoZ). We are 
+truly interested in $\beta$ defined by Eq. \@ref(eq:BLP), but OLS will actually 
+estimate $\widetilde \beta =\begin{pmatrix}\widetilde a & \widetilde b\end{pmatrix}$, 
+the coefficient of the BLP of $\widetilde Y$ in terms of $\widetilde X$. 
+Focusing on the slope term $\widetilde b$, a comparison with Eq. \@ref(eq:BLP0)
+yields:
+
+$$
+\begin{split}
+\widetilde b -b&= \Delta_{\mathbb V(Z)^{-1}}\cdot\mathbb V(Z,Y) +\mathbb V(Z)^{-1} \cdot \Delta _{\mathbb V(Z,Y)}+\Delta_{\mathbb V(Z)^{-1}}\cdot\Delta _{\mathbb V(Z,Y)},\\
+\Delta_{\mathbb V(Z)^{-1}}&=\mathbb V (\widetilde Z)^{-1}-V(Z)^{-1}, \\ 
+\Delta _{\mathbb V(Z,Y)} &=\mathbb V(\widetilde Z,\widetilde Y)-\mathbb V(Z,Y).
+\end{split}(\#eq:Deltab)
+$$
+
+where, explicitly:
+
+$$
+\begin{split}
+\mathbb V(\widetilde Z)&=\mathbb V(Z)+\mathbb V(\delta _Z)+2\mathbb V(Z,\delta _Z),\\
+\mathbb V(\widetilde Z,\widetilde Y)&=\mathbb V(Z,Y)+\mathbb V(\delta _Z,Y)+\mathbb V(\delta _Y,Z)+\mathbb V(\delta _Y,\delta _Z).
+\end{split}(\#eq:DeltaVvsNoise)
+$$
+
+The effect on the slope estimate generally depends on the correlation structure
+of signal and noise. In the special case of "totally random" noise, that is if
+$\delta _Z$ and $\delta _Y$ are independent of each other and of $Z$ and $Y$, we 
+see that the only effect is an increase 
+$\mathbb V(\widetilde Z) = \mathbb V(Z)+ \mathbb V(\delta _Z)$, which shrinks 
+the slope coefficient $\widetilde b$ towards zero. In particular, if 
+random noise is only present in the response ($\delta _Z = 0$), the estimation
+target is unaffected (although the variance of the $\hat b $ estimator is,
+in general).
+
+# Proofs
+
+## Proof of Central Limit Theorem for $\hat \beta$
+
+Convergence to the normal distribution \@ref(eq:CLTBetaHat) with variance \@ref(eq:AsyVarBetaHat) can be proved using the formalism of influence functions. From Eq. \@ref(eq:BLP), we see that a small variation $P\to P+\delta P$ to the joint $XY$ probability measure induces a first order shift:
+
+$$
+\delta \beta =  \intop \mathbb E(X^TX)^{-1}X^T (Y-\beta X) \text d(\delta P)(\#eq:BetaDifferential)
+$$
+in the best linear predictor. The influence function of $\beta$ is defined by the measurable representation of $\delta \beta$, namely:
+
+$$
+\phi _\beta = \mathbb E(X^TX)^{-1}X^T (Y-\beta X). (\#eq:BetaInfluenceFunction)
+$$
+A general result for plugin estimates then tells us that $\sqrt N (\hat \beta -\beta) \to \mathcal N (0, \mathbb E (\phi _\beta ^2))$ in distribution, and using the explicit form of \@ref(eq:BetaInfluenceFunction) we readily obtain \@ref(eq:AsyVarBetaHat). 
+
+
+# Related posts
 
 - [Consistency and bias of OLS estimators](https://vgherard.github.io/posts/2023-05-12-consistency-and-bias-of-ols-estimators/)
 - [Model misspecification and linear sandwiches](https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/)
