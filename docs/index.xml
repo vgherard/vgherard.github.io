@@ -7,7 +7,118 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 12 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>"The Abuse of Power" by J. M. Hoenig and D. M. Heisey</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(Hoenig and Heisey 2001)&lt;/span&gt;. From the
+paper’s abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It is well known that statistical power calculations can be valuable
+in planning an experiment. There is also a large literature advocating
+that power calculations be made whenever one performs a statistical test
+of a hypothesis and one obtains a statistically nonsignificant result.
+Advocates of such post-experiment power calculations claim the
+calculations should be used to aid in the interpretation of the
+experimental results. This approach, which appears in various forms, is
+fundamentally flawed. We document that the problem is extensive and
+present arguments to demonstrate the flaw in the logic.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The point on observed power is very elementary: for a given
+hypothesis test at a fixed size &lt;span
+class="math inline"&gt;\(\alpha\)&lt;/span&gt;, observed power is a function of
+the observed &lt;span class="math inline"&gt;\(p\)&lt;/span&gt;-value, and thus
+cannot add any information to the one already contained in the
+latter.&lt;/p&gt;
+&lt;p&gt;Observed power will be typically small for non-significant (&lt;span
+class="math inline"&gt;\(p&amp;gt;\alpha\)&lt;/span&gt;) results, and high otherwise.
+The authors discuss the example of a one-tailed, one-sample &lt;span
+class="math inline"&gt;\(Z\)&lt;/span&gt;-test for the null hypothesis that &lt;span
+class="math inline"&gt;\(Z \sim \mathcal N (\mu, 1)\)&lt;/span&gt; has mean &lt;span
+class="math inline"&gt;\(\mu \leq 0\)&lt;/span&gt;. The &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt;-value and observed power &lt;span
+class="math inline"&gt;\(\tilde \beta\)&lt;/span&gt; are, respectively:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+p = 1 - \Phi(Z),\quad \tilde\beta=1-\Phi(Z_\alpha-Z),
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(Z_\alpha = \Phi
+^{-1}(1-\alpha)\)&lt;/span&gt; is the significance threshold at level &lt;span
+class="math inline"&gt;\(\alpha\)&lt;/span&gt;. Below significance, one always
+has &lt;span class="math inline"&gt;\(Z&amp;lt;Z_\alpha\)&lt;/span&gt;, implying low
+observed power &lt;span class="math inline"&gt;\(\tilde \beta
+&amp;lt;\frac{1}{2}\)&lt;/span&gt;. This implies that observed power cannot be
+used to tell whether a null result comes from a small effect or from a
+low detection capability.&lt;/p&gt;
+&lt;p&gt;The authors also criticize the notion of “detectable effect size”,
+but their arguments look less convincing to me in this case. In their
+example we have an i.i.d. sample &lt;span
+class="math inline"&gt;\(\{X_i\}_{i=1}^N\)&lt;/span&gt;, where &lt;span
+class="math inline"&gt;\(X_i \sim \mathcal N(\mu, \sigma ^2)\)&lt;/span&gt;, and
+we again test the null &lt;span class="math inline"&gt;\(\mu \leq 0\)&lt;/span&gt;.
+For a fixed power &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt;, the
+detectable effect size is that value of &lt;span
+class="math inline"&gt;\(\mu\)&lt;/span&gt; that would yield a type II error rate
+of exactly &lt;span class="math inline"&gt;\(1-\beta\)&lt;/span&gt;, if &lt;span
+class="math inline"&gt;\(\sigma ^2\)&lt;/span&gt; is taken to be equal to the
+observer sample standard deviation. Their argument against this
+construct (Sec. 2.2) seems to rest on the premise that a smaller &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt;-value should always be interpreted as
+stronger evidence against the null hypothesis, even when the &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt;-value is not significant and the null
+hypothesis is accepted. But this is inconsistent, because &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt;-values are uniformly distributed under
+the null hypothesis, so that their actual values should be given no
+meaning once this is accepted.&lt;/p&gt;
+&lt;p&gt;In fact, I would argue that the detectable effect size provides a
+decent heuristics to quantify the uncertainty of a non-significant
+result on the scale of the parameter of interest. The true point against
+its usage is that (as also recognized in this work) there is a tool
+available which is much more suited for the same purpose &lt;a href="#fn1"
+class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, the &lt;em&gt;confidence
+interval&lt;/em&gt;, which has a clear probabilistic characterization in terms
+of its coverage probability.&lt;/p&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-hoenig2001abuse" class="csl-entry"&gt;
+Hoenig, John M, and Dennis M Heisey. 2001. &lt;span&gt;“The Abuse of Power:
+The Pervasive Fallacy of Power Calculations for Data Analysis.”&lt;/span&gt;
+&lt;em&gt;The American Statistician&lt;/em&gt; 55 (1): 19–24.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;In the previous example, assuming a large sample size
+&lt;span class="math inline"&gt;\(N\)&lt;/span&gt; so that we can approximate the
+&lt;span class="math inline"&gt;\(t\)&lt;/span&gt; distribution with a normal one,
+the &lt;span class="math inline"&gt;\(1-\alpha\)&lt;/span&gt;-level lower limit on
+&lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt; (appropriate for a one-sided
+test of the null hypothesis &lt;span class="math inline"&gt;\(\mu \leq
+0\)&lt;/span&gt;) is given by: &lt;span class="math display"&gt;\[
+\mu _\text{lo} = \overline X-\frac{s}{\sqrt N}\Phi^{-1}(1-\alpha),
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\overline X\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(s\)&lt;/span&gt; are the observed sample mean and
+standard deviation, respectively. The detectable effect size &lt;span
+class="math inline"&gt;\(d\)&lt;/span&gt; is the minimum value of &lt;span
+class="math inline"&gt;\(\mu\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\(\text{Pr}(\mu _\text{lo} &amp;gt; 0) \geq
+1-\beta\)&lt;/span&gt;, that is: &lt;span class="math display"&gt;\[
+d = \frac{s}{\sqrt
+N}\left[\Phi^{-1}(1-\alpha)+\Phi^{-1}(1-\beta)\right].
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>e7653aabfb109e9afd4c48fe94308657</distill:md5>
+      <category>Good Papers</category>
+      <category>Hypothesis Testing</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey</guid>
+      <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>AIC for the linear model: known vs. unknown variance</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -87,7 +198,7 @@ heteroskedasticity?&lt;/p&gt;&lt;/li&gt;
       <category>Regression</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-03-13-aic-for-the-linear-model-known-vs-unknown-variance</guid>
-      <pubDate>Tue, 12 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 13 Mar 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>"A Closer Look at the Deviance" by T. Hastie</title>

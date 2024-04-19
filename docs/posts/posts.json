@@ -1,5 +1,26 @@
 [
   {
+    "path": "posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey/",
+    "title": "\"The Abuse of Power\" by J. M. Hoenig and D. M. Heisey",
+    "description": "Why observed power calculations are useless (plus a few other points I don't buy).",
+    "author": [
+      {
+        "name": "Valerio Gherardi",
+        "url": "https://vgherard.github.io"
+      }
+    ],
+    "date": "2024-04-18",
+    "categories": [
+      "Good Papers",
+      "Hypothesis Testing",
+      "Statistics"
+    ],
+    "contents": "\r\n(Hoenig and Heisey 2001). From the paper’s abstract:\r\n\r\nIt is well known that statistical power calculations can be valuable in planning an experiment. There is also a large literature advocating that power calculations be made whenever one performs a statistical test of a hypothesis and one obtains a statistically nonsignificant result. Advocates of such post-experiment power calculations claim the calculations should be used to aid in the interpretation of the experimental results. This approach, which appears in various forms, is fundamentally flawed. We document that the problem is extensive and present arguments to demonstrate the flaw in the logic.\r\n\r\nThe point on observed power is very elementary: for a given hypothesis test at a\r\nfixed size \\(\\alpha\\), observed power is a function of the observed \\(p\\)-value,\r\nand thus cannot add any information to the one already contained in the latter.\r\nObserved power will be typically small for non-significant (\\(p>\\alpha\\))\r\nresults, and high otherwise. The authors discuss the example of a one-tailed,\r\none-sample \\(Z\\)-test for the null hypothesis that \\(Z \\sim \\mathcal N (\\mu, 1)\\)\r\nhas mean \\(\\mu \\leq 0\\). The \\(p\\)-value and observed power \\(\\tilde \\beta\\) are, respectively:\r\n\\[\r\np = 1 - \\Phi(Z),\\quad \\tilde\\beta=1-\\Phi(Z_\\alpha-Z),\r\n\\]\r\nwhere \\(Z_\\alpha = \\Phi ^{-1}(1-\\alpha)\\) is the significance threshold at level\r\n\\(\\alpha\\). Below significance, one always has \\(Z<Z_\\alpha\\), implying low observed\r\npower \\(\\tilde \\beta <\\frac{1}{2}\\). This implies that observed power cannot be\r\nused to tell whether a null result comes from a small effect or from a low\r\ndetection capability.\r\nThe authors also criticize the notion of “detectable effect size”, but their\r\narguments look less convincing to me in this case. In their example we have an\r\ni.i.d. sample \\(\\{X_i\\}_{i=1}^N\\), where \\(X_i \\sim \\mathcal N(\\mu, \\sigma ^2)\\),\r\nand we again test the null \\(\\mu \\leq 0\\). For a fixed power \\(\\beta\\), the\r\ndetectable effect size is that value of \\(\\mu\\) that would yield a\r\ntype II error rate of exactly \\(1-\\beta\\), if \\(\\sigma ^2\\) is taken to be equal to\r\nthe observer sample standard deviation. Their argument against this construct\r\n(Sec. 2.2) seems to rest on the premise that a smaller \\(p\\)-value should always\r\nbe interpreted as stronger evidence against the null hypothesis, even when the\r\n\\(p\\)-value is not significant and the null hypothesis is accepted. But this is inconsistent, because \\(p\\)-values are uniformly distributed under the null\r\nhypothesis, so that their actual values should be given no meaning once this is\r\naccepted.\r\nIn fact, I would argue that the detectable effect size provides a decent\r\nheuristics to quantify the uncertainty of a non-significant result on the scale\r\nof the parameter of interest. The true point against its usage is that\r\n(as also recognized in this work) there is a tool available which is much more\r\nsuited for the same purpose 1, the confidence interval, which has a clear probabilistic characterization in terms of its coverage probability.\r\n\r\n\r\nHoenig, John M, and Dennis M Heisey. 2001. “The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.” The American Statistician 55 (1): 19–24.\r\n\r\n\r\nIn the previous example, assuming a large sample size \\(N\\) so that we\r\ncan approximate the \\(t\\) distribution with a normal one, the \\(1-\\alpha\\)-level\r\nlower limit on \\(\\mu\\) (appropriate for a one-sided test of the null hypothesis\r\n\\(\\mu \\leq 0\\)) is given by:\r\n\\[\r\n\\mu _\\text{lo} = \\overline X-\\frac{s}{\\sqrt N}\\Phi^{-1}(1-\\alpha),\r\n\\]\r\nwhere \\(\\overline X\\) and \\(s\\) are the observed sample mean and standard deviation,\r\nrespectively. The detectable effect size \\(d\\) is the minimum value of \\(\\mu\\) such\r\nthat \\(\\text{Pr}(\\mu _\\text{lo} > 0) \\geq 1-\\beta\\), that is:\r\n\\[\r\nd = \\frac{s}{\\sqrt N}\\left[\\Phi^{-1}(1-\\alpha)+\\Phi^{-1}(1-\\beta)\\right].\r\n\\]\r\n\r\n↩︎\r\n",
+    "preview": {},
+    "last_modified": "2024-04-19T09:55:17+02:00",
+    "input_file": "the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey.knit.md"
+  },
+  {
     "path": "posts/2024-03-13-aic-for-the-linear-model-known-vs-unknown-variance/",
     "title": "AIC for the linear model: known vs. unknown variance",
     "description": "Does knowledge of noise variance have any effect on model selection for the mean?",

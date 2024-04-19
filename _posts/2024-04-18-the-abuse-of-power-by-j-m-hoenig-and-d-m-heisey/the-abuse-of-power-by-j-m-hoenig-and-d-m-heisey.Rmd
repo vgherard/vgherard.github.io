@@ -1,0 +1,74 @@
+---
+title: "\"The Abuse of Power\" by J. M. Hoenig and D. M. Heisey"
+description: |
+  Why observed power calculations are useless (plus a few other points I don't buy). 
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-04-18
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+categories: 
+  - Good Papers
+  - Hypothesis Testing
+  - Statistics
+draft: false
+---
+
+[@hoenig2001abuse]. From the paper's abstract:
+
+> It is well known that statistical power calculations can be valuable in planning an experiment. There is also a large literature advocating that power calculations be made whenever one performs a statistical test of a hypothesis and one obtains a statistically nonsignificant result. Advocates of such post-experiment power calculations claim the calculations should be used to aid in the interpretation of the experimental results. This approach, which appears in various forms, is fundamentally flawed. We document that the problem is extensive and present arguments to demonstrate the flaw in the logic.
+
+The point on observed power is very elementary: for a given hypothesis test at a
+fixed size $\alpha$, observed power is a function of the observed $p$-value, 
+and thus cannot add any information to the one already contained in the latter. 
+
+Observed power will be typically small for non-significant ($p>\alpha$) 
+results, and high otherwise. The authors discuss the example of a one-tailed, 
+one-sample $Z$-test for the null hypothesis that $Z \sim \mathcal N (\mu, 1)$ 
+has mean $\mu \leq 0$. The $p$-value and observed power $\tilde \beta$ are, respectively:
+
+$$
+p = 1 - \Phi(Z),\quad \tilde\beta=1-\Phi(Z_\alpha-Z),
+$$
+where $Z_\alpha = \Phi ^{-1}(1-\alpha)$ is the significance threshold at level 
+$\alpha$. Below significance, one always has $Z<Z_\alpha$, implying low observed 
+power $\tilde \beta <\frac{1}{2}$. This implies that observed power cannot be 
+used to tell whether a null result comes from a small effect or from a low 
+detection capability.
+
+The authors also criticize the notion of "detectable effect size", but their 
+arguments look less convincing to me in this case. In their example we have an 
+i.i.d. sample $\{X_i\}_{i=1}^N$, where $X_i \sim \mathcal N(\mu, \sigma ^2)$, 
+and we again test the null $\mu \leq 0$. For a fixed power $\beta$, the 
+detectable effect size is that value of $\mu$ that would yield a 
+type II error rate of exactly $1-\beta$, if $\sigma ^2$ is taken to be equal to 
+the observer sample standard deviation. Their argument against this construct 
+(Sec. 2.2) seems to rest on the premise that a smaller $p$-value should always 
+be interpreted as stronger evidence against the null hypothesis, even when the 
+$p$-value is not significant and the null hypothesis is accepted. But this is inconsistent, because $p$-values are uniformly distributed under the null 
+hypothesis, so that their actual values should be given no meaning once this is 
+accepted.
+
+In fact, I would argue that the detectable effect size provides a decent 
+heuristics to quantify the uncertainty of a non-significant result on the scale 
+of the parameter of interest. The true point against its usage is that 
+(as also recognized in this work) there is a tool available which is much more 
+suited for the same purpose [^fn_ci], the *confidence interval*, which has a clear probabilistic characterization in terms of its coverage probability. 
+
+
+[^fn_ci]: In the previous example, assuming a large sample size $N$ so that we 
+can approximate the $t$ distribution with a normal one, the $1-\alpha$-level 
+lower limit on $\mu$ (appropriate for a one-sided test of the null hypothesis
+$\mu \leq 0$) is given by:
+$$
+\mu _\text{lo} = \overline X-\frac{s}{\sqrt N}\Phi^{-1}(1-\alpha),
+$$
+where $\overline X$ and $s$ are the observed sample mean and standard deviation,
+respectively. The detectable effect size $d$ is the minimum value of $\mu$ such 
+that $\text{Pr}(\mu _\text{lo} > 0) \geq 1-\beta$, that is:
+$$
+d = \frac{s}{\sqrt N}\left[\Phi^{-1}(1-\alpha)+\Phi^{-1}(1-\beta)\right].
+$$
