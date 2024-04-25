@@ -7,192 +7,180 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Grammar as a biometric for Authorship Verification</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification</link>
+      <description>
+
+
+&lt;p&gt;About a month ago we finally managed to drop &lt;span
+class="citation"&gt;(Nini et al. 2024)&lt;/span&gt;, &lt;em&gt;“Authorship Verification
+based on the Likelihood Ratio of Grammar Models”&lt;/em&gt;, on the arXiv.
+Delving into topics such as authorship verification, grammar and
+forensics, was quite a detour for me, and I’d like to summarize here
+some of the ideas and learnings I got from working with all this new and
+interesting material.&lt;/p&gt;
+&lt;p&gt;The main qualitative idea put forward by Ref. &lt;span
+class="citation"&gt;(Nini et al. 2024)&lt;/span&gt; is that &lt;em&gt;grammar is a
+fundamentally personal and unique trait of an individual&lt;/em&gt;, therefore
+providing a sort of “behavioural biometric”. One first goal of this work
+was to put this general principle under test, by applying it to the
+problem of Authorship Verification (AV): the process of validating
+whether a certain document was written by a claimed author. Concretely,
+we built an algorithm for AV that relies entirely on the grammatical
+features of the examined textual data, and compared it with the
+state-of-the-art methods for AV.&lt;/p&gt;
+&lt;p&gt;The results were very encouraging. In fact, our method actually
+turned out to be generally superior to the previous state-of-the-art on
+the benchmarks we examined. This is a notable result, keeping also into
+account that our method uses &lt;em&gt;less&lt;/em&gt; textual information (only the
+grammar part) than other methods to perform its inferences.&lt;/p&gt;
+&lt;h2 id="the-algorithm"&gt;The algorithm&lt;/h2&gt;
+&lt;p&gt;I sketch here a pseudo-implementation of our method in R. For the fit
+of &lt;span class="math inline"&gt;\(k\)&lt;/span&gt;-gram models and perplexity
+computations, I use my package &lt;a
+href="https://vgherard.github.io/kgrams/"&gt;&lt;code&gt;{kgrams}&lt;/code&gt;&lt;/a&gt;,
+which can be installed from CRAN. Model (hyper)parameters such as number
+of impostors, order of the &lt;span class="math inline"&gt;\(k\)&lt;/span&gt;-gram
+models, etc. are hardcoded, see &lt;span class="citation"&gt;(Nini et al.
+2024)&lt;/span&gt; for details.&lt;/p&gt;
+&lt;p&gt;This is just for illustrating the essence of the method. For
+practical reasons, in the code chunk below I’m not reproducing the
+definition of the function &lt;code&gt;extract_grammar()&lt;/code&gt;, which in our
+work is embodied by the POS-noise algorithm. This function should
+transform a regular sentence, such as “He wrote a sentence”, to its
+underlying grammatical structure, say “[Pronoun] [verb] a [noun]”.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;#&amp;#39; @param q_doc character. Text document whose authorship is questioned.
+#&amp;#39; @param auth_corpus character. Text corpus of claimed author.
+#&amp;#39; @param imp_corpus character. Text corpus of impostors.
+
+score &amp;lt;- function(q_doc, auth_corpus, imp_corpus, n_imp = 100) 
+{
+    q_doc &amp;lt;- extract_grammar(q_doc)
+    auth_corpus &amp;lt;- extract_grammar(auth_corpus)
+    imp_corpus &amp;lt;- extract_grammar(imp_corpus)
+    
+    # Compute perplexity based on claimed author&amp;#39;s language model.
+    auth_mod &amp;lt;- train_language_model(auth_corpus)
+  auth_perp &amp;lt;- kgrams::perplexity(q_doc, model = auth_mod)
+  
+  # Compute perplexity based on impostor language models.
+  #
+  # Each impostor is trained on a synthetic corpus obtained by sampling from
+  # the impostor corpus the same number of sentences as the corpus of the 
+  # claimed author.
+  n_sents_auth &amp;lt;- length(kgrams::tknz_sent(auth_corpus))
+  imp_corpus_sentences &amp;lt;- kgrams::tknz_sent(imp_corpus)
+  imp_mod &amp;lt;- replicate(n_imp, {
+    sample(imp_corpus_sentences, n_sents_auth) |&amp;gt; train_language_model()
+  })
+  imp_perp &amp;lt;- sapply(imp_mod, \(m) kgrams::perplexity(q_doc, model = m))
+  
+  # Score is the fraction of impostor models that perform worse (higher 
+  # perplexity) than the proposed authors language model
+  score &amp;lt;- mean(auth_perp &amp;lt; imp_perp)
+  
+  return(score)
+}
+
+train_language_model &amp;lt;- function(text)
+{
+  text |&amp;gt; 
+    kgrams::kgram_freqs(N = 10, .tknz_sent = kgrams::tknz_sent) |&amp;gt;
+    kgrams::language_model(smoother = &amp;quot;kn&amp;quot;, D = 0.75)
+}
+
+extract_grammar &amp;lt;- identity  # Just a placeholder - see above.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To be used as follows:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;q_doc &amp;lt;- &amp;quot;a a b a. b a. c b a. b a b. a.&amp;quot; 
+auth_corpus &amp;lt;- &amp;quot;a a b a b. b c b. a b c a. b a. b c a.&amp;quot; 
+imp_corpus &amp;lt;- &amp;quot;a a. b. a. b a. b a. c. a b a. d. a b. a d. a b a b c b a.&amp;quot;
+
+set.seed(840)
+score(q_doc, auth_corpus, imp_corpus)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 0.89&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The “score” computed by this algorithm turns out to be a good
+truthfulness predictor for the claimed authorship, higher scores being
+correlated with true attributions. &lt;em&gt;If&lt;/em&gt; the impostor corpus is
+fixed once and for all, and &lt;em&gt;if&lt;/em&gt; the pairs &lt;code&gt;q_doc&lt;/code&gt; and
+&lt;code&gt;auth_corpus&lt;/code&gt; are randomly sampled from a fixed joint
+distribution, we can set a threshold for score in such a way that the
+attribution criterion &lt;code&gt;score &amp;gt; threshold&lt;/code&gt; maximizes some
+objective such as accuracy. This is, more or less, what we studied
+quantitatively in our paper.&lt;/p&gt;
+&lt;h2 id="reflections-on-in-silico-authorship-verification"&gt;Reflections on
+&lt;em&gt;in silico&lt;/em&gt; Authorship Verification&lt;/h2&gt;
+&lt;p&gt;The various &lt;em&gt;ifs&lt;/em&gt; at the end of the previous sections led me
+to reflexionate on the applicability of machine-learning approaches,
+such as the one we discussed in our work, to real-life contexts.&lt;/p&gt;
+&lt;p&gt;As implied above, in order for a metric such as accuracy to represent
+a sensible measure of predictive performance, we should be able to
+regard the AV problems encountered in our favorite practical use case as
+random samples from some &lt;em&gt;fixed&lt;/em&gt; population. In other words, we
+consider a stationary source of random authorship claims, and assume
+that our trained model is routinely used to verify claims from this
+source.&lt;/p&gt;
+&lt;p&gt;Now, while there are many circumstances in which the above
+assumptions make total sense, I think there are also interesting AV
+applications in which one is not interested in the long-run properties
+of the method but, rather, in a single inference. The real case of the
+poem “Shall I die?”, controversially attributed to Shakespeare in 1985,
+is an example of this kind. An approach to this case based on empirical
+Bayes is discussed in &lt;span class="citation"&gt;(Efron and Hastie 2021,
+vol. 6, sec. 6.2)&lt;/span&gt;. Although we may be able to build a reasonable
+impostor corpus to be used with this problem, it is not clear how one
+should come up with a relevant testing dataset of AV problems to
+empirically quantify uncertainty.&lt;/p&gt;
+&lt;p&gt;For cases such as the “Shall I die?” controversy, the
+machine-learning setting considered in our study is just an &lt;em&gt;in
+silico&lt;/em&gt; model of real AV. As such, I believe it still provides
+useful indications on what could be good authorship indicators and work
+in general, but we must acknowledge the practical limitations in our way
+to quantify uncertainty. Other approaches, such as classical null
+hypothesis testing, may be more suited to this specific kind of AV
+problems.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-efron2021computer" class="csl-entry"&gt;
+Efron, Bradley, and Trevor Hastie. 2021. &lt;em&gt;Computer Age Statistical
+Inference, Student Edition: Algorithms, Evidence, and Data Science&lt;/em&gt;.
+Vol. 6. Cambridge University Press.
+&lt;/div&gt;
+&lt;div id="ref-nini2024authorship" class="csl-entry"&gt;
+Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi
+Ishihara. 2024. &lt;span&gt;“Authorship Verification Based on the Likelihood
+Ratio of Grammar Models.”&lt;/span&gt; &lt;a
+href="https://arxiv.org/abs/2403.08462"&gt;https://arxiv.org/abs/2403.08462&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>2e8a5f3822431f9222a36497784328ba</distill:md5>
+      <category>Authorship Verification</category>
+      <category>Natural Language Processing</category>
+      <category>Forensic Science</category>
+      <category>Machine Learning</category>
+      <category>Statistics</category>
+      <category>R</category>
+      <guid>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification</guid>
+      <pubDate>Wed, 24 Apr 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>"The Abuse of Power" by J. M. Hoenig and D. M. Heisey</title>
       <dc:creator>Valerio Gherardi</dc:creator>
       <link>https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey</link>
-      <description>
-
-
-&lt;p&gt;&lt;span class="citation"&gt;(Hoenig and Heisey 2001)&lt;/span&gt;. From the
-paper’s abstract:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;It is well known that statistical power calculations can be valuable
-in planning an experiment. There is also a large literature advocating
-that power calculations be made whenever one performs a statistical test
-of a hypothesis and one obtains a statistically nonsignificant result.
-Advocates of such post-experiment power calculations claim the
-calculations should be used to aid in the interpretation of the
-experimental results. This approach, which appears in various forms, is
-fundamentally flawed. We document that the problem is extensive and
-present arguments to demonstrate the flaw in the logic.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The point on observed power is very elementary: for a given
-hypothesis test at a fixed size &lt;span
-class="math inline"&gt;\(\alpha\)&lt;/span&gt;, observed power is a function of
-the observed &lt;span class="math inline"&gt;\(p\)&lt;/span&gt;-value, and thus
-cannot add any information to the one already contained in the
-latter.&lt;/p&gt;
-&lt;p&gt;Observed power will be typically small for non-significant (&lt;span
-class="math inline"&gt;\(p&amp;gt;\alpha\)&lt;/span&gt;) results, and high otherwise.
-The authors discuss the example of a one-tailed, one-sample &lt;span
-class="math inline"&gt;\(Z\)&lt;/span&gt;-test for the null hypothesis that &lt;span
-class="math inline"&gt;\(Z \sim \mathcal N (\mu, 1)\)&lt;/span&gt; has mean &lt;span
-class="math inline"&gt;\(\mu \leq 0\)&lt;/span&gt;. The &lt;span
-class="math inline"&gt;\(p\)&lt;/span&gt;-value and observed power &lt;span
-class="math inline"&gt;\(\tilde \beta\)&lt;/span&gt; are, respectively:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-p = 1 - \Phi(Z),\quad \tilde\beta=1-\Phi(Z_\alpha-Z),
-\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(Z_\alpha = \Phi
-^{-1}(1-\alpha)\)&lt;/span&gt; is the significance threshold at level &lt;span
-class="math inline"&gt;\(\alpha\)&lt;/span&gt;. Below significance, one always
-has &lt;span class="math inline"&gt;\(Z&amp;lt;Z_\alpha\)&lt;/span&gt;, implying low
-observed power &lt;span class="math inline"&gt;\(\tilde \beta
-&amp;lt;\frac{1}{2}\)&lt;/span&gt;. This implies that observed power cannot be
-used to tell whether a null result comes from a small effect or from a
-low detection capability.&lt;/p&gt;
-&lt;p&gt;The authors also criticize the notion of “detectable effect size”,
-but their arguments look less convincing to me in this case. In their
-example we have an i.i.d. sample &lt;span
-class="math inline"&gt;\(\{X_i\}_{i=1}^N\)&lt;/span&gt;, where &lt;span
-class="math inline"&gt;\(X_i \sim \mathcal N(\mu, \sigma ^2)\)&lt;/span&gt;, and
-we again test the null &lt;span class="math inline"&gt;\(\mu \leq 0\)&lt;/span&gt;.
-For a fixed power &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt;, the
-detectable effect size is that value of &lt;span
-class="math inline"&gt;\(\mu\)&lt;/span&gt; that would yield a type II error rate
-of exactly &lt;span class="math inline"&gt;\(1-\beta\)&lt;/span&gt;, if &lt;span
-class="math inline"&gt;\(\sigma ^2\)&lt;/span&gt; is taken to be equal to the
-observer sample standard deviation. Their argument against this
-construct (Sec. 2.2) seems to rest on the premise that a smaller &lt;span
-class="math inline"&gt;\(p\)&lt;/span&gt;-value should always be interpreted as
-stronger evidence against the null hypothesis, even when the &lt;span
-class="math inline"&gt;\(p\)&lt;/span&gt;-value is not significant and the null
-hypothesis is accepted. But this is inconsistent, because &lt;span
-class="math inline"&gt;\(p\)&lt;/span&gt;-values are uniformly distributed under
-the null hypothesis, so that their actual values should be given no
-meaning once this is accepted.&lt;/p&gt;
-&lt;p&gt;In fact, I would argue that the detectable effect size provides a
-decent heuristics to quantify the uncertainty of a non-significant
-result on the scale of the parameter of interest. The true point against
-its usage is that (as also recognized in this work) there is a tool
-available which is much more suited for the same purpose &lt;a href="#fn1"
-class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, the &lt;em&gt;confidence
-interval&lt;/em&gt;, which has a clear probabilistic characterization in terms
-of its coverage probability.&lt;/p&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-hoenig2001abuse" class="csl-entry"&gt;
-Hoenig, John M, and Dennis M Heisey. 2001. &lt;span&gt;“The Abuse of Power:
-The Pervasive Fallacy of Power Calculations for Data Analysis.”&lt;/span&gt;
-&lt;em&gt;The American Statistician&lt;/em&gt; 55 (1): 19–24.
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="footnotes footnotes-end-of-document"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;In the previous example, assuming a large sample size
-&lt;span class="math inline"&gt;\(N\)&lt;/span&gt; so that we can approximate the
-&lt;span class="math inline"&gt;\(t\)&lt;/span&gt; distribution with a normal one,
-the &lt;span class="math inline"&gt;\(1-\alpha\)&lt;/span&gt;-level lower limit on
-&lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt; (appropriate for a one-sided
-test of the null hypothesis &lt;span class="math inline"&gt;\(\mu \leq
-0\)&lt;/span&gt;) is given by: &lt;span class="math display"&gt;\[
-\mu _\text{lo} = \overline X-\frac{s}{\sqrt N}\Phi^{-1}(1-\alpha),
-\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\overline X\)&lt;/span&gt; and
-&lt;span class="math inline"&gt;\(s\)&lt;/span&gt; are the observed sample mean and
-standard deviation, respectively. The detectable effect size &lt;span
-class="math inline"&gt;\(d\)&lt;/span&gt; is the minimum value of &lt;span
-class="math inline"&gt;\(\mu\)&lt;/span&gt; such that &lt;span
-class="math inline"&gt;\(\text{Pr}(\mu _\text{lo} &amp;gt; 0) \geq
-1-\beta\)&lt;/span&gt;, that is: &lt;span class="math display"&gt;\[
-d = \frac{s}{\sqrt
-N}\left[\Phi^{-1}(1-\alpha)+\Phi^{-1}(1-\beta)\right].
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-      <distill:md5>e7653aabfb109e9afd4c48fe94308657</distill:md5>
+      <description>Why observed power calculations are useless (plus a few other points I don't buy).</description>
       <category>Good Papers</category>
       <category>Hypothesis Testing</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey</guid>
-      <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>AIC for the linear model: known vs. unknown variance</title>
       <dc:creator>Valerio Gherardi</dc:creator>
       <link>https://vgherard.github.io/posts/2024-03-13-aic-for-the-linear-model-known-vs-unknown-variance</link>
-      <description>
-
-
-&lt;p&gt;The Akaike Information Criterion (AIC) for the linear model &lt;span
-class="math inline"&gt;\(Y = X \beta + \varepsilon\)&lt;/span&gt;, with takes the
-form:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{AIC}^{\text{(k)}} = \frac{(\mathbf Y-\mathbf X\hat \beta
-)^2}{\sigma ^2} + 2p
-\]&lt;/span&gt; if the noise variance &lt;span class="math inline"&gt;\(\sigma ^2 =
-\mathbb V(\varepsilon\vert X)\)&lt;/span&gt; is known, and:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{AIC}^{\text{(u)}} = N\ln(\hat \sigma ^2) + 2(p + 1)
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;if &lt;span class="math inline"&gt;\(\sigma^2\)&lt;/span&gt; is unknown. Here
-&lt;span class="math inline"&gt;\(\hat \beta\)&lt;/span&gt; denotes the
-maximum-likelihood estimate of &lt;span
-class="math inline"&gt;\(\beta\)&lt;/span&gt;, and &lt;span
-class="math inline"&gt;\(\hat \sigma ^2 = \frac{1}{N}(\mathbf Y -\mathbf X
-\hat \beta)^2\)&lt;/span&gt; the corresponding estimate of &lt;span
-class="math inline"&gt;\(\sigma ^2\)&lt;/span&gt; if the latter is unknown; &lt;span
-class="math inline"&gt;\(p\)&lt;/span&gt; is the dimension of the covariate
-vector &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;One would expect knowledge on variance to have little effect on model
-selection for the mean, at least in a limit in which variance can be
-considered to be reasonably well estimated. In order to check that this
-is actually the case, we expand &lt;span
-class="math inline"&gt;\(\text{AIC}^{\text{(u)}}\)&lt;/span&gt; differences to
-first order &lt;span class="math inline"&gt;\(\hat \sigma _1 ^2 - \hat \sigma
-_2 ^2\)&lt;/span&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\begin{split}
-\text{AIC}^{\text{(u)}}_1-\text{AIC}^{\text{(u)}}_2 &amp;amp;=
-N\ln(\frac{\hat \sigma ^2_1}{\hat \sigma ^2_2}) + 2(p_1-p_2)\\
-&amp;amp;\approx N\frac{\hat \sigma _{1}^2-\hat \sigma _2 ^2}{\hat \sigma _2
-^2} + 2(p_1-p_2)\\
-&amp;amp; = \text{AIC}^{\text{(k)}}_1-\text{AIC}^{\text{(k)}}_2+N\frac{(\hat
-\sigma _{1}^2-\hat \sigma _2 ^2)(\sigma ^2-\hat \sigma _2 ^2)}{\hat
-\sigma _2 ^2\sigma^2}
-\end{split}
-\]&lt;/span&gt; The approximation in the second line requires &lt;span
-class="math inline"&gt;\(\vert \hat \sigma _1 ^2 - \hat \sigma _2 ^2\vert
-\ll\hat \sigma _2 ^2\)&lt;/span&gt;. Furthermore, the last term in the final
-expression is a small fraction of &lt;span
-class="math inline"&gt;\(\text{AIC}^{\text{(u)}}_1-\text{AIC}^{\text{(u)}}_2\)&lt;/span&gt;
-if &lt;span class="math inline"&gt;\(|\sigma ^2 -\hat \sigma _2 ^2| \ll \sigma
-^2\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Putting these two conditions together, we obtain:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-|\hat \sigma _1 ^2 -\hat \sigma _2 ^2|,|\sigma ^2 -\hat \sigma _2 ^2|
-\ll \sigma ^2,\qquad
-\]&lt;/span&gt; which means that &lt;span
-class="math inline"&gt;\(\text{AIC}^{\text{(u)}}\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(\text{AIC}^{\text{(k)}}\)&lt;/span&gt; lead to the same
-model selection provided that the models involved in the AIC comparison
-estimate reasonably well the true variance.&lt;/p&gt;
-&lt;p&gt;Concluding remarks:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Although the maximum-likelihood estimates plugged in the AIC are
-derived from normal theory, the theorem about the equivalence of AIC
-selection in the known and unknown variance cases continues to hold
-irrespective of this assumption.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;What happens in misspecified cases, in which &lt;span
-class="math inline"&gt;\(\hat \sigma ^2\)&lt;/span&gt; does not consistently
-estimate &lt;span class="math inline"&gt;\(\mathbb V(\varepsilon \vert
-X)\)&lt;/span&gt;, either because of non-linearity or
-heteroskedasticity?&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>0e149e08998dd3e9f623f28f69b8c0f2</distill:md5>
+      <description>Does knowledge of noise variance have any effect on model selection for the mean?</description>
       <category>Model Selection</category>
       <category>Linear Models</category>
       <category>Regression</category>
