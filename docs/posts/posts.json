@@ -24,28 +24,7 @@
     "input_file": {}
   },
   {
-    "path": "posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman/",
-    "title": "\"Induction and Deduction in Bayesian Data Analysis\" by A. Gelman",
-    "description": "On the importance of model checks in Bayesian data analysis.",
-    "author": [
-      {
-        "name": "Valerio Gherardi",
-        "url": "https://vgherard.github.io"
-      }
-    ],
-    "date": "2024-04-25",
-    "categories": [
-      "Comment on...",
-      "Bayesian Methods",
-      "Statistics"
-    ],
-    "contents": "\r\n(Gelman 2011). From the paper’s abstract:\r\n\r\nThe classical or frequentist approach to statistics (in which inference is centered on significance testing), is associated with a philosophy in which science is deductive and follows Popper’s doctrine of falsification. In contrast, Bayesian inference is commonly associated with inductive reasoning and the idea that a model can be dethroned by a competing model but can never be directly falsified by a significance test. The purpose of this\r\narticle is to break these associations, which I think are incorrect and have been detrimental to statistical practice, in that they have steered falsificationists away from the very\r\nuseful tools of Bayesian inference and have discouraged Bayesians from checking the fit\r\nof their models. From my experience using and developing Bayesian methods in social\r\nand environmental science, I have found model checking and falsification to be central in\r\nthe modeling process.\r\n\r\nComments:\r\nI don’t know nothing about applied Bayesian analysis, but I’m a bit surprised\r\nby the fact that the recommendation to check model’s fit requires a whole paper\r\nin the 21st century. What is the supposed argument why Bayesians should not\r\nworry about model fit?\r\nI’m a bit confused about how one would actually interpret the model posterior\r\nchecks discussed in the paper. If I understand correctly, the \\(p\\)-value is the\r\nposterior probability of observing a statistic as extreme as in the original\r\ndata. Should I interpret this as a strength of evidence against the model -\r\nsimilar to Fisherian significance testing? What is the philosophical basis for\r\nrejecting models with small \\(p\\)-values? I guess these questions are answered in\r\nthe technical references by the same author.\r\n\r\n\r\n\r\nGelman, Andrew. 2011. “Induction and Deduction in Bayesian Data Analysis.”\r\n\r\n\r\n\r\n\r\n",
-    "preview": {},
-    "last_modified": "2024-04-25T15:50:08+02:00",
-    "input_file": "induction-and-deduction-in-bayesian-data-analysis-by-a-gelman.knit.md"
-  },
-  {
-    "path": "posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species-by-imlay-et-al/",
+    "path": "posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species/",
     "title": "\"Annual adult survival rates for four sympatric breeding swallow species\" by Imlay et al.",
     "description": "An obscure mark-recapture data analysis.",
     "author": [
@@ -63,8 +42,29 @@
     ],
     "contents": "\r\n(Imlay et al. 2022). From the paper’s abstract:\r\n\r\nSwallow (Family: Hirundinidae) populations in the Canadian Maritimes have declined since the 1980s. Using mark–recapture data from 2012 to 2019, we determined apparent annual adult survival rates for Barn (Hirundo rustica Linnaeus, 1758), Tree (Tachycineta bicolor (Vieillot, 1808)), Bank (Riparia riparia (Linnaeus, 1758)), and Cliff (Petrochelidon pyrrhonota (Vieillot, 1817)) swallows. For two data-rich species (Barn and Tree swallows), we modelled the relationships between survival and weather (cold snaps, precipitation, temperature, and wind speed), climate (El Niño–Southern Oscillation (ENSO) and North Atlantic Oscillation (NAO)), Enhanced Vegetation Index (EVI) as a measure of primary productivity during the winter, number of active nests as a measure of site quality, and the Breeding Bird Survey (BBS) annual population index as density-dependent processes. Survival rates for all four species were typically higher (Barn and Tree) or similar to (Cliff and Bank) of estimates from populations that have not undergone severe, long-term declines. Across weather and climate variables, conditions that are typically favourable for high insect availability (e.g., higher precipitation, warmer temperatures, and lower wind speeds) resulted in higher survival. For female Barn and Tree swallows, survival was higher when EVI was lower, and for Barn Swallows, survival was also higher when the BBS index was higher. Collectively our results demonstrate that conditions throughout the annual cycle affect survival, and the relationships with weather and climate variables support the importance of high insect availability.\r\n\r\nI’m reading this and similar references primarily because I want to get some\r\nintuition on the correlations between global scale climate variables such as\r\nENSO and NAO, and bird survival on the other. Has any correlation been detected,\r\nhow strong is it, which sectors of the population are most directly affected,\r\netc.etc..\r\nAlso, I’m looking for some good references of mark-recapture data analyses\r\nstudying survival in relation to climate and weather, because I’m currently\r\nworking on a very similar problem.\r\nUnfortunately, this reference turned out to be of little help, because the\r\nstatistical analysis leaves a lot to be desired - or is at least poorly\r\nexplained.\r\nThe first, and in my opinion biggest problem, is the unconditional assumption of\r\nthe Cormack-Jolly-Seber (CJS) model. Such a model is assumed to hold separately for\r\neach population of a given sex and species. Now, how did the authors assess\r\nwhether this was a reasonable model for the data at hand? Some specific\r\nquestions:\r\nIs there any important age dependence in survival and recapture rates? The\r\nfact that the study is restricted to adults does not justify ignoring this issue\r\n(for instance, there may be important differences in survival due to\r\nsenescence).\r\nIs there any trap-dependence in recapture rates? By “trap-dependence” we refer\r\nto the fact that recapture probability of an individual may depend on whether\r\nit was captured or not at the previous capture occasion. This is another common\r\nviolation of CJS assumptions.\r\nIs there significant overdispersion? If so, this could hint to other\r\nviolations of CJS assumptions. Independence of capture histories, just to\r\nprovide one example.\r\nAre the linearity (on the logit scale) assumptions concerning the dependence\r\nof survival rates from environmental covariates satisfied?\r\nA second issue concerns model selection. Apparently, the only selection made by\r\nthe authors is an “unsupervised” variable selection - with no reference to\r\ncapture histories. Everything is boiling inside the pot, irrespective of whether\r\nthe added variables are actually useful for the model’s fit or not. Even though\r\nthe authors may be realistically interested in estimating all the effects\r\nincluded in the model, it seems a bit unlikely that all such effects can be\r\nreliably estimated with the limited data at hand - as a rapid look to the final\r\ncoefficient table confirms. The most likely result of adding all these\r\ncontributions, negligible from the goodness of fit point of view, is to make\r\nthe whole model estimation more noisy. Notice that such a behaviour is also at\r\nodds with the treatment of individual covariates such as age or trap-dependence,\r\nwhich are simply neglected, despite being possibly crucial for a good fit.\r\nFinally, there are a few more so to say low-level mysterious points. First, it\r\nlooks like the authors are performing a bayesian analysis (since they speak of\r\ncredible intervals and MCMC for model estimation). If that’s the case, what\r\nparameter priors are they using? How sensitive to this priors are the resulting\r\nposterior distributions? Second, the definition of the time-dependence of\r\nsurvival probabilities is not what I’m used to see when I hear “CJS” (what is\r\nthat \\(\\varepsilon\\) noise term?).\r\nI’m not saying that all the issues I mentioned here are necessarily crucial\r\nand easily diagnosed from the data available. However, ignoring them completely\r\nmakes judging results which are per se very noisy (Table 2 of the reference)\r\neven harder. In my opinion, the authors could have likely come up with a more\r\ndependable model, simpler in terms of environmental covariates, and perhaps\r\nricher in terms of individual covariates, and could in any case have\r\ninvestigated a bit better if and how do their conclusions depend on untested\r\nmodeling aspects.\r\n\r\n\r\n\r\nImlay, Tara L, Hilary AR Mann, Andrew C Ding, Peter Thomas, Rebecca M Whittam, Marty L Leonard, and Qing Zhao. 2022. “Annual Adult Survival Rates for Four Sympatric Breeding Swallow Species: Effects of Environmental Factors and Density-Dependence.” Canadian Journal of Zoology 100 (10): 647–59.\r\n\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2024-04-25T15:56:38+02:00",
-    "input_file": "annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species-by-imlay-et-al.knit.md"
+    "last_modified": "2024-04-25T16:03:19+02:00",
+    "input_file": "annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species.knit.md"
+  },
+  {
+    "path": "posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman/",
+    "title": "\"Induction and Deduction in Bayesian Data Analysis\" by A. Gelman",
+    "description": "On the importance of model checks in Bayesian data analysis.",
+    "author": [
+      {
+        "name": "Valerio Gherardi",
+        "url": "https://vgherard.github.io"
+      }
+    ],
+    "date": "2024-04-25",
+    "categories": [
+      "Comment on...",
+      "Bayesian Methods",
+      "Statistics"
+    ],
+    "contents": "\r\n(Gelman 2011). From the paper’s abstract:\r\n\r\nThe classical or frequentist approach to statistics (in which inference is centered on significance testing), is associated with a philosophy in which science is deductive and follows Popper’s doctrine of falsification. In contrast, Bayesian inference is commonly associated with inductive reasoning and the idea that a model can be dethroned by a competing model but can never be directly falsified by a significance test. The purpose of this\r\narticle is to break these associations, which I think are incorrect and have been detrimental to statistical practice, in that they have steered falsificationists away from the very\r\nuseful tools of Bayesian inference and have discouraged Bayesians from checking the fit\r\nof their models. From my experience using and developing Bayesian methods in social\r\nand environmental science, I have found model checking and falsification to be central in\r\nthe modeling process.\r\n\r\nComments:\r\nI don’t know nothing about applied Bayesian analysis, but I’m a bit surprised\r\nby the fact that the recommendation to check model’s fit requires a whole paper\r\nin the 21st century. What is the supposed argument why Bayesians should not\r\nworry about model fit?\r\nI’m a bit confused about how one would actually interpret the model posterior\r\nchecks discussed in the paper. If I understand correctly, the \\(p\\)-value is the\r\nposterior probability of observing a statistic as extreme as in the original\r\ndata. Should I interpret this as a strength of evidence against the model -\r\nsimilar to Fisherian significance testing? What is the philosophical basis for\r\nrejecting models with small \\(p\\)-values? I guess these questions are answered in\r\nthe technical references by the same author.\r\n\r\n\r\n\r\nGelman, Andrew. 2011. “Induction and Deduction in Bayesian Data Analysis.”\r\n\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2024-04-25T16:03:37+02:00",
+    "input_file": "induction-and-deduction-in-bayesian-data-analysis-by-a-gelman.knit.md"
   },
   {
     "path": "posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey/",

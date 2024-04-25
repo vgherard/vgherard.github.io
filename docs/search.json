@@ -6,7 +6,7 @@
       "author": [],
       "date": "`r Sys.Date()`",
       "contents": "\r\nThis website\r\nThis website serves as a repository for my thoughts, things I am studying or working on, and notes I have accumulated across the years. Central topics are Statistics, Mathematics and Physics1.\r\nMe\r\nI am Valerio, class 1992, Italian based in València (Spain).\r\nI am generally passionate about science, and mathematical sciences in particular. I studied Physics, specializing in Particle Phenomenology, on which I did my PhD. More recently, my interests have been gravitating more around Statistics, both theoretical and applied.\r\nI worked as data scientist for a few years, finally concluding that it is not my thing. As of today (Feb. 2024), I still have to figure out what comes next.\r\nIf you want to get in touch with me, you can follow the contact links in the navigation bar above. My CV can be downloaded here.\r\n\r\nPhysics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap. - V.I. Arnold, On Teaching Mathematics.↩︎\r\n",
-      "last_modified": "2024-04-25T09:16:03+02:00"
+      "last_modified": "2024-04-25T16:02:51+02:00"
     },
     {
       "path": "files.html",
@@ -14,7 +14,7 @@
       "author": [],
       "date": "`r Sys.Date()`",
       "contents": "\r\nDocuments which, for various reasons (including laziness), cannot be converted to the main website’s format.\r\nNew Physics Hints from Flavour. My PhD thesis.\r\nSolving the homogeneous Bethe-Salpeter equation for a fermion-scalar system in Minkowski space. My Master thesis.\r\nTeoria della Decoerenza Quantistica. My Bachelor thesis (in Italian).\r\nTeoria della Misura e Analisi Funzionale. Lecture notes on measure theory (in Italian).\r\n\r\n\r\n\r\n",
-      "last_modified": "2024-04-25T09:16:03+02:00"
+      "last_modified": "2024-04-25T16:02:52+02:00"
     },
     {
       "path": "index.html",
@@ -22,14 +22,14 @@
       "author": [],
       "date": "`r Sys.Date()`",
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2024-04-25T15:43:43+02:00"
+      "last_modified": "2024-04-25T16:02:54+02:00"
     },
     {
       "path": "notebooks.html",
       "title": "Notebooks",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2024-04-25T09:16:06+02:00"
+      "last_modified": "2024-04-25T16:02:55+02:00"
     },
     {
       "path": "scientific_publications.html",
@@ -37,7 +37,7 @@
       "author": [],
       "date": "`r Sys.Date()`",
       "contents": "\r\nParticle Physics\r\nMy research activity in Particle Physics spans between years 2017 and 2022, largely overlapping with my PhD studies. The main research topics are Non-perturbative methods in Quantum Field Theory and Beyond Standard Model phenomenology. A full list of publications is available on my iNSPIRE HEP author page. My PhD thesis can be accessed on arXiv.\r\nSelected articles:\r\nMatching scalar leptoquarks to the SMEFT at one loop\r\nModular invariant dynamics and fermion mass hierarchies around \\(\\tau = i\\)\r\nSolving the Bethe-Salpeter Equation in Minkowski Space for a Fermion-Scalar system\r\n\r\n\r\n\r\n",
-      "last_modified": "2024-04-25T09:16:07+02:00"
+      "last_modified": "2024-04-25T16:02:55+02:00"
     },
     {
       "path": "software.html",
@@ -45,7 +45,7 @@
       "author": [],
       "date": "`r Sys.Date()`",
       "contents": "\r\n\r\nContents\r\nkgrams\r\nfcci\r\nr2r\r\n\r\nThis page contains some selected software projects - mainly R libraries - I am currently or have been working on. See also my GitHub profile and my R-universe website.\r\nkgrams\r\n\r\n\r\n\r\nkgrams provides tools for training and evaluating \\(k\\)-gram language models, including several probability smoothing methods, perplexity computations, random text generation and more. It is based on an C++ back-end which makes kgrams fast, coupled with an accessible R API which aims at streamlining the process of model building, and can be suitable for small- and medium-sized NLP experiments, baseline model building, and for pedagogical purposes.\r\nfcci\r\n\r\n\r\n\r\nfcci is an R package providing support for building Feldman-Cousins confidence\r\nintervals.\r\nr2r\r\n\r\n\r\n\r\nr2r provides a flexible implementation of hash tables in R, allowing for:\r\narbitrary R objects as keys and values,\r\narbitrary key comparison and hash functions,\r\ncustomizable behaviour (throw or return a default value) on missing key exceptions.\r\n\r\n\r\n\r\n",
-      "last_modified": "2024-04-25T09:16:08+02:00"
+      "last_modified": "2024-04-25T16:02:56+02:00"
     }
   ],
   "collections": ["posts/posts.json", "notebooks/notebooks.json"]
