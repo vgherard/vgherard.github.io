@@ -1,0 +1,28 @@
+---
+title: "Laplace's Method"
+description: |
+  A short description of the post.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-04-16
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web.
+
+Learn more about using Distill at <https://rstudio.github.io/distill>.
+
+
+## References
+
+[Notes](http://bactra.org/notebooks/laplace-approximation.html)

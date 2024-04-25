@@ -7,155 +7,13 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 24 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Apr 2024 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Grammar as a biometric for Authorship Verification</title>
       <dc:creator>Valerio Gherardi</dc:creator>
       <link>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification</link>
-      <description>
-
-
-&lt;p&gt;About a month ago we finally managed to drop &lt;span
-class="citation"&gt;(Nini et al. 2024)&lt;/span&gt;, &lt;em&gt;“Authorship Verification
-based on the Likelihood Ratio of Grammar Models”&lt;/em&gt;, on the arXiv.
-Delving into topics such as authorship verification, grammar and
-forensics, was quite a detour for me, and I’d like to summarize here
-some of the ideas and learnings I got from working with all this new and
-interesting material.&lt;/p&gt;
-&lt;p&gt;The main qualitative idea put forward by Ref. &lt;span
-class="citation"&gt;(Nini et al. 2024)&lt;/span&gt; is that &lt;em&gt;grammar is a
-fundamentally personal and unique trait of an individual&lt;/em&gt;, therefore
-providing a sort of “behavioural biometric”. One first goal of this work
-was to put this general principle under test, by applying it to the
-problem of Authorship Verification (AV): the process of validating
-whether a certain document was written by a claimed author. Concretely,
-we built an algorithm for AV that relies entirely on the grammatical
-features of the examined textual data, and compared it with the
-state-of-the-art methods for AV.&lt;/p&gt;
-&lt;p&gt;The results were very encouraging. In fact, our method actually
-turned out to be generally superior to the previous state-of-the-art on
-the benchmarks we examined. This is a notable result, keeping also into
-account that our method uses &lt;em&gt;less&lt;/em&gt; textual information (only the
-grammar part) than other methods to perform its inferences.&lt;/p&gt;
-&lt;h2 id="the-algorithm"&gt;The algorithm&lt;/h2&gt;
-&lt;p&gt;I sketch here a pseudo-implementation of our method in R. For the fit
-of &lt;span class="math inline"&gt;\(k\)&lt;/span&gt;-gram models and perplexity
-computations, I use my package &lt;a
-href="https://vgherard.github.io/kgrams/"&gt;&lt;code&gt;{kgrams}&lt;/code&gt;&lt;/a&gt;,
-which can be installed from CRAN. Model (hyper)parameters such as number
-of impostors, order of the &lt;span class="math inline"&gt;\(k\)&lt;/span&gt;-gram
-models, etc. are hardcoded, see &lt;span class="citation"&gt;(Nini et al.
-2024)&lt;/span&gt; for details.&lt;/p&gt;
-&lt;p&gt;This is just for illustrating the essence of the method. For
-practical reasons, in the code chunk below I’m not reproducing the
-definition of the function &lt;code&gt;extract_grammar()&lt;/code&gt;, which in our
-work is embodied by the POS-noise algorithm. This function should
-transform a regular sentence, such as “He wrote a sentence”, to its
-underlying grammatical structure, say “[Pronoun] [verb] a [noun]”.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;#&amp;#39; @param q_doc character. Text document whose authorship is questioned.
-#&amp;#39; @param auth_corpus character. Text corpus of claimed author.
-#&amp;#39; @param imp_corpus character. Text corpus of impostors.
-
-score &amp;lt;- function(q_doc, auth_corpus, imp_corpus, n_imp = 100) 
-{
-    q_doc &amp;lt;- extract_grammar(q_doc)
-    auth_corpus &amp;lt;- extract_grammar(auth_corpus)
-    imp_corpus &amp;lt;- extract_grammar(imp_corpus)
-    
-    # Compute perplexity based on claimed author&amp;#39;s language model.
-    auth_mod &amp;lt;- train_language_model(auth_corpus)
-  auth_perp &amp;lt;- kgrams::perplexity(q_doc, model = auth_mod)
-  
-  # Compute perplexity based on impostor language models.
-  #
-  # Each impostor is trained on a synthetic corpus obtained by sampling from
-  # the impostor corpus the same number of sentences as the corpus of the 
-  # claimed author.
-  n_sents_auth &amp;lt;- length(kgrams::tknz_sent(auth_corpus))
-  imp_corpus_sentences &amp;lt;- kgrams::tknz_sent(imp_corpus)
-  imp_mod &amp;lt;- replicate(n_imp, {
-    sample(imp_corpus_sentences, n_sents_auth) |&amp;gt; train_language_model()
-  })
-  imp_perp &amp;lt;- sapply(imp_mod, \(m) kgrams::perplexity(q_doc, model = m))
-  
-  # Score is the fraction of impostor models that perform worse (higher 
-  # perplexity) than the proposed authors language model
-  score &amp;lt;- mean(auth_perp &amp;lt; imp_perp)
-  
-  return(score)
-}
-
-train_language_model &amp;lt;- function(text)
-{
-  text |&amp;gt; 
-    kgrams::kgram_freqs(N = 10, .tknz_sent = kgrams::tknz_sent) |&amp;gt;
-    kgrams::language_model(smoother = &amp;quot;kn&amp;quot;, D = 0.75)
-}
-
-extract_grammar &amp;lt;- identity  # Just a placeholder - see above.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To be used as follows:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;q_doc &amp;lt;- &amp;quot;a a b a. b a. c b a. b a b. a.&amp;quot; 
-auth_corpus &amp;lt;- &amp;quot;a a b a b. b c b. a b c a. b a. b c a.&amp;quot; 
-imp_corpus &amp;lt;- &amp;quot;a a. b. a. b a. b a. c. a b a. d. a b. a d. a b a b c b a.&amp;quot;
-
-set.seed(840)
-score(q_doc, auth_corpus, imp_corpus)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] 0.89&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The “score” computed by this algorithm turns out to be a good
-truthfulness predictor for the claimed authorship, higher scores being
-correlated with true attributions. &lt;em&gt;If&lt;/em&gt; the impostor corpus is
-fixed once and for all, and &lt;em&gt;if&lt;/em&gt; the pairs &lt;code&gt;q_doc&lt;/code&gt; and
-&lt;code&gt;auth_corpus&lt;/code&gt; are randomly sampled from a fixed joint
-distribution, we can set a threshold for score in such a way that the
-attribution criterion &lt;code&gt;score &amp;gt; threshold&lt;/code&gt; maximizes some
-objective such as accuracy. This is, more or less, what we studied
-quantitatively in our paper.&lt;/p&gt;
-&lt;h2 id="reflections-on-in-silico-authorship-verification"&gt;Reflections on
-&lt;em&gt;in silico&lt;/em&gt; Authorship Verification&lt;/h2&gt;
-&lt;p&gt;The various &lt;em&gt;ifs&lt;/em&gt; at the end of the previous sections led me
-to reflexionate on the applicability of machine-learning approaches,
-such as the one we discussed in our work, to real-life contexts.&lt;/p&gt;
-&lt;p&gt;As implied above, in order for a metric such as accuracy to represent
-a sensible measure of predictive performance, we should be able to
-regard the AV problems encountered in our favorite practical use case as
-random samples from some &lt;em&gt;fixed&lt;/em&gt; population. In other words, we
-consider a stationary source of random authorship claims, and assume
-that our trained model is routinely used to verify claims from this
-source.&lt;/p&gt;
-&lt;p&gt;Now, while there are many circumstances in which the above
-assumptions make total sense, I think there are also interesting AV
-applications in which one is not interested in the long-run properties
-of the method but, rather, in a single inference. The real case of the
-poem “Shall I die?”, controversially attributed to Shakespeare in 1985,
-is an example of this kind. An approach to this case based on empirical
-Bayes is discussed in &lt;span class="citation"&gt;(Efron and Hastie 2021,
-vol. 6, sec. 6.2)&lt;/span&gt;. Although we may be able to build a reasonable
-impostor corpus to be used with this problem, it is not clear how one
-should come up with a relevant testing dataset of AV problems to
-empirically quantify uncertainty.&lt;/p&gt;
-&lt;p&gt;For cases such as the “Shall I die?” controversy, the
-machine-learning setting considered in our study is just an &lt;em&gt;in
-silico&lt;/em&gt; model of real AV. As such, I believe it still provides
-useful indications on what could be good authorship indicators and work
-in general, but we must acknowledge the practical limitations in our way
-to quantify uncertainty. Other approaches, such as classical null
-hypothesis testing, may be more suited to this specific kind of AV
-problems.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-efron2021computer" class="csl-entry"&gt;
-Efron, Bradley, and Trevor Hastie. 2021. &lt;em&gt;Computer Age Statistical
-Inference, Student Edition: Algorithms, Evidence, and Data Science&lt;/em&gt;.
-Vol. 6. Cambridge University Press.
-&lt;/div&gt;
-&lt;div id="ref-nini2024authorship" class="csl-entry"&gt;
-Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi
-Ishihara. 2024. &lt;span&gt;“Authorship Verification Based on the Likelihood
-Ratio of Grammar Models.”&lt;/span&gt; &lt;a
-href="https://arxiv.org/abs/2403.08462"&gt;https://arxiv.org/abs/2403.08462&lt;/a&gt;.
-&lt;/div&gt;
-&lt;/div&gt;</description>
-      <distill:md5>2e8a5f3822431f9222a36497784328ba</distill:md5>
+      <description>Notes on preprint 2403.08462 by A. Nini, O. Halvani, L. Graner, S. Ishihara 
+and myself.</description>
       <category>Authorship Verification</category>
       <category>Natural Language Processing</category>
       <category>Forensic Science</category>
@@ -163,6 +21,176 @@ href="https://arxiv.org/abs/2403.08462"&gt;https://arxiv.org/abs/2403.08462&lt;/
       <category>Statistics</category>
       <category>R</category>
       <guid>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification</guid>
+      <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>"Induction and Deduction in Bayesian Data Analysis" by A. Gelman</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(Gelman 2011)&lt;/span&gt;. From the paper’s
+abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The classical or frequentist approach to statistics (in which
+inference is centered on significance testing), is associated with a
+philosophy in which science is deductive and follows Popper’s doctrine
+of falsification. In contrast, Bayesian inference is commonly associated
+with inductive reasoning and the idea that a model can be dethroned by a
+competing model but can never be directly falsified by a significance
+test. The purpose of this article is to break these associations, which
+I think are incorrect and have been detrimental to statistical practice,
+in that they have steered falsificationists away from the very useful
+tools of Bayesian inference and have discouraged Bayesians from checking
+the fit of their models. From my experience using and developing
+Bayesian methods in social and environmental science, I have found model
+checking and falsification to be central in the modeling process.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Comments:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;I don’t know nothing about applied Bayesian analysis, but I’m a
+bit surprised by the fact that the recommendation to check model’s fit
+requires a whole paper in the 21st century. What is the supposed
+argument why Bayesians should not worry about model fit?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I’m a bit confused about how one would actually interpret the
+model posterior checks discussed in the paper. If I understand
+correctly, the &lt;span class="math inline"&gt;\(p\)&lt;/span&gt;-value is the
+posterior probability of observing a statistic as extreme as in the
+original data. Should I interpret this as a strength of evidence against
+the model - similar to Fisherian significance testing? What is the
+philosophical basis for rejecting models with small &lt;span
+class="math inline"&gt;\(p\)&lt;/span&gt;-values? I guess these questions are
+answered in the technical references by the same author.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-gelman2011induction" class="csl-entry"&gt;
+Gelman, Andrew. 2011. &lt;span&gt;“Induction and Deduction in Bayesian Data
+Analysis.”&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>c1b606d58b4ff2390b530ddc68b53ac8</distill:md5>
+      <category>Comment on...</category>
+      <category>Bayesian Methods</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman</guid>
+      <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>"Annual adult survival rates for four sympatric breeding swallow species" by Imlay et al.</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species-by-imlay-et-al</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(Imlay et al. 2022)&lt;/span&gt;. From the paper’s
+abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Swallow (Family: Hirundinidae) populations in the Canadian Maritimes
+have declined since the 1980s. Using mark–recapture data from 2012 to
+2019, we determined apparent annual adult survival rates for Barn
+(Hirundo rustica Linnaeus, 1758), Tree (Tachycineta bicolor (Vieillot,
+1808)), Bank (Riparia riparia (Linnaeus, 1758)), and Cliff
+(Petrochelidon pyrrhonota (Vieillot, 1817)) swallows. For two data-rich
+species (Barn and Tree swallows), we modelled the relationships between
+survival and weather (cold snaps, precipitation, temperature, and wind
+speed), climate (El Niño–Southern Oscillation (ENSO) and North Atlantic
+Oscillation (NAO)), Enhanced Vegetation Index (EVI) as a measure of
+primary productivity during the winter, number of active nests as a
+measure of site quality, and the Breeding Bird Survey (BBS) annual
+population index as density-dependent processes. Survival rates for all
+four species were typically higher (Barn and Tree) or similar to (Cliff
+and Bank) of estimates from populations that have not undergone severe,
+long-term declines. Across weather and climate variables, conditions
+that are typically favourable for high insect availability (e.g., higher
+precipitation, warmer temperatures, and lower wind speeds) resulted in
+higher survival. For female Barn and Tree swallows, survival was higher
+when EVI was lower, and for Barn Swallows, survival was also higher when
+the BBS index was higher. Collectively our results demonstrate that
+conditions throughout the annual cycle affect survival, and the
+relationships with weather and climate variables support the importance
+of high insect availability.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I’m reading this and similar references primarily because I want to
+get some intuition on the correlations between global scale climate
+variables such as ENSO and NAO, and bird survival on the other. Has any
+correlation been detected, how strong is it, which sectors of the
+population are most directly affected, &lt;em&gt;etc.etc.&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Also, I’m looking for some good references of mark-recapture data
+analyses studying survival in relation to climate and weather, because
+I’m currently working on a very similar problem.&lt;/p&gt;
+&lt;p&gt;Unfortunately, this reference turned out to be of little help,
+because the statistical analysis leaves a lot to be desired - or is at
+least poorly explained.&lt;/p&gt;
+&lt;p&gt;The first, and in my opinion biggest problem, is the unconditional
+assumption of the Cormack-Jolly-Seber (CJS) model. Such a model is
+assumed to hold separately for each population of a given sex and
+species. Now, how did the authors assess whether this was a reasonable
+model for the data at hand? Some specific questions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Is there any important age dependence in survival and recapture
+rates? The fact that the study is restricted to adults does not justify
+ignoring this issue (for instance, there may be important differences in
+survival due to senescence).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Is there any trap-dependence in recapture rates? By
+“trap-dependence” we refer to the fact that recapture probability of an
+individual may depend on whether it was captured or not at the previous
+capture occasion. This is another common violation of CJS
+assumptions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Is there significant overdispersion? If so, this could hint to
+other violations of CJS assumptions. Independence of capture histories,
+just to provide one example.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Are the linearity (on the logit scale) assumptions concerning the
+dependence of survival rates from environmental covariates
+satisfied?&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A second issue concerns model selection. Apparently, the only
+selection made by the authors is an “unsupervised” variable selection -
+with no reference to capture histories. Everything is boiling inside the
+pot, irrespective of whether the added variables are actually useful for
+the model’s fit or not. Even though the authors may be realistically
+interested in estimating all the effects included in the model, it seems
+a bit unlikely that all such effects can be reliably estimated with the
+limited data at hand - as a rapid look to the final coefficient table
+confirms. The most likely result of adding all these contributions,
+negligible from the goodness of fit point of view, is to make the whole
+model estimation more noisy. Notice that such a behaviour is also at
+odds with the treatment of individual covariates such as age or
+trap-dependence, which are simply neglected, despite being possibly
+crucial for a good fit.&lt;/p&gt;
+&lt;p&gt;Finally, there are a few more so to say low-level mysterious points.
+First, it &lt;em&gt;looks&lt;/em&gt; like the authors are performing a bayesian
+analysis (since they speak of credible intervals and MCMC for model
+estimation). If that’s the case, what parameter priors are they using?
+How sensitive to this priors are the resulting posterior distributions?
+Second, the definition of the time-dependence of survival probabilities
+is not what I’m used to see when I hear “CJS” (what is that &lt;span
+class="math inline"&gt;\(\varepsilon\)&lt;/span&gt; noise term?).&lt;/p&gt;
+&lt;p&gt;I’m not saying that all the issues I mentioned here are necessarily
+crucial and easily diagnosed from the data available. However, ignoring
+them completely makes judging results which are &lt;em&gt;per se&lt;/em&gt; very
+noisy (Table 2 of the reference) even harder. In my opinion, the authors
+could have likely come up with a more dependable model, simpler in terms
+of environmental covariates, and perhaps richer in terms of individual
+covariates, and could in any case have investigated a bit better if and
+how do their conclusions depend on untested modeling aspects.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-imlay2022annual" class="csl-entry"&gt;
+Imlay, Tara L, Hilary AR Mann, Andrew C Ding, Peter Thomas, Rebecca M
+Whittam, Marty L Leonard, and Qing Zhao. 2022. &lt;span&gt;“Annual Adult
+Survival Rates for Four Sympatric Breeding Swallow Species: Effects of
+Environmental Factors and Density-Dependence.”&lt;/span&gt; &lt;em&gt;Canadian
+Journal of Zoology&lt;/em&gt; 100 (10): 647–59.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>e74dddc2ff578a9e28d44d467b212605</distill:md5>
+      <category>Comment on...</category>
+      <category>Population Dynamics</category>
+      <category>Biology</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species-by-imlay-et-al</guid>
       <pubDate>Wed, 24 Apr 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
@@ -170,7 +198,7 @@ href="https://arxiv.org/abs/2403.08462"&gt;https://arxiv.org/abs/2403.08462&lt;/
       <dc:creator>Valerio Gherardi</dc:creator>
       <link>https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey</link>
       <description>Why observed power calculations are useless (plus a few other points I don't buy).</description>
-      <category>Good Papers</category>
+      <category>Comment on...</category>
       <category>Hypothesis Testing</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey</guid>
@@ -194,7 +222,7 @@ href="https://arxiv.org/abs/2403.08462"&gt;https://arxiv.org/abs/2403.08462&lt;/
       <link>https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie</link>
       <description>A nice review of properties of Deviance for one parameter exponential 
 families.</description>
-      <category>Good Papers</category>
+      <category>Comment on...</category>
       <category>Maximum Likelihood Estimation</category>
       <category>Linear Models</category>
       <category>Statistics</category>

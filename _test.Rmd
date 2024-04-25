@@ -1,0 +1,16 @@
+---
+title: Test
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+
+
+
+```{r}
+dplyr::tibble(title = 1:3, b = c("a", "b", "c")) |> reactable::reactable()
+```
+

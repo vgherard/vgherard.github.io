@@ -12,7 +12,7 @@ output:
     self_contained: false
 bibliography: biblio.bib
 categories: 
-  - Good Papers
+  - Comment on...
   - Maximum Likelihood Estimation
   - Linear Models
   - Statistics

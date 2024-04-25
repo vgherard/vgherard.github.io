@@ -1,0 +1,133 @@
+---
+title: "Bias and variance in Ordinary Least Squares"
+description: |
+  A short description of the post.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-04-12
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r libs}
+library(dplyr)
+library(ggplot2)
+```
+
+```{r seed}
+set.seed(840)
+```
+
+
+```{r}
+rxy <- function(
+		n, 
+		rx = rnorm, 
+		mu = \(x) x ^ 2 + x + 1,
+		reps = \(x) rnorm(length(x), sd = 0.3)
+		) 
+{
+	x <- rx(n)
+	y <- mu(x) + reps(x)
+	data.frame(x,y)
+}
+```
+
+```{r}
+blp <- lm(y ~ x, data = rxy(1e6))
+
+summary(blp)
+```
+```{r}
+e_y2 <- rxy(1e8)$y |> (\(x) mean(x ^ 2))()
+e_y <- rxy(1e8)$y |> (\(x) mean(x))()
+e_x <- rxy(1e8)$x |> (\(x) mean(x))()
+e_x2 <- rxy(1e8)$x |> (\(x) mean(x^2))()
+e_xy <- rxy(1e8) |> (\(df) mean(df$x * df$y))()
+
+err <- function(mod) {
+	b0 <- coef(mod)[1]
+	b1 <- coef(mod)[2]
+	
+	e_y2 - 2 * b0 * e_y - 2 * b1 * e_xy + b0 * b0 + 2 * b0 * b1 * e_x + b1 * b1 * e_x2
+}
+```
+
+
+```{r}
+n_test <- 1e5
+res <- data.frame(n = c(seq(from = 10, to = 100, by = 10), 
+											  seq(from = 100, to = 1000, by = 100)),
+									l2_err_true_mean = NA, 
+									l2_err_est_mean = NA, 
+									l2_err_true_sd = NA,
+									l2_err_est_sd = NA
+									) 
+
+for (i in seq_len(nrow(res))) {
+	B <- max(1e2, 1e3 / sqrt(res$n[i]))
+
+	
+	l2_err_est <- l2_err_true <- numeric(B)
+	
+
+	for(b in seq_len(B)) {
+		train <- rxy(res$n[i])
+		test <- rxy(1e5) 
+		
+		mod <- lm(y ~ x, data = train)
+		
+		l2_err_est[b] = sigma(mod) ^ 2
+		l2_err_true[b] = err(mod)
+	}
+	
+	res$l2_err_true_mean[i] <- mean(l2_err_true)
+	res$l2_err_true_sd[i] <- sd(l2_err_true)
+	res$l2_err_true_median[i] <- median(l2_err_true)
+	res$l2_err_true_05[i] <- quantile(l2_err_true, probs = 0.05)
+	res$l2_err_true_95[i] <- quantile(l2_err_true, probs = 0.95)
+	res$l2_err_est_mean[i] <- mean(l2_err_est)
+	res$l2_err_est_sd[i] <- sd(l2_err_est)
+	res$l2_err_est_median[i] <- median(l2_err_est)
+	res$l2_err_est_05[i] <- quantile(l2_err_est, probs = 0.05)
+	res$l2_err_est_95[i] <- quantile(l2_err_est, probs = 0.95)
+}
+
+```
+
+
+```{r}
+
+res |>
+	mutate(bias = l2_err_est_mean - l2_err_true_mean, variance = l2_err_est_sd) |>
+	ggplot(aes(x = n, y = bias / sqrt(variance))) +
+		geom_point() + geom_line() +
+		scale_x_log10()
+```
+
+
+```{r}
+ggplot(res, aes(x = n)) +
+	geom_point(aes(y = l2_err_true_median), color = "blue") +
+	geom_line(aes(y = l2_err_true_median), color = "blue") +
+	geom_point(aes(y = l2_err_est_median), color = "red") +
+	geom_line(aes(y = l2_err_est_median), color = "red") +
+	geom_errorbar(aes(ymin = l2_err_true_05, ymax = l2_err_true_95), 
+								color = "blue", 
+								width = 0.1) +
+	geom_errorbar(aes(ymin = l2_err_est_05, ymax = l2_err_est_95), 
+								color = "red", 
+								width = 0.1) +
+	geom_hline(aes(yintercept = sigma(blp) ^ 2)) +
+	scale_x_log10()
+```
+
+
