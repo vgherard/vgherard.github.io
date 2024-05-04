@@ -230,7 +230,7 @@ see that the only effect is an increase
 $\mathbb V(\widetilde Z) = \mathbb V(Z)+ \mathbb V(\delta _Z)$, which shrinks 
 the slope coefficient $\widetilde b$ towards zero. In particular, if 
 random noise is only present in the response ($\delta _Z = 0$), the estimation
-target is unaffected (although the variance of the $\hat b $ estimator is,
+target is unaffected (although the variance of the $\hat b$ estimator is,
 in general).
 
 # Proofs
