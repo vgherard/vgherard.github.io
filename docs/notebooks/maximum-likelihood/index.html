@@ -2606,7 +2606,7 @@ Other links
 estimation. Let <span class="math inline">\(\mathcal Q \equiv\{\text d Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}\)</span> be a parametric family
 of probability measures dominated by some common measure <span class="math inline">\(\mu\)</span>. Consider the functional<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
 <p><span class="math display" id="eq:FunctionalThethaStar">\[
-\theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln (\frac{1}{q_\theta}) \tag{1}.
+\theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln \left(\frac{1}{q_\theta}\right) \tag{1}.
 \]</span>
 This is the parameter of the best (in the cross-entropy sense) approximation of
 <span class="math inline">\(P\)</span> within <span class="math inline">\(\mathcal Q\)</span>, which we assume to be unique.</p>
@@ -2618,7 +2618,7 @@ is not necessarily in <span class="math inline">\(\mathcal Q\)</span>. The ML es
 where <span class="math inline">\(\hat P _N\)</span> is the empirical distribution of the sample.</p>
 <p>Denoting:</p>
 <p><span class="math display" id="eq:CrossEntIntegral">\[
-c_{P}(\theta) = \intop \text dP\,\ln (\frac{1}{q_\theta}),\tag{3}
+c_{P}(\theta) = \intop \text dP\,\ln \left(\frac{1}{q_\theta}\right),\tag{3}
 \]</span></p>
 <p>we see that <span class="math inline">\(\theta^*\)</span> is determined by the condition
 <span class="math inline">\(c_{P}&#39;(\theta^*)=0\)</span>. From this, we can easily derive
@@ -2701,12 +2701,27 @@ family <span class="math inline">\(\mathcal Q\)</span> estimated on a sample of 
 drawn from a joint <span class="math inline">\(X-Y\)</span> distribution. If we replace the model family <span class="math inline">\(\mathcal Q\)</span>
 with a parametric family of conditional densities <span class="math inline">\(\mathcal Q \equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X) \,\text d \mu\}_{\theta \in \Theta}\)</span>, and change the objective function to:</p>
 <p><span class="math display" id="eq:CondCrossEntIntegral">\[
-c_P(\theta) = \intop \text dP(x,y)\,\ln (\frac{1}{q_{\theta}(y\vert x)}),\tag{16}
+c_P(\theta) = \intop \text dP(x,y)\,\ln \left(\frac{1}{q_{\theta}(y\vert x)}\right),\tag{16}
 \]</span>
 we can repeat our above argument without any further change. This
 provides a quick and dirty derivation of the CLT <a href="#eq:ThetaCLT">(9)</a> and of the
 information criterion <a href="#eq:TIC">(15)</a> in a regression setting with random
 regressors.</p>
+<p>A slightly more contrived but stronger interpretation is obtained if we regard
+the <span class="math inline">\(X\)</span> regressors as fixed and consider the objective function to be:</p>
+<p><span class="math display" id="eq:CondCrossEntIntegral2">\[
+c_P(\theta\vert \mathbf X = \mathbf x) = \sum _{i=1}^N\intop \text dP(y\vert x_i)\,\ln \left(\frac{1}{q_{\theta}(y\vert x_i)}\right),\tag{17}
+\]</span>
+where <span class="math inline">\(\text dP(y\vert x_i)\)</span> denotes the conditional <span class="math inline">\(Y\vert X\)</span> probability
+measure for <span class="math inline">\(X = x_i\)</span>. This is the cross-entropy for a batch of <span class="math inline">\(N\)</span> independent
+data points conditional on the regressor values. Again, the arguments leading to
+the CLT <a href="#eq:ThetaCLT">(9)</a> and the information criterion <a href="#eq:TIC">(15)</a> can be
+repeated almost verbatim, where the corresponding estimate targets
+<span class="math inline">\(\theta ^*(\mathbf X = \mathbf x)\)</span> and
+<span class="math inline">\(\mathbb E (c_P(\hat \theta _N\vert \mathbf X =\mathbf x))\)</span>, of <span class="math inline">\(\hat \theta _N\)</span>
+and <span class="math inline">\(\text{TIC}\)</span> respectively, are now functions of the regressors. In a setting
+with random regressors, the corresponding quantities would be interpreted as
+being conditional on the observed <span class="math inline">\(X\)</span> values.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><span class="citation" data-cites="shaliziADA">(<a href="#ref-shaliziADA" role="doc-biblioref">Shalizi 2024</a>)</span></li>

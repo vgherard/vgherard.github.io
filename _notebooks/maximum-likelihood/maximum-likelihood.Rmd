@@ -18,7 +18,7 @@ does not depend on the representations $q_\theta = \frac{\text d Q_\theta}{\text
 settings respectively.]:
 
 $$
-\theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln (\frac{1}{q_\theta}) (\#eq:FunctionalThethaStar).
+\theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln \left(\frac{1}{q_\theta}\right) (\#eq:FunctionalThethaStar).
 $$
 This is the parameter of the best (in the cross-entropy sense) approximation of 
 $P$ within $\mathcal Q$, which we assume to be unique. 
@@ -34,7 +34,7 @@ where $\hat P _N$ is the empirical distribution of the sample.
 Denoting:
 
 $$
-c_{P}(\theta) = \intop \text dP\,\ln (\frac{1}{q_\theta}),(\#eq:CrossEntIntegral)
+c_{P}(\theta) = \intop \text dP\,\ln \left(\frac{1}{q_\theta}\right),(\#eq:CrossEntIntegral)
 $$
 
 we see that $\theta^*$ is determined by the condition 
@@ -138,12 +138,29 @@ drawn from a joint $X-Y$ distribution. If we replace the model family $\mathcal 
 with a parametric family of conditional densities $\mathcal Q \equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X) \,\text d \mu\}_{\theta \in \Theta}$, and change the objective function to:
 
 $$
-c_P(\theta) = \intop \text dP(x,y)\,\ln (\frac{1}{q_{\theta}(y\vert x)}),(\#eq:CondCrossEntIntegral)
+c_P(\theta) = \intop \text dP(x,y)\,\ln \left(\frac{1}{q_{\theta}(y\vert x)}\right),(\#eq:CondCrossEntIntegral)
 $$
 we can repeat our above argument without any further change. This
 provides a quick and dirty derivation of the CLT \@ref(eq:ThetaCLT) and of the
 information criterion \@ref(eq:TIC) in a regression setting with random 
 regressors.
+
+A slightly more contrived but stronger interpretation is obtained if we regard 
+the $X$ regressors as fixed and consider the objective function to be:
+
+$$
+c_P(\theta\vert \mathbf X = \mathbf x) = \sum _{i=1}^N\intop \text dP(y\vert x_i)\,\ln \left(\frac{1}{q_{\theta}(y\vert x_i)}\right),(\#eq:CondCrossEntIntegral2)
+$$
+where $\text dP(y\vert x_i)$ denotes the conditional $Y\vert X$ probability 
+measure for $X = x_i$. This is the cross-entropy for a batch of $N$ independent 
+data points conditional on the regressor values. Again, the arguments leading to 
+the CLT \@ref(eq:ThetaCLT) and the information criterion \@ref(eq:TIC) can be 
+repeated almost verbatim, where the corresponding estimate targets 
+$\theta ^*(\mathbf X = \mathbf x)$ and 
+$\mathbb E (c_P(\hat \theta _N\vert \mathbf X =\mathbf x))$, of $\hat \theta _N$ 
+and $\text{TIC}$ respectively, are now functions of the regressors. In a setting
+with random regressors, the corresponding quantities would be interpreted as
+being conditional on the observed $X$ values.
 
 ## References
 
