@@ -15,13 +15,14 @@
       <description>
 
 
-&lt;p&gt;We start off with a functional description of Maximum Likelihood (ML)
-estimation. Let &lt;span class="math inline"&gt;\(\mathcal Q \equiv\{\text d
-Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}\)&lt;/span&gt; be a
-parametric family of probability measures dominated by some common
-measure &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt;. Consider the
-functional&lt;a href="#fn1" class="footnote-ref"
-id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Disclaimer.&lt;/strong&gt; These are wild notes on Maximum
+Likelihood that require some deep &lt;em&gt;labor limae&lt;/em&gt; session. Use at
+your own risk!&lt;/p&gt;
+&lt;p&gt;Let &lt;span class="math inline"&gt;\(\mathcal Q \equiv\{\text d Q_{\theta}
+= q_\theta \,\text d \mu\}_{\theta \in \Theta}\)&lt;/span&gt; be a parametric
+family of probability measures dominated by some common measure &lt;span
+class="math inline"&gt;\(\mu\)&lt;/span&gt;. Consider the functional&lt;a
+href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln
 \left(\frac{1}{q_\theta}\right) (\#eq:FunctionalThethaStar).
@@ -41,7 +42,7 @@ class="math inline"&gt;\(N\)&lt;/span&gt; observations is&lt;a href="#fn2"
 class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \hat \theta _N \equiv \theta ^*(\hat P _N)=\arg \max_{\theta \in \Theta}
-\sum_{i=1}^N \ln ({q_\theta(Z_i)}), (\#eq:ThetaMLE)
+\sum_{i=1}^N \ln ({q_\theta(Y_i)}), (\#eq:ThetaMLE)
 \]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\hat P _N\)&lt;/span&gt; is the
 empirical distribution of the sample.&lt;/p&gt;
 &lt;p&gt;Denoting:&lt;/p&gt;
@@ -69,45 +70,42 @@ q_\theta.(\#eq:ScoreFisherInfo)
 influence function of the &lt;span class="math inline"&gt;\(\theta ^*\)&lt;/span&gt;
 functional:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-\psi_P(z)=\left(\intop \text dP\,I_{\theta ^*} \right)^{-1}u_{\theta
-^*}(z)(\#eq:InfluenceFunction)
+\psi_P(y)=\left(\intop \text dP\,I_{\theta ^*} \right)^{-1}u_{\theta
+^*}(y)(\#eq:InfluenceFunction)
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Then, from the standard theory of influence functions, we have:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-\hat \theta _N \approx \theta ^*+J_{\theta ^*} ^{-1}
-U_{\theta^*}(\#eq:ThetaNFirstOrder)
+\hat \theta _N \approx \theta ^*+J ^{-1} U(\#eq:ThetaNFirstOrder)
 \]&lt;/span&gt; where we have defined:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-J_{\theta ^*}\equiv \intop \text dP\,I_{\theta ^*},\quad U_{\theta ^*
-}\equiv\frac{1}{N}\sum _{i=1}^Nu_{\theta
-^*}(Z_i)(\#eq:ScoreFisherInfo2).
+J\equiv \intop \text dP\,I_{\theta ^*},\quad U\equiv\frac{1}{N}\sum
+_{i=1}^Nu_{\theta ^*}(Y_i)(\#eq:ScoreFisherInfo2).
 \]&lt;/span&gt; In particular, we obtain the Central Limit Theorem (CLT)&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \sqrt N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0,
-J_{\theta^*}^{-1}K_{\theta ^*}J_{\theta ^*}^{-1}),(\#eq:ThetaCLT)
+J^{-1}KJ^{-1}),(\#eq:ThetaCLT)
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;with:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-K_{\theta ^*} = \mathbb V(u_{\theta ^*}(Z)). (\#eq:ScoreVariance)
-\]&lt;/span&gt; The matrices &lt;span class="math inline"&gt;\(K_{\theta
-^*}\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(J_{\theta ^*}\)&lt;/span&gt;
-depend on the unknown value &lt;span class="math inline"&gt;\(\theta
-^*\)&lt;/span&gt;, but we can readily construct plugin estimators:&lt;/p&gt;
+K = \mathbb V(u_{\theta ^*}(Y)). (\#eq:ScoreVariance)
+\]&lt;/span&gt; The matrices &lt;span class="math inline"&gt;\(K\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(J\)&lt;/span&gt; depend on the unknown value &lt;span
+class="math inline"&gt;\(\theta ^*\)&lt;/span&gt;, but we can readily construct
+plugin estimators:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-\hat J_N = -\frac{1}{N}\sum _{i=1}^NI_{\hat \theta _N}(z_i),\quad\hat
-K_N = \frac{1}{N}\sum _{i=1}^Nu_{\hat \theta _N}(z_i)u_{\hat \theta
-_N}(z_i)^T,(\#eq:PluginJK)
+\hat J_N = -\frac{1}{N}\sum _{i=1}^NI_{\hat \theta _N}(Y_i),\quad\hat
+K_N = \frac{1}{N}\sum _{i=1}^Nu_{\hat \theta _N}(Y_i)u_{\hat \theta
+_N}(Y_i)^T,(\#eq:PluginJK)
 \]&lt;/span&gt; and estimate the variance of &lt;span class="math inline"&gt;\(\hat
 \theta _N\)&lt;/span&gt; as:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \widehat {\mathbb V}(\hat \theta _N) = \frac{\hat J _N ^{-1}\hat K_N\hat
 J_N ^{-1}}{N}(\#eq:SandwichEstimator),
 \]&lt;/span&gt; which is the usual Sandwich estimator. Finally, if &lt;span
-class="math inline"&gt;\(P = Q_{\theta^*}\)&lt;/span&gt;, then &lt;span
-class="math inline"&gt;\(J _{\theta^*} = K _{\theta^*}\)&lt;/span&gt;, and the
+class="math inline"&gt;\(P = Q_{\theta^*}\)&lt;/span&gt;, then $J = K $, and the
 CLT @ref(eq:ThetaCLT) becomes simply &lt;span class="math inline"&gt;\(\sqrt
 N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0,
-J_{\theta^*}^{-1})\)&lt;/span&gt;.&lt;/p&gt;
+J^{-1})\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Let us now consider the following expansion of &lt;span
 class="math inline"&gt;\(c_P(\hat \theta _N)\)&lt;/span&gt; which, we recall, is
 the cross-entropy of the ML model on the true distribution &lt;span
@@ -116,88 +114,167 @@ class="math inline"&gt;\(P\)&lt;/span&gt; (&lt;em&gt;cf.&lt;/em&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \begin{split}
 c_P(\hat \theta _N)
-    &amp;amp;= -\intop \text d P(z&amp;#39;)\,\ln (q_{\hat \theta}(z&amp;#39;))\\
+    &amp;amp;= -\intop \text d P(y&amp;#39;)\,\ln (q_{\hat \theta}(y&amp;#39;))\\
     &amp;amp; \approx -\mathbb E&amp;#39;(\ln q_{\theta^*})+\frac{1}{2}(\hat
-\theta-\theta ^*)^TJ_{\theta ^*} (\hat \theta-\theta ^*)\\
-    &amp;amp; \approx -\mathbb E&amp;#39;(\ln q_{\theta^*})+\frac{1}{2}U_{\theta
-^*}^TJ_{\theta ^*}^{-1}U_{\theta ^*}
+\theta-\theta ^*)^TJ (\hat \theta-\theta ^*)\\
+    &amp;amp; \approx -\mathbb E&amp;#39;(\ln
+q_{\theta^*})+\frac{1}{2}U^TJ^{-1}U
 \end{split}
 \]&lt;/span&gt; Taking the expectation with respect to the training dataset,
 noting that &lt;span class="math inline"&gt;\(\mathbb E(U_{\theta ^*}U_{\theta
 ^*}^T)=K_{\theta ^*}\)&lt;/span&gt;, we get:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \mathbb E (c_P(\hat \theta _N))\approx -\mathbb E&amp;#39;(\ln
-q_{\theta^*})+\frac{1}{2N}\text {Tr}(J_{\theta ^*}^{-1}K_{\theta^*})
-(\#eq:CrossEntExp)
+q_{\theta^*})+\frac{1}{2N}\text {Tr}(J^{-1}K) (\#eq:CrossEntExp)
 \]&lt;/span&gt; Now consider the in-sample estimate:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \begin{split}
 c_{\hat P _N}(\hat \theta _N) &amp;amp;= -\frac{1}{N}\sum _{i=1}^N\ln
-q_{\hat \theta}(Z_i)\\
-&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)-
-U_{\theta ^*}^T(\hat \theta _N-\theta^*)+ \frac{1}{2}(\hat \theta
-_N-\theta^*)^TJ_{\theta ^*}(\hat \theta _N-\theta^*)\\
-&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)-
-U_{\theta ^*}^TJ_{\theta ^*} ^{-1} U_{\theta^*}+ \frac{1}{2}U_{\theta
-^{*}}^TJ_{\theta ^*} ^{-1}\hat J_N J_{\theta ^*} ^{-1}U_{\theta ^{*}}\\
-&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Z_i)-
-\frac{1}{2}U_{\theta ^*}^TJ_{\theta ^*} ^{-1} U_{\theta^*}.
+q_{\hat \theta}(Y_i)\\
+&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Y_i)-
+U^T(\hat \theta _N-\theta^*)+ \frac{1}{2}(\hat \theta
+_N-\theta^*)^TJ(\hat \theta _N-\theta^*)\\
+&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Y_i)- U^TJ
+^{-1} U+ \frac{1}{2}U^TJ ^{-1}\hat J_N J^{-1}U\\
+&amp;amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Y_i)-
+\frac{1}{2}U^TJ ^{-1} U.
 \end{split}
-\]&lt;/span&gt; Taking the expectation :&lt;/p&gt;
+\]&lt;/span&gt; Taking the expectation:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \mathbb E (c_{\hat P _N}(\hat \theta _N)) = -\mathbb E&amp;#39;(\ln
-q_{\theta^*})-\frac{1}{2N}\text{Tr}(J_{\theta
-^*}^{-1}K_{\theta^*})(\#eq:InSampleCrossEntExp)
+q_{\theta^*})-\frac{1}{2N}\text{Tr}(J^{-1}K)(\#eq:InSampleCrossEntExp)
 \]&lt;/span&gt; Comparing Eqs. @ref(eq:InSampleCrossEntExp) and
 @ref(eq:CrossEntExp) we see that:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
 \text{TIC}\equiv -\frac{1}{N}\sum _{i=1}^N\ln q_{\hat
-\theta}(Z_i)+\frac{1}{N}\text{Tr}(J_{\theta
-^*}^{-1}K_{\theta^*})(\#eq:TIC)
+\theta}(Y_i)+\frac{1}{N}\text{Tr}(J^{-1}K)(\#eq:TIC)
 \]&lt;/span&gt; provides an asymptotically unbiased estimate of &lt;span
 class="math inline"&gt;\(\mathbb E (c_P(\hat \theta _N))\)&lt;/span&gt;, the
 expected cross-entropy of a model from family &lt;span
 class="math inline"&gt;\(\mathcal Q\)&lt;/span&gt; estimated on a sample of &lt;span
 class="math inline"&gt;\(N\)&lt;/span&gt; observations.&lt;/p&gt;
-&lt;p&gt;In the previous derivation, we could take each &lt;span
-class="math inline"&gt;\(Z_i\)&lt;/span&gt; to be a pair &lt;span
-class="math inline"&gt;\((X_i,\,Y_i)\)&lt;/span&gt; drawn from a joint &lt;span
-class="math inline"&gt;\(X-Y\)&lt;/span&gt; distribution. If we replace the model
-family &lt;span class="math inline"&gt;\(\mathcal Q\)&lt;/span&gt; with a parametric
-family of conditional densities &lt;span class="math inline"&gt;\(\mathcal Q
-\equiv\{\text d Q_{\theta}(\cdot\vert X) = q_{\theta}(\cdot\vert X)
-\,\text d \mu\}_{\theta \in \Theta}\)&lt;/span&gt;, and change the objective
-function to:&lt;/p&gt;
+&lt;p&gt;The previous derivation assumed the &lt;span
+class="math inline"&gt;\(Y_i\)&lt;/span&gt; to be i.i.d. and does not apply,
+strictly speaking, to the case of regression, for which we need some
+more machinery. Assume that the pairs &lt;span
+class="math inline"&gt;\((X_i,\,Y_i)\)&lt;/span&gt; are drawn independently from
+a joint &lt;span class="math inline"&gt;\(X-Y\)&lt;/span&gt; distribution. Instead
+of @ref(eq:CrossEntIntegral), we consider:&lt;/p&gt;
+&lt;p&gt;We define, as in the i.i.d. case:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-c_P(\theta) = \intop \text dP(x,y)\,\ln \left(\frac{1}{q_{\theta}(y\vert
-x)}\right),(\#eq:CondCrossEntIntegral)
-\]&lt;/span&gt; we can repeat our above argument without any further change.
-This provides a quick and dirty derivation of the CLT @ref(eq:ThetaCLT)
-and of the information criterion @ref(eq:TIC) in a regression setting
-with random regressors.&lt;/p&gt;
-&lt;p&gt;A slightly more contrived but stronger interpretation is obtained if
-we regard the &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; regressors as fixed
-and consider the objective function to be:&lt;/p&gt;
+\begin{split}
+\theta ^*(P;\mathbf X)&amp;amp;=\arg\max _{\theta}
+\frac{1}{N}\sum_{i=1}^N\intop \text dP(y\vert X_i)\,\ln
+\left(\frac{1}{q_{\theta}(y\vert X_i)}\right),\\
+\theta ^*(P)&amp;amp;=\arg\max _{\theta} \intop \text dP(y,x)\,\ln
+\left(\frac{1}{q_{\theta}(y\vert X_i)}\right),\\
+\hat \theta _N&amp;amp;=\arg\max _{\theta} \sum _{i=1}^N\ln
+\left(\frac{1}{q_{\theta}(Y_i\vert X_i)}\right)
+\end{split}(\#eq:ThetaConditional)
+\]&lt;/span&gt; Noticing that &lt;span class="math inline"&gt;\(\hat \theta
+_N\)&lt;/span&gt; is a plugin estimate of &lt;span class="math inline"&gt;\(\theta
+^*\)&lt;/span&gt;, we can repeat &lt;em&gt;mutatis mutandis&lt;/em&gt; the steps leading
+to the CLT @ref(eq:ThetaCLT), which is also valid in this case.&lt;/p&gt;
+&lt;p&gt;Rather than doing so, let us consider &lt;span
+class="math inline"&gt;\(\hat \theta _N\)&lt;/span&gt; as the &lt;span
+class="math inline"&gt;\(\mathbf X\)&lt;/span&gt;-conditional plugin estimate of
+&lt;span class="math inline"&gt;\(\theta ^*(P;\mathbf X)\)&lt;/span&gt;, and the
+latter as a plugin estimate of &lt;span class="math inline"&gt;\(\theta
+^*(P)\)&lt;/span&gt; interpreted as a functional of the &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; marginal distribution. Then, a parallel
+derivation to the one provided above for the i.i.d. case shows the
+conditional convergence in distribution:&lt;/p&gt;
 &lt;p&gt;&lt;span class="math display"&gt;\[
-c_P(\theta\vert \mathbf X = \mathbf x) = \sum _{i=1}^N\intop \text
-dP(y\vert x_i)\,\ln \left(\frac{1}{q_{\theta}(y\vert
-x_i)}\right),(\#eq:CondCrossEntIntegral2)
-\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\text dP(y\vert
-x_i)\)&lt;/span&gt; denotes the conditional &lt;span class="math inline"&gt;\(Y\vert
-X\)&lt;/span&gt; probability measure for &lt;span class="math inline"&gt;\(X =
-x_i\)&lt;/span&gt;. This is the cross-entropy for a batch of &lt;span
-class="math inline"&gt;\(N\)&lt;/span&gt; independent data points conditional on
-the regressor values. Again, the arguments leading to the CLT
-@ref(eq:ThetaCLT) and the information criterion @ref(eq:TIC) can be
-repeated almost verbatim, where the corresponding estimate targets &lt;span
-class="math inline"&gt;\(\theta ^*(\mathbf X = \mathbf x)\)&lt;/span&gt; and
-&lt;span class="math inline"&gt;\(\mathbb E (c_P(\hat \theta _N\vert \mathbf X
-=\mathbf x))\)&lt;/span&gt;, of &lt;span class="math inline"&gt;\(\hat \theta
-_N\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\text{TIC}\)&lt;/span&gt;
-respectively, are now functions of the regressors. In a setting with
-random regressors, the corresponding quantities would be interpreted as
-being conditional on the observed &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;
-values.&lt;/p&gt;
+\sqrt N(\hat \theta _N - \theta ^*(P;\mathbf X))\overset{d \vert \mathbf
+X}{\to} \mathcal N(0, J_{N}^{-1}(\mathbf X)K_{N}(\mathbf
+X)J_{N}^{-1}(\mathbf X))(\#eq:CLTConditional).
+\]&lt;/span&gt; as well as the unconditional convergence:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\sqrt N(\theta ^*(P;\mathbf X) - \theta ^*(P))\overset{d }{\to} \mathcal
+N(0, J^{-1}\tilde K J^{-1})(\#eq:CLTUnconditional).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where the various matrices are defined as:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+J_N(\mathbf X)&amp;amp;\equiv \frac{1}{N}\sum _{i=1}^N\mathbb E\left[I
+_{\theta} \bigg\vert X=X_i\right]\bigg\vert_{\theta = \theta ^*(\mathbf
+X)},\\
+\quad K_N(\mathbf X)&amp;amp;\equiv\frac{1}{N}\sum _{i=1}^N\mathbb V\left[u
+_{\theta }\bigg\vert X=X_i\right]\bigg\vert_{\theta = \theta ^*(\mathbf
+X)}
+\end{split}
+(\#eq:JKConditional).
+\]&lt;/span&gt; and: &lt;span class="math display"&gt;\[
+\begin{split}
+J&amp;amp;\equiv \mathbb E\left[I_{\theta^*} \right],\\
+\quad \tilde K&amp;amp;\equiv\mathbb V\left[\mathbb E\left(u_{\theta ^*}
+\vert X\right)\right]
+\end{split}
+(\#eq:JKUnconditional).
+\]&lt;/span&gt; Here &lt;span class="math inline"&gt;\(I_\theta\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(u_\theta\)&lt;/span&gt; are again defined as in
+@ref(eq:ScoreFisherInfo), but regarded as functions of the random pair
+&lt;span class="math inline"&gt;\(\{(X,\,Y)\}\)&lt;/span&gt;, rather than &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; alone. Although Eqs.
+@ref(eq:JKConditional) are written for &lt;span
+class="math inline"&gt;\(\theta = \theta ^*(\mathbf X)\)&lt;/span&gt;, to the
+order of the present approximation we may as well substitute &lt;span
+class="math inline"&gt;\(\theta ^*(\mathbf X) \approx \theta ^*\)&lt;/span&gt;.
+Doing this, we can easily see that &lt;span
+class="math inline"&gt;\(J_N(\mathbf X) \to J\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(K_N(\mathbf X) \to \mathbb E\left[\mathbb
+V\left(u_{\theta } \vert X\right)\right]\bigg\vert_{\theta = \theta
+^*}\)&lt;/span&gt;. This can be used to find the unconditional variance of
+&lt;span class="math inline"&gt;\(\hat \theta _N\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\begin{split}
+\mathbb V(\hat \theta _N)
+    &amp;amp;=\mathbb E (\mathbb V(\hat \theta _N \vert \mathbf X))+\mathbb
+V (\mathbb E(\hat \theta _N \vert \mathbf X))\\
+    &amp;amp;=\mathbb E (\mathbb V(\hat \theta _N \vert \mathbf X))+\mathbb
+V (\theta ^*(\mathbf X))\\
+    &amp;amp;=J^{-1}\left(\mathbb V\left[\mathbb E\left(u_{\theta ^*} \vert
+X\right)\right]+\mathbb E\left[\mathbb V\left(u_{\theta ^*} \vert
+X\right)\right]\right)J^{-1}\\
+    &amp;amp;= J^{-1} KJ^{-1}
+\end{split}
+\]&lt;/span&gt; with &lt;span class="math inline"&gt;\(K = \mathbb
+V(u_{\theta^*})\)&lt;/span&gt; as in the i.i.d. case, in agreement with the
+CLT @ref(eq:ThetaCLT). Our derivation here shows how the variance of
+&lt;span class="math inline"&gt;\(\hat \theta _N\)&lt;/span&gt; decomposes into a
+component due to the variability of &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;, and a component due to the residual
+variability of &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; given &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The corresponding result for the TIC @ref(eq:TIC) is slightly less
+straightforward. Repeating the steps leading to this equation for a
+fixed sample of regressors &lt;span class="math inline"&gt;\(\mathbf
+X\)&lt;/span&gt;, we find that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E (\text{TIC}\vert \mathbf X)=\intop \prod_{i=1}^N\text
+dP(y_i\vert X_i)\,\,\frac{1}{N}\sum_{j=1}^N\intop \text dP(y^\prime\vert
+X_j)\ln \left(\frac{1}{q_{\hat \theta_N}(y^\prime \vert
+X_j)}\right),(\#eq:ConditionalTICRegressors)
+\]&lt;/span&gt; where the outer integral is a conditional expectation on the
+sample responses, while the inner integrals are expectations with
+respect to a new response associated to a sample regressor &lt;span
+class="math inline"&gt;\(X_i\)&lt;/span&gt;. If we now average over &lt;span
+class="math inline"&gt;\(\mathbf X\)&lt;/span&gt;, we&lt;br /&gt;
+find:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E (\text{TIC})=\intop \prod_{i=1}^N\text
+dP(x_i,y_i)\,\,\frac{1}{N}\sum_{j=1}^N\intop \text dP(y^\prime\vert
+x_j)\ln \left(\frac{1}{q_{\hat \theta_N}(y^\prime \vert
+x_i)}\right)=\mathbb
+E(\text{CE}_\text{in}).(\#eq:UnonditionalTICRegressors)
+\]&lt;/span&gt; The right-hand side is the expected in-sample cross-entropy,
+which is in general different from the extra-sample cross-entropy:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathbb E(\text{CE}) =\intop \prod_{i=1}^N\text dP(x_i,y_i)\intop \text
+dP(x^\prime,y^\prime)\ln \left(\frac{1}{q_{\hat \theta_N}(y^\prime \vert
+x^\prime)}\right).
+(\#eq:ExtraSampleCE)
+\]&lt;/span&gt;&lt;/p&gt;
 &lt;h2 id="references"&gt;References&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class="citation"&gt;(Shalizi 2024)&lt;/span&gt;&lt;/li&gt;
@@ -243,9 +320,10 @@ settings respectively.&lt;a href="#fnref1"
 class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;As a random variable, &lt;span class="math inline"&gt;\(\hat
 \theta _N\)&lt;/span&gt; is also independent (modulo a measure zero set) of
-the specific representer &lt;span class="math inline"&gt;\(q_\theta\)&lt;/span&gt;
-if &lt;span class="math inline"&gt;\(P\)&lt;/span&gt; is absolutely continuous with
-respect to &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt;.&lt;a href="#fnref2"
+the specific &lt;span class="math inline"&gt;\(L_1\)&lt;/span&gt; representation
+&lt;span class="math inline"&gt;\(q_\theta\)&lt;/span&gt; if &lt;span
+class="math inline"&gt;\(P\)&lt;/span&gt; is absolutely continuous with respect
+to &lt;span class="math inline"&gt;\(\mu\)&lt;/span&gt;.&lt;a href="#fnref2"
 class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
