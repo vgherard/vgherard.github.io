@@ -7,7 +7,222 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 17 May 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Frequentist bounds for Bayesian sequential hypothesis testing</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing</link>
+      <description>
+
+
+&lt;p&gt;I just came across &lt;span class="citation"&gt;(Kerridge 1963)&lt;/span&gt;, an
+old result which falls under the umbrella of “frequentist properties of
+Bayesian inference”. Specifically, the theorem proved in this reference
+applies to sequential testing, a context in which the mechanics of
+Bayesian inference, with its typical sequential updates, may be regarded
+as natural.&lt;/p&gt;
+&lt;p&gt;Suppose we wish to compare two hypotheses &lt;span
+class="math inline"&gt;\(H_0\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(H_1\)&lt;/span&gt;, where &lt;span
+class="math inline"&gt;\(H_0\)&lt;/span&gt; is simple&lt;a href="#fn1"
+class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. We start collecting
+data until our sample meets some specific requirement, according to some
+given &lt;em&gt;stopping rule&lt;/em&gt; &lt;span class="math inline"&gt;\(S\)&lt;/span&gt;. If
+this ever occurs, we compute the &lt;em&gt;Bayes factor&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+B = \frac{\text{Pr}(\text {data} \vert H_0)}{\text{Pr}(\text {data}
+\vert H_1)}.(\#eq:BayesRatio)
+\]&lt;/span&gt; and reject &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; if &lt;span
+class="math inline"&gt;\(B \leq b\)&lt;/span&gt;, for some &lt;span
+class="math inline"&gt;\(b &amp;gt; 0\)&lt;/span&gt;. The theorem is that if &lt;span
+class="math inline"&gt;\(H_0\)&lt;/span&gt; is the true data generating process,
+the above procedure has a false rejection rate lower than &lt;span
+class="math inline"&gt;\(b\)&lt;/span&gt;, &lt;em&gt;independently of the stopping rule
+employed to end sampling&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Notice that the rejection event is composed by two parts:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;Sampling has stopped at some point during data taking.&lt;/li&gt;
+&lt;li&gt;When sampling stopped, &lt;span class="math inline"&gt;\(B \leq b\)&lt;/span&gt;
+held.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We also note that the stopping rule needs not be deterministic,
+although this appears to be implicitly assumed in the original
+reference. In general, the data collected up to a certain point will
+only determine the &lt;em&gt;probability&lt;/em&gt; that sampling stops at that time
+(and, to reinforce the previous point, the sum of these probabilities
+will not, in general, add up to &lt;span
+class="math inline"&gt;\(1\)&lt;/span&gt;).&lt;/p&gt;
+&lt;p&gt;In order to prove this theorem, let us set up some notation. Let
+&lt;span class="math inline"&gt;\((X_n)_{n\in \mathbb N}\)&lt;/span&gt; be some
+stochastic process representing “data”, where each &lt;span
+class="math inline"&gt;\(X_n \in \mathcal X\)&lt;/span&gt; is a data point. We
+denote by &lt;span class="math inline"&gt;\(P^{(0)}\)&lt;/span&gt; the probability
+distribution of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; under &lt;span
+class="math inline"&gt;\(H_0\)&lt;/span&gt;, which is completely defined since
+&lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; is simple. We further denote by
+&lt;span class="math inline"&gt;\(P_n ^{(0)}\)&lt;/span&gt; the corresponding
+probability measure on &lt;span class="math inline"&gt;\(\mathcal X
+^n\)&lt;/span&gt; for the set of the first &lt;span
+class="math inline"&gt;\(n\)&lt;/span&gt; observations &lt;span
+class="math inline"&gt;\(X_1,\,X_2,\,\dots, \,X_n\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;We first consider the case in which &lt;span
+class="math inline"&gt;\(H_1\)&lt;/span&gt; is also simple, and denote by &lt;span
+class="math inline"&gt;\(P^{(1)}\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(P^{(1)}_n\)&lt;/span&gt; the corresponding measures. The
+Bayes factor is defined as the Radon-Nikodym derivative:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+B_n \equiv \frac{\text d P^{(0)}_n}{\text d
+P_n^{(1)}}(\#eq:BayesRatioRadonNikodym)
+\]&lt;/span&gt; (we assume regularity conditions so that such a derivative
+exists).&lt;/p&gt;
+&lt;p&gt;Also, we assume for the moment that the stopping rule is
+deterministic, embodied by binary functions &lt;span
+class="math inline"&gt;\(S_n=S(X_1,\,X_2,\,\dots,X_n)\)&lt;/span&gt; of the first
+&lt;span class="math inline"&gt;\(n\)&lt;/span&gt; observations, with &lt;span
+class="math inline"&gt;\(S_n = 1\)&lt;/span&gt; if sampling can stop at step
+&lt;span class="math inline"&gt;\(n\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Now fix &lt;span class="math inline"&gt;\(b&amp;gt;0\)&lt;/span&gt;. A rejection of
+&lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; at sampling step &lt;span
+class="math inline"&gt;\(n\)&lt;/span&gt; is represented by the event:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathcal R _{n}(b)\equiv \{B_n\leq b,\,S_n=1,\,S_i=0\,\text{ for
+}i&amp;lt;n\},(\#eq:RejectionEvents)
+\]&lt;/span&gt; which, with abuse of notation, we may identify with a subset
+of &lt;span class="math inline"&gt;\(\mathcal X ^n\)&lt;/span&gt;. The overall
+rejection event (at any sampling step) is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathcal R (b)\equiv \bigcup _{n=1} ^\infty \mathcal
+R_n(b),(\#eq:BigRejectionEvent)
+\]&lt;/span&gt; so that our theorem amounts to the bound:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}_{H_0}(\mathcal R(b))\leq b. (\#eq:TheoremStatement)
+\]&lt;/span&gt; In order to prove this, we first note that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}_{H_0}(\mathcal R _n(b))=
+        \intop _{\mathcal R _n(b)} \text d P_n=
+        \intop _{\mathcal R _n(b)}B_n \text d Q_n \leq
+        b\intop _{\mathcal R _n(b)} \text d
+Q_n=b\cdot\text{Pr}_{H_1}(\mathcal R _n(b)).(\#eq:TheoremStep1)
+\]&lt;/span&gt; Hence, since the events &lt;span class="math inline"&gt;\(\mathcal R
+_n(b)\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\mathcal R _m(b)\)&lt;/span&gt;
+are clearly disjoint for &lt;span class="math inline"&gt;\(n\neq m\)&lt;/span&gt;,
+we have:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}_{H_0}(\mathcal R(b))\leq b\cdot\text{Pr}_{H_1}(\mathcal R
+(b))(\#eq:TheoremStep2),
+\]&lt;/span&gt; which, since &lt;span
+class="math inline"&gt;\(\text{Pr}_Q(\cdot)\leq1\)&lt;/span&gt;, implies
+@ref(eq:TheoremStatement).&lt;/p&gt;
+&lt;p&gt;We may relax the assumption that the alternative hypothesis is
+simple, by considering a parametric family of measures &lt;span
+class="math inline"&gt;\((P^{(1)}_\theta)_{\theta \in \Theta}\)&lt;/span&gt;,
+where the parameter &lt;span class="math inline"&gt;\(\theta\)&lt;/span&gt; has some
+prior probability &lt;span class="math inline"&gt;\(\text
+d\Phi(\theta)\)&lt;/span&gt;. The argument given above still applies to this
+case, if &lt;span class="math inline"&gt;\(P^{(1)}\)&lt;/span&gt; is replaced by the
+mixture &lt;span class="math inline"&gt;\(P^{(1)} = \intop \text d
+\Phi(\theta) P^{(1)}_\theta\)&lt;/span&gt; (under appropriate regularity
+assumptions). In the notation of Eq. @ref(eq:BayesRatio), the
+denominator &lt;span class="math inline"&gt;\(\text {Pr}(\text {data} \vert
+H_1)\equiv \intop \text d \Phi(\theta)\,\text{Pr}(\text{data} \vert
+H_{1,\theta})\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, in order to lift the assumption that our stopping rule is
+deterministic, let us first consider the following special
+(deterministic) stopping rule:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+S^*_n =1\iff B_n \leq b.(\#eq:DataDredging)
+\]&lt;/span&gt; In other words, we stop sampling whenever the sample would
+reject &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; according to &lt;span
+class="math inline"&gt;\(B_n \leq b\)&lt;/span&gt;. The rejection event &lt;span
+class="math inline"&gt;\(\mathcal R(b)\)&lt;/span&gt; for this special stopping
+rule is simply:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathcal R^*(b) \equiv \{B_n \leq b\text{ for some }n\in \mathbb
+N\}.(\#eq:RejectionDataDredging)
+\]&lt;/span&gt; Since we already proved the theorem for any deterministic
+stopping rule, Eq. @ref(eq:TheoremStatement) implies:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text {Pr}_{H_0}(\mathcal R^*(b)) \leq b.(\#eq:BoundDataDredging)
+\]&lt;/span&gt; But Eq. @ref(eq:BoundDataDredging) clearly implies the theorem
+for any stopping rule, deterministic or not, since in general:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\mathcal R(b) \subseteq \mathcal R^*(b)(\#eq:ProperSubsetDataDredging)
+\]&lt;/span&gt; (we need &lt;span class="math inline"&gt;\(B_n\leq b\)&lt;/span&gt; to
+hold for some &lt;span class="math inline"&gt;\(n\in \mathbb N\)&lt;/span&gt; in
+order to reject &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt;).&lt;/p&gt;
+&lt;p&gt;Interestingly, the argument just given leads to a more accurate
+statement of our main result @ref(eq:TheoremStatement):&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}_{H_0}(\mathcal R(b))\leq \text {Pr}_{H_0}(B_n \leq b\text{ for
+some }n\in \mathbb N) \leq b,(\#eq:TheoremStatement2)
+\]&lt;/span&gt; where the leftmost quantity is the false rejection rate of a
+selective testing procedure, such as the one we have been considering so
+far, wheareas the central quantity is the false rejection rate of a
+&lt;em&gt;simultaneous&lt;/em&gt; testing procedure (that checks whether &lt;span
+class="math inline"&gt;\(B_n \leq b\)&lt;/span&gt; at each step of sampling).
+What’s happening here is analogous to a phenomenon observed in the
+context of parameter estimation following model selection &lt;span
+class="citation"&gt;(Berk et al. 2013)&lt;/span&gt;, where one can show that, in
+order to guarantee marginal coverage for the selected parameters, if the
+selection rule is allowed to be completely arbitrary one must actually
+require &lt;em&gt;simultaneous&lt;/em&gt; coverage for all possible parameters.&lt;/p&gt;
+&lt;p&gt;To conclude the post, let us remark that theorem
+@ref(eq:TheoremStatement) was originally formulated in terms of the
+posterior probability &lt;span class="math inline"&gt;\(Q_n(\pi)\)&lt;/span&gt; of
+&lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+Q_n(\pi) = \frac{\pi }{\pi +(1-\pi)B^{-1}_n},(\#eq:PosteriorProb)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class="math inline"&gt;\(\pi\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(1-\pi\)&lt;/span&gt; are the prior probabilities of the
+two competing models &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(H_1\)&lt;/span&gt;, respectively. We may use &lt;span
+class="math inline"&gt;\(Q_n(\pi) \leq q\)&lt;/span&gt;, rather than &lt;span
+class="math inline"&gt;\(B_n \leq b\)&lt;/span&gt;, as the relevant criterion for
+rejecting &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt;. From the pure
+frequentist point of view, this doesn’t add anything to our formulation
+in terms of the Bayes ratio, as &lt;span class="math inline"&gt;\(Q_n(\pi)\leq
+q\)&lt;/span&gt; is equivalent to &lt;span class="math inline"&gt;\(B_n \leq
+b\)&lt;/span&gt; as long as &lt;span class="math inline"&gt;\(b =
+\frac{q}{1-q}\frac{1-\pi}{\pi}\)&lt;/span&gt;. In particular, the bound
+analogous to @ref(eq:TheoremStatement) reads:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text{Pr}_{H_0}(\mathcal R(q))\leq \text {Pr}_{H_0}(Q_n(\pi) \leq
+q\text{ for some }n\in \mathbb N) \leq
+\frac{q}{1-q}\frac{1-\pi}{\pi}.(\#eq:TheoremStatement3)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-berk2013valid" class="csl-entry"&gt;
+Berk, Richard, Lawrence Brown, Andreas Buja, Kai Zhang, and Linda Zhao.
+2013. &lt;span&gt;“Valid Post-Selection Inference.”&lt;/span&gt; &lt;em&gt;The Annals of
+Statistics&lt;/em&gt;, 802–37.
+&lt;/div&gt;
+&lt;div id="ref-kerridge1963bounds" class="csl-entry"&gt;
+Kerridge, D. 1963. &lt;span&gt;“Bounds for the Frequency of Misleading Bayes
+Inferences.”&lt;/span&gt; &lt;em&gt;The Annals of Mathematical Statistics&lt;/em&gt; 34
+(3): 1109–10.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;This is a technical term, meaning that &lt;span
+class="math inline"&gt;\(H_0\)&lt;/span&gt; completely characterizes the
+probability distribution of data. An example of a non-simple hypothesis
+would be a parametric model depending on some unknown parameter &lt;span
+class="math inline"&gt;\(\theta\)&lt;/span&gt;.&lt;a href="#fnref1"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>2cd0556ecb9f91f44d1332f72e39cba8</distill:md5>
+      <category>Sequential Hypothesis Testing</category>
+      <category>Bayesian Methods</category>
+      <category>Frequentist Methods</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing</guid>
+      <pubDate>Tue, 21 May 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>AIC in the well-specified linear model: theory and simulation</title>
       <dc:creator>Valerio Gherardi</dc:creator>
