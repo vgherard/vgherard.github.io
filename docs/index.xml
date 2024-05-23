@@ -7,7 +7,7 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 21 May 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Frequentist bounds for Bayesian sequential hypothesis testing</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -221,7 +221,142 @@ class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Frequentist Methods</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing</guid>
-      <pubDate>Tue, 21 May 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Authorship Attribution in Lennon-McCartney Songs</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(Glickman, Brown, and Song 2019)&lt;/span&gt;. An
+enjoyable read. The authors present a statistical analysis of the
+Beatles’ repertoire from the point of view of authorship (Lennon
+&lt;em&gt;vs.&lt;/em&gt; McCartney), a &lt;a
+href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/"&gt;topic
+with which I’ve been lately involved&lt;/a&gt;. As a side-note, this also made
+me discover the &lt;a href="https://hdsr.mitpress.mit.edu/"&gt;Harvard Data
+Science Review&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;From the paper’s abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The songwriting duo of John Lennon and Paul McCartney, the two
+founding members of the Beatles, composed some of the most popular and
+memorable songs of the last century. Despite having authored songs under
+the joint credit agreement of Lennon-McCartney, it is well-documented
+that most of their songs or portions of songs were primarily written by
+exactly one of the two. Furthermore, the authorship of some
+Lennon-McCartney songs is in dispute, with the recollections of
+authorship based on previous interviews with Lennon and McCartney in
+conflict. For Lennon-McCartney songs of known and unknown authorship
+written and recorded over the period 1962-66, we extracted musical
+features from each song or song portion. These features consist of the
+occurrence of melodic notes, chords, melodic note pairs, chord change
+pairs, and four-note melody contours. We developed a prediction model
+based on variable screening followed by logistic regression with elastic
+net regularization. Out-of-sample classification accuracy for songs with
+known authorship was 76%, with a c-statistic from an ROC analysis of
+83.7%. We applied our model to the prediction of songs and song portions
+with unknown or disputed authorship.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The modeling approach looks to me very sound and appropriate to the
+small sample size available (&lt;span class="math inline"&gt;\(N =
+70\)&lt;/span&gt;, the statistical unit corresponding to a song of known
+authorship). Effective model selection and testing is achieved through
+three nested layers of cross-validation (😱): one for elastic net
+hyperparameter tuning, one for feature screening, and finally one for
+estimating the prediction error.&lt;/p&gt;
+&lt;p&gt;The discussion of feature importance is insightful, in that it
+identifies concrete aspects of McCartney’s compositions that make them
+distinguishable from Lennon’s ones. This type of interpretability is a
+big plus for authorship analysis. The general qualitative conclusion,
+that McCartney’s music tended to exhibit more complex and unusual
+patterns kinda resonates with my perception of Beatles’ songs.&lt;/p&gt;
+&lt;p&gt;Armed with the trained logistic regression model, together with a
+valid accuracy estimate (76%), the authors set out to apply their model
+to authorship prediction for controversial cases within the Beatles’
+corpus (outside of the training sample). I don’t fully understand the
+authors approach in this part of the paper, and some points appear to be
+questionable, for the reasons I explain below.&lt;/p&gt;
+&lt;p&gt;One of the advantages of fitting a full probability model, such as
+logistic regression, rather than a conceptually simpler pure
+classification model (like a tree, for example), is that the output of
+the former is not a mere class (McCartney or Lennon), but rather a
+&lt;em&gt;probability&lt;/em&gt; of belonging to that class. This allows one to make
+much more informative statements in the analysis of new cases, since the
+strength of evidence provided by the data towards the predicted class
+can be quantified on a case by case basis. All of this is true, of
+course, &lt;em&gt;provided that the fitted model gives a decent approximation
+to the true data generating process&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;With similar considerations in mind, I suppose, the authors produce
+probability estimates for each of the disputed cases considered, in the
+form of a point estimate and a confidence interval to represent
+uncertainty. I think there is room for improvement here, in two
+aspects.&lt;/p&gt;
+&lt;p&gt;My first objection is what I already pointed out above: nothing in
+the modeling process explained in the paper suggests that the final
+model provides a good approximation to the true class probability
+conditional on features. The model has, with reasonable confidence, a
+predictive performance close to the best achievable within the
+possibilities considered - quantified by 76% accuracy and 84% AUC - but
+this says nothing about its correct specification as a probability
+model. Without a careful specification study, it is impossible to
+conclude anything on the nature of the true estimation targets of the
+fitted “probabilities”: they may perfectly have nothing to do with the
+actual &lt;span class="math inline"&gt;\(\text{Pr}(\text{author}\,\vert\,
+\text{song features})\)&lt;/span&gt; the authors are after. There is still
+value, I believe, in reporting fitted probabilities as qualitative
+measures of evidence, but these should not be conflated with the true
+(unknown) class probabilities… at least without some serious attempt to
+detect differences between the two.&lt;/p&gt;
+&lt;p&gt;My second point is a technical one and concerns how they construct
+confidence intervals for fitted probabilities. The construction
+resembles that of bootstrap percentile confidence intervals but, rather
+than the usual bootstrap synthetic datasets, the delete-one datasets
+used in leave-one-out cross-validation are used to obtain replicas of
+the fitted probabilities. This is nothing but Jackknife resampling in
+disguise, and it is well known that the resampling standard deviation of
+such Jackknife replicae is roughly &lt;span class="math inline"&gt;\(N
+^{-1/2}\)&lt;/span&gt; times the true standard deviation, see &lt;em&gt;e.g.&lt;/em&gt;
+&lt;span class="citation"&gt;(Tibshirani and Efron 1993)&lt;/span&gt;. Therefore, I
+have strong reasons to believe that the reported intervals strongly
+underestimate the uncertainty associated with these probability
+estimates.&lt;/p&gt;
+&lt;p&gt;All in all, the attempt to go beyond reporting simple classes -
+backed up by an overall 76% accuracy estimate - is well-motivated in
+principle, but the final outcome is not very dependable.&lt;/p&gt;
+&lt;p&gt;As usual, I’m more eloquent when criticizing than when praising, but
+let me end on a very positive note. The authors do a &lt;em&gt;great&lt;/em&gt;
+favor to the reader, by including a discussion of the informal steps
+performed prior and in parallel to the formal analysis presented in the
+paper. This kind of transparency - which is also present in the rest of
+the discussion - is, I believe, not so common as it should, and is what
+makes it eventually possible to think critically about someone else’s
+work.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-Glickman2019Data" class="csl-entry"&gt;
+Glickman, Mark, Jason Brown, and Ryan Song. 2019.
+&lt;span&gt;“(&lt;span&gt;A&lt;/span&gt;) &lt;span&gt;Data&lt;/span&gt; in the &lt;span&gt;Life&lt;/span&gt;:
+Authorship &lt;span&gt;Attribution&lt;/span&gt; in
+&lt;span&gt;Lennon&lt;/span&gt;-&lt;span&gt;McCartney&lt;/span&gt; &lt;span&gt;Songs&lt;/span&gt;.”&lt;/span&gt;
+&lt;em&gt;Harvard Data Science Review&lt;/em&gt; 1 (1).
+&lt;/div&gt;
+&lt;div id="ref-tibshirani1993introduction" class="csl-entry"&gt;
+Tibshirani, Robert J, and Bradley Efron. 1993. &lt;span&gt;“An Introduction to
+the Bootstrap.”&lt;/span&gt; &lt;em&gt;Monographs on Statistics and Applied
+Probability&lt;/em&gt; 57 (1): 1–436.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>7b1b8fa9a1ecfd0183e658839ab311f3</distill:md5>
+      <category>Comment on...</category>
+      <category>Authorship Verification</category>
+      <category>Natural Language Processing</category>
+      <category>Machine Learning</category>
+      <category>Music</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs</guid>
+      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>AIC in the well-specified linear model: theory and simulation</title>

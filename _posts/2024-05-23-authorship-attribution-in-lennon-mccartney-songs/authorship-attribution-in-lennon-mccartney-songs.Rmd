@@ -1,0 +1,104 @@
+---
+title: "Authorship Attribution in Lennon-McCartney Songs"
+description: |
+  An open access paper by M. Glickman, J. Brown, and R. Song.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-05-23
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+categories: 
+  - Comment on...
+  - Authorship Verification
+  - Natural Language Processing
+  - Machine Learning
+  - Music
+  - Statistics
+draft: false
+---
+
+[@Glickman2019Data]. An enjoyable read. The authors present a statistical 
+analysis of the Beatles' repertoire from the point of view of authorship 
+(Lennon *vs.* McCartney), a [topic with which I've been lately involved](https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/).
+As a side-note, this also made me discover the [Harvard Data Science Review](https://hdsr.mitpress.mit.edu/).
+
+From the paper's abstract:
+
+> The songwriting duo of John Lennon and Paul McCartney, the two founding members of the Beatles, composed some of the most popular and memorable songs of the last century. Despite having authored songs under the joint credit agreement of Lennon-McCartney, it is well-documented that most of their songs or portions of songs were primarily written by exactly one of the two. Furthermore, the authorship of some Lennon-McCartney songs is in dispute, with the recollections of authorship based on previous interviews with Lennon and McCartney in conflict. For Lennon-McCartney songs of known and unknown authorship written and recorded over the period 1962-66, we extracted musical features from each song or song portion. These features consist of the occurrence of melodic notes, chords, melodic note pairs, chord change pairs, and four-note melody contours. We developed a prediction model based on variable screening followed by logistic regression with elastic net regularization. Out-of-sample classification accuracy for songs with known authorship was 76%, with a c-statistic from an ROC analysis of 83.7%. We applied our model to the prediction of songs and song portions with unknown or disputed authorship.
+
+The modeling approach looks to me very sound and appropriate to the small sample 
+size available ($N = 70$, the statistical unit corresponding to a song of known 
+authorship). Effective model selection and testing is achieved through three 
+nested layers of cross-validation (😱): one for elastic net hyperparameter tuning, 
+one for feature screening, and finally one for estimating the prediction error.
+
+The discussion of feature importance is insightful, in that it identifies
+concrete aspects of McCartney's compositions that make them distinguishable from 
+Lennon's ones. This type of interpretability is a big plus for authorship 
+analysis. The general qualitative conclusion, that McCartney's music tended to 
+exhibit more complex and unusual patterns kinda resonates with my perception of
+Beatles' songs.
+
+Armed with the trained logistic regression model, together with a valid accuracy 
+estimate (76%), the authors set out to apply their model to authorship 
+prediction for controversial cases within the Beatles' corpus (outside of the 
+training sample). I don't fully understand the authors approach in this part of 
+the paper, and some points appear to be questionable, for the reasons I explain 
+below.
+
+One of the advantages of fitting a full probability model, such as logistic 
+regression, rather than a conceptually simpler pure classification model (like a 
+tree, for example), is that the output of the former is not a mere class (McCartney
+or Lennon), but rather a *probability* of belonging to that class. This allows 
+one to make much more informative statements in the analysis of new cases, since
+the strength of evidence provided by the data towards the predicted class can be
+quantified on a case by case basis. All of this is true, of course,
+*provided that the fitted model gives a decent approximation to the true data 
+generating process*.
+
+With similar considerations in mind, I suppose, the authors produce probability
+estimates for each of the disputed cases considered, in the form of a point 
+estimate and a confidence interval to represent uncertainty. I think there is
+room for improvement here, in two aspects.
+
+My first objection is what I already pointed out above: nothing in the modeling
+process explained in the paper suggests that the final model provides a 
+good approximation to the true class probability conditional on features. The 
+model has, with reasonable confidence, a predictive performance close to the 
+best achievable within the possibilities considered - quantified by 76% accuracy 
+and 84% AUC - but this says nothing about its correct specification as a probability
+model. Without a careful specification study, it is impossible to conclude 
+anything on the nature of the true estimation targets of the fitted 
+"probabilities": they may perfectly have nothing to do with the actual
+$\text{Pr}(\text{author}\,\vert\, \text{song features})$ the authors are after.
+There is still value, I believe, in reporting fitted probabilities as 
+qualitative measures of evidence, but these should not be conflated with the 
+true (unknown) class probabilities... at least without some serious attempt to 
+detect differences between the two.
+
+My second point is a technical one and concerns how they construct 
+confidence intervals for fitted probabilities. The construction resembles that 
+of bootstrap percentile confidence intervals but, rather than the usual 
+bootstrap synthetic datasets, the delete-one datasets used in leave-one-out 
+cross-validation are used to obtain replicas of the fitted probabilities. 
+This is nothing but Jackknife resampling in disguise, and it is well known that 
+the resampling standard deviation of such Jackknife replicae is roughly 
+$N ^{-1/2}$ times the true standard deviation, see *e.g.* 
+[@tibshirani1993introduction]. Therefore, I have strong reasons to believe 
+that the reported intervals strongly underestimate the uncertainty associated 
+with these probability estimates.
+
+All in all, the attempt to go beyond reporting simple classes - backed up by an
+overall 76% accuracy estimate - is well-motivated in principle, but the final 
+outcome is not very dependable.
+
+As usual, I'm more eloquent when criticizing than when praising, but let me
+end on a very positive note. The authors do a *great* favor to 
+the reader, by including a discussion of the informal steps performed prior and 
+in parallel to the formal analysis presented in the paper. This kind of 
+transparency - which is also present in the rest of the discussion - is, 
+I believe, not so common as it should, and is what makes it eventually possible 
+to think critically about someone else's work.
