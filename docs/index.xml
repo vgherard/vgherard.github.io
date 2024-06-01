@@ -7,7 +7,364 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 31 May 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Statements of the Second Law of Thermodynamics</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics</link>
+      <description>
+
+
+&lt;p&gt;The Second Law of Thermodynamics is commonly stated in the forms of
+Kelvin’s and Clausius’ postulates. These can be enunciated in the
+following way &lt;span class="citation"&gt;(Dittman and Zemansky 2021)&lt;/span&gt;
+&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Kelvin’s Postulate.&lt;/strong&gt; It is impossible to construct an
+engine that, operating in a cycle, will produce no effect other than the
+extraction of heat from a reservoir and the performance of an equivalent
+amount of work.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Clausius’ Postulate.&lt;/strong&gt; It is impossible to construct a
+refrigerator that, operating in a cycle, will produce no effect other
+than the transfer of heat from a lower-temperature reservoir to a higher
+temperature reservoir.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Either formulation is equivalent to the other and leads to the
+fundamental &lt;em&gt;Clausius’ theorem&lt;/em&gt;. This asserts the existence of a
+universal state function &lt;span class="math inline"&gt;\(T\)&lt;/span&gt;, the
+&lt;em&gt;absolute temperature&lt;/em&gt;, defined for any thermodynamic system,
+that satisfies the &lt;em&gt;Clausius inequality&lt;/em&gt;. Concretely, if a system
+undergoes a cyclic process, during which it absorbs quantities &lt;span
+class="math inline"&gt;\(\Delta Q _i\)&lt;/span&gt; of energy in the form of heat
+from reservoirs at absolute temperatures &lt;span
+class="math inline"&gt;\(T_i\)&lt;/span&gt;, the inequality:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\sum _i\frac{\Delta Q_i}{T_i} \leq 0 (\#eq:ClausiusTheorem)
+\]&lt;/span&gt; always holds.&lt;/p&gt;
+&lt;p&gt;The derivation of Eq. @ref(eq:ClausiusTheorem) from Kelvin’s and
+Clausius’ postulates, a clever argument that employs ideal Carnot
+engines, is standard textbook material; see for example &lt;span
+class="citation"&gt;(Fermi 1956)&lt;/span&gt;. On the other hand, I’ve never seen
+the converse being stressed, that is, that Clausius theorem allows one
+to recover versions of Kelvin’s and Clausius’ postulates. Here are two
+(fairly obvious) arguments in this direction.&lt;/p&gt;
+&lt;p&gt;Consider a cyclic process of a thermodynamic system during which a
+quantity &lt;span class="math inline"&gt;\(\Delta Q\)&lt;/span&gt; of heat is
+absorbed from a reservoir at constant temperature &lt;span
+class="math inline"&gt;\(T_0\)&lt;/span&gt;. Equation @ref(eq:ClausiusTheorem)
+applied to this special process implies:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\Delta Q\leq 0.(\#eq:KelvinProof1)
+\]&lt;/span&gt; The fact that &lt;span class="math inline"&gt;\(\Delta Q\leq
+0\)&lt;/span&gt; means that the heat reservoir can only absorb energy during a
+cycle, which must be supplied by performing a positive work on the
+system. This is the content of Kelvin’s postulate.&lt;/p&gt;
+&lt;p&gt;Similarly, if the system performs a cycle exchanging amounts of heat
+&lt;span class="math inline"&gt;\(\Delta Q_1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\Delta Q_2\)&lt;/span&gt; with two heat sources at
+temperatures &lt;span class="math inline"&gt;\(T_1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(T_2\)&lt;/span&gt; respectively,
+@ref(eq:ClausiusTheorem) implies:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\frac{\Delta Q_1}{T_1}+\frac{\Delta Q_2}{T_2}\leq 0(\#eq:ClausiusProof1)
+\]&lt;/span&gt; But &lt;span class="math inline"&gt;\(\Delta Q_1 + \Delta Q_2 =
+\Delta Q =-\Delta W\)&lt;/span&gt;, the external work performed on the system
+during a cycle. Hence:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+(\frac{1}{T_1}-\frac{1}{T_2})\Delta Q_1\leq \frac{\Delta
+W}{T_2}.(\#eq:ClausiusProof2)
+\]&lt;/span&gt; Therefore, &lt;span class="math inline"&gt;\(\Delta Q_1 \geq
+0\)&lt;/span&gt; with &lt;span class="math inline"&gt;\(T_1 &amp;lt; T_2\)&lt;/span&gt;
+requires &lt;span class="math inline"&gt;\(\Delta W \geq 0\)&lt;/span&gt;. In other
+words, in order to perform a cycle in which a positive amount of heat is
+transferred from a low-temperature reservoir to a high-temperature one,
+we must necessarily perform some positive work&lt;a href="#fn2"
+class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;. This is the content
+of Clausius’ postulate.&lt;/p&gt;
+&lt;p&gt;A subtle point that may require some elucidation is that, in the
+usual logical exposition of Thermodynamics, the temperature to which
+Kelvin’s and Clausius’ postulates make reference is the
+&lt;em&gt;empirical&lt;/em&gt; temperature, call it &lt;span
+class="math inline"&gt;\(\theta\)&lt;/span&gt;. This is the “quantity measured by
+a thermometer” &lt;span class="citation"&gt;(Fermi 1956)&lt;/span&gt;, and is
+logically distinct from the absolute temperature &lt;span
+class="math inline"&gt;\(T\)&lt;/span&gt;, whose existence is a consequence of
+the second law. What we actually proved here are versions of Kelvin’s
+and Clausius’ postulates &lt;em&gt;formulated in terms of the absolute
+temperature&lt;/em&gt;, &lt;span class="math inline"&gt;\(T\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Now, if we take Kelvin’s or Clausius’ postulate (formulated in terms
+of &lt;span class="math inline"&gt;\(\theta\)&lt;/span&gt;) as our logical starting
+point, we can actually prove that &lt;span class="math inline"&gt;\(T\)&lt;/span&gt;
+is an increasing function of &lt;span
+class="math inline"&gt;\(\theta\)&lt;/span&gt;, in which case there is no point
+in specifying which temperature the postulates refer to. However, if our
+starting point is&lt;br /&gt;
+Clausius’ Theorem, there is no &lt;em&gt;a priori&lt;/em&gt; logical reason for a
+relation between &lt;span class="math inline"&gt;\(T\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\theta\)&lt;/span&gt;, which should be considered as an
+additional assumption.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Even though this goes a bit beyond the original scope of the post,
+I’d like to show here how @ref(eq:ClausiusTheorem) leads the existence
+of another state function, the &lt;em&gt;entropy&lt;/em&gt; &lt;span
+class="math inline"&gt;\(S\)&lt;/span&gt;, which satisfies a generalized version
+of @ref(eq:ClausiusTheorem), namely:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\sum _i\frac{\Delta Q_i}{T_i} \leq \Delta S(\#eq:ClausiusTheoremEntropy)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where quantities have the same meaning as in Eq.
+@ref(eq:ClausiusTheorem), but the process is not necessarily cyclic. One
+can additionally show that the differential of &lt;span
+class="math inline"&gt;\(S\)&lt;/span&gt; is given by:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text dS = \frac{\delta Q _R}{T}(\#eq:EntropyDifferential),
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class="math inline"&gt;\(\delta Q_R = \text d U + \delta
+W_R\)&lt;/span&gt; is the differential heat absorbed by the system in a
+reversible process, and &lt;span class="math inline"&gt;\(T\)&lt;/span&gt; is the
+system’s temperature.&lt;/p&gt;
+&lt;p&gt;We start by observing that, for a reversible process, equality must
+hold in Eq. @ref(eq:ClausiusTheorem). This is so because, for a
+reversible cycle, the inverse cycle, in which the system absorbs amounts
+&lt;span class="math inline"&gt;\(-\Delta Q_i\)&lt;/span&gt; of heat at temperatures
+&lt;span class="math inline"&gt;\(T_i\)&lt;/span&gt;, must also be possible.
+Altogether, the Clausius inequalities for the direct and inverse cycles
+thus imply:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\sum _i\frac{\Delta Q_i}{T_i} = 0\quad \text{(reversible
+process)}(\#eq:ClausiusTheoremRev).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Imagining an ideal cyclic process, in which the system exchanges
+infinitesimal amounts of heat &lt;span class="math inline"&gt;\(\delta
+Q(T&amp;#39;)\)&lt;/span&gt; with a continuous distribution of sources at
+temperatures &lt;span class="math inline"&gt;\(T&amp;#39;\)&lt;/span&gt;, we should
+replace the sum in Eq. @ref(eq:ClausiusTheoremRev) with an integral:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\intop \frac{\delta Q(T&amp;#39;)}{T&amp;#39;} = 0 \quad\text{(reversible
+process)}(\#eq:ClausiusTheoremRevInt)
+\]&lt;/span&gt; We now fix a reference state &lt;span
+class="math inline"&gt;\(\sigma _0\)&lt;/span&gt; of our system, and define for
+any other state &lt;span class="math inline"&gt;\(\sigma\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+S(\sigma;\sigma _0) = \intop _{\sigma_0}^\sigma \frac{\delta
+Q(T&amp;#39;)}{T&amp;#39;}(\#eq:EntropyDef)
+\]&lt;/span&gt; where the integral is taken along &lt;em&gt;any&lt;/em&gt; reversible path
+that connects &lt;span class="math inline"&gt;\(\sigma _0\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\sigma\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(\delta Q(T&amp;#39;)\)&lt;/span&gt; is the amount of heat
+exchanged at temperature &lt;span class="math inline"&gt;\(T&amp;#39;\)&lt;/span&gt;
+along this representative process. The fact that the integral in
+@ref(eq:EntropyDef) depends only upon the final states &lt;span
+class="math inline"&gt;\(\sigma _0\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\sigma\)&lt;/span&gt; is guaranteed by
+@ref(eq:ClausiusTheoremRevInt).&lt;/p&gt;
+&lt;p&gt;By construction, we see that Eq. @ref(eq:EntropyDifferential) must
+hold with &lt;span class="math inline"&gt;\(T\)&lt;/span&gt; being the temperature
+of a source that, if placed in thermal contact with the system, can
+produce a reversible exchange of heat. It remains to be shown that this
+temperature is nothing but the temperature of the system itself.
+Consider a reversible process in which two systems at temperatures &lt;span
+class="math inline"&gt;\(T_1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(T_2\)&lt;/span&gt; exchange an (infinitesimal) amount of
+heat. From what we have just said:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\text d S_1 = \frac{\delta Q_1}{T_2},\quad \text d S_2 = \frac{\delta Q
+_2}{T_1},(\#eq:EntropyDifferentialsSwitched)
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\delta Q_i\)&lt;/span&gt; is the
+heat absorbed by system &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;, and
+&lt;span class="math inline"&gt;\(\text d S_i\)&lt;/span&gt; is its corresponding
+entropy change. However, since the composite system is thermally
+insulated, we must have &lt;span class="math inline"&gt;\(\delta Q_1 + \delta
+Q_2=0\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\text d S_1 + \text d S_2
+= 0\)&lt;/span&gt;&lt;a href="#fn3" class="footnote-ref"
+id="fnref3"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;. Eq. @ref(eq:EntropyDifferentialsSwitched)
+then implies that, if the process is reversible, we must necessarily
+have &lt;span class="math inline"&gt;\(T_1 = T_2\)&lt;/span&gt;. This completes the
+proof of @ref(eq:EntropyDifferential).&lt;/p&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-dittman2021heat" class="csl-entry"&gt;
+Dittman, Richard H, and Mark W Zemansky. 2021. &lt;span&gt;“Heat and
+Thermodynamics SEVENTH EDITION.”&lt;/span&gt;
+&lt;/div&gt;
+&lt;div id="ref-fermi1956thermodynamics" class="csl-entry"&gt;
+Fermi, E. 1956. &lt;em&gt;Thermodynamics&lt;/em&gt;. Dover Books in Physics and
+Mathematical Physics. Dover Publications. &lt;a
+href="https://books.google.es/books?id=VEZ1ljsT3IwC"&gt;https://books.google.es/books?id=VEZ1ljsT3IwC&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;We may compare these with the corresponding formulations
+given in Enrico Fermi’s famous book &lt;span class="citation"&gt;(Fermi
+1956)&lt;/span&gt;. For instance, Kelvin’s postulate reads: &lt;em&gt;“A
+transformation whose only final result is to transform into work heat
+extracted from a source which is at the same temperature throughout is
+impossible.”&lt;/em&gt;. Even though I’m a big fan of Fermi’s book, I find the
+more modern formulations given in &lt;span class="citation"&gt;(Dittman and
+Zemansky 2021)&lt;/span&gt; clearer.&lt;a href="#fnref1"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;In fact, Eq. @ref(eq:ClausiusProof2) tells us a bit more
+than Clausius postulate, since it gives the maximum theoretical
+efficiency of a refrigerator operating between temperatures &lt;span
+class="math inline"&gt;\(T_1 &amp;lt; T_2\)&lt;/span&gt;: &lt;span
+class="math display"&gt;\[
+\frac{\Delta Q_1}{\Delta W} \leq \frac{T_1}{T_2-T_1}
+\]&lt;/span&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn3"&gt;&lt;p&gt;The additivity of entropy is a consequence of the
+additivity of heat, which in turn would require a dedicate discussion.
+Such a requirement boils down to the additivity of external work, which
+holds generally if the interaction energies of the systems being
+composed are negligible. This is always assumed (more or less
+explicitly) whenever discussing the interaction of a system with a heat
+reservoir.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;a href="#fnref3" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5>3b38a91cced01b553fec61b3485cfe2f</distill:md5>
+      <category>Thermodynamics</category>
+      <category>Physics</category>
+      <guid>https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics</guid>
+      <pubDate>Fri, 31 May 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Authorship Attribution in Lennon-McCartney Songs</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(Glickman, Brown, and Song 2019)&lt;/span&gt;. An
+enjoyable read. The authors present a statistical analysis of the
+Beatles’ repertoire from the point of view of authorship (Lennon
+&lt;em&gt;vs.&lt;/em&gt; McCartney), a &lt;a
+href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/"&gt;topic
+with which I’ve been lately involved&lt;/a&gt;. As a side-note, this also made
+me discover the &lt;a href="https://hdsr.mitpress.mit.edu/"&gt;Harvard Data
+Science Review&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;From the paper’s abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The songwriting duo of John Lennon and Paul McCartney, the two
+founding members of the Beatles, composed some of the most popular and
+memorable songs of the last century. Despite having authored songs under
+the joint credit agreement of Lennon-McCartney, it is well-documented
+that most of their songs or portions of songs were primarily written by
+exactly one of the two. Furthermore, the authorship of some
+Lennon-McCartney songs is in dispute, with the recollections of
+authorship based on previous interviews with Lennon and McCartney in
+conflict. For Lennon-McCartney songs of known and unknown authorship
+written and recorded over the period 1962-66, we extracted musical
+features from each song or song portion. These features consist of the
+occurrence of melodic notes, chords, melodic note pairs, chord change
+pairs, and four-note melody contours. We developed a prediction model
+based on variable screening followed by logistic regression with elastic
+net regularization. Out-of-sample classification accuracy for songs with
+known authorship was 76%, with a c-statistic from an ROC analysis of
+83.7%. We applied our model to the prediction of songs and song portions
+with unknown or disputed authorship.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The modeling approach looks to me very sound and appropriate to the
+small sample size available (&lt;span class="math inline"&gt;\(N =
+70\)&lt;/span&gt;, the statistical unit corresponding to a song of known
+authorship). Effective model selection and testing is achieved through
+three nested layers of cross-validation (😱): one for elastic net
+hyperparameter tuning, one for feature screening, and finally one for
+estimating the prediction error.&lt;/p&gt;
+&lt;p&gt;The discussion of feature importance is insightful, in that it
+identifies concrete aspects of McCartney’s compositions that make them
+distinguishable from Lennon’s ones. This type of interpretability is a
+big plus for authorship analysis. The general qualitative conclusion,
+that McCartney’s music tended to exhibit more complex and unusual
+patterns kinda resonates with my perception of Beatles’ songs.&lt;/p&gt;
+&lt;p&gt;Armed with the trained logistic regression model, together with a
+valid accuracy estimate (76%), the authors set out to apply their model
+to authorship prediction for controversial cases within the Beatles’
+corpus (outside of the training sample). I don’t fully understand the
+authors approach in this part of the paper, and some points appear to be
+questionable, for the reasons I explain below.&lt;/p&gt;
+&lt;p&gt;One of the advantages of fitting a full probability model, such as
+logistic regression, rather than a conceptually simpler pure
+classification model (like a tree, for example), is that the output of
+the former is not a mere class (McCartney or Lennon), but rather a
+&lt;em&gt;probability&lt;/em&gt; of belonging to that class. This allows one to make
+much more informative statements in the analysis of new cases, since the
+strength of evidence provided by the data towards the predicted class
+can be quantified on a case by case basis. All of this is true, of
+course, &lt;em&gt;provided that the fitted model gives a decent approximation
+to the true data generating process&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;With similar considerations in mind, I suppose, the authors produce
+probability estimates for each of the disputed cases considered, in the
+form of a point estimate and a confidence interval to represent
+uncertainty. I think there is room for improvement here, in two
+aspects.&lt;/p&gt;
+&lt;p&gt;My first objection is what I already pointed out above: nothing in
+the modeling process explained in the paper suggests that the final
+model provides a good approximation to the true class probability
+conditional on features. The model has, with reasonable confidence, a
+predictive performance close to the best achievable within the
+possibilities considered - quantified by 76% accuracy and 84% AUC - but
+this says nothing about its correct specification as a probability
+model. Without a careful specification study, it is impossible to
+conclude anything on the nature of the true estimation targets of the
+fitted “probabilities”: they may perfectly have nothing to do with the
+actual &lt;span class="math inline"&gt;\(\text{Pr}(\text{author}\,\vert\,
+\text{song features})\)&lt;/span&gt; the authors are after. There is still
+value, I believe, in reporting fitted probabilities as qualitative
+measures of evidence, but these should not be conflated with the true
+(unknown) class probabilities… at least without some serious attempt to
+detect differences between the two.&lt;/p&gt;
+&lt;p&gt;My second point is a technical one and concerns how they construct
+confidence intervals for fitted probabilities. The construction
+resembles that of bootstrap percentile confidence intervals but, rather
+than the usual bootstrap synthetic datasets, the delete-one datasets
+used in leave-one-out cross-validation are used to obtain replicas of
+the fitted probabilities. This is nothing but Jackknife resampling in
+disguise, and it is well known that the resampling standard deviation of
+such Jackknife replicae is roughly &lt;span class="math inline"&gt;\(N
+^{-1/2}\)&lt;/span&gt; times the true standard deviation, see &lt;em&gt;e.g.&lt;/em&gt;
+&lt;span class="citation"&gt;(Tibshirani and Efron 1993)&lt;/span&gt;. Therefore, I
+have strong reasons to believe that the reported intervals strongly
+underestimate the uncertainty associated with these probability
+estimates.&lt;/p&gt;
+&lt;p&gt;All in all, the attempt to go beyond reporting simple classes -
+backed up by an overall 76% accuracy estimate - is well-motivated in
+principle, but the final outcome is not very dependable.&lt;/p&gt;
+&lt;p&gt;As usual, I’m more eloquent when criticizing than when praising, but
+let me end on a very positive note. The authors do a &lt;em&gt;great&lt;/em&gt;
+favor to the reader, by including a discussion of the informal steps
+performed prior and in parallel to the formal analysis presented in the
+paper. This kind of transparency - which is also present in the rest of
+the discussion - is, I believe, not so common as it should, and is what
+makes it eventually possible to think critically about someone else’s
+work.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-Glickman2019Data" class="csl-entry"&gt;
+Glickman, Mark, Jason Brown, and Ryan Song. 2019.
+&lt;span&gt;“(&lt;span&gt;A&lt;/span&gt;) &lt;span&gt;Data&lt;/span&gt; in the &lt;span&gt;Life&lt;/span&gt;:
+Authorship &lt;span&gt;Attribution&lt;/span&gt; in
+&lt;span&gt;Lennon&lt;/span&gt;-&lt;span&gt;McCartney&lt;/span&gt; &lt;span&gt;Songs&lt;/span&gt;.”&lt;/span&gt;
+&lt;em&gt;Harvard Data Science Review&lt;/em&gt; 1 (1).
+&lt;/div&gt;
+&lt;div id="ref-tibshirani1993introduction" class="csl-entry"&gt;
+Tibshirani, Robert J, and Bradley Efron. 1993. &lt;span&gt;“An Introduction to
+the Bootstrap.”&lt;/span&gt; &lt;em&gt;Monographs on Statistics and Applied
+Probability&lt;/em&gt; 57 (1): 1–436.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>7b1b8fa9a1ecfd0183e658839ab311f3</distill:md5>
+      <category>Comment on...</category>
+      <category>Authorship Verification</category>
+      <category>Natural Language Processing</category>
+      <category>Machine Learning</category>
+      <category>Music</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs</guid>
+      <pubDate>Thu, 23 May 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Frequentist bounds for Bayesian sequential hypothesis testing</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -221,141 +578,6 @@ class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Frequentist Methods</category>
       <category>Statistics</category>
       <guid>https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing</guid>
-      <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Authorship Attribution in Lennon-McCartney Songs</title>
-      <dc:creator>Valerio Gherardi</dc:creator>
-      <link>https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs</link>
-      <description>
-
-
-&lt;p&gt;&lt;span class="citation"&gt;(Glickman, Brown, and Song 2019)&lt;/span&gt;. An
-enjoyable read. The authors present a statistical analysis of the
-Beatles’ repertoire from the point of view of authorship (Lennon
-&lt;em&gt;vs.&lt;/em&gt; McCartney), a &lt;a
-href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/"&gt;topic
-with which I’ve been lately involved&lt;/a&gt;. As a side-note, this also made
-me discover the &lt;a href="https://hdsr.mitpress.mit.edu/"&gt;Harvard Data
-Science Review&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;From the paper’s abstract:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The songwriting duo of John Lennon and Paul McCartney, the two
-founding members of the Beatles, composed some of the most popular and
-memorable songs of the last century. Despite having authored songs under
-the joint credit agreement of Lennon-McCartney, it is well-documented
-that most of their songs or portions of songs were primarily written by
-exactly one of the two. Furthermore, the authorship of some
-Lennon-McCartney songs is in dispute, with the recollections of
-authorship based on previous interviews with Lennon and McCartney in
-conflict. For Lennon-McCartney songs of known and unknown authorship
-written and recorded over the period 1962-66, we extracted musical
-features from each song or song portion. These features consist of the
-occurrence of melodic notes, chords, melodic note pairs, chord change
-pairs, and four-note melody contours. We developed a prediction model
-based on variable screening followed by logistic regression with elastic
-net regularization. Out-of-sample classification accuracy for songs with
-known authorship was 76%, with a c-statistic from an ROC analysis of
-83.7%. We applied our model to the prediction of songs and song portions
-with unknown or disputed authorship.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The modeling approach looks to me very sound and appropriate to the
-small sample size available (&lt;span class="math inline"&gt;\(N =
-70\)&lt;/span&gt;, the statistical unit corresponding to a song of known
-authorship). Effective model selection and testing is achieved through
-three nested layers of cross-validation (😱): one for elastic net
-hyperparameter tuning, one for feature screening, and finally one for
-estimating the prediction error.&lt;/p&gt;
-&lt;p&gt;The discussion of feature importance is insightful, in that it
-identifies concrete aspects of McCartney’s compositions that make them
-distinguishable from Lennon’s ones. This type of interpretability is a
-big plus for authorship analysis. The general qualitative conclusion,
-that McCartney’s music tended to exhibit more complex and unusual
-patterns kinda resonates with my perception of Beatles’ songs.&lt;/p&gt;
-&lt;p&gt;Armed with the trained logistic regression model, together with a
-valid accuracy estimate (76%), the authors set out to apply their model
-to authorship prediction for controversial cases within the Beatles’
-corpus (outside of the training sample). I don’t fully understand the
-authors approach in this part of the paper, and some points appear to be
-questionable, for the reasons I explain below.&lt;/p&gt;
-&lt;p&gt;One of the advantages of fitting a full probability model, such as
-logistic regression, rather than a conceptually simpler pure
-classification model (like a tree, for example), is that the output of
-the former is not a mere class (McCartney or Lennon), but rather a
-&lt;em&gt;probability&lt;/em&gt; of belonging to that class. This allows one to make
-much more informative statements in the analysis of new cases, since the
-strength of evidence provided by the data towards the predicted class
-can be quantified on a case by case basis. All of this is true, of
-course, &lt;em&gt;provided that the fitted model gives a decent approximation
-to the true data generating process&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;With similar considerations in mind, I suppose, the authors produce
-probability estimates for each of the disputed cases considered, in the
-form of a point estimate and a confidence interval to represent
-uncertainty. I think there is room for improvement here, in two
-aspects.&lt;/p&gt;
-&lt;p&gt;My first objection is what I already pointed out above: nothing in
-the modeling process explained in the paper suggests that the final
-model provides a good approximation to the true class probability
-conditional on features. The model has, with reasonable confidence, a
-predictive performance close to the best achievable within the
-possibilities considered - quantified by 76% accuracy and 84% AUC - but
-this says nothing about its correct specification as a probability
-model. Without a careful specification study, it is impossible to
-conclude anything on the nature of the true estimation targets of the
-fitted “probabilities”: they may perfectly have nothing to do with the
-actual &lt;span class="math inline"&gt;\(\text{Pr}(\text{author}\,\vert\,
-\text{song features})\)&lt;/span&gt; the authors are after. There is still
-value, I believe, in reporting fitted probabilities as qualitative
-measures of evidence, but these should not be conflated with the true
-(unknown) class probabilities… at least without some serious attempt to
-detect differences between the two.&lt;/p&gt;
-&lt;p&gt;My second point is a technical one and concerns how they construct
-confidence intervals for fitted probabilities. The construction
-resembles that of bootstrap percentile confidence intervals but, rather
-than the usual bootstrap synthetic datasets, the delete-one datasets
-used in leave-one-out cross-validation are used to obtain replicas of
-the fitted probabilities. This is nothing but Jackknife resampling in
-disguise, and it is well known that the resampling standard deviation of
-such Jackknife replicae is roughly &lt;span class="math inline"&gt;\(N
-^{-1/2}\)&lt;/span&gt; times the true standard deviation, see &lt;em&gt;e.g.&lt;/em&gt;
-&lt;span class="citation"&gt;(Tibshirani and Efron 1993)&lt;/span&gt;. Therefore, I
-have strong reasons to believe that the reported intervals strongly
-underestimate the uncertainty associated with these probability
-estimates.&lt;/p&gt;
-&lt;p&gt;All in all, the attempt to go beyond reporting simple classes -
-backed up by an overall 76% accuracy estimate - is well-motivated in
-principle, but the final outcome is not very dependable.&lt;/p&gt;
-&lt;p&gt;As usual, I’m more eloquent when criticizing than when praising, but
-let me end on a very positive note. The authors do a &lt;em&gt;great&lt;/em&gt;
-favor to the reader, by including a discussion of the informal steps
-performed prior and in parallel to the formal analysis presented in the
-paper. This kind of transparency - which is also present in the rest of
-the discussion - is, I believe, not so common as it should, and is what
-makes it eventually possible to think critically about someone else’s
-work.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-Glickman2019Data" class="csl-entry"&gt;
-Glickman, Mark, Jason Brown, and Ryan Song. 2019.
-&lt;span&gt;“(&lt;span&gt;A&lt;/span&gt;) &lt;span&gt;Data&lt;/span&gt; in the &lt;span&gt;Life&lt;/span&gt;:
-Authorship &lt;span&gt;Attribution&lt;/span&gt; in
-&lt;span&gt;Lennon&lt;/span&gt;-&lt;span&gt;McCartney&lt;/span&gt; &lt;span&gt;Songs&lt;/span&gt;.”&lt;/span&gt;
-&lt;em&gt;Harvard Data Science Review&lt;/em&gt; 1 (1).
-&lt;/div&gt;
-&lt;div id="ref-tibshirani1993introduction" class="csl-entry"&gt;
-Tibshirani, Robert J, and Bradley Efron. 1993. &lt;span&gt;“An Introduction to
-the Bootstrap.”&lt;/span&gt; &lt;em&gt;Monographs on Statistics and Applied
-Probability&lt;/em&gt; 57 (1): 1–436.
-&lt;/div&gt;
-&lt;/div&gt;</description>
-      <distill:md5>7b1b8fa9a1ecfd0183e658839ab311f3</distill:md5>
-      <category>Comment on...</category>
-      <category>Authorship Verification</category>
-      <category>Natural Language Processing</category>
-      <category>Machine Learning</category>
-      <category>Music</category>
-      <category>Statistics</category>
-      <guid>https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs</guid>
       <pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
