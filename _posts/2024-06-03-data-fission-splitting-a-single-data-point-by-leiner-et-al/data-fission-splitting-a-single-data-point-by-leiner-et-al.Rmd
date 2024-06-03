@@ -1,0 +1,66 @@
+---
+title: "\"Data Fission: Splitting a Single Data Point\" by Leiner et al."
+description: |
+  An interesting idea for dealing with selective inference.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-06-03
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+categories: 
+  - Comment on...
+  - Selective Inference
+  - Model Selection
+  - Statistics
+draft: false
+---
+
+[@datafission]. The [arXiv version](https://arxiv.org/pdf/2112.11079) is 
+actually a bit more comfortable to read. Abstract:
+
+> Suppose we observe a random vector $X$ from some distribution in a known family with unknown parameters. We ask the following question: when is it possible to split $X$ into two pieces $f(X)$ and $g(X)$ such that neither part is sufficient to reconstruct $X$ by itself, but both together can recover $X$ fully, and their joint distribution is tractable? One common solution to this problem when multiple samples of $X$ are observed is data splitting, but Rasines and Young offers an alternative approach that uses additive Gaussian noise — this enables post-selection inference in finite samples for Gaussian distributed data and asymptotically when errors are non-Gaussian. In this article, we offer a more general methodology for achieving such a split in finite samples by borrowing ideas from Bayesian inference to yield a (frequentist) solution that can be viewed as a continuous analog of data splitting. We call our method data fission, as an alternative to data splitting, data carving and $p$-value masking. We exemplify the method on several prototypical applications, such as post-selection inference for trend filtering and other regression problems, and effect size estimation after interactive multiple testing. Supplementary materials for this article are available online.
+
+The paper offers a clear review and systematization of older work, most 
+prominently [@splittingstrategies] (cited in the abstract), with some useful
+generalizations.
+
+The idea is cool, but I find the applications to practical regression cases 
+given in the paper somewhat... impractical. For usual linear regression with a 
+continuous response, the applicability of the method relies on (1) noise being 
+homoskedastic and gaussian, (2) the existence of a consistent estimator 
+$\hat \sigma$ of noise variance, and (3) samples being large enough (guarantees 
+are only asymptotic). On the other hand, in the theoretically simpler case of 
+logistic regression, there's a technical complication in that, under the 
+usual GLM assumption $\theta(X) = X\beta$, the relevant log-likelihood for 
+maximization in the inferential stage is not a concave function of $\beta$, 
+possibly hindering optimization. If I got it right, the authors suggest 
+to ignore the conditional dependence of $g(Y_i)$ on $f(Y_i)$ to circumvent these 
+complications (see Appendix E.4), which I honestly don't understand. 
+
+A case in which planets align and results have a nice analytic form is that of 
+Poisson regression, for which I will sketch the idea in some detail. 
+Suppose that we are given data $\mathcal D _0 = \{(X_i,Y_i)\}_{i=1}^N$ 
+independently drawn from a joint $(X,Y)$ distribution, and we assume 
+$Y \vert X \sim \text{Pois}(\lambda (X))$ for some unknown function 
+$\lambda (X)$ we would like to model. The key observation is 
+(*cf.* Appendix A of the reference) that if $Z \vert Y \sim \text{Binom}(Y,\,p)$, 
+then $Z \sim \text {Pois}(p\lambda)$ and 
+$\overline Z = Y - Z \sim \text{Pois}((1-p)\lambda)$, with $Z$ and $\overline Z$
+unconditionally independent. Hence, if we randomly draw $Z _i$ according to 
+$\text{Binom}(Y_i,\,p)$, and set $\overline Z _i = Y_i -Z_i$, the two datasets 
+$\mathcal D = \{(X_i,\,Z_i)\}$ and 
+$\overline{\mathcal D} = \{(X_i,\,\overline Z_i)\}$, are conditionally 
+independent given the observed covariates $X_i$. This allows to decouple 
+different aspects of modeling, such as model selection and inference, avoiding 
+the usual biases associated with the intrinsic randomness of the selection step.
+
+The authors focus on regression with fixed covariates, because in that setting
+the simpler option of data-splitting is less motivated, calling for 
+alternatives. However, the method can be applied equally well to deal with 
+selective inference in random covariates settings, since it leads - at least in 
+principle - to inferences which are valid conditionally on the observed 
+covariates and (in the general case) the randomized responses $f(Y_i)$ of the 
+selection stage.

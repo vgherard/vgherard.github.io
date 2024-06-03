@@ -7,7 +7,121 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 31 May 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>"Data Fission: Splitting a Single Data Point" by Leiner et al.</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al</link>
+      <description>
+
+
+&lt;p&gt;&lt;span class="citation"&gt;(James Leiner and Ramdas 2023)&lt;/span&gt;. The &lt;a
+href="https://arxiv.org/pdf/2112.11079"&gt;arXiv version&lt;/a&gt; is actually a
+bit more comfortable to read. Abstract:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Suppose we observe a random vector &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; from some distribution in a known
+family with unknown parameters. We ask the following question: when is
+it possible to split &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; into two
+pieces &lt;span class="math inline"&gt;\(f(X)\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(g(X)\)&lt;/span&gt; such that neither part is sufficient
+to reconstruct &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; by itself, but
+both together can recover &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; fully,
+and their joint distribution is tractable? One common solution to this
+problem when multiple samples of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;
+are observed is data splitting, but Rasines and Young offers an
+alternative approach that uses additive Gaussian noise — this enables
+post-selection inference in finite samples for Gaussian distributed data
+and asymptotically when errors are non-Gaussian. In this article, we
+offer a more general methodology for achieving such a split in finite
+samples by borrowing ideas from Bayesian inference to yield a
+(frequentist) solution that can be viewed as a continuous analog of data
+splitting. We call our method data fission, as an alternative to data
+splitting, data carving and &lt;span class="math inline"&gt;\(p\)&lt;/span&gt;-value
+masking. We exemplify the method on several prototypical applications,
+such as post-selection inference for trend filtering and other
+regression problems, and effect size estimation after interactive
+multiple testing. Supplementary materials for this article are available
+online.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The paper offers a clear review and systematization of older work,
+most prominently &lt;span class="citation"&gt;(Rasines and Young 2022)&lt;/span&gt;
+(cited in the abstract), with some useful generalizations.&lt;/p&gt;
+&lt;p&gt;The idea is cool, but I find the applications to practical regression
+cases given in the paper somewhat… impractical. For usual linear
+regression with a continuous response, the applicability of the method
+relies on (1) noise being homoskedastic and gaussian, (2) the existence
+of a consistent estimator &lt;span class="math inline"&gt;\(\hat
+\sigma\)&lt;/span&gt; of noise variance, and (3) samples being large enough
+(guarantees are only asymptotic). On the other hand, in the
+theoretically simpler case of logistic regression, there’s a technical
+complication in that, under the usual GLM assumption &lt;span
+class="math inline"&gt;\(\theta(X) = X\beta\)&lt;/span&gt;, the relevant
+log-likelihood for maximization in the inferential stage is not a
+concave function of &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt;, possibly
+hindering optimization. If I got it right, the authors suggest to ignore
+the conditional dependence of &lt;span
+class="math inline"&gt;\(g(Y_i)\)&lt;/span&gt; on &lt;span
+class="math inline"&gt;\(f(Y_i)\)&lt;/span&gt; to circumvent these complications
+(see Appendix E.4), which I honestly don’t understand.&lt;/p&gt;
+&lt;p&gt;A case in which planets align and results have a nice analytic form
+is that of Poisson regression, for which I will sketch the idea in some
+detail. Suppose that we are given data &lt;span
+class="math inline"&gt;\(\mathcal D _0 = \{(X_i,Y_i)\}_{i=1}^N\)&lt;/span&gt;
+independently drawn from a joint &lt;span
+class="math inline"&gt;\((X,Y)\)&lt;/span&gt; distribution, and we assume &lt;span
+class="math inline"&gt;\(Y \vert X \sim \text{Pois}(\lambda (X))\)&lt;/span&gt;
+for some unknown function &lt;span class="math inline"&gt;\(\lambda
+(X)\)&lt;/span&gt; we would like to model. The key observation is
+(&lt;em&gt;cf.&lt;/em&gt; Appendix A of the reference) that if &lt;span
+class="math inline"&gt;\(Z \vert Y \sim \text{Binom}(Y,\,p)\)&lt;/span&gt;, then
+&lt;span class="math inline"&gt;\(Z \sim \text {Pois}(p\lambda)\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(\overline Z = Y - Z \sim
+\text{Pois}((1-p)\lambda)\)&lt;/span&gt;, with &lt;span
+class="math inline"&gt;\(Z\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\overline Z\)&lt;/span&gt; unconditionally independent.
+Hence, if we randomly draw &lt;span class="math inline"&gt;\(Z _i\)&lt;/span&gt;
+according to &lt;span class="math inline"&gt;\(\text{Binom}(Y_i,\,p)\)&lt;/span&gt;,
+and set &lt;span class="math inline"&gt;\(\overline Z _i = Y_i -Z_i\)&lt;/span&gt;,
+the two datasets &lt;span class="math inline"&gt;\(\mathcal D =
+\{(X_i,\,Z_i)\}\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\overline{\mathcal D} = \{(X_i,\,\overline
+Z_i)\}\)&lt;/span&gt;, are conditionally independent given the observed
+covariates &lt;span class="math inline"&gt;\(X_i\)&lt;/span&gt;. This allows to
+decouple different aspects of modeling, such as model selection and
+inference, avoiding the usual biases associated with the intrinsic
+randomness of the selection step.&lt;/p&gt;
+&lt;p&gt;The authors focus on regression with fixed covariates, because in
+that setting the simpler option of data-splitting is less motivated,
+calling for alternatives. However, the method can be applied equally
+well to deal with selective inference in random covariates settings,
+since it leads - at least in principle - to inferences which are valid
+conditionally on the observed covariates and (in the general case) the
+randomized responses &lt;span class="math inline"&gt;\(f(Y_i)\)&lt;/span&gt; of the
+selection stage.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="ref-datafission" class="csl-entry"&gt;
+James Leiner, Larry Wasserman, Boyan Duan, and Aaditya Ramdas. 2023.
+&lt;span&gt;“Data Fission: Splitting a Single Data Point.”&lt;/span&gt; &lt;em&gt;Journal
+of the American Statistical Association&lt;/em&gt; 0 (0): 1–12. &lt;a
+href="https://doi.org/10.1080/01621459.2023.2270748"&gt;https://doi.org/10.1080/01621459.2023.2270748&lt;/a&gt;.
+&lt;/div&gt;
+&lt;div id="ref-splittingstrategies" class="csl-entry"&gt;
+Rasines, D García, and G A Young. 2022. &lt;span&gt;“&lt;span
+class="nocase"&gt;Splitting strategies for post-selection
+inference&lt;/span&gt;.”&lt;/span&gt; &lt;em&gt;Biometrika&lt;/em&gt; 110 (3): 597–614. &lt;a
+href="https://doi.org/10.1093/biomet/asac070"&gt;https://doi.org/10.1093/biomet/asac070&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      <distill:md5>2a883ac9d5ba67db523f91c0a19f75ef</distill:md5>
+      <category>Comment on...</category>
+      <category>Selective Inference</category>
+      <category>Model Selection</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al</guid>
+      <pubDate>Sun, 02 Jun 2024 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Statements of the Second Law of Thermodynamics</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -228,7 +342,7 @@ reservoir.&lt;/p&gt;
       <category>Thermodynamics</category>
       <category>Physics</category>
       <guid>https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics</guid>
-      <pubDate>Fri, 31 May 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Authorship Attribution in Lennon-McCartney Songs</title>
