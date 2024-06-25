@@ -1,0 +1,330 @@
+---
+title: "\"The Physics and Mathematics of the Second Law of Thermodynamics\" by E.H. Lieb and J. Yngvason"
+description: |
+  A seminal article with enlightening views on the logical structure of Thermodynamics.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-06-25
+output:
+  distill::distill_article:
+    self_contained: false
+bibliography: biblio.bib
+categories: 
+  - Comment on...
+  - Thermodynamics
+  - Physics
+draft: false
+---
+
+[@LY1].
+
+> The essential postulates of classical thermodynamics are formulated, from which
+the second law is deduced as the principle of increase of entropy in irreversible adiabatic processes
+that take one equilibrium state to another. The entropy constructed here is defined only for
+equilibrium states and no attempt is made to define it otherwise. Statistical mechanics does not
+enter these considerations. One of the main concepts that makes everything work is the comparison
+principle (which, in essence, states that given any two states of the same chemical composition at
+least one is adiabatically accessible from the other) and we show that it can be derived from some
+assumptions about the pressure and thermal equilibrium. Temperature is derived from entropy,
+but at the start not even the concept of ‘hotness’ is assumed. Our formulation offers a certain
+clarity and rigor that goes beyond most textbook discussions of the second law.
+
+The paper can be subdivided into two parts. In the first part, the authors 
+deduce the existence of a universal entropy state function from a primitive 
+notion of adiabatic accessibility. A key assumption in this derivation is the 
+so-called Comparison Hypothesis, that postulates that for any two equilibrium 
+states $X$ and $Y$ of a given thermodynamic system, either $X$ is adiabatically 
+accessible from $Y$ or $Y$ is adiabatically accessible from $X$.
+
+The second part is devoted to the derivation of the Comparison Hypothesis 
+(which becomes thus a Comparison *Principle*) for an important class 
+of thermodynamic systems. The main ingredients for this derivation are: 
+- The First Law of Thermodynamics and, in particular the concept of internal 
+energy. 
+- The notion of thermal equilibrium and its transitivity (sometimes called the
+"Zero-th Law").
+- An assumed convex structure in the state space of thermodynamic systems.
+
+So, how does such a formal endeavor improve our understanding of Nature? On one 
+side, entropy is clarified to represent nothing more than a numerical encoding 
+of adiabatic accessibility. Its existence is independent of the concepts of 
+energy, heat or temperature that appear in the usual formulations of 
+Thermodynamics. On the other side, the classical statements of the Second Law of 
+Kelvin-Planck and Clausius, which are explicitly formulated in terms of heat and
+temperature, are seen to be *theorems* on the adiabatic (in)accessibility of 
+certain states, that follow from how the concepts of internal energy and thermal
+equilibrium interact with the primitive notion of adiabatic accessibility. Both 
+of these are major advancements, because they clarify the physical content and 
+universality of the Second Law of Thermodynamics.
+
+The last Section of [@LY1] provides a useful summary of the formalism and of
+the logical paths followed by the mathematical derivations. The rest of this 
+post are some personal notes on the original reference.
+
+### Formal framework
+
+Systems are described as collections of thermodynamic states, with two 
+binary operations that have the operative interpretations of "composition" (of 
+non-interacting systems) and "scaling", respectively. In detail: 
+
+- **Systems.** A *system* is just a set $\Gamma$, whose elements correspond to 
+physical (thermodynamic) states. 
+
+- **Composition.**  A binary operation that takes as input two thermodynamic states 
+$X_1$ and $X_2$ of two systems $\Gamma _1$ and $\Gamma _2$, and
+returns a new state $X_1 \oplus X_2 \in \Gamma _1 \oplus \Gamma _2$, where the 
+latter set can be informally thought as the Cartesian product 
+$\Gamma _1 \times \Gamma _2$.
+Since the ordering in the enumeration of systems is inconsequential from the
+physical point of view, we assume that compositions are equipped with an 
+equivalence relation $\stackrel{\oplus}{\sim}$, such that
+$X_1 \oplus X_2 \stackrel{\oplus}{\sim} X_2 \oplus X_1$ and that 
+$(X_1 \oplus X_2)\oplus X_3 \stackrel{\oplus}{\sim} X_1 \oplus (X_2\oplus X_3)$.
+
+- **Scaling.** A binary operation that takes as input a positive 
+number $\lambda$ and a thermodynamic state $X\in \Gamma$, and returns a new 
+state $\lambda X \in \lambda \Gamma $ as output. The operation is assumed to 
+satisfy $t(sX) = (ts)X$, as well as $t(X_1\oplus X_2)=(tX_1) \oplus (tX_2)$.
+
+Some care is needed in the operative interpretation of the scaling operation 
+for systems that are not scale invariant, such as a droplet of liquid 
+with a non-negligible surface energy. This particular example is discussed 
+in detail by the authors in Sec. 3.1, in connection with simple systems. 
+In short, for such systems we should interpret the state space as a submanifold 
+of an extended state space corresponding to a scale invariant system. It is for 
+this latter system that the axioms of [@LY1] are assumed to hold.
+
+### Axioms of adiabatic accessibility
+
+A central notion in [@LY1] is that of *adiabatic accessibility*. From the 
+operative point of view this corresponds to the possibility of transforming a 
+thermodynamic state into another without supplying heat to the system. 
+Mathematically, adiabatic accessibility is a relation $\prec$ on the set of all 
+thermodynamic states that satisfies (among other things) the axioms of a 
+pre-order: reflexivity and transitivity. 
+
+More in detail, $\prec$ is assumed to satisfy the following axioms:
+
+- **(A1) Reflexivity**. $X \prec X$ for any $X$.
+- **(A2) Transitivity**. $X\prec Y$ and $Y \prec Z$ implies $X \prec Z$ for all
+$X$, $Y$ and $Z$.
+- **(A3) Consistency**. $X\prec Y$ and $X^\prime \prec Y ^\prime$ 
+implies $X\oplus X^\prime \prec Y \oplus Y^\prime$ for all $X$, $X^\prime$, $Y$
+and $Y^\prime$
+- **(A4) Scaling invariance**. $X\prec Y$ implies $\lambda X \prec \lambda Y$ for
+all $X$, $Y$ and $\lambda >0$.
+- **(A5) Splitting and recombination**. $X \prec (\lambda X,(1-\lambda)X) \prec X$
+for all $X$ and $0<\lambda <1$.
+- **(A6) Stability**: if 
+$$
+(X,\varepsilon _n Z) \prec (Y,\varepsilon_n W)
+$$
+holds for some sequence $\varepsilon _n \to 0$, then $X \prec Z$.
+
+### Existence and uniqueness of entropy
+
+The first part of [@LY1] is concerned with the existence and uniqueness of the
+entropy function. The authors prove that, under axioms A1-A6 characterizing 
+adiabatic accessibility, the two following conditions are equivalent:
+
+* *(i)* Given states $X_i$ and $Y_i$ of a system $\Gamma$ and positive numbers 
+$\lambda _i$ for $i = 1,\,2,\,\dots,\,n$, the two states 
+$X = \lambda_1 X_1 \oplus \lambda_2 X_2 \oplus \cdots \oplus \lambda _n X_n$ and
+$Y = \lambda_1 Y_1 \oplus \lambda_2 Y_2 \oplus \cdots \oplus \lambda _n Y_n$ are
+always comparable, in the sense that either $X\prec Y$ or $Y \prec X$. 
+This is expressed by saying that "the comparison hypothesis holds on multiple 
+scaled copies of $\Gamma$".
+* *(ii)* There exists a function $S_\Gamma \colon \Gamma \to \mathbb R$ with the
+following property: if
+$X = \lambda_1 X_1 \oplus \lambda_2 X_2 \oplus \cdots \oplus \lambda _n X_n$ and
+$Y = \gamma_1 Y_1 \oplus \gamma_2 Y_2 \oplus \cdots \oplus \gamma _m Y_m$, where
+$\sum _{i=1}^n \lambda _i = \sum _{j=1}^m \gamma _j$, we have $X\prec Y$ if and
+only if^[In particular, the states $X$ and $Y$ are always comparable if 
+$\sum _{i=1}^{n} \lambda _i = \sum _{j=1}^m \gamma _j$. This does not need to
+be the case if the two sums differ.]:
+
+$$
+\sum _{i=1}^n \lambda _iS(X_i)\leq \sum _{i=1}^m \gamma _iS(Y_i).
+$$
+Furthermore, the function $S$ is given by $S = a S^* + b$ for some constants
+$a,b$ with $a>0$, where^[If $t<0$, we can interpret $X + tY \prec Z$ as 
+$X\prec Z -tY$.]:
+
+$$
+S^*(X) = \sup \{\lambda \colon (1-\lambda)X_0\oplus \lambda X_1 \prec X\} 
+$$
+where $X_{0,1}\in \Gamma$ are two reference states such that $X_0 \prec X_1$ but
+the reverse does not hold 
+(the definition enforces $S^*(X_0)=0$ and $S^*(X_1) = 1$).
+
+### Convexity
+
+- **(A7) Convex combination**. The space $\Gamma$ is a locally convex subset of 
+a vector space, meaning that $tX + (1-t)Y \in \Gamma$ for all $X,Y\in \Gamma$ 
+and $0<t<1$. Furthermore, we have that $t X \oplus (1-t)Y\prec t X + (1-t)Y$.
+
+It is easily seen that if an entropy function (in the sense of the previous 
+section) exists, then the second part of the previous axiom (involving $\prec$) 
+is equivalent to the requirement that entropy is a concave function, *i.e.* 
+$S(t X + (1-t)Y)\geq tS(X)+(1-t)S(Y)=S(tX\oplus(1-t)Y)$.
+
+The convex combination of states is most easily interpreted for simple systems 
+(see below), and corresponds to a state in which energy and work coordinates 
+take the intermediate values $t\xi(X)+(1-t)\xi(Y)$. The possibility of forming 
+convex combinations of states and their adiabatic accessibility is quite obvious 
+for systems such as gas or liquids. For example, suppose we are given $n_i$ 
+moles of gas with energies $n_iU_i$ and volumes $n_iV_i$, where $n_1 + n_2 = 1$, 
+and the two gases are separated by a rigid, adiabatic wall. The convex 
+combination is the state of 1 mole of gas that is produced by simply removing 
+the barrier. For solids or more complicated systems, the axiom looks much more 
+questionable, but can be at least experimentally tested for any given system, 
+by exploiting its equivalence with the concavity of entropy.
+
+### Simple systems
+
+The discussion moves on to concrete systems whose state space is assumed to be 
+an open convex subset of $\mathbb R^{n+1}$ for some $n>0$, in agreement with A7. 
+The points of these systems are denoted by pairs $(U,V)$, where $U\in \mathbb R$ 
+and $V \in \mathbb R ^n$ have the physical interpretation of energy and 
+extensive work coordinates, respectively. The possibility of a parametrization 
+with internal energy as one coordinate is the content of the First Law of 
+Thermodynamics.
+
+Simple systems are characterized by the following axioms (the separation of
+S2 into S2a and S2b is mine):
+
+- **(S1) Irreversibility**. For each $X$ there is a point $Y$ such that 
+$X\prec \precY$. (This axiom is actually implied by the stronger axiom T4, see 
+below.)
+- **(S2a) Tangent Plane**. For each $X$, the forward sector 
+$A_X=\{Y\in \Gamma\colon X\prec Y\}$ has a unique tangent plane parametrized by 
+an equation of the form:
+
+$$
+U-U(X)+\sum _{i=1}^n p_i(X)\cdot(V_i-V_i(X))=0
+$$
+- **(S2b) Lipschitz Continuity.** The functions $p_i$ in the previous axiom are
+locally Lipschitz continuous functions.
+- **(S3) Connectedness of the boundary.** The boundary of any forward sector is 
+connected.
+
+Using only axioms **(S1)** and **(S2a)**, the Kelvin-Planck statement of the 
+Second Law of Thermodynamics can be proved, namely:
+
+> No process is possible, the sole result of which is a change in the energy of 
+a simple system (without changing the work coordinates) and the raising of a 
+weight.
+
+Including also **(S2b)** and **(S3)**, the main theorem of this section can be 
+proved, stating that *any two states of a simple system are comparable*.
+
+### Thermal Equilibrium
+
+- **(T1) Thermal Contact**. For any two simple systems. For any two simple 
+systems with state spaces $\Gamma _1$ and $\Gamma _2$, there is another simple 
+system, the *thermal join* of $\Gamma _1$ and $\Gamma _2$, with state space:
+$$
+\Gamma_1 \stackrel{T}{\oplus}\Gamma_2 \equiv \{(U_1+U_2,V_1,V_2)\,\colon (U_i,V_i)\in\Gamma_i\},
+$$
+whose states satisfy:
+$$
+\Gamma_1\oplus\Gamma_2\ni(U_1,V_1)\oplus(U_2,V_2) \prec (U_1+U_2,V_1,V_2)\in \Gamma_1 \stackrel{T}{\oplus}\Gamma_2.
+$$
+
+- **(T2) Thermal Splitting**. For any state of the thermal join
+$(U,V_1,V_2)\in \Gamma_1\stackrel{T}{\oplus}\Gamma_2$ there exist states 
+$(U_i,V_i)\in \Gamma _i$ such that $U_1 + U_2 =U$ and:
+$$
+(U,V_1,V_2) \prec (U_1,V_1) \oplus (U_2,V_2).
+$$
+In particular, if $(U,V)\in \Gamma$ is a state of a simple system and 
+$\lambda \in (0,1)$, we have:
+$$
+(U,\lambda V,(1-\lambda)V)\prec\lambda(U,V) \oplus (1-\lambda)(U,V)
+$$
+The right-hand side here is an element of 
+$\lambda \Gamma \oplus (1-\lambda) \Gamma$, while the left hand side is an 
+element of the thermal join of scaled copies 
+$\lambda \Gamma \stackrel{T}{\oplus} (1-\lambda) \Gamma$.
+
+- **(T3) Zero-th law**. The relation $\stackrel{T}{\sim}$ defined in the 
+following is an equivalence relation: 
+$\Gamma _1 \ni(U_1,V_1)\stackrel{T}{\sim}(U_2,V_2)\in \Gamma _2$ if 
+$(U_1 + U_2, V_1, V_2) \prec (U_1,V_1) \oplus (U_2,V_2)$. 
+
+- **(T4) Transversality**. If $\Gamma$ is a simple system and $X\in \Gamma$, 
+there exist $X_0,X_1\in \Gamma$ such that $X_0 \prec \prec X \prec \prec X_1$
+and $X_0 \stackrel{T}{\sim} X_1$.
+
+- **(T5) Universal temperature range**. If $\Gamma _1$ and $\Gamma _2$ are simple
+systems, and $V_1$ is in the projection of $\Gamma _1$ onto its work 
+coordinates, for every $X_2 \in \Gamma _2$ there is a $U_1$ such that 
+$(U_1,V_1) \stackrel{T}{\sim} X_2$
+
+The main result from these additional axioms is 
+*comparability in the product spaces of simple systems*. Also, thermal 
+equilibrium is found to be characterized by maximum entropy, in the sense that
+if $(U_i,V_i)\in \Gamma _i$ are states of simple systems with (consistent) 
+entropies $S_i$ respectively, then:
+
+$$
+(U_1,V_1)\stackrel{T}{\sim} (U_2,V_2) \iff S_1+S_2=\max_{U_1^\prime +U_2^\prime=U_1+U_2}\{S(U_1^\prime,V_1)+S(U_2 ^\prime ,V_2)\}.
+$$
+
+If (T3) is assumed, and if we postulate that for each state $X$ there is at 
+least one state in thermal equilibrium with it - which is guaranteed by (T5) -
+then the second part of (T2) is equivalent to scaling invariance 
+$\stackrel{T}{\sim}$. In fact, transitivity and symmetry of $\stackrel{T}{\sim}$ 
+implies $X\stackrel{T}{\sim}X$ for any $X$. Then the second part of (T2) is 
+equivalent to $t X \stackrel{T}{\sim}(1-t)X$ for any $t \in (0,1)$ and any $X$, 
+which is in turn equivalent to $\lambda Y \sim Y$ for any $Y$ and $\lambda >0$.
+
+
+
+### Temperature
+
+Temperature is a derived concept in the formalism of [@LY1], by means of the 
+usual bridge law $T = \left(\frac{\partial U}{\partial S}\right)_V$. The 
+differentiability of entropy is shown to be a consequence of the axioms stated 
+so far.
+
+Using the derived concept of temperature, the authors prove the Clausius 
+inequality for a Carnot cycle:
+
+$$
+\frac{\delta Q_1}{T_1}+\frac{\delta Q_2}{T_2} \leq0, 
+$$
+where $T_1$ and $T_2$ are the *final* temperatures of the reservoirs, that do 
+not need to be assumed of infinite mass.
+
+### Chemical mixtures and reactions
+
+The last result of the paper concerns thermodynamic processes that connect 
+states of different systems. The notion of connection of state spaces is 
+introduced: two state spaces $\Gamma$ and $\Gamma ^\prime$ are said to be 
+connected if there are state spaces $\Gamma _0,\,\Gamma_1,\,\dots,\Gamma_N$
+and states $X_i,Y_i \in \Gamma _i$, and $X\in \Gamma$ and $Y\in \Gamma ^\prime$, 
+such that: 
+
+$$
+(X,\,X_0) \prec Y_1, \quad X_i ≺ Y_{i+1} \ (i = 1,...,N − 1), \quad X_N \prec (Y ,\,Y_0).
+$$
+If $\Gamma$ is connected to $\Gamma ^\prime$ we write 
+$\Gamma \prec \Gamma ^\prime$. The last axiom is:
+
+- **(M) Absence of sinks**. 
+$\Gamma \prec \Gamma ^\prime \implies \Gamma ^\prime \prec \Gamma$.
+
+With this additional axiom, one can prove a "weak" form of the entropy 
+principle: that the multiplicative and additive constants in the definition of
+$S$ for each simple system can be chosen in such a way that $X\prec Y$ implies
+$S(X) \leq S(Y)$ for any two comparable states (not necessarily of the same
+system).
+
+The strong form of the entropy principle consists in the statement that all 
+states in connected spaces are comparable, and that adiabatic accessibility is 
+completely characterized by $S$, in the sense that $X \prec Y$ if and only if
+$S(X)\leq S(Y)$. This result depends on a particular assumption (Eq. (6.34) of 
+the reference) that the authors do not axiomatize, but that is subject to 
+experimental verification.

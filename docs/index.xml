@@ -7,338 +7,452 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 02 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Jun 2024 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>"Data Fission: Splitting a Single Data Point" by Leiner et al.</title>
+      <title>"The Physics and Mathematics of the Second Law of Thermodynamics" by E.H. Lieb and J. Yngvason</title>
       <dc:creator>Valerio Gherardi</dc:creator>
-      <link>https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al</link>
+      <link>https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason</link>
       <description>
 
 
-&lt;p&gt;&lt;span class="citation"&gt;(James Leiner and Ramdas 2023)&lt;/span&gt;. The &lt;a
-href="https://arxiv.org/pdf/2112.11079"&gt;arXiv version&lt;/a&gt; is actually a
-bit more comfortable to read. Abstract:&lt;/p&gt;
+&lt;p&gt;&lt;span class="citation"&gt;(Lieb and Yngvason 1999)&lt;/span&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Suppose we observe a random vector &lt;span
-class="math inline"&gt;\(X\)&lt;/span&gt; from some distribution in a known
-family with unknown parameters. We ask the following question: when is
-it possible to split &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; into two
-pieces &lt;span class="math inline"&gt;\(f(X)\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(g(X)\)&lt;/span&gt; such that neither part is sufficient
-to reconstruct &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; by itself, but
-both together can recover &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; fully,
-and their joint distribution is tractable? One common solution to this
-problem when multiple samples of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;
-are observed is data splitting, but Rasines and Young offers an
-alternative approach that uses additive Gaussian noise — this enables
-post-selection inference in finite samples for Gaussian distributed data
-and asymptotically when errors are non-Gaussian. In this article, we
-offer a more general methodology for achieving such a split in finite
-samples by borrowing ideas from Bayesian inference to yield a
-(frequentist) solution that can be viewed as a continuous analog of data
-splitting. We call our method data fission, as an alternative to data
-splitting, data carving and &lt;span class="math inline"&gt;\(p\)&lt;/span&gt;-value
-masking. We exemplify the method on several prototypical applications,
-such as post-selection inference for trend filtering and other
-regression problems, and effect size estimation after interactive
-multiple testing. Supplementary materials for this article are available
-online.&lt;/p&gt;
+&lt;p&gt;The essential postulates of classical thermodynamics are formulated,
+from which the second law is deduced as the principle of increase of
+entropy in irreversible adiabatic processes that take one equilibrium
+state to another. The entropy constructed here is defined only for
+equilibrium states and no attempt is made to define it otherwise.
+Statistical mechanics does not enter these considerations. One of the
+main concepts that makes everything work is the comparison principle
+(which, in essence, states that given any two states of the same
+chemical composition at least one is adiabatically accessible from the
+other) and we show that it can be derived from some assumptions about
+the pressure and thermal equilibrium. Temperature is derived from
+entropy, but at the start not even the concept of ‘hotness’ is assumed.
+Our formulation offers a certain clarity and rigor that goes beyond most
+textbook discussions of the second law.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;The paper offers a clear review and systematization of older work,
-most prominently &lt;span class="citation"&gt;(Rasines and Young 2022)&lt;/span&gt;
-(cited in the abstract), with some useful generalizations.&lt;/p&gt;
-&lt;p&gt;The idea is cool, but I find the applications to practical regression
-cases given in the paper somewhat… impractical. For usual linear
-regression with a continuous response, the applicability of the method
-relies on (1) noise being homoskedastic and gaussian, (2) the existence
-of a consistent estimator &lt;span class="math inline"&gt;\(\hat
-\sigma\)&lt;/span&gt; of noise variance, and (3) samples being large enough
-(guarantees are only asymptotic). On the other hand, in the
-theoretically simpler case of logistic regression, there’s a technical
-complication in that, under the usual GLM assumption &lt;span
-class="math inline"&gt;\(\theta(X) = X\beta\)&lt;/span&gt;, the relevant
-log-likelihood for maximization in the inferential stage is not a
-concave function of &lt;span class="math inline"&gt;\(\beta\)&lt;/span&gt;, possibly
-hindering optimization. If I got it right, the authors suggest to ignore
-the conditional dependence of &lt;span
-class="math inline"&gt;\(g(Y_i)\)&lt;/span&gt; on &lt;span
-class="math inline"&gt;\(f(Y_i)\)&lt;/span&gt; to circumvent these complications
-(see Appendix E.4), which I honestly don’t understand.&lt;/p&gt;
-&lt;p&gt;A case in which planets align and results have a nice analytic form
-is that of Poisson regression, for which I will sketch the idea in some
-detail. Suppose that we are given data &lt;span
-class="math inline"&gt;\(\mathcal D _0 = \{(X_i,Y_i)\}_{i=1}^N\)&lt;/span&gt;
-independently drawn from a joint &lt;span
-class="math inline"&gt;\((X,Y)\)&lt;/span&gt; distribution, and we assume &lt;span
-class="math inline"&gt;\(Y \vert X \sim \text{Pois}(\lambda (X))\)&lt;/span&gt;
-for some unknown function &lt;span class="math inline"&gt;\(\lambda
-(X)\)&lt;/span&gt; we would like to model. The key observation is
-(&lt;em&gt;cf.&lt;/em&gt; Appendix A of the reference) that if &lt;span
-class="math inline"&gt;\(Z \vert Y \sim \text{Binom}(Y,\,p)\)&lt;/span&gt;, then
-&lt;span class="math inline"&gt;\(Z \sim \text {Pois}(p\lambda)\)&lt;/span&gt; and
-&lt;span class="math inline"&gt;\(\overline Z = Y - Z \sim
-\text{Pois}((1-p)\lambda)\)&lt;/span&gt;, with &lt;span
-class="math inline"&gt;\(Z\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(\overline Z\)&lt;/span&gt; unconditionally independent.
-Hence, if we randomly draw &lt;span class="math inline"&gt;\(Z _i\)&lt;/span&gt;
-according to &lt;span class="math inline"&gt;\(\text{Binom}(Y_i,\,p)\)&lt;/span&gt;,
-and set &lt;span class="math inline"&gt;\(\overline Z _i = Y_i -Z_i\)&lt;/span&gt;,
-the two datasets &lt;span class="math inline"&gt;\(\mathcal D =
-\{(X_i,\,Z_i)\}\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(\overline{\mathcal D} = \{(X_i,\,\overline
-Z_i)\}\)&lt;/span&gt;, are conditionally independent given the observed
-covariates &lt;span class="math inline"&gt;\(X_i\)&lt;/span&gt;. This allows to
-decouple different aspects of modeling, such as model selection and
-inference, avoiding the usual biases associated with the intrinsic
-randomness of the selection step.&lt;/p&gt;
-&lt;p&gt;The authors focus on regression with fixed covariates, because in
-that setting the simpler option of data-splitting is less motivated,
-calling for alternatives. However, the method can be applied equally
-well to deal with selective inference in random covariates settings,
-since it leads - at least in principle - to inferences which are valid
-conditionally on the observed covariates and (in the general case) the
-randomized responses &lt;span class="math inline"&gt;\(f(Y_i)\)&lt;/span&gt; of the
-selection stage.&lt;/p&gt;
+&lt;p&gt;The paper can be subdivided into two parts. In the first part, the
+authors deduce the existence of a universal entropy state function from
+a primitive notion of adiabatic accessibility. A key assumption in this
+derivation is the so-called Comparison Hypothesis, that postulates that
+for any two equilibrium states &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; of a given thermodynamic
+system, either &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; is adiabatically
+accessible from &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; or &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; is adiabatically accessible from &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The second part is devoted to the derivation of the Comparison
+Hypothesis (which becomes thus a Comparison &lt;em&gt;Principle&lt;/em&gt;) for an
+important class of thermodynamic systems. The main ingredients for this
+derivation are: - The First Law of Thermodynamics and, in particular the
+concept of internal energy. - The notion of thermal equilibrium and its
+transitivity (sometimes called the “Zero-th Law”). - An assumed convex
+structure in the state space of thermodynamic systems.&lt;/p&gt;
+&lt;p&gt;So, how does such a formal endeavor improve our understanding of
+Nature? On one side, entropy is clarified to represent nothing more than
+a numerical encoding of adiabatic accessibility. Its existence is
+independent of the concepts of energy, heat or temperature that appear
+in the usual formulations of Thermodynamics. On the other side, the
+classical statements of the Second Law of Kelvin-Planck and Clausius,
+which are explicitly formulated in terms of heat and temperature, are
+seen to be &lt;em&gt;theorems&lt;/em&gt; on the adiabatic (in)accessibility of
+certain states, that follow from how the concepts of internal energy and
+thermal equilibrium interact with the primitive notion of adiabatic
+accessibility. Both of these are major advancements, because they
+clarify the physical content and universality of the Second Law of
+Thermodynamics.&lt;/p&gt;
+&lt;p&gt;The last Section of &lt;span class="citation"&gt;(Lieb and Yngvason
+1999)&lt;/span&gt; provides a useful summary of the formalism and of the
+logical paths followed by the mathematical derivations. The rest of this
+post are some personal notes on the original reference.&lt;/p&gt;
+&lt;h3 id="formal-framework"&gt;Formal framework&lt;/h3&gt;
+&lt;p&gt;Systems are described as collections of thermodynamic states, with
+two binary operations that have the operative interpretations of
+“composition” (of non-interacting systems) and “scaling”, respectively.
+In detail:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Systems.&lt;/strong&gt; A &lt;em&gt;system&lt;/em&gt; is just a set &lt;span
+class="math inline"&gt;\(\Gamma\)&lt;/span&gt;, whose elements correspond to
+physical (thermodynamic) states.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Composition.&lt;/strong&gt; A binary operation that takes as
+input two thermodynamic states &lt;span class="math inline"&gt;\(X_1\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(X_2\)&lt;/span&gt; of two systems &lt;span
+class="math inline"&gt;\(\Gamma _1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\Gamma _2\)&lt;/span&gt;, and returns a new state &lt;span
+class="math inline"&gt;\(X_1 \oplus X_2 \in \Gamma _1 \oplus \Gamma
+_2\)&lt;/span&gt;, where the latter set can be informally thought as the
+Cartesian product &lt;span class="math inline"&gt;\(\Gamma _1 \times \Gamma
+_2\)&lt;/span&gt;. Since the ordering in the enumeration of systems is
+inconsequential from the physical point of view, we assume that
+compositions are equipped with an equivalence relation &lt;span
+class="math inline"&gt;\(\stackrel{\oplus}{\sim}\)&lt;/span&gt;, such that &lt;span
+class="math inline"&gt;\(X_1 \oplus X_2 \stackrel{\oplus}{\sim} X_2 \oplus
+X_1\)&lt;/span&gt; and that &lt;span class="math inline"&gt;\((X_1 \oplus X_2)\oplus
+X_3 \stackrel{\oplus}{\sim} X_1 \oplus (X_2\oplus
+X_3)\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Scaling.&lt;/strong&gt; A binary operation that takes as input
+a positive number &lt;span class="math inline"&gt;\(\lambda\)&lt;/span&gt; and a
+thermodynamic state &lt;span class="math inline"&gt;\(X\in \Gamma\)&lt;/span&gt;,
+and returns a new state $X $ as output. The operation is assumed to
+satisfy &lt;span class="math inline"&gt;\(t(sX) = (ts)X\)&lt;/span&gt;, as well as
+&lt;span class="math inline"&gt;\(t(X_1\oplus X_2)=(tX_1) \oplus
+(tX_2)\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Some care is needed in the operative interpretation of the scaling
+operation for systems that are not scale invariant, such as a droplet of
+liquid with a non-negligible surface energy. This particular example is
+discussed in detail by the authors in Sec. 3.1, in connection with
+simple systems. In short, for such systems we should interpret the state
+space as a submanifold of an extended state space corresponding to a
+scale invariant system. It is for this latter system that the axioms of
+&lt;span class="citation"&gt;(Lieb and Yngvason 1999)&lt;/span&gt; are assumed to
+hold.&lt;/p&gt;
+&lt;h3 id="axioms-of-adiabatic-accessibility"&gt;Axioms of adiabatic
+accessibility&lt;/h3&gt;
+&lt;p&gt;A central notion in &lt;span class="citation"&gt;(Lieb and Yngvason
+1999)&lt;/span&gt; is that of &lt;em&gt;adiabatic accessibility&lt;/em&gt;. From the
+operative point of view this corresponds to the possibility of
+transforming a thermodynamic state into another without supplying heat
+to the system. Mathematically, adiabatic accessibility is a relation
+&lt;span class="math inline"&gt;\(\prec\)&lt;/span&gt; on the set of all
+thermodynamic states that satisfies (among other things) the axioms of a
+pre-order: reflexivity and transitivity.&lt;/p&gt;
+&lt;p&gt;More in detail, &lt;span class="math inline"&gt;\(\prec\)&lt;/span&gt; is assumed
+to satisfy the following axioms:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;(A1) Reflexivity&lt;/strong&gt;. &lt;span class="math inline"&gt;\(X
+\prec X\)&lt;/span&gt; for any &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(A2) Transitivity&lt;/strong&gt;. &lt;span
+class="math inline"&gt;\(X\prec Y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y \prec Z\)&lt;/span&gt; implies &lt;span
+class="math inline"&gt;\(X \prec Z\)&lt;/span&gt; for all &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;, &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(Z\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(A3) Consistency&lt;/strong&gt;. &lt;span
+class="math inline"&gt;\(X\prec Y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(X^\prime \prec Y ^\prime\)&lt;/span&gt; implies &lt;span
+class="math inline"&gt;\(X\oplus X^\prime \prec Y \oplus Y^\prime\)&lt;/span&gt;
+for all &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;, &lt;span
+class="math inline"&gt;\(X^\prime\)&lt;/span&gt;, &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y^\prime\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(A4) Scaling invariance&lt;/strong&gt;. &lt;span
+class="math inline"&gt;\(X\prec Y\)&lt;/span&gt; implies &lt;span
+class="math inline"&gt;\(\lambda X \prec \lambda Y\)&lt;/span&gt; for all &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;, &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(\lambda &amp;gt;0\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(A5) Splitting and recombination&lt;/strong&gt;. &lt;span
+class="math inline"&gt;\(X \prec (\lambda X,(1-\lambda)X) \prec X\)&lt;/span&gt;
+for all &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(0&amp;lt;\lambda &amp;lt;1\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(A6) Stability&lt;/strong&gt;: if &lt;span class="math display"&gt;\[
+(X,\varepsilon _n Z) \prec (Y,\varepsilon_n W)
+\]&lt;/span&gt; holds for some sequence &lt;span
+class="math inline"&gt;\(\varepsilon _n \to 0\)&lt;/span&gt;, then &lt;span
+class="math inline"&gt;\(X \prec Z\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="existence-and-uniqueness-of-entropy"&gt;Existence and uniqueness of
+entropy&lt;/h3&gt;
+&lt;p&gt;The first part of &lt;span class="citation"&gt;(Lieb and Yngvason
+1999)&lt;/span&gt; is concerned with the existence and uniqueness of the
+entropy function. The authors prove that, under axioms A1-A6
+characterizing adiabatic accessibility, the two following conditions are
+equivalent:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;(i)&lt;/em&gt; Given states &lt;span class="math inline"&gt;\(X_i\)&lt;/span&gt;
+and &lt;span class="math inline"&gt;\(Y_i\)&lt;/span&gt; of a system &lt;span
+class="math inline"&gt;\(\Gamma\)&lt;/span&gt; and positive numbers &lt;span
+class="math inline"&gt;\(\lambda _i\)&lt;/span&gt; for &lt;span
+class="math inline"&gt;\(i = 1,\,2,\,\dots,\,n\)&lt;/span&gt;, the two states
+&lt;span class="math inline"&gt;\(X = \lambda_1 X_1 \oplus \lambda_2 X_2
+\oplus \cdots \oplus \lambda _n X_n\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y = \lambda_1 Y_1 \oplus \lambda_2 Y_2 \oplus
+\cdots \oplus \lambda _n Y_n\)&lt;/span&gt; are always comparable, in the
+sense that either &lt;span class="math inline"&gt;\(X\prec Y\)&lt;/span&gt; or &lt;span
+class="math inline"&gt;\(Y \prec X\)&lt;/span&gt;. This is expressed by saying
+that “the comparison hypothesis holds on multiple scaled copies of &lt;span
+class="math inline"&gt;\(\Gamma\)&lt;/span&gt;”.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;(ii)&lt;/em&gt; There exists a function &lt;span
+class="math inline"&gt;\(S_\Gamma \colon \Gamma \to \mathbb R\)&lt;/span&gt; with
+the following property: if &lt;span class="math inline"&gt;\(X = \lambda_1 X_1
+\oplus \lambda_2 X_2 \oplus \cdots \oplus \lambda _n X_n\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(Y = \gamma_1 Y_1 \oplus \gamma_2 Y_2 \oplus
+\cdots \oplus \gamma _m Y_m\)&lt;/span&gt;, where &lt;span
+class="math inline"&gt;\(\sum _{i=1}^n \lambda _i = \sum _{j=1}^m \gamma
+_j\)&lt;/span&gt;, we have &lt;span class="math inline"&gt;\(X\prec Y\)&lt;/span&gt; if
+and only if&lt;a href="#fn1" class="footnote-ref"
+id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\sum _{i=1}^n \lambda _iS(X_i)\leq \sum _{i=1}^m \gamma _iS(Y_i).
+\]&lt;/span&gt; Furthermore, the function &lt;span
+class="math inline"&gt;\(S\)&lt;/span&gt; is given by &lt;span
+class="math inline"&gt;\(S = a S^* + b\)&lt;/span&gt; for some constants &lt;span
+class="math inline"&gt;\(a,b\)&lt;/span&gt; with &lt;span
+class="math inline"&gt;\(a&amp;gt;0\)&lt;/span&gt;, where&lt;a href="#fn2"
+class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+S^*(X) = \sup \{\lambda \colon (1-\lambda)X_0\oplus \lambda X_1 \prec
+X\}
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(X_{0,1}\in \Gamma\)&lt;/span&gt;
+are two reference states such that &lt;span class="math inline"&gt;\(X_0 \prec
+X_1\)&lt;/span&gt; but the reverse does not hold (the definition enforces
+&lt;span class="math inline"&gt;\(S^*(X_0)=0\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(S^*(X_1) = 1\)&lt;/span&gt;).&lt;/p&gt;
+&lt;h3 id="convexity"&gt;Convexity&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;(A7) Convex combination&lt;/strong&gt;. The space &lt;span
+class="math inline"&gt;\(\Gamma\)&lt;/span&gt; is a locally convex subset of a
+vector space, meaning that &lt;span class="math inline"&gt;\(tX + (1-t)Y \in
+\Gamma\)&lt;/span&gt; for all &lt;span class="math inline"&gt;\(X,Y\in
+\Gamma\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(0&amp;lt;t&amp;lt;1\)&lt;/span&gt;.
+Furthermore, we have that &lt;span class="math inline"&gt;\(t X \oplus
+(1-t)Y\prec t X + (1-t)Y\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It is easily seen that if an entropy function (in the sense of the
+previous section) exists, then the second part of the previous axiom
+(involving &lt;span class="math inline"&gt;\(\prec\)&lt;/span&gt;) is equivalent to
+the requirement that entropy is a concave function, &lt;em&gt;i.e.&lt;/em&gt; &lt;span
+class="math inline"&gt;\(S(t X + (1-t)Y)\geq
+tS(X)+(1-t)S(Y)=S(tX\oplus(1-t)Y)\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The convex combination of states is most easily interpreted for
+simple systems (see below), and corresponds to a state in which energy
+and work coordinates take the intermediate values &lt;span
+class="math inline"&gt;\(t\xi(X)+(1-t)\xi(Y)\)&lt;/span&gt;. The possibility of
+forming convex combinations of states and their adiabatic accessibility
+is quite obvious for systems such as gas or liquids. For example,
+suppose we are given &lt;span class="math inline"&gt;\(n_i\)&lt;/span&gt; moles of
+gas with energies &lt;span class="math inline"&gt;\(n_iU_i\)&lt;/span&gt; and
+volumes &lt;span class="math inline"&gt;\(n_iV_i\)&lt;/span&gt;, where &lt;span
+class="math inline"&gt;\(n_1 + n_2 = 1\)&lt;/span&gt;, and the two gases are
+separated by a rigid, adiabatic wall. The convex combination is the
+state of 1 mole of gas that is produced by simply removing the barrier.
+For solids or more complicated systems, the axiom looks much more
+questionable, but can be at least experimentally tested for any given
+system, by exploiting its equivalence with the concavity of entropy.&lt;/p&gt;
+&lt;h3 id="simple-systems"&gt;Simple systems&lt;/h3&gt;
+&lt;p&gt;The discussion moves on to concrete systems whose state space is
+assumed to be an open convex subset of &lt;span
+class="math inline"&gt;\(\mathbb R^{n+1}\)&lt;/span&gt; for some &lt;span
+class="math inline"&gt;\(n&amp;gt;0\)&lt;/span&gt;, in agreement with A7. The points
+of these systems are denoted by pairs &lt;span
+class="math inline"&gt;\((U,V)\)&lt;/span&gt;, where &lt;span
+class="math inline"&gt;\(U\in \mathbb R\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(V \in \mathbb R ^n\)&lt;/span&gt; have the physical
+interpretation of energy and extensive work coordinates, respectively.
+The possibility of a parametrization with internal energy as one
+coordinate is the content of the First Law of Thermodynamics.&lt;/p&gt;
+&lt;p&gt;Simple systems are characterized by the following axioms (the
+separation of S2 into S2a and S2b is mine):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;(S1) Irreversibility&lt;/strong&gt;. For each &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; there is a point &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\(X\prec \precY\)&lt;/span&gt;. (This axiom is actually
+implied by the stronger axiom T4, see below.)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(S2a) Tangent Plane&lt;/strong&gt;. For each &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt;, the forward sector &lt;span
+class="math inline"&gt;\(A_X=\{Y\in \Gamma\colon X\prec Y\}\)&lt;/span&gt; has a
+unique tangent plane parametrized by an equation of the form:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+U-U(X)+\sum _{i=1}^n p_i(X)\cdot(V_i-V_i(X))=0
+\]&lt;/span&gt; - &lt;strong&gt;(S2b) Lipschitz Continuity.&lt;/strong&gt; The functions
+&lt;span class="math inline"&gt;\(p_i\)&lt;/span&gt; in the previous axiom are
+locally Lipschitz continuous functions. - &lt;strong&gt;(S3) Connectedness of
+the boundary.&lt;/strong&gt; The boundary of any forward sector is
+connected.&lt;/p&gt;
+&lt;p&gt;Using only axioms &lt;strong&gt;(S1)&lt;/strong&gt; and &lt;strong&gt;(S2a)&lt;/strong&gt;,
+the Kelvin-Planck statement of the Second Law of Thermodynamics can be
+proved, namely:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;No process is possible, the sole result of which is a change in the
+energy of a simple system (without changing the work coordinates) and
+the raising of a weight.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Including also &lt;strong&gt;(S2b)&lt;/strong&gt; and &lt;strong&gt;(S3)&lt;/strong&gt;, the
+main theorem of this section can be proved, stating that &lt;em&gt;any two
+states of a simple system are comparable&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id="thermal-equilibrium"&gt;Thermal Equilibrium&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;(T1) Thermal Contact&lt;/strong&gt;. For any two simple
+systems. For any two simple systems with state spaces &lt;span
+class="math inline"&gt;\(\Gamma _1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\Gamma _2\)&lt;/span&gt;, there is another simple
+system, the &lt;em&gt;thermal join&lt;/em&gt; of &lt;span class="math inline"&gt;\(\Gamma
+_1\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\Gamma _2\)&lt;/span&gt;, with
+state space: &lt;span class="math display"&gt;\[
+\Gamma_1 \stackrel{T}{\oplus}\Gamma_2 \equiv \{(U_1+U_2,V_1,V_2)\,\colon
+(U_i,V_i)\in\Gamma_i\},
+\]&lt;/span&gt; whose states satisfy: &lt;span class="math display"&gt;\[
+\Gamma_1\oplus\Gamma_2\ni(U_1,V_1)\oplus(U_2,V_2) \prec
+(U_1+U_2,V_1,V_2)\in \Gamma_1 \stackrel{T}{\oplus}\Gamma_2.
+\]&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;(T2) Thermal Splitting&lt;/strong&gt;. For any state of the
+thermal join &lt;span class="math inline"&gt;\((U,V_1,V_2)\in
+\Gamma_1\stackrel{T}{\oplus}\Gamma_2\)&lt;/span&gt; there exist states &lt;span
+class="math inline"&gt;\((U_i,V_i)\in \Gamma _i\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\(U_1 + U_2 =U\)&lt;/span&gt; and: &lt;span
+class="math display"&gt;\[
+(U,V_1,V_2) \prec (U_1,V_1) \oplus (U_2,V_2).
+\]&lt;/span&gt; In particular, if &lt;span class="math inline"&gt;\((U,V)\in
+\Gamma\)&lt;/span&gt; is a state of a simple system and &lt;span
+class="math inline"&gt;\(\lambda \in (0,1)\)&lt;/span&gt;, we have: &lt;span
+class="math display"&gt;\[
+(U,\lambda V,(1-\lambda)V)\prec\lambda(U,V) \oplus (1-\lambda)(U,V)
+\]&lt;/span&gt; The right-hand side here is an element of &lt;span
+class="math inline"&gt;\(\lambda \Gamma \oplus (1-\lambda) \Gamma\)&lt;/span&gt;,
+while the left hand side is an element of the thermal join of scaled
+copies &lt;span class="math inline"&gt;\(\lambda \Gamma \stackrel{T}{\oplus}
+(1-\lambda) \Gamma\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;(T3) Zero-th law&lt;/strong&gt;. The relation &lt;span
+class="math inline"&gt;\(\stackrel{T}{\sim}\)&lt;/span&gt; defined in the
+following is an equivalence relation: &lt;span class="math inline"&gt;\(\Gamma
+_1 \ni(U_1,V_1)\stackrel{T}{\sim}(U_2,V_2)\in \Gamma _2\)&lt;/span&gt; if
+&lt;span class="math inline"&gt;\((U_1 + U_2, V_1, V_2) \prec (U_1,V_1) \oplus
+(U_2,V_2)\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;(T4) Transversality&lt;/strong&gt;. If &lt;span
+class="math inline"&gt;\(\Gamma\)&lt;/span&gt; is a simple system and &lt;span
+class="math inline"&gt;\(X\in \Gamma\)&lt;/span&gt;, there exist &lt;span
+class="math inline"&gt;\(X_0,X_1\in \Gamma\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\(X_0 \prec \prec X \prec \prec X_1\)&lt;/span&gt; and
+&lt;span class="math inline"&gt;\(X_0 \stackrel{T}{\sim}
+X_1\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;(T5) Universal temperature range&lt;/strong&gt;. If &lt;span
+class="math inline"&gt;\(\Gamma _1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\Gamma _2\)&lt;/span&gt; are simple systems, and &lt;span
+class="math inline"&gt;\(V_1\)&lt;/span&gt; is in the projection of &lt;span
+class="math inline"&gt;\(\Gamma _1\)&lt;/span&gt; onto its work coordinates, for
+every &lt;span class="math inline"&gt;\(X_2 \in \Gamma _2\)&lt;/span&gt; there is a
+&lt;span class="math inline"&gt;\(U_1\)&lt;/span&gt; such that &lt;span
+class="math inline"&gt;\((U_1,V_1) \stackrel{T}{\sim} X_2\)&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The main result from these additional axioms is &lt;em&gt;comparability in
+the product spaces of simple systems&lt;/em&gt;. Also, thermal equilibrium is
+found to be characterized by maximum entropy, in the sense that if &lt;span
+class="math inline"&gt;\((U_i,V_i)\in \Gamma _i\)&lt;/span&gt; are states of
+simple systems with (consistent) entropies &lt;span
+class="math inline"&gt;\(S_i\)&lt;/span&gt; respectively, then:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+(U_1,V_1)\stackrel{T}{\sim} (U_2,V_2) \iff S_1+S_2=\max_{U_1^\prime
++U_2^\prime=U_1+U_2}\{S(U_1^\prime,V_1)+S(U_2 ^\prime ,V_2)\}.
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If (T3) is assumed, and if we postulate that for each state &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; there is at least one state in thermal
+equilibrium with it - which is guaranteed by (T5) - then the second part
+of (T2) is equivalent to scaling invariance &lt;span
+class="math inline"&gt;\(\stackrel{T}{\sim}\)&lt;/span&gt;. In fact, transitivity
+and symmetry of &lt;span class="math inline"&gt;\(\stackrel{T}{\sim}\)&lt;/span&gt;
+implies &lt;span class="math inline"&gt;\(X\stackrel{T}{\sim}X\)&lt;/span&gt; for
+any &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;. Then the second part of (T2)
+is equivalent to &lt;span class="math inline"&gt;\(t X
+\stackrel{T}{\sim}(1-t)X\)&lt;/span&gt; for any &lt;span class="math inline"&gt;\(t
+\in (0,1)\)&lt;/span&gt; and any &lt;span class="math inline"&gt;\(X\)&lt;/span&gt;, which
+is in turn equivalent to &lt;span class="math inline"&gt;\(\lambda Y \sim
+Y\)&lt;/span&gt; for any &lt;span class="math inline"&gt;\(Y\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\lambda &amp;gt;0\)&lt;/span&gt;.&lt;/p&gt;
+&lt;h3 id="temperature"&gt;Temperature&lt;/h3&gt;
+&lt;p&gt;Temperature is a derived concept in the formalism of &lt;span
+class="citation"&gt;(Lieb and Yngvason 1999)&lt;/span&gt;, by means of the usual
+bridge law &lt;span class="math inline"&gt;\(T = \left(\frac{\partial
+U}{\partial S}\right)_V\)&lt;/span&gt;. The differentiability of entropy is
+shown to be a consequence of the axioms stated so far.&lt;/p&gt;
+&lt;p&gt;Using the derived concept of temperature, the authors prove the
+Clausius inequality for a Carnot cycle:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+\frac{\delta Q_1}{T_1}+\frac{\delta Q_2}{T_2} \leq0,
+\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(T_1\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(T_2\)&lt;/span&gt; are the &lt;em&gt;final&lt;/em&gt; temperatures
+of the reservoirs, that do not need to be assumed of infinite mass.&lt;/p&gt;
+&lt;h3 id="chemical-mixtures-and-reactions"&gt;Chemical mixtures and
+reactions&lt;/h3&gt;
+&lt;p&gt;The last result of the paper concerns thermodynamic processes that
+connect states of different systems. The notion of connection of state
+spaces is introduced: two state spaces &lt;span
+class="math inline"&gt;\(\Gamma\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(\Gamma ^\prime\)&lt;/span&gt; are said to be connected
+if there are state spaces &lt;span class="math inline"&gt;\(\Gamma
+_0,\,\Gamma_1,\,\dots,\Gamma_N\)&lt;/span&gt; and states &lt;span
+class="math inline"&gt;\(X_i,Y_i \in \Gamma _i\)&lt;/span&gt;, and &lt;span
+class="math inline"&gt;\(X\in \Gamma\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y\in \Gamma ^\prime\)&lt;/span&gt;, such that:&lt;/p&gt;
+&lt;p&gt;&lt;span class="math display"&gt;\[
+(X,\,X_0) \prec Y_1, \quad X_i ≺ Y_{i+1} \ (i = 1,...,N − 1), \quad X_N
+\prec (Y ,\,Y_0).
+\]&lt;/span&gt; If &lt;span class="math inline"&gt;\(\Gamma\)&lt;/span&gt; is connected to
+&lt;span class="math inline"&gt;\(\Gamma ^\prime\)&lt;/span&gt; we write &lt;span
+class="math inline"&gt;\(\Gamma \prec \Gamma ^\prime\)&lt;/span&gt;. The last
+axiom is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;(M) Absence of sinks&lt;/strong&gt;. &lt;span
+class="math inline"&gt;\(\Gamma \prec \Gamma ^\prime \implies \Gamma
+^\prime \prec \Gamma\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With this additional axiom, one can prove a “weak” form of the
+entropy principle: that the multiplicative and additive constants in the
+definition of &lt;span class="math inline"&gt;\(S\)&lt;/span&gt; for each simple
+system can be chosen in such a way that &lt;span
+class="math inline"&gt;\(X\prec Y\)&lt;/span&gt; implies &lt;span
+class="math inline"&gt;\(S(X) \leq S(Y)\)&lt;/span&gt; for any two comparable
+states (not necessarily of the same system).&lt;/p&gt;
+&lt;p&gt;The strong form of the entropy principle consists in the statement
+that all states in connected spaces are comparable, and that adiabatic
+accessibility is completely characterized by &lt;span
+class="math inline"&gt;\(S\)&lt;/span&gt;, in the sense that &lt;span
+class="math inline"&gt;\(X \prec Y\)&lt;/span&gt; if and only if &lt;span
+class="math inline"&gt;\(S(X)\leq S(Y)\)&lt;/span&gt;. This result depends on a
+particular assumption (Eq. (6.34) of the reference) that the authors do
+not axiomatize, but that is subject to experimental verification.&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-datafission" class="csl-entry"&gt;
-James Leiner, Larry Wasserman, Boyan Duan, and Aaditya Ramdas. 2023.
-&lt;span&gt;“Data Fission: Splitting a Single Data Point.”&lt;/span&gt; &lt;em&gt;Journal
-of the American Statistical Association&lt;/em&gt; 0 (0): 1–12. &lt;a
-href="https://doi.org/10.1080/01621459.2023.2270748"&gt;https://doi.org/10.1080/01621459.2023.2270748&lt;/a&gt;.
-&lt;/div&gt;
-&lt;div id="ref-splittingstrategies" class="csl-entry"&gt;
-Rasines, D García, and G A Young. 2022. &lt;span&gt;“&lt;span
-class="nocase"&gt;Splitting strategies for post-selection
-inference&lt;/span&gt;.”&lt;/span&gt; &lt;em&gt;Biometrika&lt;/em&gt; 110 (3): 597–614. &lt;a
-href="https://doi.org/10.1093/biomet/asac070"&gt;https://doi.org/10.1093/biomet/asac070&lt;/a&gt;.
-&lt;/div&gt;
-&lt;/div&gt;</description>
-      <distill:md5>2a883ac9d5ba67db523f91c0a19f75ef</distill:md5>
-      <category>Comment on...</category>
-      <category>Selective Inference</category>
-      <category>Model Selection</category>
-      <category>Statistics</category>
-      <guid>https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al</guid>
-      <pubDate>Sun, 02 Jun 2024 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Statements of the Second Law of Thermodynamics</title>
-      <dc:creator>Valerio Gherardi</dc:creator>
-      <link>https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics</link>
-      <description>
-
-
-&lt;p&gt;The Second Law of Thermodynamics is commonly stated in the forms of
-Kelvin’s and Clausius’ postulates. These can be enunciated in the
-following way &lt;span class="citation"&gt;(Dittman and Zemansky 2021)&lt;/span&gt;
-&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Kelvin’s Postulate.&lt;/strong&gt; It is impossible to construct an
-engine that, operating in a cycle, will produce no effect other than the
-extraction of heat from a reservoir and the performance of an equivalent
-amount of work.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Clausius’ Postulate.&lt;/strong&gt; It is impossible to construct a
-refrigerator that, operating in a cycle, will produce no effect other
-than the transfer of heat from a lower-temperature reservoir to a higher
-temperature reservoir.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Either formulation is equivalent to the other and leads to the
-fundamental &lt;em&gt;Clausius’ theorem&lt;/em&gt;. This asserts the existence of a
-universal state function &lt;span class="math inline"&gt;\(T\)&lt;/span&gt;, the
-&lt;em&gt;absolute temperature&lt;/em&gt;, defined for any thermodynamic system,
-that satisfies the &lt;em&gt;Clausius inequality&lt;/em&gt;. Concretely, if a system
-undergoes a cyclic process, during which it absorbs quantities &lt;span
-class="math inline"&gt;\(\Delta Q _i\)&lt;/span&gt; of energy in the form of heat
-from reservoirs at absolute temperatures &lt;span
-class="math inline"&gt;\(T_i\)&lt;/span&gt;, the inequality:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\sum _i\frac{\Delta Q_i}{T_i} \leq 0 (\#eq:ClausiusTheorem)
-\]&lt;/span&gt; always holds.&lt;/p&gt;
-&lt;p&gt;The derivation of Eq. @ref(eq:ClausiusTheorem) from Kelvin’s and
-Clausius’ postulates, a clever argument that employs ideal Carnot
-engines, is standard textbook material; see for example &lt;span
-class="citation"&gt;(Fermi 1956)&lt;/span&gt;. On the other hand, I’ve never seen
-the converse being stressed, that is, that Clausius theorem allows one
-to recover versions of Kelvin’s and Clausius’ postulates. Here are two
-(fairly obvious) arguments in this direction.&lt;/p&gt;
-&lt;p&gt;Consider a cyclic process of a thermodynamic system during which a
-quantity &lt;span class="math inline"&gt;\(\Delta Q\)&lt;/span&gt; of heat is
-absorbed from a reservoir at constant temperature &lt;span
-class="math inline"&gt;\(T_0\)&lt;/span&gt;. Equation @ref(eq:ClausiusTheorem)
-applied to this special process implies:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\Delta Q\leq 0.(\#eq:KelvinProof1)
-\]&lt;/span&gt; The fact that &lt;span class="math inline"&gt;\(\Delta Q\leq
-0\)&lt;/span&gt; means that the heat reservoir can only absorb energy during a
-cycle, which must be supplied by performing a positive work on the
-system. This is the content of Kelvin’s postulate.&lt;/p&gt;
-&lt;p&gt;Similarly, if the system performs a cycle exchanging amounts of heat
-&lt;span class="math inline"&gt;\(\Delta Q_1\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(\Delta Q_2\)&lt;/span&gt; with two heat sources at
-temperatures &lt;span class="math inline"&gt;\(T_1\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(T_2\)&lt;/span&gt; respectively,
-@ref(eq:ClausiusTheorem) implies:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\frac{\Delta Q_1}{T_1}+\frac{\Delta Q_2}{T_2}\leq 0(\#eq:ClausiusProof1)
-\]&lt;/span&gt; But &lt;span class="math inline"&gt;\(\Delta Q_1 + \Delta Q_2 =
-\Delta Q =-\Delta W\)&lt;/span&gt;, the external work performed on the system
-during a cycle. Hence:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-(\frac{1}{T_1}-\frac{1}{T_2})\Delta Q_1\leq \frac{\Delta
-W}{T_2}.(\#eq:ClausiusProof2)
-\]&lt;/span&gt; Therefore, &lt;span class="math inline"&gt;\(\Delta Q_1 \geq
-0\)&lt;/span&gt; with &lt;span class="math inline"&gt;\(T_1 &amp;lt; T_2\)&lt;/span&gt;
-requires &lt;span class="math inline"&gt;\(\Delta W \geq 0\)&lt;/span&gt;. In other
-words, in order to perform a cycle in which a positive amount of heat is
-transferred from a low-temperature reservoir to a high-temperature one,
-we must necessarily perform some positive work&lt;a href="#fn2"
-class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;. This is the content
-of Clausius’ postulate.&lt;/p&gt;
-&lt;p&gt;A subtle point that may require some elucidation is that, in the
-usual logical exposition of Thermodynamics, the temperature to which
-Kelvin’s and Clausius’ postulates make reference is the
-&lt;em&gt;empirical&lt;/em&gt; temperature, call it &lt;span
-class="math inline"&gt;\(\theta\)&lt;/span&gt;. This is the “quantity measured by
-a thermometer” &lt;span class="citation"&gt;(Fermi 1956)&lt;/span&gt;, and is
-logically distinct from the absolute temperature &lt;span
-class="math inline"&gt;\(T\)&lt;/span&gt;, whose existence is a consequence of
-the second law. What we actually proved here are versions of Kelvin’s
-and Clausius’ postulates &lt;em&gt;formulated in terms of the absolute
-temperature&lt;/em&gt;, &lt;span class="math inline"&gt;\(T\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Now, if we take Kelvin’s or Clausius’ postulate (formulated in terms
-of &lt;span class="math inline"&gt;\(\theta\)&lt;/span&gt;) as our logical starting
-point, we can actually prove that &lt;span class="math inline"&gt;\(T\)&lt;/span&gt;
-is an increasing function of &lt;span
-class="math inline"&gt;\(\theta\)&lt;/span&gt;, in which case there is no point
-in specifying which temperature the postulates refer to. However, if our
-starting point is&lt;br /&gt;
-Clausius’ Theorem, there is no &lt;em&gt;a priori&lt;/em&gt; logical reason for a
-relation between &lt;span class="math inline"&gt;\(T\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(\theta\)&lt;/span&gt;, which should be considered as an
-additional assumption.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;Even though this goes a bit beyond the original scope of the post,
-I’d like to show here how @ref(eq:ClausiusTheorem) leads the existence
-of another state function, the &lt;em&gt;entropy&lt;/em&gt; &lt;span
-class="math inline"&gt;\(S\)&lt;/span&gt;, which satisfies a generalized version
-of @ref(eq:ClausiusTheorem), namely:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\sum _i\frac{\Delta Q_i}{T_i} \leq \Delta S(\#eq:ClausiusTheoremEntropy)
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;where quantities have the same meaning as in Eq.
-@ref(eq:ClausiusTheorem), but the process is not necessarily cyclic. One
-can additionally show that the differential of &lt;span
-class="math inline"&gt;\(S\)&lt;/span&gt; is given by:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text dS = \frac{\delta Q _R}{T}(\#eq:EntropyDifferential),
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;where &lt;span class="math inline"&gt;\(\delta Q_R = \text d U + \delta
-W_R\)&lt;/span&gt; is the differential heat absorbed by the system in a
-reversible process, and &lt;span class="math inline"&gt;\(T\)&lt;/span&gt; is the
-system’s temperature.&lt;/p&gt;
-&lt;p&gt;We start by observing that, for a reversible process, equality must
-hold in Eq. @ref(eq:ClausiusTheorem). This is so because, for a
-reversible cycle, the inverse cycle, in which the system absorbs amounts
-&lt;span class="math inline"&gt;\(-\Delta Q_i\)&lt;/span&gt; of heat at temperatures
-&lt;span class="math inline"&gt;\(T_i\)&lt;/span&gt;, must also be possible.
-Altogether, the Clausius inequalities for the direct and inverse cycles
-thus imply:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\sum _i\frac{\Delta Q_i}{T_i} = 0\quad \text{(reversible
-process)}(\#eq:ClausiusTheoremRev).
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Imagining an ideal cyclic process, in which the system exchanges
-infinitesimal amounts of heat &lt;span class="math inline"&gt;\(\delta
-Q(T&amp;#39;)\)&lt;/span&gt; with a continuous distribution of sources at
-temperatures &lt;span class="math inline"&gt;\(T&amp;#39;\)&lt;/span&gt;, we should
-replace the sum in Eq. @ref(eq:ClausiusTheoremRev) with an integral:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\intop \frac{\delta Q(T&amp;#39;)}{T&amp;#39;} = 0 \quad\text{(reversible
-process)}(\#eq:ClausiusTheoremRevInt)
-\]&lt;/span&gt; We now fix a reference state &lt;span
-class="math inline"&gt;\(\sigma _0\)&lt;/span&gt; of our system, and define for
-any other state &lt;span class="math inline"&gt;\(\sigma\)&lt;/span&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-S(\sigma;\sigma _0) = \intop _{\sigma_0}^\sigma \frac{\delta
-Q(T&amp;#39;)}{T&amp;#39;}(\#eq:EntropyDef)
-\]&lt;/span&gt; where the integral is taken along &lt;em&gt;any&lt;/em&gt; reversible path
-that connects &lt;span class="math inline"&gt;\(\sigma _0\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(\sigma\)&lt;/span&gt;, and &lt;span
-class="math inline"&gt;\(\delta Q(T&amp;#39;)\)&lt;/span&gt; is the amount of heat
-exchanged at temperature &lt;span class="math inline"&gt;\(T&amp;#39;\)&lt;/span&gt;
-along this representative process. The fact that the integral in
-@ref(eq:EntropyDef) depends only upon the final states &lt;span
-class="math inline"&gt;\(\sigma _0\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(\sigma\)&lt;/span&gt; is guaranteed by
-@ref(eq:ClausiusTheoremRevInt).&lt;/p&gt;
-&lt;p&gt;By construction, we see that Eq. @ref(eq:EntropyDifferential) must
-hold with &lt;span class="math inline"&gt;\(T\)&lt;/span&gt; being the temperature
-of a source that, if placed in thermal contact with the system, can
-produce a reversible exchange of heat. It remains to be shown that this
-temperature is nothing but the temperature of the system itself.
-Consider a reversible process in which two systems at temperatures &lt;span
-class="math inline"&gt;\(T_1\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(T_2\)&lt;/span&gt; exchange an (infinitesimal) amount of
-heat. From what we have just said:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text d S_1 = \frac{\delta Q_1}{T_2},\quad \text d S_2 = \frac{\delta Q
-_2}{T_1},(\#eq:EntropyDifferentialsSwitched)
-\]&lt;/span&gt; where &lt;span class="math inline"&gt;\(\delta Q_i\)&lt;/span&gt; is the
-heat absorbed by system &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;, and
-&lt;span class="math inline"&gt;\(\text d S_i\)&lt;/span&gt; is its corresponding
-entropy change. However, since the composite system is thermally
-insulated, we must have &lt;span class="math inline"&gt;\(\delta Q_1 + \delta
-Q_2=0\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\text d S_1 + \text d S_2
-= 0\)&lt;/span&gt;&lt;a href="#fn3" class="footnote-ref"
-id="fnref3"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;. Eq. @ref(eq:EntropyDifferentialsSwitched)
-then implies that, if the process is reversible, we must necessarily
-have &lt;span class="math inline"&gt;\(T_1 = T_2\)&lt;/span&gt;. This completes the
-proof of @ref(eq:EntropyDifferential).&lt;/p&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-dittman2021heat" class="csl-entry"&gt;
-Dittman, Richard H, and Mark W Zemansky. 2021. &lt;span&gt;“Heat and
-Thermodynamics SEVENTH EDITION.”&lt;/span&gt;
-&lt;/div&gt;
-&lt;div id="ref-fermi1956thermodynamics" class="csl-entry"&gt;
-Fermi, E. 1956. &lt;em&gt;Thermodynamics&lt;/em&gt;. Dover Books in Physics and
-Mathematical Physics. Dover Publications. &lt;a
-href="https://books.google.es/books?id=VEZ1ljsT3IwC"&gt;https://books.google.es/books?id=VEZ1ljsT3IwC&lt;/a&gt;.
+&lt;div id="ref-LY1" class="csl-entry"&gt;
+Lieb, Elliott H., and Jakob Yngvason. 1999. &lt;span&gt;“The Physics and
+Mathematics of the Second Law of Thermodynamics.”&lt;/span&gt; &lt;em&gt;Physics
+Reports&lt;/em&gt; 310 (1): 1–96. https://doi.org/&lt;a
+href="https://doi.org/10.1016/S0370-1573(98)00082-9"&gt;https://doi.org/10.1016/S0370-1573(98)00082-9&lt;/a&gt;.
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="footnotes footnotes-end-of-document"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;We may compare these with the corresponding formulations
-given in Enrico Fermi’s famous book &lt;span class="citation"&gt;(Fermi
-1956)&lt;/span&gt;. For instance, Kelvin’s postulate reads: &lt;em&gt;“A
-transformation whose only final result is to transform into work heat
-extracted from a source which is at the same temperature throughout is
-impossible.”&lt;/em&gt;. Even though I’m a big fan of Fermi’s book, I find the
-more modern formulations given in &lt;span class="citation"&gt;(Dittman and
-Zemansky 2021)&lt;/span&gt; clearer.&lt;a href="#fnref1"
+&lt;li id="fn1"&gt;&lt;p&gt;In particular, the states &lt;span
+class="math inline"&gt;\(X\)&lt;/span&gt; and &lt;span
+class="math inline"&gt;\(Y\)&lt;/span&gt; are always comparable if &lt;span
+class="math inline"&gt;\(\sum _{i=1}^{n} \lambda _i = \sum _{j=1}^m \gamma
+_j\)&lt;/span&gt;. This does not need to be the case if the two sums differ.&lt;a
+href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;If &lt;span class="math inline"&gt;\(t&amp;lt;0\)&lt;/span&gt;, we can
+interpret &lt;span class="math inline"&gt;\(X + tY \prec Z\)&lt;/span&gt; as &lt;span
+class="math inline"&gt;\(X\prec Z -tY\)&lt;/span&gt;.&lt;a href="#fnref2"
 class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn2"&gt;&lt;p&gt;In fact, Eq. @ref(eq:ClausiusProof2) tells us a bit more
-than Clausius postulate, since it gives the maximum theoretical
-efficiency of a refrigerator operating between temperatures &lt;span
-class="math inline"&gt;\(T_1 &amp;lt; T_2\)&lt;/span&gt;: &lt;span
-class="math display"&gt;\[
-\frac{\Delta Q_1}{\Delta W} \leq \frac{T_1}{T_2-T_1}
-\]&lt;/span&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn3"&gt;&lt;p&gt;The additivity of entropy is a consequence of the
-additivity of heat, which in turn would require a dedicate discussion.
-Such a requirement boils down to the additivity of external work, which
-holds generally if the interaction energies of the systems being
-composed are negligible. This is always assumed (more or less
-explicitly) whenever discussing the interaction of a system with a heat
-reservoir.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;a href="#fnref3" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5>3b38a91cced01b553fec61b3485cfe2f</distill:md5>
+      <distill:md5>e68a9f7b34e46018bcb3ac2176df70cb</distill:md5>
+      <category>Comment on...</category>
+      <category>Thermodynamics</category>
+      <category>Physics</category>
+      <guid>https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason</guid>
+      <pubDate>Mon, 24 Jun 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>"Data Fission: Splitting a Single Data Point" by Leiner et al.</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al</link>
+      <description>An interesting idea for dealing with selective inference.</description>
+      <category>Comment on...</category>
+      <category>Selective Inference</category>
+      <category>Model Selection</category>
+      <category>Statistics</category>
+      <guid>https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al</guid>
+      <pubDate>Mon, 03 Jun 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Statements of the Second Law of Thermodynamics</title>
+      <dc:creator>Valerio Gherardi</dc:creator>
+      <link>https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics</link>
+      <description>Close-up on the equivalence between Kelvin's/Clausius' postulates and 
+Clausius' *theorem*.</description>
       <category>Thermodynamics</category>
       <category>Physics</category>
       <guid>https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics</guid>
@@ -348,128 +462,7 @@ reservoir.&lt;/p&gt;
       <title>Authorship Attribution in Lennon-McCartney Songs</title>
       <dc:creator>Valerio Gherardi</dc:creator>
       <link>https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs</link>
-      <description>
-
-
-&lt;p&gt;&lt;span class="citation"&gt;(Glickman, Brown, and Song 2019)&lt;/span&gt;. An
-enjoyable read. The authors present a statistical analysis of the
-Beatles’ repertoire from the point of view of authorship (Lennon
-&lt;em&gt;vs.&lt;/em&gt; McCartney), a &lt;a
-href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/"&gt;topic
-with which I’ve been lately involved&lt;/a&gt;. As a side-note, this also made
-me discover the &lt;a href="https://hdsr.mitpress.mit.edu/"&gt;Harvard Data
-Science Review&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;From the paper’s abstract:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The songwriting duo of John Lennon and Paul McCartney, the two
-founding members of the Beatles, composed some of the most popular and
-memorable songs of the last century. Despite having authored songs under
-the joint credit agreement of Lennon-McCartney, it is well-documented
-that most of their songs or portions of songs were primarily written by
-exactly one of the two. Furthermore, the authorship of some
-Lennon-McCartney songs is in dispute, with the recollections of
-authorship based on previous interviews with Lennon and McCartney in
-conflict. For Lennon-McCartney songs of known and unknown authorship
-written and recorded over the period 1962-66, we extracted musical
-features from each song or song portion. These features consist of the
-occurrence of melodic notes, chords, melodic note pairs, chord change
-pairs, and four-note melody contours. We developed a prediction model
-based on variable screening followed by logistic regression with elastic
-net regularization. Out-of-sample classification accuracy for songs with
-known authorship was 76%, with a c-statistic from an ROC analysis of
-83.7%. We applied our model to the prediction of songs and song portions
-with unknown or disputed authorship.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The modeling approach looks to me very sound and appropriate to the
-small sample size available (&lt;span class="math inline"&gt;\(N =
-70\)&lt;/span&gt;, the statistical unit corresponding to a song of known
-authorship). Effective model selection and testing is achieved through
-three nested layers of cross-validation (😱): one for elastic net
-hyperparameter tuning, one for feature screening, and finally one for
-estimating the prediction error.&lt;/p&gt;
-&lt;p&gt;The discussion of feature importance is insightful, in that it
-identifies concrete aspects of McCartney’s compositions that make them
-distinguishable from Lennon’s ones. This type of interpretability is a
-big plus for authorship analysis. The general qualitative conclusion,
-that McCartney’s music tended to exhibit more complex and unusual
-patterns kinda resonates with my perception of Beatles’ songs.&lt;/p&gt;
-&lt;p&gt;Armed with the trained logistic regression model, together with a
-valid accuracy estimate (76%), the authors set out to apply their model
-to authorship prediction for controversial cases within the Beatles’
-corpus (outside of the training sample). I don’t fully understand the
-authors approach in this part of the paper, and some points appear to be
-questionable, for the reasons I explain below.&lt;/p&gt;
-&lt;p&gt;One of the advantages of fitting a full probability model, such as
-logistic regression, rather than a conceptually simpler pure
-classification model (like a tree, for example), is that the output of
-the former is not a mere class (McCartney or Lennon), but rather a
-&lt;em&gt;probability&lt;/em&gt; of belonging to that class. This allows one to make
-much more informative statements in the analysis of new cases, since the
-strength of evidence provided by the data towards the predicted class
-can be quantified on a case by case basis. All of this is true, of
-course, &lt;em&gt;provided that the fitted model gives a decent approximation
-to the true data generating process&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;With similar considerations in mind, I suppose, the authors produce
-probability estimates for each of the disputed cases considered, in the
-form of a point estimate and a confidence interval to represent
-uncertainty. I think there is room for improvement here, in two
-aspects.&lt;/p&gt;
-&lt;p&gt;My first objection is what I already pointed out above: nothing in
-the modeling process explained in the paper suggests that the final
-model provides a good approximation to the true class probability
-conditional on features. The model has, with reasonable confidence, a
-predictive performance close to the best achievable within the
-possibilities considered - quantified by 76% accuracy and 84% AUC - but
-this says nothing about its correct specification as a probability
-model. Without a careful specification study, it is impossible to
-conclude anything on the nature of the true estimation targets of the
-fitted “probabilities”: they may perfectly have nothing to do with the
-actual &lt;span class="math inline"&gt;\(\text{Pr}(\text{author}\,\vert\,
-\text{song features})\)&lt;/span&gt; the authors are after. There is still
-value, I believe, in reporting fitted probabilities as qualitative
-measures of evidence, but these should not be conflated with the true
-(unknown) class probabilities… at least without some serious attempt to
-detect differences between the two.&lt;/p&gt;
-&lt;p&gt;My second point is a technical one and concerns how they construct
-confidence intervals for fitted probabilities. The construction
-resembles that of bootstrap percentile confidence intervals but, rather
-than the usual bootstrap synthetic datasets, the delete-one datasets
-used in leave-one-out cross-validation are used to obtain replicas of
-the fitted probabilities. This is nothing but Jackknife resampling in
-disguise, and it is well known that the resampling standard deviation of
-such Jackknife replicae is roughly &lt;span class="math inline"&gt;\(N
-^{-1/2}\)&lt;/span&gt; times the true standard deviation, see &lt;em&gt;e.g.&lt;/em&gt;
-&lt;span class="citation"&gt;(Tibshirani and Efron 1993)&lt;/span&gt;. Therefore, I
-have strong reasons to believe that the reported intervals strongly
-underestimate the uncertainty associated with these probability
-estimates.&lt;/p&gt;
-&lt;p&gt;All in all, the attempt to go beyond reporting simple classes -
-backed up by an overall 76% accuracy estimate - is well-motivated in
-principle, but the final outcome is not very dependable.&lt;/p&gt;
-&lt;p&gt;As usual, I’m more eloquent when criticizing than when praising, but
-let me end on a very positive note. The authors do a &lt;em&gt;great&lt;/em&gt;
-favor to the reader, by including a discussion of the informal steps
-performed prior and in parallel to the formal analysis presented in the
-paper. This kind of transparency - which is also present in the rest of
-the discussion - is, I believe, not so common as it should, and is what
-makes it eventually possible to think critically about someone else’s
-work.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-Glickman2019Data" class="csl-entry"&gt;
-Glickman, Mark, Jason Brown, and Ryan Song. 2019.
-&lt;span&gt;“(&lt;span&gt;A&lt;/span&gt;) &lt;span&gt;Data&lt;/span&gt; in the &lt;span&gt;Life&lt;/span&gt;:
-Authorship &lt;span&gt;Attribution&lt;/span&gt; in
-&lt;span&gt;Lennon&lt;/span&gt;-&lt;span&gt;McCartney&lt;/span&gt; &lt;span&gt;Songs&lt;/span&gt;.”&lt;/span&gt;
-&lt;em&gt;Harvard Data Science Review&lt;/em&gt; 1 (1).
-&lt;/div&gt;
-&lt;div id="ref-tibshirani1993introduction" class="csl-entry"&gt;
-Tibshirani, Robert J, and Bradley Efron. 1993. &lt;span&gt;“An Introduction to
-the Bootstrap.”&lt;/span&gt; &lt;em&gt;Monographs on Statistics and Applied
-Probability&lt;/em&gt; 57 (1): 1–436.
-&lt;/div&gt;
-&lt;/div&gt;</description>
-      <distill:md5>7b1b8fa9a1ecfd0183e658839ab311f3</distill:md5>
+      <description>An open access paper by M. Glickman, J. Brown, and R. Song.</description>
       <category>Comment on...</category>
       <category>Authorship Verification</category>
       <category>Natural Language Processing</category>
@@ -483,210 +476,8 @@ Probability&lt;/em&gt; 57 (1): 1–436.
       <title>Frequentist bounds for Bayesian sequential hypothesis testing</title>
       <dc:creator>Valerio Gherardi</dc:creator>
       <link>https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing</link>
-      <description>
-
-
-&lt;p&gt;I just came across &lt;span class="citation"&gt;(Kerridge 1963)&lt;/span&gt;, an
-old result which falls under the umbrella of “frequentist properties of
-Bayesian inference”. Specifically, the theorem proved in this reference
-applies to sequential testing, a context in which the mechanics of
-Bayesian inference, with its typical sequential updates, may be regarded
-as natural.&lt;/p&gt;
-&lt;p&gt;Suppose we wish to compare two hypotheses &lt;span
-class="math inline"&gt;\(H_0\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(H_1\)&lt;/span&gt;, where &lt;span
-class="math inline"&gt;\(H_0\)&lt;/span&gt; is simple&lt;a href="#fn1"
-class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. We start collecting
-data until our sample meets some specific requirement, according to some
-given &lt;em&gt;stopping rule&lt;/em&gt; &lt;span class="math inline"&gt;\(S\)&lt;/span&gt;. If
-this ever occurs, we compute the &lt;em&gt;Bayes factor&lt;/em&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-B = \frac{\text{Pr}(\text {data} \vert H_0)}{\text{Pr}(\text {data}
-\vert H_1)}.(\#eq:BayesRatio)
-\]&lt;/span&gt; and reject &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; if &lt;span
-class="math inline"&gt;\(B \leq b\)&lt;/span&gt;, for some &lt;span
-class="math inline"&gt;\(b &amp;gt; 0\)&lt;/span&gt;. The theorem is that if &lt;span
-class="math inline"&gt;\(H_0\)&lt;/span&gt; is the true data generating process,
-the above procedure has a false rejection rate lower than &lt;span
-class="math inline"&gt;\(b\)&lt;/span&gt;, &lt;em&gt;independently of the stopping rule
-employed to end sampling&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Notice that the rejection event is composed by two parts:&lt;/p&gt;
-&lt;ol style="list-style-type: decimal"&gt;
-&lt;li&gt;Sampling has stopped at some point during data taking.&lt;/li&gt;
-&lt;li&gt;When sampling stopped, &lt;span class="math inline"&gt;\(B \leq b\)&lt;/span&gt;
-held.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;We also note that the stopping rule needs not be deterministic,
-although this appears to be implicitly assumed in the original
-reference. In general, the data collected up to a certain point will
-only determine the &lt;em&gt;probability&lt;/em&gt; that sampling stops at that time
-(and, to reinforce the previous point, the sum of these probabilities
-will not, in general, add up to &lt;span
-class="math inline"&gt;\(1\)&lt;/span&gt;).&lt;/p&gt;
-&lt;p&gt;In order to prove this theorem, let us set up some notation. Let
-&lt;span class="math inline"&gt;\((X_n)_{n\in \mathbb N}\)&lt;/span&gt; be some
-stochastic process representing “data”, where each &lt;span
-class="math inline"&gt;\(X_n \in \mathcal X\)&lt;/span&gt; is a data point. We
-denote by &lt;span class="math inline"&gt;\(P^{(0)}\)&lt;/span&gt; the probability
-distribution of &lt;span class="math inline"&gt;\(X\)&lt;/span&gt; under &lt;span
-class="math inline"&gt;\(H_0\)&lt;/span&gt;, which is completely defined since
-&lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; is simple. We further denote by
-&lt;span class="math inline"&gt;\(P_n ^{(0)}\)&lt;/span&gt; the corresponding
-probability measure on &lt;span class="math inline"&gt;\(\mathcal X
-^n\)&lt;/span&gt; for the set of the first &lt;span
-class="math inline"&gt;\(n\)&lt;/span&gt; observations &lt;span
-class="math inline"&gt;\(X_1,\,X_2,\,\dots, \,X_n\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;We first consider the case in which &lt;span
-class="math inline"&gt;\(H_1\)&lt;/span&gt; is also simple, and denote by &lt;span
-class="math inline"&gt;\(P^{(1)}\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(P^{(1)}_n\)&lt;/span&gt; the corresponding measures. The
-Bayes factor is defined as the Radon-Nikodym derivative:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-B_n \equiv \frac{\text d P^{(0)}_n}{\text d
-P_n^{(1)}}(\#eq:BayesRatioRadonNikodym)
-\]&lt;/span&gt; (we assume regularity conditions so that such a derivative
-exists).&lt;/p&gt;
-&lt;p&gt;Also, we assume for the moment that the stopping rule is
-deterministic, embodied by binary functions &lt;span
-class="math inline"&gt;\(S_n=S(X_1,\,X_2,\,\dots,X_n)\)&lt;/span&gt; of the first
-&lt;span class="math inline"&gt;\(n\)&lt;/span&gt; observations, with &lt;span
-class="math inline"&gt;\(S_n = 1\)&lt;/span&gt; if sampling can stop at step
-&lt;span class="math inline"&gt;\(n\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Now fix &lt;span class="math inline"&gt;\(b&amp;gt;0\)&lt;/span&gt;. A rejection of
-&lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; at sampling step &lt;span
-class="math inline"&gt;\(n\)&lt;/span&gt; is represented by the event:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\mathcal R _{n}(b)\equiv \{B_n\leq b,\,S_n=1,\,S_i=0\,\text{ for
-}i&amp;lt;n\},(\#eq:RejectionEvents)
-\]&lt;/span&gt; which, with abuse of notation, we may identify with a subset
-of &lt;span class="math inline"&gt;\(\mathcal X ^n\)&lt;/span&gt;. The overall
-rejection event (at any sampling step) is given by:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\mathcal R (b)\equiv \bigcup _{n=1} ^\infty \mathcal
-R_n(b),(\#eq:BigRejectionEvent)
-\]&lt;/span&gt; so that our theorem amounts to the bound:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}_{H_0}(\mathcal R(b))\leq b. (\#eq:TheoremStatement)
-\]&lt;/span&gt; In order to prove this, we first note that:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}_{H_0}(\mathcal R _n(b))=
-        \intop _{\mathcal R _n(b)} \text d P_n=
-        \intop _{\mathcal R _n(b)}B_n \text d Q_n \leq
-        b\intop _{\mathcal R _n(b)} \text d
-Q_n=b\cdot\text{Pr}_{H_1}(\mathcal R _n(b)).(\#eq:TheoremStep1)
-\]&lt;/span&gt; Hence, since the events &lt;span class="math inline"&gt;\(\mathcal R
-_n(b)\)&lt;/span&gt; and &lt;span class="math inline"&gt;\(\mathcal R _m(b)\)&lt;/span&gt;
-are clearly disjoint for &lt;span class="math inline"&gt;\(n\neq m\)&lt;/span&gt;,
-we have:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}_{H_0}(\mathcal R(b))\leq b\cdot\text{Pr}_{H_1}(\mathcal R
-(b))(\#eq:TheoremStep2),
-\]&lt;/span&gt; which, since &lt;span
-class="math inline"&gt;\(\text{Pr}_Q(\cdot)\leq1\)&lt;/span&gt;, implies
-@ref(eq:TheoremStatement).&lt;/p&gt;
-&lt;p&gt;We may relax the assumption that the alternative hypothesis is
-simple, by considering a parametric family of measures &lt;span
-class="math inline"&gt;\((P^{(1)}_\theta)_{\theta \in \Theta}\)&lt;/span&gt;,
-where the parameter &lt;span class="math inline"&gt;\(\theta\)&lt;/span&gt; has some
-prior probability &lt;span class="math inline"&gt;\(\text
-d\Phi(\theta)\)&lt;/span&gt;. The argument given above still applies to this
-case, if &lt;span class="math inline"&gt;\(P^{(1)}\)&lt;/span&gt; is replaced by the
-mixture &lt;span class="math inline"&gt;\(P^{(1)} = \intop \text d
-\Phi(\theta) P^{(1)}_\theta\)&lt;/span&gt; (under appropriate regularity
-assumptions). In the notation of Eq. @ref(eq:BayesRatio), the
-denominator &lt;span class="math inline"&gt;\(\text {Pr}(\text {data} \vert
-H_1)\equiv \intop \text d \Phi(\theta)\,\text{Pr}(\text{data} \vert
-H_{1,\theta})\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Finally, in order to lift the assumption that our stopping rule is
-deterministic, let us first consider the following special
-(deterministic) stopping rule:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-S^*_n =1\iff B_n \leq b.(\#eq:DataDredging)
-\]&lt;/span&gt; In other words, we stop sampling whenever the sample would
-reject &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; according to &lt;span
-class="math inline"&gt;\(B_n \leq b\)&lt;/span&gt;. The rejection event &lt;span
-class="math inline"&gt;\(\mathcal R(b)\)&lt;/span&gt; for this special stopping
-rule is simply:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\mathcal R^*(b) \equiv \{B_n \leq b\text{ for some }n\in \mathbb
-N\}.(\#eq:RejectionDataDredging)
-\]&lt;/span&gt; Since we already proved the theorem for any deterministic
-stopping rule, Eq. @ref(eq:TheoremStatement) implies:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text {Pr}_{H_0}(\mathcal R^*(b)) \leq b.(\#eq:BoundDataDredging)
-\]&lt;/span&gt; But Eq. @ref(eq:BoundDataDredging) clearly implies the theorem
-for any stopping rule, deterministic or not, since in general:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\mathcal R(b) \subseteq \mathcal R^*(b)(\#eq:ProperSubsetDataDredging)
-\]&lt;/span&gt; (we need &lt;span class="math inline"&gt;\(B_n\leq b\)&lt;/span&gt; to
-hold for some &lt;span class="math inline"&gt;\(n\in \mathbb N\)&lt;/span&gt; in
-order to reject &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt;).&lt;/p&gt;
-&lt;p&gt;Interestingly, the argument just given leads to a more accurate
-statement of our main result @ref(eq:TheoremStatement):&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}_{H_0}(\mathcal R(b))\leq \text {Pr}_{H_0}(B_n \leq b\text{ for
-some }n\in \mathbb N) \leq b,(\#eq:TheoremStatement2)
-\]&lt;/span&gt; where the leftmost quantity is the false rejection rate of a
-selective testing procedure, such as the one we have been considering so
-far, wheareas the central quantity is the false rejection rate of a
-&lt;em&gt;simultaneous&lt;/em&gt; testing procedure (that checks whether &lt;span
-class="math inline"&gt;\(B_n \leq b\)&lt;/span&gt; at each step of sampling).
-What’s happening here is analogous to a phenomenon observed in the
-context of parameter estimation following model selection &lt;span
-class="citation"&gt;(Berk et al. 2013)&lt;/span&gt;, where one can show that, in
-order to guarantee marginal coverage for the selected parameters, if the
-selection rule is allowed to be completely arbitrary one must actually
-require &lt;em&gt;simultaneous&lt;/em&gt; coverage for all possible parameters.&lt;/p&gt;
-&lt;p&gt;To conclude the post, let us remark that theorem
-@ref(eq:TheoremStatement) was originally formulated in terms of the
-posterior probability &lt;span class="math inline"&gt;\(Q_n(\pi)\)&lt;/span&gt; of
-&lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-Q_n(\pi) = \frac{\pi }{\pi +(1-\pi)B^{-1}_n},(\#eq:PosteriorProb)
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;where &lt;span class="math inline"&gt;\(\pi\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(1-\pi\)&lt;/span&gt; are the prior probabilities of the
-two competing models &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt; and &lt;span
-class="math inline"&gt;\(H_1\)&lt;/span&gt;, respectively. We may use &lt;span
-class="math inline"&gt;\(Q_n(\pi) \leq q\)&lt;/span&gt;, rather than &lt;span
-class="math inline"&gt;\(B_n \leq b\)&lt;/span&gt;, as the relevant criterion for
-rejecting &lt;span class="math inline"&gt;\(H_0\)&lt;/span&gt;. From the pure
-frequentist point of view, this doesn’t add anything to our formulation
-in terms of the Bayes ratio, as &lt;span class="math inline"&gt;\(Q_n(\pi)\leq
-q\)&lt;/span&gt; is equivalent to &lt;span class="math inline"&gt;\(B_n \leq
-b\)&lt;/span&gt; as long as &lt;span class="math inline"&gt;\(b =
-\frac{q}{1-q}\frac{1-\pi}{\pi}\)&lt;/span&gt;. In particular, the bound
-analogous to @ref(eq:TheoremStatement) reads:&lt;/p&gt;
-&lt;p&gt;&lt;span class="math display"&gt;\[
-\text{Pr}_{H_0}(\mathcal R(q))\leq \text {Pr}_{H_0}(Q_n(\pi) \leq
-q\text{ for some }n\in \mathbb N) \leq
-\frac{q}{1-q}\frac{1-\pi}{\pi}.(\#eq:TheoremStatement3)
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
-&lt;div id="ref-berk2013valid" class="csl-entry"&gt;
-Berk, Richard, Lawrence Brown, Andreas Buja, Kai Zhang, and Linda Zhao.
-2013. &lt;span&gt;“Valid Post-Selection Inference.”&lt;/span&gt; &lt;em&gt;The Annals of
-Statistics&lt;/em&gt;, 802–37.
-&lt;/div&gt;
-&lt;div id="ref-kerridge1963bounds" class="csl-entry"&gt;
-Kerridge, D. 1963. &lt;span&gt;“Bounds for the Frequency of Misleading Bayes
-Inferences.”&lt;/span&gt; &lt;em&gt;The Annals of Mathematical Statistics&lt;/em&gt; 34
-(3): 1109–10.
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="footnotes footnotes-end-of-document"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;This is a technical term, meaning that &lt;span
-class="math inline"&gt;\(H_0\)&lt;/span&gt; completely characterizes the
-probability distribution of data. An example of a non-simple hypothesis
-would be a parametric model depending on some unknown parameter &lt;span
-class="math inline"&gt;\(\theta\)&lt;/span&gt;.&lt;a href="#fnref1"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-      <distill:md5>2cd0556ecb9f91f44d1332f72e39cba8</distill:md5>
+      <description>A general bound on the type I error rate of Bayesian sequential hypothesis 
+testing based on the Bayes factor.</description>
       <category>Sequential Hypothesis Testing</category>
       <category>Bayesian Methods</category>
       <category>Frequentist Methods</category>
