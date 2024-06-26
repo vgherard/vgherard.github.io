@@ -1,0 +1,1211 @@
+---
+title: "Does model selection based on AIC improve estimation accuracy?"
+description: |
+  Spoiler: it depends.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-04-30
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+**Disclaimer.** This will not be an attempt to exhaustively answer the question 
+in the title of the post, but rather a first attempt to systematize my views 
+around this topic.
+
+The goal of model selection based on an information criterion like 
+Akaike's (AIC) is, roughly speaking, to pick the model that provides the overall 
+most efficient description of the process under study, given the amount of data
+available^[There are just too many technical points that could be made more 
+precise here. See the [Maximum Likelihood notebook](https://vgherard.github.io/notebooks/maximum-likelihood/)
+for some mathematical details.]. On the other hand, I believe that many analysts 
+perform model selection under the expectation that doing so will generally 
+improve, or at worst not deteriorate, the quality of inferences derived by the 
+analysis. My goal here is to show that model selection via AIC and related 
+information criteria does not necessarily cooperate in this sense, depending
+on which particular inferences we are interested into.
+
+Let's play the following game: we are given data $\{(X_i,\,Y_i)\}_{i=1}^N$, 
+and we're told that $Y = mX + q+\varepsilon$, where 
+$\varepsilon \sim \mathcal N(0, \sigma _{Y \vert X} ^2)$, for some constant 
+$\sigma _{Y\vert X} ^2$. Our goal is to estimate the unconditional expectation $\mu =\mathbb E (Y)$, in the form of a confidence interval. 
+
+Consider the obvious point estimate:
+
+$$
+\hat \mu = \frac{1}{N}\sum _{i=1}^NY_i.
+$$
+The unconditional and $\mathbf X$-conditional sampling variances of $\hat \mu$
+are given by:
+
+$$
+\mathbb V (\hat \mu\vert \mathbf X)=\frac{\sigma _{Y\vert X} ^2}{N},\quad \mathbb V (\hat \mu) = \frac{\sigma _Y^2}{N}
+$$
+where $\sigma _Y ^2 = \sigma _{Y \vert X} ^2 + m^2 \mathbb V (X)$. 
+Estimates of $\sigma _{Y\vert X} ^2$ and $\sigma _{Y} ^2$ can be obtained from 
+the squared residuals of the linear model $\hat Y = \hat m X + \hat q $ and
+constant model $\hat Y = \hat c$, respectively:
+
+$$
+\hat s_{Y \vert X}^2 = \frac{1}{N-2}\sum _{i=1}^N(Y_i-\hat mX_i-\hat q)^2,\quad\hat s_{Y}^2 = \frac{1}{N-1}\sum _{i=1}^N(Y_i-\hat c)^2
+$$
+The estimate of $\hat s _Y ^2$ corresponds, of course, to the usual sample 
+variance. These lead to confidence intervals:
+
+$$
+\text{CI}_1 = \hat \mu \pm t_{1-\frac{\alpha}{2},N-2}\frac{\hat s _{Y \vert X}}{\sqrt N},\qquad\text{CI}_0 = \hat \mu \pm t_{1-\frac{\alpha}{2},N-1}\frac{\hat s _{Y}}{\sqrt N}
+$$
+
+Which interval is better? The asymptotic lengths of $\text{CI}_1$ and 
+$\text{CI}_0$ are, respectively:
+
+$$
+L _1 \approx  Z_{1-\frac{\alpha}{2}}\frac{\sigma _{Y\vert X}}{\sqrt N},\quad L _0 \approx  Z_{1-\frac{\alpha}{2}}\frac{\sigma _{Y}}{\sqrt N},
+$$
+so that $\text{CI}_1 \subset\text{CI}_0$ almost surely for $N\to \infty$. 
+On the other hand, for $N = 2$ there's not enough data to perform linear 
+regression, and $\text{CI}_0$ is clearly better.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+```{r}
+rxy <- function(n, m = 0.3, q = 1) {
+	tibble(x = rnorm(n), y = m * x + q + rnorm(n))
+}
+
+mu <- mean(rxy(1e6)$y) 
+```
+
+```{r}
+fits <-	tidyr::expand_grid(
+		alpha = 0.05,
+		alpha_bonf = alpha / 2,
+		#n = c(3:20, 100, 1e3),
+		n = c(3, 10, 30, 100),
+		b = 1:1e4,
+	) |>
+	mutate(data = lapply(n, rxy))
+
+fits <- bind_rows(
+	mutate(fits, model = list(y ~ 1)),
+	mutate(fits, model = list(y ~ x))
+)
+	
+fits <- mutate(fits,
+		fit = lapply(row_number(), \(i) lm(model[[i]], data = rxy(n = n[[i]]))),
+		coef = lapply(fit, coef),
+		mu_hat = sapply(fit, \(f) mean(fitted(f))),
+		s = sapply(fit, sigma),
+		p = sapply(coef, length),
+		k = p + 1,
+		aic = sapply(fit, AIC),
+		aic = aic + 2 * k * (k + 1) / (n - k - 1),
+		t = qt(1 - alpha / 2, df = n - p),
+		t_bonf = qt(1 - alpha_bonf / 2, df = n - p),
+		)
+
+fits <- mutate(fits, model = format(model))
+
+```
+
+```{r}
+fits |>
+	filter(n < 50) |>
+	summarise(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	summarise(count = n(), .by = c(n, best_fit)) |>
+	ggplot(aes(x = n, y = count, fill = best_fit)) + geom_col()
+```
+
+
+```{r}
+fits |> 
+	filter(model == model[which.min(aic)], .by = c(n, b)) |>
+	mutate(model = "AIC") |>
+	bind_rows(fits) |>
+	group_by(n, model) |>
+	summarise(
+		l = mean(s * ifelse(model == "AIC", t_bonf, t))
+		) |>
+	filter(n < 50) |>
+	ggplot(aes(x = n, y = l, color = model)) +
+		geom_line() +
+		scale_y_log10()
+```
+
+```{r}
+fits |> 
+	filter(model == model[which.min(aic)], .by = c(n, b)) |>
+	mutate(model = "AIC") |>
+	bind_rows(fits) |>
+	mutate(
+		k = ifelse(model == "AIC", t_bonf * s, t * s) / sqrt(n),
+		mu_up = mu_hat + k,
+		mu_lo = mu_hat - k,
+		covered = mu_lo <= mu & mu <= mu_up
+		) |>
+	summarise(coverage = mean(covered), .by = c(n, model)) |>
+	ggplot(aes(x = n, y = coverage, color = model)) +
+		geom_line() +
+		scale_y_log10()
+
+```
+
+
+
+
+```{r}
+alpha <- 0.05
+alpha_bonf <- alpha / 2
+
+models <- levels(fits$model)
+
+confints_aic <- fits |>
+	mutate(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	filter(model == best_fit) |>
+	mutate(
+		coef = lapply(fit, coef),
+		confint_naive = lapply(fit, confint, level = 1-alpha),
+		confint = lapply(fit, confint, level = 1-alpha_bonf),
+		q = sapply(row_number(), \(i) coef[[i]]["(Intercept)"]),
+		q_up_naive = sapply(row_number(), \(i) confint_naive[[i]]["(Intercept)", 2]),
+		q_lo_naive = sapply(row_number(), \(i) confint_naive[[i]]["(Intercept)", 1]),
+		q_up = sapply(row_number(), \(i) confint[[i]]["(Intercept)", 2]),
+		q_lo = sapply(row_number(), \(i) confint[[i]]["(Intercept)", 1]),
+		method = "AIC"
+	)
+```
+
+```{r}
+confints_full <- fits |>
+	filter(model == models[[2]]) |>
+	mutate(
+		coef = lapply(fit, coef),
+		confint = lapply(fit, confint, level = 0.95),
+		q = sapply(row_number(), \(i) coef[[i]]["(Intercept)"]),
+		q_up_naive = sapply(row_number(), \(i) confint[[i]]["(Intercept)", 2]),
+		q_lo_naive = sapply(row_number(), \(i) confint[[i]]["(Intercept)", 1]),
+		q_up = q_up_naive,
+		q_lo = q_lo_naive,
+		method = "full"
+		)
+
+confints_res <- fits |>
+	filter(model == models[[1]]) |>
+	mutate(
+		coef = lapply(fit, coef),
+		confint = lapply(fit, confint, level = 0.95),
+		q = sapply(row_number(), \(i) coef[[i]]["(Intercept)"]),
+		q_up_naive = sapply(row_number(), \(i) confint[[i]]["(Intercept)", 2]),
+		q_lo_naive = sapply(row_number(), \(i) confint[[i]]["(Intercept)", 1]),
+		q_up = q_up_naive,
+		q_lo = q_lo_naive,
+		method = "restricted"
+		)
+```
+
+```{r}
+bind_rows(confints_aic, confints_full, confints_res) |>
+	filter(n > 3) |>
+	group_by(n, method) |>
+	summarise(
+		mean(q),
+		mean_length_naive = mean(q_up_naive - q_lo_naive),
+		coverage_naive = mean(q_lo_naive <= 0 & 0 <= q_up_naive),
+		mean_length = mean(q_up - q_lo),
+		coverage = mean(q_lo <= 0 & 0 <= q_up)
+	) |>
+	ggplot(aes(x = n, y = sqrt(n) * mean_length, color = method)) + 
+	geom_point() 
+```
+
+
+
+ 
+may construct two different confidence intervals for $\mathbb E (Y)$, as follows. The first confidence interval is the usual $t$-student 
+interval for the mean:
+
+$$
+\text{CI}_0=\bar Y\pm t_{1-\frac{\alpha}{2},\,N-1} \frac{s_Y}{\sqrt N},
+$$
+where $\bar Y = \frac{1}{N}\sum _{i = 1} ^N Y_i$ and $s_Y ^2 = \frac{1}{N-1}\sum _{i = 1} ^N (Y_i-\bar Y)^2$
+
+which are 
+respectively:
+
+
+These are (square roots) of confidence interval lengths. The estimate from the 
+linear fit is always better.
+
+On the other hand, consider the AIC:
+
+$$
+\Delta \text{AIC} = 2-\mathbf Y ^T(\mathbf H -\mathbf H_0) \mathbf Y
+$$
+
+we notice, happens to coincide both with 
+the conditional expectation $\mathbb E(Y \vert X = 0)$, and the unconditional 
+expectation $\mathbb E(Y)$^[This is the reason for assuming 
+$\mathbb E (X) = 0$.].
+
+The last observation suggests two possible models, which are both correctly
+specified and lead both to consistent estimates of $q$:
+
+* The "restricted" model $Y = q + \varepsilon$,
+* The "full" model $Y = mX + q + \varepsilon$.
+
+Suppose we use AIC to choose between these two models, and estimate $q$ from the
+selected model. Is this always better than simply choosing the restricted or 
+full model?
+
+Let's denote by $\hat q_\text{res}$ and $\hat q _\text{full}$ the estimates 
+resulting from the restricted and full model, respectively, and by 
+$\hat q _\text{AIC}$ the estimate obtained from model selection. The 
+half-width of confidence intervals constructed in the two cases are:
+
+$$
+\ell_\text{res} = \frac{1}{\sqrt N}t_{N-1,\,1-\frac{\alpha}{2}} \hat \sigma_{\text {res}} 
+$$
+$$
+\ell_\text{full} = \frac{1}{\sqrt N}t_{N-2,\,1-\frac{\alpha}{2}} \hat \sigma_{\text {full}} 
+$$
+and:
+
+$$
+\left(\frac{\ell _\text{full}}{\ell _\text{res}}\right)^2=\frac{t_{N-2,1-\frac{\alpha}{2}}^2}{t_{N-2,1-\frac{\alpha}{2}}^2}\dfrac{\hat \sigma_{\text {res}}^2}{\hat \sigma_{\text {full}}^2}
+$$
+$$
+\mathbb V (\hat q_\text{res}) = \frac{\mathbb V(Y)}{N}=\frac{\sigma _{Y\vert X} ^2+m^2\sigma _X^2}{N}, 
+$$
+$$
+\mathbb V (\hat q_\text{full}\vert X) = \frac{1}{N}\sigma _{Y\vert X} ^2
+$$
+
+We imagine modeling a continuous response $Y$ in terms of a set of regressors 
+$X=(X_{i})_{i=1}^p$, and that our research goal is to estimate the effect of a 
+particular variable, say $X_1$, on the output. The remaining variables 
+$X_2,\,X_3,\,\dots,\,X_p$, while not being of direct interest, are considered 
+to be potentially relevant to $Y$, so that we include them in the analysis, 
+hoping to improve our ability to estimate the effect of $X_1$. 
+
+----
+
+
+
+For concreteness, let's assume that a linear model holds: 
+$\mathbb E(Y\vert X) = X\beta$ and $\mathbb V(Y \vert X) = \sigma ^2$ for some 
+constants $\beta$ and $\sigma ^2$. Suppose we also fit linear models involving
+$X_1$ plus some additional covariates among $X_2,\,X_3,\,\dots,\,X_p$, and use
+AIC to select the best model.
+
+$$
+\mathbb E (Y\vert X_1,Z)=X_{1:k}\beta_{1:k}+\mathbb E(X_{k+1:p}\vert X_{1:k})\beta_{k+1:p}
+$$
+
+Suppose we are modeling the dependence of  
+
+When we do model selection based on information criteria such as Akaike 
+Information Criterion (AIC), we choose the model that minimizes an estimate of
+the expected Kullback-Leibler divergence from the true data generating 
+process^[This is a bit of an oversimplification, which assumes that the quantity
+$\text{Tr}(J^{-1}K)$ that appears in the right-hand side of the Takeuchi 
+Information Criterion is well approximated by $p$, the number of real parameters 
+of the model. ]. 
+
+
+
+Notes:
+
+* In the small $n$ limit AIC will eventually win. Think of the $p \gg n$ 
+extreme case.
+* In the case $p \ll n$, it depends: 
+	* if the regressors are uncorrelated, the full model will estimate "x1" as 
+	good as *any* other reduced model that contains it. Since, in the selection 
+	case, we have to pay the price for selective inference, the full model will
+	work best.
+	* if the regressors are highly correlated, selection will tipically select the
+	model with lower variance, and estimation is greatly improved. This beats, for
+	moderate $n$, the effects of selective inference, and AIC wins.
+
+Some properties of the large $N$ limit can be inferred from:
+
+$$
+\frac{1}{N}\mathbf X^{T}\mathbf X\to\mathbb{E}(X^{T}X)=\frac{1}{N}\mathbb{V}(X)+\frac{1}{N}\mathbb{E}(X)^{T}\mathbb{E}(X)
+$$
+(recall $X$ is a row vector) If the regressors are uncorrelated and have zero 
+mean, from the expression:
+
+$$
+\text{SE}_{i}^{2}=(X^{T}X)_{ii}^{-1}\hat{\sigma}^{2}
+$$
+we obtain:
+
+$$
+\text{SE}_{i}^{2}\to\frac{1}{N}\frac{\sigma^{2}}{\mathbb{E}(X_{i}^{2})}.
+$$
+the zero mean requirement can be probably dropped... We find that in the large
+sample limit, for uncorrelated regressors, the standard error (hence the 
+confidence interval length) of a well specified model converges to a limit that
+does not depend on the other variables (their presence or absence). This means
+that fitting the full model is better, because we don't have to magnify this 
+interval to account for a (useless) model selection step.
+
+In the presence of significant correlations
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+```{r}
+set.seed(840)
+nz <- 10
+bz <- rnorm(nz, sd = 0.05)
+bz[1] <- 1
+
+rxy <- function(n, .nz = nz) {
+	x <- rnorm(n)
+	z <- matrix(rnorm(.nz * n), ncol = .nz)
+	colnames(z) <- paste0("z", 1:.nz)
+	y <- x + z %*% bz + rnorm(n)
+	as_tibble(z) |>
+		mutate(x = x, y = y)
+}
+
+
+```
+
+
+```{r}
+n <- c(20, 30, 40, 50, 100)
+B <- 1e3
+models <- c("y ~ x", paste0("y ~ x + z", 1:nz)) |> lapply(as.formula)
+
+fits_aic <- 
+	tidyr::expand_grid(
+		n = n, 
+		b = 1:B, 
+		model = models
+	) |>	
+	mutate(
+			fit = lapply(row_number(), \(i) lm(model[[i]], data = rxy(n = n[[i]]))),
+			aic = sapply(fit, AIC)
+		) |>
+	mutate(model = factor(format(model), levels = format(models)))
+```
+
+```{r}
+fits_aic |>
+	summarise(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	summarise(count = n(), .by = c(n, best_fit)) |>
+	ggplot(aes(x = n, fill = best_fit, y = count)) +
+	geom_col() +
+	#scale_x_log10() +
+	ggtitle("AIC Selection Frequencies")
+```
+
+
+```{r}
+fits_full <- 
+	tidyr::expand_grid(
+		n = n, 
+		b = 1:B,
+		model = c(y ~ .)
+	) |>	
+	mutate(
+			fit = lapply(row_number(), \(i) lm(model[[i]], data = rxy(n = n[[i]]))),
+			aic = sapply(fit, AIC)
+		) |>
+		mutate(
+			model = format(model),
+			model = factor(model, levels = format(models))
+		)
+```
+
+```{r}
+alpha <- 0.05
+alpha_bonf <- alpha / length(models)
+confints_aic <- fits_aic |>
+	mutate(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	filter(model == best_fit) |>
+	mutate(
+		r = sapply(fit, df.residual),
+		coef = lapply(fit, coef),
+		confint_naive = lapply(fit, confint, level = 1-alpha),
+		confint = lapply(fit, confint, level = 1-alpha_bonf),
+		x = sapply(row_number(), \(i) coef[[i]]["x"]),
+		x_up_naive = sapply(row_number(), \(i) confint_naive[[i]]["x", 2]),
+		x_lo_naive = sapply(row_number(), \(i) confint_naive[[i]]["x", 1]),
+		x_up = sapply(row_number(), \(i) confint[[i]]["x", 2]),
+		x_lo = sapply(row_number(), \(i) confint[[i]]["x", 1]),
+		method = "AIC"
+	)
+```
+
+```{r}
+confints_full <- fits_full |>
+	mutate(
+		coef = lapply(fit, coef),
+		confint = lapply(fit, confint, level = 0.95),
+		x = sapply(row_number(), \(i) coef[[i]]["x"]),
+		x_up_naive = sapply(row_number(), \(i) confint[[i]]["x", 2]),
+		x_lo_naive = sapply(row_number(), \(i) confint[[i]]["x", 1]),
+		x_up = x_up_naive,
+		x_lo = x_lo_naive,
+		method = "full"
+		)
+```
+
+```{r}
+bind_rows(confints_aic, confints_full) |>
+	group_by(n, method) |>
+	summarise(
+		mean_length_naive = mean(x_up_naive - x_lo_naive),
+		coverage_naive = mean(x_lo_naive <= 1 & 1 <= x_up_naive),
+		mean_length = mean(x_up - x_lo),
+		coverage = mean(x_lo <= 1 & 1 <= x_up)
+	)
+```
+
+
+```{r}
+confints_aic |>
+	filter(model == best_fit) |>
+	group_by(n) |>
+	summarise(
+		mean_length_nai = mean(x_up_nai - x_lo_nai),
+		coverage_nai = mean(x_lo_nai <= 1 & 1 <= x_up_nai),
+		mean_length = mean(x_up - x_lo),
+		coverage = mean(x_lo <= 1 & 1 <= x_up)
+		)
+```
+
+```{r}
+confints_full |>
+	summarise(
+		mean_length = mean(x_up - x_lo),
+		coverage = mean(x_lo <= 1 & 1 <= x_up)
+		)
+```
+
+
+
+
+
+
+
+-------
+
+```{r}
+set.seed(840)
+
+rxy <- function(n) {
+	a <- rnorm(n)
+	x1 <- a + rnorm(n, sd = 0.2)
+	x2 <- a + rnorm(n, sd = 0.2)
+	y <- x1 + 0.1 * x2 + rnorm(n)
+	tibble(x1 = x1, x2 = x2, y = y)
+}
+
+x1_tgt <- coef(lm(y ~ x1, data = rxy(1e7)))["x1"]
+x1_tgt
+```
+
+
+
+
+```{r}
+n <- 10 ^ seq(from = 1, to = 3, by = 0.5)
+B <- 1e3
+models <- c(y ~ x1, y ~ x1 + x2)
+
+fits_aic <- 
+	tidyr::expand_grid(
+		n = n, 
+		b = 1:B, 
+		model = models
+	) |>	
+	mutate(
+			fit = lapply(row_number(), \(i) lm(model[[i]], data = rxy(n = n[[i]]))),
+			aic = sapply(fit, AIC)
+		) |>
+	mutate(model = factor(format(model), levels = format(models)))
+```
+
+```{r}
+fits_aic |>
+	summarise(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	summarise(count = n(), .by = c(n, best_fit)) |>
+	ggplot(aes(x = n, fill = best_fit, y = count)) +
+	geom_col() +
+	scale_x_log10() +
+	ggtitle("AIC Selection Frequencies")
+```
+
+
+```{r}
+fits_full <- 
+	tidyr::expand_grid(
+		n = n, 
+		b = 1:B,
+		model = c(y ~ .)
+	) |>	
+	mutate(
+			fit = lapply(row_number(), \(i) lm(model[[i]], data = rxy(n = n[[i]]))),
+			aic = sapply(fit, AIC)
+		) |>
+		mutate(
+			model = format(model),
+			model = factor(model, levels = format(models))
+		)
+```
+
+```{r}
+alpha <- 0.05
+alpha_bonf <- alpha / length(models)
+confints_aic <- fits_aic |>
+	mutate(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	filter(model == best_fit) |>
+	mutate(
+		r = sapply(fit, df.residual),
+		coef = lapply(fit, coef),
+		true_coef = ifelse(model == "y ~ x1", x1_tgt, 1),
+		confint_naive = lapply(fit, confint, level = 1-alpha),
+		confint = lapply(fit, confint, level = 1-alpha_bonf),
+		x = sapply(row_number(), \(i) coef[[i]]["x1"]),
+		x_up_naive = sapply(row_number(), \(i) confint_naive[[i]]["x1", 2]),
+		x_lo_naive = sapply(row_number(), \(i) confint_naive[[i]]["x1", 1]),
+		x_up = sapply(row_number(), \(i) confint[[i]]["x1", 2]),
+		x_lo = sapply(row_number(), \(i) confint[[i]]["x1", 1]),
+		method = "AIC"
+	)
+```
+
+```{r}
+confints_full <- fits_full |>
+	mutate(
+		coef = lapply(fit, coef),
+		true_coef = 1,
+		confint = lapply(fit, confint, level = 0.95),
+		x = sapply(row_number(), \(i) coef[[i]]["x1"]),
+		x_up_naive = sapply(row_number(), \(i) confint[[i]]["x1", 2]),
+		x_lo_naive = sapply(row_number(), \(i) confint[[i]]["x1", 1]),
+		x_up = x_up_naive,
+		x_lo = x_lo_naive,
+		method = "full"
+		)
+```
+
+```{r}
+bind_rows(confints_aic, confints_full) |>
+	group_by(n, method) |>
+	summarise(
+		mean(x),
+		mean_half_length_naive = mean(x_up_naive - x_lo_naive) / 2,
+		coverage_naive = mean(x_lo_naive <= true_coef & true_coef <= x_up_naive),
+		mean_half_length = mean(x_up - x_lo) / 2,
+		coverage = mean(x_lo <= true_coef & true_coef <= x_up)
+	)
+```
+
+
+```{r}
+confints_aic |>
+	filter(model == best_fit) |>
+	group_by(n) |>
+	summarise(
+		mean_length_nai = mean(x_up_nai - x_lo_nai),
+		coverage_nai = mean(x_lo_nai <= 1 & 1 <= x_up_nai),
+		mean_length = mean(x_up - x_lo),
+		coverage = mean(x_lo <= 1 & 1 <= x_up)
+		)
+```
+
+```{r}
+confints_full |>
+	summarise(
+		mean_length = mean(x_up - x_lo),
+		coverage = mean(x_lo <= 1 & 1 <= x_up)
+		)
+```
+
+
+
+
+
+
+
+
+--------------------------
+
+```{r data_generating_process}
+rxy <- function(n) {
+	tibble(
+		x1 = rnorm(n), 
+		x2 = rnorm(n), 
+		y = 1 * x1 + 0.3 * x2 + rnorm(n)
+		)
+}
+```
+
+```{r fits}
+n <- c(1e1, 1e2)
+B <- 100
+models <- c(y ~ 1, y ~ x1, y ~ x2, y ~ x1 + x2)
+
+fits <- tidyr::expand_grid(n = n, b = 1:B, model = models) |>
+	mutate(
+		fit = lapply(row_number(), \(i) lm(model[[i]], data = rxy(n = n[[i]]))),
+		aic = sapply(fit, AIC)
+		) |>
+	mutate(
+		model = format(model),
+		model = factor(model, levels = format(models))
+		)
+```
+
+```{r sel_freqs}
+fits |>
+	summarise(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	summarise(count = n(), .by = c(n, best_fit)) |>
+	ggplot(aes(x = n, fill = best_fit, y = count)) +
+		geom_col() +
+		scale_x_log10() +
+		ggtitle("Model Selection Frequencies")
+```
+```{r aic_distr}
+fits |>
+	ggplot(aes(x = aic / n, fill = model)) +
+		geom_density(alpha = .8) +
+		facet_grid(n ~ ., scales = "free_y") +
+		ggtitle("AIC distributions")
+```
+```{r}
+df_test <- tidyr::expand_grid(
+	n = 10, 
+	b = 1:1e3, 
+	model = c(y ~ x1, y ~ x1 + x2)
+	) |>
+	mutate(
+		fit = lapply(row_number(), \(i) lm(model[[i]], data = rxy(n = n[[i]]))),
+		aic = sapply(fit, AIC)
+		) |>
+	mutate(
+		model = format(model),
+		model = factor(model, levels = format(models))
+		) |>
+	mutate(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	mutate(
+		coef = lapply(fit, coef),
+		vcov = lapply(fit, vcov),
+		confint = lapply(fit, confint, level = 0.975),
+		confint0 = lapply(fit, confint, level = 0.95),
+		x1 = sapply(row_number(), \(i)
+										ifelse("x1" %in% names(coef[[i]]), 
+													 coef[[i]]["x1"], 
+													 NA
+													 )
+										),
+		var_x1 = sapply(row_number(), \(i)
+										ifelse("x1" %in% names(coef[[i]]), 
+													 vcov[[i]]["x1", "x1"], 
+													 NA
+													 )
+										),
+		x1u = sapply(row_number(), \(i)
+										ifelse("x1" %in% names(coef[[i]]), 
+													 confint[[i]]["x1", 2],
+													 NA
+													 )
+										),
+		x1u0 = sapply(row_number(), \(i)
+										ifelse("x1" %in% names(coef[[i]]), 
+													 confint0[[i]]["x1", 2],
+													 NA
+													 )
+										),
+		x1l = sapply(row_number(), \(i)
+										ifelse("x1" %in% names(coef[[i]]), 
+													 confint[[i]]["x1", 1], 
+													 NA
+													 )
+										),
+		x1l0 = sapply(row_number(), \(i)
+										ifelse("x1" %in% names(coef[[i]]), 
+													 confint0[[i]]["x1", 1], 
+													 NA
+													 )
+										)
+		)
+
+
+```
+
+```{r}
+df_test |>	
+	summarise(
+		mean_x1 = mean(x1),
+		mean_vx1 = mean(var_x1),
+		mean_x1u = mean(x1u),
+		mean_x1l = mean(x1l),
+		coverage = mean(x1l <= 1 & 1 <= x1u),
+		.by = c(model, best_fit, n)
+		) |>
+	filter(!is.na(mean_x1)) |>
+	mutate(case = paste0(model, " | ", best_fit)) |>
+	ggplot(aes(
+		x = mean_x1,
+		xmax = mean_x1u, 
+		xmin = mean_x1l, 
+		y = paste(best_fit, "|", model),
+		label = scales::percent(coverage),
+		color = best_fit,
+		shape = model
+		)) +
+		geom_errorbar() +
+		geom_point(size = 10) +
+		geom_text(aes(x = max(mean_x1u) + 0.2)) +
+		geom_vline(xintercept = 1, linetype = "dashed") +
+		labs(y = NULL) + guides(y = "none")
+		
+
+```
+
+
+```{r}
+df_test |>	
+	summarise(
+		mean_x1 = mean(x1),
+		mean_vx1 = mean(var_x1),
+		mean_x1u = mean(x1u0),
+		mean_x1l = mean(x1l0),
+		coverage = mean(x1l0 <= 1 & 1 <= x1u0),
+		.by = c(model, n)
+		) |>
+	filter(!is.na(mean_x1)) |>
+	mutate(case = paste0(model)) |>
+	ggplot(aes(
+		x = mean_x1,
+		xmax = mean_x1u, 
+		xmin = mean_x1l, 
+		y = paste(model),
+		label = scales::percent(coverage),
+		shape = model
+		)) +
+		geom_errorbar() +
+		geom_point(size = 10) +
+		geom_text(aes(x = max(mean_x1u) + 0.2)) +
+		geom_vline(xintercept = 1, linetype = "dashed") +
+		labs(y = NULL) + guides(y = "none")
+		
+```
+
+```{r}
+df_test |>	
+	summarise(
+		mean_x1 = mean(x1),
+		mean_vx1 = mean(var_x1),
+		mean_x1u = mean(x1u0),
+		mean_x1l = mean(x1l0),
+		coverage = mean(x1l0 <= 1 & 1 <= x1u0),
+		.by = c(model, n)
+		) |>
+	filter(!is.na(mean_x1)) |>
+	mutate(case = paste0(model)) |>
+	ggplot(aes(
+		x = mean_x1,
+		xmax = mean_x1u, 
+		xmin = mean_x1l, 
+		y = paste(model),
+		label = scales::percent(coverage),
+		shape = model
+		)) +
+		geom_errorbar() +
+		geom_point(size = 10) +
+		geom_text(aes(x = max(mean_x1u) + 0.2)) +
+		geom_vline(xintercept = 1, linetype = "dashed") +
+		labs(y = NULL) + guides(y = "none")
+```
+
+
+......
+
+
+
+```{r}
+rxy1 <- function(n) {
+	tibble(
+		x = rnorm(n), 
+		g = rbinom(n, 1, 0.5),
+		.logit = x + 0.2 * g + 0.3 * g * x,
+		.p = 1 / (1 + exp(-.logit)),
+		y = runif(n) < .p
+		) |>
+		mutate(g = factor(g, levels = c(0,1))) |>
+		select(!starts_with("."))
+}
+```
+
+```{r fits}
+n <- c(1e1, 1e2)
+B <- 100
+models <- c(y ~ 1, y ~ x, y ~ g, y ~ x + g, y ~ x * g)
+
+fits <- tidyr::expand_grid(n = n, b = 1:B, model = models) |>
+	mutate(
+		fit = lapply(row_number(), \(i) 
+								 glm(model[[i]], family = binomial, data = rxy1(n = n[[i]]))
+								 ),
+		aic = sapply(fit, AIC)
+		) |>
+	mutate(
+		model = format(model),
+		model = factor(model, levels = format(models))
+		)
+```
+```{r}
+glm(y ~ g * x, family = binomial, data = rxy1(n = 1e6)) |>
+	summary()
+```
+
+```{r sel_freqs}
+fits |>
+	summarise(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	summarise(count = n(), .by = c(n, best_fit)) |>
+	ggplot(aes(x = n, fill = best_fit, y = count)) +
+		geom_col() +
+		scale_x_log10() +
+		ggtitle("Model Selection Frequencies")
+```
+```{r aic_distr}
+fits |>
+	ggplot(aes(x = aic / n, fill = model)) +
+		geom_density(alpha = .8) +
+		facet_grid(n ~ ., scales = "free_y") +
+		ggtitle("AIC distributions")
+```
+```{r}
+x_summ <- fits |>
+	filter(n == 100) |>
+	mutate(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	mutate(
+		r = sapply(fit, df.residual),
+		d = n - r, 
+		k_sch = sqrt(d * qf(0.95, d, r)),
+		k_nai = qt(0.975, r),
+		coef = lapply(fit, coef),
+		confint = lapply(fit, confint.default, level = 0.95),
+		x = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 coef[[i]]["x"], 
+													 NA
+													 )
+										),
+		x_up_nai = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 confint[[i]]["x", 2],
+													 NA
+													 )
+										),
+		x_lo_nai = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 confint[[i]]["x", 1], 
+													 NA
+													 )
+										),
+		x_up = x + (x_up_nai - x) * k_sch / k_nai,
+		x_lo = x + (x_lo_nai - x) * k_sch / k_nai
+		)
+
+x_summ
+```
+
+```{r}
+x_summ |>	
+	summarise(
+		mean_x = mean(x),
+		mean_x_up = mean(x_up),
+		mean_x_lo = mean(x_lo),
+		.by = c(model, best_fit, n)
+		) |>
+	filter(!is.na(mean_x)) |>
+	mutate(facet = best_fit) |>
+	ggplot(aes(x = mean_x, 
+						 xmax = mean_x_up, 
+						 xmin = mean_x_lo, 
+						 y = model,
+						 color = model == best_fit)) +
+		geom_errorbar(width = 0.2) +
+		geom_point(size = 1) +
+		facet_grid(facet ~ .)
+		
+```
+```{r}
+x_summ |>
+	summarise(mean(x_up_nai - x_lo_nai), .by = model)
+
+x_summ |>
+	summarise(mean(x_up_nai - x_lo_nai), .by = c(model, best_fit))
+
+x_summ |>
+	filter(model == best_fit) |>
+	summarise(mean(x_up - x_lo))
+```
+
+
+```{r}
+x_summ |>	
+	summarise(
+		mean_x = mean(x),
+		mean_x_up = mean(x_up),
+		mean_x_lo = mean(x_lo),
+		.by = c(model, n)
+		) |>
+	filter(!is.na(mean_x)) |>
+	ggplot(aes(x = mean_x, xmax = mean_x_up, xmin = mean_x_lo, y = model)) +
+		geom_errorbar(width = 0.2) +
+		geom_point(size = 1)
+```
+
+-.........
+
+
+
+```{r}
+rxy2 <- function(n) {
+	tibble(
+		x = rnorm(n), 
+		g = rbinom(n, 1, 0.5),
+		.logit = 0.5 * x + 0.5 * g + 0 * g * x,
+		.p = 1 / (1 + exp(-.logit)),
+		y = runif(n) < .p
+		) |>
+		mutate(g = factor(g, levels = c(0,1))) |>
+		select(!starts_with("."))
+}
+```
+
+```{r fits}
+n <- c(1e1, 1e2)
+B <- 100
+models <- c(y ~ 1, y ~ x, y ~ g, y ~ x + g, y ~ x * g)
+
+fits2 <- tidyr::expand_grid(n = n, b = 1:B, model = models) |>
+	mutate(
+		fit = lapply(row_number(), \(i) 
+								 glm(model[[i]], family = binomial, data = rxy2(n = n[[i]]))
+								 ),
+		aic = sapply(fit, AIC)
+		) |>
+	mutate(
+		model = format(model),
+		model = factor(model, levels = format(models))
+		)
+```
+```{r}
+glm(y ~ g * x, family = binomial, data = rxy2(n = 1e6)) |>
+	summary()
+```
+
+```{r sel_freqs}
+fits2 |>
+	summarise(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	summarise(count = n(), .by = c(n, best_fit)) |>
+	ggplot(aes(x = n, fill = best_fit, y = count)) +
+		geom_col() +
+		scale_x_log10() +
+		ggtitle("Model Selection Frequencies")
+```
+```{r aic_distr}
+fits2 |>
+	ggplot(aes(x = aic / n, fill = model)) +
+		geom_density(alpha = .8) +
+		facet_grid(n ~ ., scales = "free_y") +
+		ggtitle("AIC distributions")
+```
+```{r}
+x_summ <- fits2 |>
+	filter(n == 100) |>
+	mutate(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	mutate(
+		coef = lapply(fit, coef),
+		confint = lapply(fit, confint.default, level = 0.95),
+		x = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 coef[[i]]["x"], 
+													 NA
+													 )
+										),
+		x_up = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 confint[[i]]["x", 2],
+													 NA
+													 )
+										),
+		x_lo = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 confint[[i]]["x", 1], 
+													 NA
+													 )
+										)
+		)
+
+
+```
+
+```{r}
+x_summ |>	
+	summarise(
+		mean_x = mean(x),
+		mean_x_up = mean(x_up),
+		mean_x_lo = mean(x_lo),
+		.by = c(model, best_fit, n)
+		) |>
+	filter(!is.na(mean_x)) |>
+	mutate(facet = paste0(best_fit)) |>
+	ggplot(aes(x = mean_x, 
+						 xmax = mean_x_up, 
+						 xmin = mean_x_lo, 
+						 y = model,
+						 color = model == best_fit)) +
+		geom_errorbar(width = 0.2) +
+		geom_point(size = 1) +
+		facet_grid(facet ~ .)
+		
+```
+
+
+
+.......
+
+
+```{r}
+rxy3 <- function(n) {
+	tibble(
+		x = rnorm(n), 
+		g = rbinom(n, 1, 0.5),
+		.logit = 0.5 * x,
+		.p = 1 / (1 + exp(-.logit)),
+		y = runif(n) < .p,
+		
+		) |>
+		mutate(g = factor(g, levels = c(0,1))) |>
+		select(!starts_with("."))
+}
+```
+
+```{r fits}
+n <- c(1e1, 1e2)
+B <- 100
+models <- c(y ~ 1, y ~ x, y ~ g, y ~ x + g, y ~ x * g)
+
+fits3 <- tidyr::expand_grid(n = n, b = 1:B, model = models) |>
+	mutate(
+		fit = lapply(row_number(), \(i) 
+								 glm(model[[i]], family = binomial, data = rxy3(n = n[[i]]))
+								 ),
+		aic = sapply(fit, AIC)
+		) |>
+	mutate(
+		model = format(model),
+		model = factor(model, levels = format(models))
+		)
+```
+```{r}
+glm(y ~ g + x, family = binomial, data = rxy3(n = 1e6)) |>
+	summary()
+```
+
+```{r sel_freqs}
+fits3 |>
+	summarise(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	summarise(count = n(), .by = c(n, best_fit)) |>
+	ggplot(aes(x = n, fill = best_fit, y = count)) +
+		geom_col() +
+		scale_x_log10() +
+		ggtitle("Model Selection Frequencies")
+```
+
+```{r aic_distr}
+fits3 |>
+	ggplot(aes(x = aic / n, fill = model)) +
+		geom_density(alpha = .8) +
+		facet_grid(n ~ ., scales = "free_y") +
+		ggtitle("AIC distributions")
+```
+
+```{r}
+x_summ <- fits3 |>
+	filter(n == 100) |>
+	mutate(best_fit = model[[which.min(aic)]], .by = c(n, b)) |>
+	mutate(
+		coef = lapply(fit, coef),
+		confint = lapply(fit, confint.default, level = 0.99),
+		x = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 coef[[i]]["x"], 
+													 NA
+													 )
+										),
+		x_up = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 confint[[i]]["x", 2],
+													 NA
+													 )
+										),
+		x_lo = sapply(row_number(), \(i)
+										ifelse("x" %in% names(coef[[i]]), 
+													 confint[[i]]["x", 1], 
+													 NA
+													 )
+										)
+		)
+
+
+```
+
+```{r}
+x_summ |>	
+	summarise(
+		mean_x = mean(x),
+		mean_x_up = mean(x_up),
+		mean_x_lo = mean(x_lo),
+		.by = c(model, best_fit, n)
+		) |>
+	filter(!is.na(mean_x)) |>
+	mutate(facet = paste0(best_fit)) |>
+	ggplot(aes(x = mean_x, 
+						 xmax = mean_x_up, 
+						 xmin = mean_x_lo, 
+						 y = model,
+						 color = model == best_fit)) +
+		geom_errorbar(width = 0.2) +
+		geom_point(size = 1) +
+		facet_grid(facet ~ .)
+		
+```
+
+```{r}
+x_summ |>	
+	summarise(
+		mean_x = mean(x),
+		mean_x_up = mean(x_up),
+		mean_x_lo = mean(x_lo),
+		.by = c(model, n)
+		) |>
+	filter(!is.na(mean_x)) |>
+	ggplot(aes(x = mean_x, xmax = mean_x_up, xmin = mean_x_lo, y = model)) +
+		geom_errorbar(width = 0.2) +
+		geom_point(size = 1)
+```

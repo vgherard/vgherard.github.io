@@ -1,0 +1,25 @@
+---
+title: "Can thermodynamics be falsified?"
+description: |
+  A short description of the post.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-06-05
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+Thermodynamics is not really a theory describing some concrete phenomenon, but
+rather a theoretical *framework*. In order to obtain quantitative predictions 
+outof thermodynamics, we need some external input concerning the macroscopic 
+description of some actual system, *i.e.* thermodynamic coordinates, state
+equation, expression for work...
+
+This is similar to other branches of physics: Newton's laws, quantum mechanics.
+These are not really theory, but rather formalisms. Is there any fundamental 
+difference between thermodynamics and the other formalisms? Do these formalisms
+lead to some quantitative prediction that are independent of the specific model
+for the system under study?
