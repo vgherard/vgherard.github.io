@@ -195,7 +195,7 @@ Simple systems are characterized by the following axioms (the separation of
 S2 into S2a and S2b is mine):
 
 - **(S1) Irreversibility**. For each $X$ there is a point $Y$ such that 
-$X\prec \precY$. (This axiom is actually implied by the stronger axiom T4, see 
+$X\prec Y$. (This axiom is actually implied by the stronger axiom T4, see 
 below.)
 - **(S2a) Tangent Plane**. For each $X$, the forward sector 
 $A_X=\{Y\in \Gamma\colon X\prec Y\}$ has a unique tangent plane parametrized by 

@@ -7,7 +7,7 @@
     <description>Valerio Gherardi's Personal Website
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 30 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2024 00:00:00 +0000</lastBuildDate>
     <item>
       <title>The UV diagram for a pure substance</title>
       <dc:creator>Valerio Gherardi</dc:creator>
@@ -65,7 +65,8 @@ shown in &lt;span class="citation"&gt;(Lieb and Yngvason 1999b)&lt;/span&gt;, th
 erratum to the original reference &lt;span class="citation"&gt;(Lieb and
 Yngvason 1999a)&lt;/span&gt;.&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0"&gt;
 &lt;div id="ref-LY" class="csl-entry"&gt;
 Lieb, Elliott H., and Jakob Yngvason. 1999a. &lt;span&gt;“The Physics and
 Mathematics of the Second Law of Thermodynamics.”&lt;/span&gt; &lt;em&gt;Physics
@@ -83,7 +84,7 @@ href="https://doi.org/10.1016/S0370-1573(99)00029-0"&gt;https://doi.org/10.1016/
       <category>Thermodynamics</category>
       <category>Physics</category>
       <guid>https://vgherard.github.io/posts/2024-07-01-the-uv-diagram-for-a-pure-substance</guid>
-      <pubDate>Sun, 30 Jun 2024 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jul 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>"The Physics and Mathematics of the Second Law of Thermodynamics" by E.H. Lieb and J. Yngvason</title>
@@ -326,8 +327,8 @@ separation of S2 into S2a and S2b is mine):&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;(S1) Irreversibility&lt;/strong&gt;. For each &lt;span
 class="math inline"&gt;\(X\)&lt;/span&gt; there is a point &lt;span
 class="math inline"&gt;\(Y\)&lt;/span&gt; such that &lt;span
-class="math inline"&gt;\(X\prec \precY\)&lt;/span&gt;. (This axiom is actually
-implied by the stronger axiom T4, see below.)&lt;/li&gt;
+class="math inline"&gt;\(X\prec Y\)&lt;/span&gt;. (This axiom is actually implied
+by the stronger axiom T4, see below.)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;(S2a) Tangent Plane&lt;/strong&gt;. For each &lt;span
 class="math inline"&gt;\(X\)&lt;/span&gt;, the forward sector &lt;span
 class="math inline"&gt;\(A_X=\{Y\in \Gamma\colon X\prec Y\}\)&lt;/span&gt; has a
@@ -482,7 +483,8 @@ class="math inline"&gt;\(S(X)\leq S(Y)\)&lt;/span&gt;. This result depends on a
 particular assumption (Eq. (6.34) of the reference) that the authors do
 not axiomatize, but that is subject to experimental verification.&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="refs" class="references csl-bib-body hanging-indent"&gt;
+&lt;div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0"&gt;
 &lt;div id="ref-LY1" class="csl-entry"&gt;
 Lieb, Elliott H., and Jakob Yngvason. 1999. &lt;span&gt;“The Physics and
 Mathematics of the Second Law of Thermodynamics.”&lt;/span&gt; &lt;em&gt;Physics
@@ -510,7 +512,7 @@ class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
       <category>Thermodynamics</category>
       <category>Physics</category>
       <guid>https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason</guid>
-      <pubDate>Tue, 25 Jun 2024 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 24 Jun 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>"Data Fission: Splitting a Single Data Point" by Leiner et al.</title>
