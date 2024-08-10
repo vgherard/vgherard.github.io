@@ -1,0 +1,121 @@
+---
+title: "Dutch Book Arguments"
+description: |
+  A short description of the post.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-08-10
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+The subjective interpretation of probability is based on the premise that 
+degrees of belief must satisfy the axioms of probability calculus. The so-called 
+"Dutch book" arguments provide a philosophical basis for this assumption.
+
+The arguments start by operationalizing[^op] the 
+(otherwise quantitatively vague) concept of "degree of belief". The degree of 
+belief of a subject into a given uncertain event[^event] $E$ is supposed to be a number 
+$p(E)$ that can be quantified as follows: 
+
+* The subject must be willing to pay an amount $p(E)$, with the condition that
+he will be rewarded an amount $1$ if event $E$ obtains. 
+* The subject must also be willing to accept an amount $p(E)$, with the 
+condition that he will give up an amount $1$ if event $E$ obtains.
+
+(the concrete unit of payment in these imaginary bets is irrelevant to the 
+arguments, but is assumed to be a continuous quantity). The idea is that, for 
+the subject not to incur into a certain loss, the rule $E\mapsto p(E)$ must 
+define a single valued function that follows the laws of probability.
+
+[^event]: I use the word "events" in a conventional way. Strictly speaking, to 
+reflect the wider generality of the subjectivist point of view, I should rather 
+talk about "uncertain propositions" or "hypothetical facts".
+
+Let us start by showing that the function $E\mapsto p(E)$ must be single valued
+(*i.e.* the degree of belief is operatively well-defined). Suppose that someone 
+assigns two different degrees of belief $p$ and $q$ to the same event 
+$E$, and suppose that $p>q$, for instance. This means that this person must be 
+willing to place a bet of $p$ on $E$ and, at the same time, accept a bet of $q$ 
+on $E$. But this doesn't make sense, because the net result of these combined 
+bets is a certain loss (of an amount $p-q$). We can conclude that the degree of 
+belief assigned by any individual into a given event must be a single number.
+
+With a similar approach we can prove the three basic axioms of probability:
+
+**Positivity.** Degrees of belief must be positive numbers, because no 
+rational agent would be willing to pay a positive amount $q = -p$ (which is the
+only reasonable way to interpret accepting a negative amount $p = -q$), for 
+later having to pay an additional amount $1$ if event $E$ obtains.
+
+**Normalization.** Suppose that the event $E$ is certain, and let 
+$p$ be your degree of belief into it. If $p < 1$, one can force you to accept an
+amount $p$, and to give $1$ in return, with certainty since $E$ is always true. 
+If $p > 1$, one can force you to pay an amount $p$ to get $1$ in return. In both 
+cases, you face a certain loss of an amount $\vert 1 - p\vert$, unless $p = 1$.
+
+**Additivity.** Suppose that events $A$ and $B$ are mutually exclusive, and 
+let $p$, $q$ and $r$ be your degrees of belief into $A$, $B$ and $A\cup B$ (
+denoting $A$ *or* $B$). If $r < p + q$, one can force you to accept the 
+following bets:
+
+- You pay $p$ and receive $1$ if $A$ obtains.
+- You pay $q$ and receive $1$ if $B$ obtains.
+- You receive $r$ and pay $1$ if $A\cup B$ obtains.
+	
+The fact that $A$ and $B$ are mutually exclusive, implies that the cash flow 
+from the returns of these three bets is always zero, and the net flow is 
+entirely set by the initial payments. For you, this is $r - p - q < 0$, which is
+a certain loss. If $r > p + q$, your opponent could also force you into a 
+certain loss by reversing the bet directions in the previous argument.
+
+There are also Dutch book arguments showing that when some rational agent 
+has to update its degrees of belief based on new information, it must do so
+according to the standard conditioning rule:
+
+$$
+p(A\vert B)p(B)=p(A\cap B), (\#eq:CondProb)
+$$
+where $p(A\vert B)$ denotes the degree of belief on $A$ after finding out that 
+$B$ is true, while $A\cap B$ denotes the event that both $A$ *and* $B$ are true.
+It is worth to notice that the argument given below relies on the fact that the
+agent's assessment of $p(A\vert B)$ is fixed and declared a priori, and does not 
+change according to whether $B$ actually obtains or not.
+
+The argument goes as follows: suppose that \@ref(eq:CondProb) does not hold and, 
+for instance $p(B)\cdot p(A\vert B) < p(A\cap B)$. We can then force the agent 
+to participate in the following bets:
+
+- The agent accepts $p(B)\cdot P(A\vert B)$, to give $P(A\vert B)$ in return if 
+$B$ obtains[^gen].
+- The agent pays $p(A\cap B)$ to get $1$ in return if both $A$ and $B$ obtain.
+- If $B$ obtains, the agent accepts $p(A\vert B)$ to give in return $1$ if $A$ 
+obtains.
+
+It is easy to see that, irrespective of the outcomes of the $A$ and $B$ events,
+the agent always ends up loosing an amount 
+$p(A\cap B) - p(B) \cdot P(A\vert B)$. If $p(B)\cdot p(A\vert B) > p(A\cap B)$,
+reversing the direction of these bets also leads to a certain loss for the 
+agent. Clearly, the only way out is to set conditional probabilities according
+to Eq. \@ref(eq:CondProb).
+
+[^op]: Which means "giving a practical way to measure". 
+
+[^gen]: This is a slight generalization of the type of bet used in the operative
+definition of "degree of belief", that assumes a unitary return amount. The 
+reason why this is equivalent to the original definition is that, given bets 
+$B_1,\,B_2,\,\cdots,\,B_N$ with unitary return amounts, and positive numbers
+$x_1, \,x_2,\,\dots,\,x_N$, we can always find positive integers 
+$n_1,\,n_2,\dots,\,n_N$, such that the total gain from repeating $n_i$ times bet 
+$B_i$ for all $i=1,2,\dots,N$ always has the same sign of the total gain from 
+"generalized bets" that result by changing the return amount of bet $B_i$ to 
+$x_i$.
+
