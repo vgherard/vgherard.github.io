@@ -1,15 +1,5 @@
 [
   {
-    "listing": "/notebooks.html",
-    "items": [
-      "/notebooks/maximum-likelihood/maximum-likelihood.html",
-      "/notebooks/exponential-dispersion-models/exponential-dispersion-models.html",
-      "/notebooks/bootstrap/bootstrap.html",
-      "/notebooks/ordinary-least-squares/ordinary-least-squares.html",
-      "/notebooks/thermodynamics/thermodynamics.html"
-    ]
-  },
-  {
     "listing": "/index.html",
     "items": [
       "/posts/2024-08-12-dutch-book-arguments/dutch-book-arguments.html",
@@ -46,6 +36,16 @@
       "/posts/2022-10-18-posi/posi.html",
       "/posts/2021-11-13-kgrams-v012-released/kgrams-v012-released.html",
       "/posts/2021-07-06-r2r/r2r.html"
+    ]
+  },
+  {
+    "listing": "/notebooks.html",
+    "items": [
+      "/notebooks/maximum-likelihood/maximum-likelihood.html",
+      "/notebooks/exponential-dispersion-models/exponential-dispersion-models.html",
+      "/notebooks/bootstrap/bootstrap.html",
+      "/notebooks/ordinary-least-squares/ordinary-least-squares.html",
+      "/notebooks/thermodynamics/thermodynamics.html"
     ]
   }
 ]

@@ -47,8 +47,7 @@ There are also Dutch book arguments showing that when some rational agent has to
 
 $$
 p(A\vert B)p(B)=p(A\cap B), 
-$$ {#eq-cond-prob}
-where $p(A\vert B)$ denotes the degree of belief on $A$ after finding out that $B$ is true, while $A\cap B$ denotes the event that both $A$ *and* $B$ are true. It is worth to notice that the argument given below relies on the fact that the agent's assessment of $p(A\vert B)$ is fixed and declared a priori, and does not change according to whether $B$ actually obtains or not.
+$$ {#eq-cond-prob} where $p(A\vert B)$ denotes the degree of belief on $A$ after finding out that $B$ is true, while $A\cap B$ denotes the event that both $A$ *and* $B$ are true. It is worth to notice that the argument given below relies on the fact that the agent's assessment of $p(A\vert B)$ is fixed and declared a priori, and does not change according to whether $B$ actually obtains or not.
 
 The argument goes as follows: suppose that @eq-cond-prob does not hold and, for instance $p(B)\cdot p(A\vert B) < p(A\cap B)$. We can then force the agent to participate in the following bets:
 
