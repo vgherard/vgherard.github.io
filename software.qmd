@@ -1,5 +1,8 @@
 ---
 title: Software
+format:
+  html:
+    toc-title: "Projects"
 default-image-extension: "" # See github.com/quarto-dev/quarto-cli/issues/6092
 ---
 
