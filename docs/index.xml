@@ -256,14 +256,6 @@ Yngvason.”</span> June 25, 2024. <a href="https://vgherard.github.io/posts/202
   <pubDate>Mon, 24 Jun 2024 22:00:00 GMT</pubDate>
 </item>
 <item>
-  <title></title>
-  <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/can-thermodynamics-be-falsified/can-thermodynamics-be-falsified.html</link>
-  <description><![CDATA[ undefined ]]></description>
-  <guid>https://vgherard.github.io/posts/can-thermodynamics-be-falsified/can-thermodynamics-be-falsified.html</guid>
-  <pubDate>Tue, 04 Jun 2024 22:00:00 GMT</pubDate>
-</item>
-<item>
   <title>“Data Fission: Splitting a Single Data Point” by Leiner et al.</title>
   <dc:creator>Valerio Gherardi</dc:creator>
   <link>https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al/data-fission-splitting-a-single-data-point-by-leiner-et-al.html</link>
@@ -1613,18 +1605,6 @@ Theory and Simulation.”</span> May 17, 2024. <a href="https://vgherard.github.
   <pubDate>Thu, 16 May 2024 22:00:00 GMT</pubDate>
 </item>
 <item>
-  <title></title>
-  <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species/annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species.html</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>Comment on...</category>
-  <category>Population Dynamics</category>
-  <category>Biology</category>
-  <category>Statistics</category>
-  <guid>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species/annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species.html</guid>
-  <pubDate>Wed, 24 Apr 2024 22:00:00 GMT</pubDate>
-</item>
-<item>
   <title>Grammar as a biometric for Authorship Verification</title>
   <dc:creator>Valerio Gherardi</dc:creator>
   <link>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/grammar-as-a-biometric-for-authorship-verification.html</link>
@@ -1987,14 +1967,6 @@ M. Hoenig and D. M. Heisey.”</span> April 18, 2024. <a href="https://vgherard.
   <category>Statistics</category>
   <guid>https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey/the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey.html</guid>
   <pubDate>Wed, 17 Apr 2024 22:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/0000-bias-and-variance-in-ordinary-least-squares/bias-and-variance-in-ordinary-least-squares.html</link>
-  <description><![CDATA[ undefined ]]></description>
-  <guid>https://vgherard.github.io/posts/0000-bias-and-variance-in-ordinary-least-squares/bias-and-variance-in-ordinary-least-squares.html</guid>
-  <pubDate>Thu, 11 Apr 2024 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>AIC for the linear model: known vs. unknown variance</title>
@@ -2421,6 +2393,1073 @@ Variables.”</span> January 29, 2024. <a href="https://vgherard.github.io/posts
   <category>Probability Theory</category>
   <guid>https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables/binary-digits-of-uniform-random-variables.html</guid>
   <pubDate>Sun, 28 Jan 2024 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Interpreting the Likelihood Ratio cost</title>
+  <dc:creator>Valerio Gherardi</dc:creator>
+  <link>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro">Intro</h2>
+<p>During the last few months, I’ve been working on a machine learning algorithm with applications in <a href="https://en.wikipedia.org/wiki/Forensic_science">Forensic Science</a>, a.k.a. Criminalistics. In this field, one common task for the data analyst is to present the <em>trier-of-fact</em> (the person or people who determine the facts in a legal proceeding) with a numerical assessment of the strength of the evidence provided by available data towards different hypotheses. In more familiar terms, the forensic expert is responsible of computing the likelihoods (or likelihood ratios) of data under competing hypotheses, which are then used by the trier-of-fact to produce Bayesian posterior probabilities for the hypotheses in question<sup>1</sup>.</p>
+<p>In relation to this, forensic scientists have developed a bunch of techniques to evaluate the performance of a likelihood ratio model in discriminating between two alternative hypothesis. In particular, I have come across the so called <em>Likelihood Ratio Cost</em>, usually defined as:</p>
+<p><span id="eq-cllr"><img src="https://latex.codecogs.com/png.latex?%0AC_%7B%5Ctext%7BLLR%7D%7D%20=%20%5Cfrac%7B1%7D%7B2N_1%7D%20%5Csum%20_%7BY_i=1%7D%20%5Clog(1+r(X_i)%20%5E%7B-1%7D)+%5Cfrac%7B1%7D%7B2N_0%7D%20%5Csum%20_%7BY_i=0%7D%20%5Clog(1+r(X_i)),%0A%5Ctag%7B1%7D"></span> where we assume we have data consisting of <img src="https://latex.codecogs.com/png.latex?N_1+N_0"> independent identically distributed observations <img src="https://latex.codecogs.com/png.latex?(X_i,%5C,Y_i)">, with binary <img src="https://latex.codecogs.com/png.latex?Y">; <img src="https://latex.codecogs.com/png.latex?N_1"> and <img src="https://latex.codecogs.com/png.latex?N_0"> stand for the number of positive (<img src="https://latex.codecogs.com/png.latex?Y=1">) and negative (<img src="https://latex.codecogs.com/png.latex?Y=0">) cases; and <img src="https://latex.codecogs.com/png.latex?r(X)"> is a model for the likelihood ratio <img src="https://latex.codecogs.com/png.latex?%5CLambda(X)%20%5Cequiv%20%5Cfrac%7B%5Ctext%7BPr%7D(X%5Cvert%20Y%20=%201)%7D%7B%5Ctext%7BPr%7D(X%5Cvert%20Y%20=%200)%7D">.</p>
+<p>The main reason for writing this note was to understand a bit better what it means to optimize Equation&nbsp;1, which does not look immediately obvious to me from its definition<sup>2</sup>. In particular: is the population minimizer of Equation&nbsp;1 the actual likelihood ratio? And in what sense is a model with lower <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> better than one with a correspondingly higher value?</p>
+<p>The short answers to these questions are: yes; and: <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> optimization seeks for the model with the best predictive performance in a Bayesian inference setting with uninformative prior on <img src="https://latex.codecogs.com/png.latex?Y">, assuming that this prior actually reflects reality (<em>i.e.</em> <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D(Y=1)%20=%20%5Ctext%7BPr%7D(Y=0)%20=%20%5Cfrac%7B1%7D%7B2%7D">). The mathematical details are given in the rest of the post.</p>
+<!-- Strictly speaking, there are several aspects to what I have simply referred to as the "performance of a likelihood ratio model". First of all, there is the -->
+<!-- left-over uncertainty on $Y$ after measuring $X$, which is an intrinsic property of the data and is independent of modeling. Second, $X$ may not correspond to raw data, but rather be the result of some data-processing/summary, which will in general reduce the amount of available information on $Y$. Finally, in the general case, the likelihood ratio $r(X)$ will not be an exact model, but only an approximation estimated from data. All this aspects get captured and mixed by @ref(eq:CLLR), luckily in a way that can be actually decomposed (see below). -->
+</section>
+<section id="cross-entropy-with-random-weights" class="level2">
+<h2 class="anchored" data-anchor-id="cross-entropy-with-random-weights">Cross-entropy with random weights</h2>
+<p>We start with a mathematical digression, which will turn out useful for further developments. Let <img src="https://latex.codecogs.com/png.latex?%5C%7B(X_i,%5C,Y_i)%5C%7D_%7Bi=1,%5C,2,%5C,%5Cdots,N%7D"> be independent draws from a joint distribution, with binary <img src="https://latex.codecogs.com/png.latex?Y_i%20%5Cin%20%5C%7B0,%5C,1%5C%7D">. Given a function <img src="https://latex.codecogs.com/png.latex?w=w(%5Cboldsymbol%20Y)"> that is symmetric in its arguments<sup>3</sup>, we define the random functional:</p>
+<p><span id="eq-weighted-loss"><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%20L_N%5Ew%5Bf%5D%20=%20-%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi=1%7D%20%5EN%20%5Cleft%5Bw(%5Cboldsymbol%20Y)Y_i%20%5Clog(f(X_i))+%20w(%7B%5Cboldsymbol%20Y%7D%5Ec)(%20Y_i%5Ec)%20%5Clog(f(X_i)%5Ec)%5Cright%5D,%0A%5Ctag%7B2%7D"></span></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?f=f(X)"> is any function satisfying <img src="https://latex.codecogs.com/png.latex?f(X)%5Cin%20%5B0,%5C,1%5D"> for all <img src="https://latex.codecogs.com/png.latex?X">, and we let <img src="https://latex.codecogs.com/png.latex?q%5Ec%20=%201-q"> for any number <img src="https://latex.codecogs.com/png.latex?q%20%5Cin%20%5B0,%5C,1%5D">. Notice that for <img src="https://latex.codecogs.com/png.latex?w(%5Cboldsymbol%7BY%7D)%20%5Cequiv%201">, this is just the usual cross-entropy loss.</p>
+<p>We now look for the population minimizer of Equation&nbsp;2, <em>i.e.</em> the function <img src="https://latex.codecogs.com/png.latex?f_*"> that minimizes the functional <img src="https://latex.codecogs.com/png.latex?f%20%5Cmapsto%20%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf%5D)"><sup>4</sup>. Writing the expectation as:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf%5D)%20=%20-%5Cfrac%7B1%7D%7BN%7D%5Csum%20_%7Bi=1%7D%20%5EN%20%5Cmathbb%20E%5Cleft%5B%20%5Cmathbb%20E(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%5Cvert%20X_i)%5Ccdot%20%5Clog(f(X_i))+E(Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%20%5Ec)%5Cvert%20X_i)%5Ccdot%20%5Clog(f%5Ec(X_i))%5Cright%5D,%0A"> we can easily see that <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf%5D)"> is a convex functional with a unique minimum given by:</p>
+<p><span id="eq-pop-minimizer"><img src="https://latex.codecogs.com/png.latex?%0Af_*(X_i)%20=%20%5Cfrac%7B1%7D%7B1+r(X_i)%5E%7B-1%7D%7D,%5Cquad%20r_*(X_i)%20=%20%5Cdfrac%7BE(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%5Cvert%20X_i)%7D%7BE(Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%5Ec)%5Cvert%20X_i)%7D.%0A%5Ctag%7B3%7D"></span></p>
+<p>The corresponding expected loss is:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf_*%5D)%20=%20%5Cmathbb%20E%5Cleft%5B%20%5Cmathbb%20E(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%20+%20Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%5Ec)%5Cvert%20X_i)%5Ccdot%20%5Cmathcal%20H(f_*(X_i))%5Cright%5D,%0A"> where <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20H(p)%20=%20-p%20%5Clog%20(p)%20-(1-p)%20%5Clog(1-p)"> is the entropy of a binary random variable <img src="https://latex.codecogs.com/png.latex?Z"> with probability <img src="https://latex.codecogs.com/png.latex?p%20=%20%5Ctext%7BPr%7D(Z=1)"> (the index <img src="https://latex.codecogs.com/png.latex?i"> in the previous expression can be any index, since data points are assumed to be identically distributed).</p>
+<p>Before looking at values of <img src="https://latex.codecogs.com/png.latex?f"> other than <img src="https://latex.codecogs.com/png.latex?f_*">, we observe that the previous expectation can be succintly expressed as:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf_*%5D)%20=%20k%20%5Ccdot%20H%5E%5Cprime(Y%5Cvert%20X),%0A"></p>
+<p>where</p>
+<p><span id="eq-def-kappa"><img src="https://latex.codecogs.com/png.latex?%0Ak%20=%20%5Cmathbb%20E(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%20+%20Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%5Ec))%0A%5Ctag%7B4%7D"></span></p>
+<p>and <img src="https://latex.codecogs.com/png.latex?H'(Y%5Cvert%20X)"> is the conditional entropy of <img src="https://latex.codecogs.com/png.latex?Y%5Cvert%20X"> with respect to a <em>different</em> probability measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime">, defined by:</p>
+<p><span id="eq-def-pr-prime"><img src="https://latex.codecogs.com/png.latex?%0A%5Ctext%7BPr%7D%5E%5Cprime(E)%20=%20t%20%5Ccdot%20%5Ctext%20%7BPr%7D(E%20%5Cvert%20Y%20=%201)%20+%20(1-t)%5Ccdot%20%5Ctext%20%7BPr%7D(E%20%5Cvert%20Y%20=%200),%0A%5Ctag%7B5%7D"></span></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?t=%5Ctext%7BPr%7D%5E%5Cprime(Y=1)%5Cin%20%5B0,%5C,1%5D"> is fixed by the requirement<sup>5</sup>:</p>
+<p><span id="eq-def-pr-prime-2"><img src="https://latex.codecogs.com/png.latex?%0A%5Cdfrac%7B%5Ctext%20%7BPr%7D%5E%5Cprime%20(Y=1)%7D%7B%5Ctext%7BPr%7D%5E%5Cprime%20(Y=0)%7D=%5Cdfrac%7B%5Ctext%20%7BPr%7D%20(Y=1)%7D%7B%5Ctext%7BPr%7D%20(Y=0)%7D%5Ccdot%5Cdfrac%7B%5Cmathbb%20E(w(%5Cboldsymbol%20Y)%5Cvert%20%5Csum%20_i%20Y_i%20%3E0)%7D%7B%5Cmathbb%20E(w(%5Cboldsymbol%20Y%5Ec)%5Cvert%20%5Csum%20_i%20Y_i%5Ec%20%3E0)%7D.%0A%5Ctag%7B6%7D"></span></p>
+<p>In terms of <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime">, the population minimizers <img src="https://latex.codecogs.com/png.latex?f_*"> and <img src="https://latex.codecogs.com/png.latex?r_*"> in Equation&nbsp;3 can be simply expressed as:</p>
+<p><span id="eq-pop-minimizer-2"><img src="https://latex.codecogs.com/png.latex?%0Ar_*(X)=%5Cdfrac%7B%5Ctext%20%7BPr%7D%5E%5Cprime(Y=1%5Cvert%20X)%7D%7B%5Ctext%20%7BPr%7D%5E%5Cprime(Y=0%5Cvert%20X)%7D,%5Cqquad%20f_*(X)=%5Ctext%20%7BPr%7D%5E%5Cprime(Y=1%5Cvert%20X).%0A%5Ctag%7B7%7D"></span></p>
+<p>If now <img src="https://latex.codecogs.com/png.latex?f"> is an arbitrary function, we have:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf%5D)%20-%20%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf_*%5D)%20&amp;=%20%5Cmathbb%20E%5Cleft%5B%20%5Cmathbb%20E(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%20+%20Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%5Ec)%5Cvert%20X_i)%5Ccdot%20%5Cmathcal%20D(f_*(X_i)%5Cvert%20%5Cvert%20f(X_i))%5Cright%5D%0A&amp;=%20k%5Ccdot%20D(%5Ctext%7BPr%7D%5E%5Cprime%5Cvert%20%5Cvert%20%5Ctext%7BPr%7D%5E%5Cprime%20_f)%0A%5Cend%7Bsplit%7D%0A"> where <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20D(p%5Cvert%20%5Cvert%20q)%20=%20p%20%5Clog%20(%5Cfrac%7Bp%7D%7Bq%7D)%20+%20(1-p)%20%5Clog%20(%5Cfrac%7B1-p%7D%7B1-q%7D)">, and <img src="https://latex.codecogs.com/png.latex?D(%5Ctext%7BPr%7D%5E%5Cprime%5Cvert%20%5Cvert%20%5Ctext%7BPr%7D%5E%5Cprime%20_f)"> is the Kullback-Liebler divergence between the measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime"> and the measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime%20_f"> defined by:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ctext%7BPr%7D%5E%5Cprime%20_f(Y%20=%201%5Cvert%20X)=f(X),%5Cqquad%20%5Ctext%7BPr%7D%5E%5Cprime%20_f(X)=%5Ctext%7BPr%7D%5E%5Cprime(X)%0A"> (notice that <img src="https://latex.codecogs.com/png.latex?%5Ctext%20%7BPr%7D%20%5E%7B%5Cprime%7D%20_%7Bf_*%7D%20%5Cequiv%20%5Ctext%7BPr%7D%20%5E%7B%5Cprime%7D"> by definition). Finally, suppose that <img src="https://latex.codecogs.com/png.latex?X%20=%20g(%5Cwidetilde%20X)"> for some random variable <img src="https://latex.codecogs.com/png.latex?%5Cwidetilde%20X">, and define the corresponding functional:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cwidetilde%7B%5Cmathcal%20L%7D%20_N%5Ew%5B%5Cwidetilde%20f%5D%20%20=%20-%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi=1%7D%20%5EN%20%5Cleft%5Bw(%5Cboldsymbol%20Y)Y_i%20%5Clog(%5Cwidetilde%20f(%5Cwidetilde%20X))+%20w(%7B%5Cboldsymbol%20Y%7D%5Ec)(%20Y_i%5Ec)%20%5Clog(%5Cwidetilde%20f(%5Cwidetilde%20X)%5Ec)%5Cright%5D.%0A"> Then <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20L%20_N%20%5Ew%20%5Bf%5D%20=%20%5Cwidetilde%7B%5Cmathcal%20L%7D%20_N%5Ew%5Bf%20%5Ccirc%20g%5D">. If <img src="https://latex.codecogs.com/png.latex?%5Cwidetilde%20f%20%20_*%20="> is the population minimizer of <img src="https://latex.codecogs.com/png.latex?%5Cwidetilde%7B%5Cmathcal%20L%7D%20_N%5Ew">, it follows that <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20E%20(%5Cwidetilde%7B%5Cmathcal%20L%7D%20_N%5Ew%5B%5Cwidetilde%20f%20_*%5D)%20%5Cleq%20%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf_*%5D)">.</p>
+<p>Putting everything together, we can decompose the expected loss for a function <img src="https://latex.codecogs.com/png.latex?f=f(X)">, where <img src="https://latex.codecogs.com/png.latex?X=%20g(%5Cwidetilde%20X)">, in the following suggestive way:</p>
+<p><span id="eq-decomposition-weighted-loss"><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf%5D)%20&amp;=%20(L_N%20%5Ew)_%5Ctext%7Bmin%7D+(L_N%20%5Ew)_%5Ctext%7Bproc%7D%20+(L_N%20%5Ew)_%5Ctext%7Bmissp%7D,%5C%5C%0A(L_N%20%5Ew)_%5Ctext%7Bmin%7D&amp;%5Cequiv%5Cmathbb%20E(%5Cwidetilde%7B%5Cmathcal%20L%7D%20_N%5Ew%5B%7B%5Cwidetilde%20f%7D%20_*%5D)%20%20%5C%5C%20&amp;=%0A%5Cmathbb%20E%5Cleft%5B%20%5Cmathbb%20E(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%20+%20Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%5Ec)%5Cvert%20%5Cwidetilde%20X%20_i)%5Ccdot%20%5Cmathcal%20H(%7B%5Cwidetilde%20f%7D%20_*(%5Cwidetilde%20X%20_i))%5Cright%5D%5C%5C%0A&amp;=k%5Ccdot%20H%5E%5Cprime(Y%5Cvert%20%5Cwidetilde%20X),%5C%5C%0A(L_N%20%5Ew)_%5Ctext%7Bproc%7D&amp;%5Cequiv%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf_*%5D-%5Cwidetilde%7B%5Cmathcal%20L%7D%20_N%5Ew%5B%5Cphi_*%5D)%20%20%5C%5C&amp;%20=%0A%5Cmathbb%20E%5Cleft%5B%20%5Cmathbb%20E(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%20+%20Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%5Ec)%5Cvert%20X_i)%5Ccdot%20%20%5Cmathcal%20H(f_*(X_i))%0A%5Cright%5D-%20(L_N%20%5Ew)_%5Ctext%7Bmin%7D%5C%5C%0A&amp;%20=%20k%5Ccdot%20I%5E%5Cprime(Y;%20%5Cwidetilde%20X%5Cvert%20X),%5C%5C%0A(L_N%20%5Ew)_%5Ctext%7Bmissp%7D%20&amp;%20%5Cequiv%20%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf%5D)%20-%20%5Cmathbb%20E(%5Cmathcal%20L%20_N%20%5Ew%20%5Bf_*%5D)%20%5C%5C&amp;=%20%5Cmathbb%20E%5Cleft%5B%20%5Cmathbb%20E(Y_i%5Ccdot%20w(%5Cboldsymbol%20Y)%20+%20Y_i%5Ec%5Ccdot%20w(%5Cboldsymbol%20Y%5Ec)%5Cvert%20X_i)%5Ccdot%20%20%5Cmathcal%20%20D(f_*(X_i)%5Cvert%20%5Cvert%20f(X_i))%5Cright%5D%5C%5C%20&amp;=k%5Ccdot%20D(%5Ctext%20%7BPr%7D%5E%5Cprime%5Cvert%20%5Cvert%20%5Ctext%20%7BPr%7D%5E%5Cprime%20_f),%0A%5Cend%7Bsplit%7D%0A%5Ctag%7B8%7D"></span></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?k"> is defined in Equation&nbsp;4. In the equation for <img src="https://latex.codecogs.com/png.latex?(L%5Ew%20_N)_%5Ctext%7Bproc%7D"> we introduced the conditional mutual information (with respect to the measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime">), that satisfies [<span class="citation" data-cites="Cover2006">Cover and Thomas (2006)</span>]:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AI(%5Cwidetilde%20X;Y%5Cvert%20X)%20=%20I(%5Cwidetilde%20X,Y)-I(X,Y)%20=%20H(Y%5Cvert%20X)-H(Y%5Cvert%20%5Cwidetilde%20X).%0A"></p>
+<p>The three components in Equation&nbsp;8 can be interpreted as follows: <img src="https://latex.codecogs.com/png.latex?(L_N%20%5Ew)_%5Ctext%7Bmin%7D"> represents the minimum expected loss achievable, given the data available <img src="https://latex.codecogs.com/png.latex?%5Cwidetilde%20X">; <img src="https://latex.codecogs.com/png.latex?(L_N%20%5Ew)_%5Ctext%7Bproc%7D"> accounts for the information lost in the processing transformation <img src="https://latex.codecogs.com/png.latex?X=g(%5Cwidetilde%20X)">; finally <img src="https://latex.codecogs.com/png.latex?(L_N%20%5Ew)_%5Ctext%7Bmissp%7D"> is due to misspecification, <em>i.e.</em> the fact that the model <img src="https://latex.codecogs.com/png.latex?f(X)"> for the true posterior probability <img src="https://latex.codecogs.com/png.latex?f_*(X)"> is an approximation.</p>
+<p>All the information-theoretic quantities (and their corresponding operative interpretations hinted in the previous paragraph) make reference to the measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime"> defined by Equation&nbsp;5 and Equation&nbsp;6. This is merely the result of altering the proportion of positive (<img src="https://latex.codecogs.com/png.latex?Y=1">) and negative (<img src="https://latex.codecogs.com/png.latex?Y=0">) examples in the <img src="https://latex.codecogs.com/png.latex?X">-<img src="https://latex.codecogs.com/png.latex?Y"> joint distribution by a factor dictated by the weight function <img src="https://latex.codecogs.com/png.latex?w"> - while keeping conditional distributions such as <img src="https://latex.codecogs.com/png.latex?X%5Cvert%20Y"> unchanged.</p>
+</section>
+<section id="a-familiar-case-cross-entropy-loss" class="level2">
+<h2 class="anchored" data-anchor-id="a-familiar-case-cross-entropy-loss">A familiar case: cross-entropy loss</h2>
+<p>For <img src="https://latex.codecogs.com/png.latex?w(%5Cboldsymbol%20%7BY%7D)%20=%201">, the functional <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20%7BL%7D%20_%7BN%7D%20%5E%7Bw%7D%5Bf%5D"> coincides with the usual cross-entropy loss<sup>6</sup>:</p>
+<p><span id="eq-cross-entropy-loss"><img src="https://latex.codecogs.com/png.latex?%0A%5Ctext%7BCE%7D%5Bf%5D%20=%20-%5Cfrac%7B1%7D%7BN%7D%5Csum_%7Bi=1%7D%20%5EN%20%5Cleft%5BY_i%20%5Clog(f(X_i))+%20(1-Y_i)%20%5Clog(1-f(X_i))%5Cright%5D.%0A%5Ctag%7B9%7D"></span></p>
+<p>From Equation&nbsp;6 we see that the measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%7B%5Cprime%7D"> coincides with the original <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D">, so that by Equation&nbsp;3 the population minimizer of Equation&nbsp;9 is <img src="https://latex.codecogs.com/png.latex?f_%7B*%7D(X)%20=%20%5Ctext%7BPr%7D(Y=1%5Cvert%20X)"> (independently of sample size). Since <img src="https://latex.codecogs.com/png.latex?k%20=%201"> (<em>cf.</em> Equation&nbsp;4), the decomposition Equation&nbsp;8 reads:</p>
+<p><span id="eq-decomposition-ce"><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5Cmathbb%20E(%5Ctext%7BCE%7D%20%5Bf%5D)%20&amp;=%20(%5Ctext%7BCE%7D)_%5Ctext%7Bmin%7D+(%5Ctext%7BCE%7D)_%5Ctext%7Bproc%7D%20+(%5Ctext%7BCE%7D)_%5Ctext%7Bmissp%7D,%5C%5C%0A(%5Ctext%7BCE%7D)_%5Ctext%7Bmin%7D&amp;=H(Y%5Cvert%20%5Cwidetilde%20X),%5C%5C%0A(%5Ctext%7BCE%7D)_%5Ctext%7Bproc%7D&amp;=%20I(Y;%20%5Cwidetilde%20X%5Cvert%20X),%5C%5C%0A(%5Ctext%7BCE%7D)_%5Ctext%7Bmissp%7D%20&amp;=D(%5Ctext%20%7BPr%7D%5Cvert%20%5Cvert%20%5Ctext%20%7BPr%7D%20_%7Bf%7D),%0A%5Cend%7Bsplit%7D%0A%5Ctag%7B10%7D"></span></p>
+<p>where conditional entropy <img src="https://latex.codecogs.com/png.latex?H">, mutual information <img src="https://latex.codecogs.com/png.latex?I"> and relative entropy <img src="https://latex.codecogs.com/png.latex?D"> now simply refer to the original measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D">.</p>
+</section>
+<section id="the-likelihood-ratio-cost" class="level2">
+<h2 class="anchored" data-anchor-id="the-likelihood-ratio-cost">The Likelihood Ratio Cost</h2>
+<p>The quantity <img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7BLLR%7D%7D"> defined in Equation&nbsp;1 can be put in the general form Equation&nbsp;2, if we let <img src="https://latex.codecogs.com/png.latex?f(X)%20=%20(1+r(X)%5E%7B-1%7D)%5E%7B-1%7D"> and<sup>7</sup>:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Aw(%5Cboldsymbol%20Y)%20=%20%5Cleft(%5Cdfrac%7B2%7D%7BN%7D%5Csum%20_%7Bi%20=%201%7D%5E%7BN%7DY_j%20%5Cright)%5E%7B-1%7D%0A"> In what follows, I will consider a slight modification of the usual <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D">, defined by the weight function:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Aw(%5Cboldsymbol%20Y)%20=%20%5Cdfrac%7B1%7D%7B2(N-1)%7D%5Csum%20_%7Bi%20=%201%7D%5E%7BN%7D(1-Y_j).%0A"> This yields Equation&nbsp;1 multiplied by <img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7BN_1N_0%7D%7BN(N-1)%7D">, which I will keep denoting as <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D">, with a slight abuse of notation.</p>
+<p>We can easily compute<sup>8</sup>:</p>
+<p><span id="eq-prior-cllr"><img src="https://latex.codecogs.com/png.latex?%0A%5Cdfrac%7B%5Ctext%20%7BPr%7D%5E%5Cprime%20(Y=1)%7D%7B%5Ctext%7BPr%7D%5E%5Cprime%20(Y=0)%7D=1,%0A%5Ctag%7B11%7D"></span></p>
+<p>so that, by Equation&nbsp;3, the population minimizer of <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> is:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ar_*(X)%20=%20%5CLambda%20(X),%5Cquad%20f_*(X)=%5Cdfrac%7B1%7D%7B1+%5CLambda(X)%5E%7B-1%7D%7D,%0A"></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?%5CLambda(X)"> denotes the <em>likelihood-ratio</em> of <img src="https://latex.codecogs.com/png.latex?X">, schematically:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5CLambda(X)%5Cequiv%20%5Cdfrac%7B%5Ctext%7BPr%7D(X%5Cvert%20Y%20=%201)%7D%7B%5Ctext%7BPr%7D(X%5Cvert%20Y%20=%200)%7D.%0A"></p>
+<p>The constant <img src="https://latex.codecogs.com/png.latex?k"> in Equation&nbsp;4 is:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Ak%20=%20%5Ctext%7BPr%7D(Y%20=%201)%5Ctext%7BPr%7D(Y%20=%200)=%5Ctext%7BVar%7D(Y)%0A"></p>
+<p>The general decomposition Equation&nbsp;8 becomes: <span id="eq-decomposition-ce"><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5Cmathbb%20E(C_%5Ctext%7BLLR%7D%20%5Bf%5D)%20&amp;=%20(C_%5Ctext%7BLLR%7D)_%5Ctext%7Bmin%7D+(C_%5Ctext%7BLLR%7D)_%5Ctext%7Bproc%7D%20+(C_%5Ctext%7BLLR%7D)_%5Ctext%7Bmissp%7D,%5C%5C%0A(C_%5Ctext%7BLLR%7D)_%5Ctext%7Bmin%7D&amp;=%5Ctext%7BVar%7D(Y)%5Ccdot%20H%5E%7B%5Cprime%7D(Y%5Cvert%20%5Cwidetilde%20X),%5C%5C%0A(C_%5Ctext%7BLLR%7D)_%5Ctext%7Bproc%7D&amp;=%20%5Ctext%7BVar%7D(Y)%5Ccdot%20I%5E%7B%5Cprime%7D(Y;%20%5Cwidetilde%20X%5Cvert%20X),%5C%5C%0A(C_%5Ctext%7BLLR%7D)_%5Ctext%7Bmissp%7D%20&amp;=%5Ctext%7BVar%7D(Y)%5Ccdot%20D%5E%7B%5Cprime%7D(%5Ctext%20%7BPr%7D%5Cvert%20%5Cvert%20%5Ctext%20%7BPr%7D%20_%7Bf%7D),%0A%5Cend%7Bsplit%7D%0A%5Ctag%7B12%7D"></span></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime"> is now given by Equation&nbsp;11.</p>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>The table below provides a comparison between cross-entropy and likelihood-ratio cost, summarizing the results from previous sections.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Cross-entropy</th>
+<th>Likelihood Ratio Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="https://latex.codecogs.com/png.latex?f_*(X)"></td>
+<td><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D(Y%20=%201%5Cvert%20X)"></td>
+<td><img src="https://latex.codecogs.com/png.latex?(1+%5CLambda(X)%5E%7B-1%7D)%5E%7B-1%7D"></td>
+</tr>
+<tr class="even">
+<td><img src="https://latex.codecogs.com/png.latex?r_*(X)">`</td>
+<td>Posterior odds ratio</td>
+<td>Likelihood ratio</td>
+</tr>
+<tr class="odd">
+<td>Minimum Loss</td>
+<td><img src="https://latex.codecogs.com/png.latex?H(Y%5Cvert%20%5Cwidetilde%20X)"></td>
+<td><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BVar%7D(Y)%20%5Ccdot%20H%5E%5Cprime(Y%5Cvert%20%5Cwidetilde%20X)"></td>
+</tr>
+<tr class="even">
+<td>Processing Loss</td>
+<td><img src="https://latex.codecogs.com/png.latex?I(Y;%20%5Cwidetilde%20X%5Cvert%20X)"></td>
+<td><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BVar%7D(Y)%20%5Ccdot%20I%5E%5Cprime(Y;%20%5Cwidetilde%20X%5Cvert%20X)"></td>
+</tr>
+<tr class="odd">
+<td>Misspecification Loss</td>
+<td><img src="https://latex.codecogs.com/png.latex?D(f_*%5Cvert%5Cvert%20f)"></td>
+<td><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BVar%7D(Y)%20%5Ccdot%20D%5E%5Cprime(f_*%5Cvert%5Cvert%20f)"></td>
+</tr>
+<tr class="even">
+<td>Reference measure</td>
+<td><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D"></td>
+<td><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%7B%5Cprime%7D%20=%20%5Cfrac%7B%5Ctext%7BPr%7D(%5Ccdot%20%5Cvert%20Y%20=%201)+%5Ctext%7BPr%7D(%5Ccdot%20%5Cvert%20Y%20=%200)%7D%7B2%7D"></td>
+</tr>
+</tbody>
+</table>
+<p>The objective of <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> is found to be the likelihood ratio, as terminology suggests. The interpretation of model selection according to <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> minimization turns out to be slightly more involved, compared to cross-entropy, which we first review.</p>
+<p>Suppose we are given a set of predictive models <img src="https://latex.codecogs.com/png.latex?%5C%7B%5Cmathcal%20M_i%5C%7D_%7Bi%5Cin%20I%7D">, each of which consists of a processing transformation, <img src="https://latex.codecogs.com/png.latex?%5Cwidetilde%20X%20%5Cmapsto%20X">, and an estimate of the posterior probability <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D(Y%20=%201%5Cvert%20X)">. When the sample size <img src="https://latex.codecogs.com/png.latex?N%20%5Cto%20%5Cinfty">, cross-entropy minimization will almost certainly select the model that minimizes <img src="https://latex.codecogs.com/png.latex?I(Y;%20%5Cwidetilde%20X%5Cvert%20X)%20+%20D(f_*%5Cvert%20%5Cvert%20f)">. Following standard Information Theory arguments, we can interpret this model as the statistically optimal compression algorithm for <img src="https://latex.codecogs.com/png.latex?Y">, assuming <img src="https://latex.codecogs.com/png.latex?X"> to be available at both the encoding and decoding ends.</p>
+<p>The previous argument carries over <em>mutatis mutandi</em> to <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> minimization, with an important qualification: optimal average compression is now achieved for data distributed according to a different probability measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D'(%5Ccdot)%20=%20%5Cfrac%7B1%7D%7B2%7D%5Ctext%20%7BPr%7D(%5Ccdot%5Cvert%20Y%20=%201)%20+%20%5Cfrac%7B1%7D%7B2%7D%5Ctext%20%7BPr%7D(%5Ccdot%5Cvert%20Y%20=%200)">. In particular, according to <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D'">, the likelihood ratio coincides with the posterior odds ratio, and <img src="https://latex.codecogs.com/png.latex?(1+%5CLambda(X)%5E%7B-1%7D)%5E%7B-1%7D"> coincides with posterior probability, which clarifies why we can measure differences from the true likelihood-ratio through the Kullback-Liebler divergence.</p>
+<p>The measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D'"> is not just an abstruse mathematical construct: it is the result of balanced sampling from the original distribution, <em>i.e.</em> taking an equal number of positive and negative cases<sup>9</sup>. If the <img src="https://latex.codecogs.com/png.latex?(X,%5C,Y)"> distribution is already balanced, either by design or because of some underlying symmetry in the data generating process, our analysis implies that likelihood-ratio cost and cross-entropy minimization are essentially equivalent for <img src="https://latex.codecogs.com/png.latex?N%5Cto%20%5Cinfty">. In general, with <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%20(Y=1)%20%5Cneq%20%5Ctext%7BPr%7D%20(Y=0)">, this is not the case<sup>10</sup>.</p>
+<p>The fact that <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> seeks for optimal predictors according to the balanced measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D'"> is, one could argue, not completely crazy from the point of view of forensic science, where “<img src="https://latex.codecogs.com/png.latex?Y%5Cin%5C%7B0,1%5C%7D">” often stands for a sort verdict (guilty <em>vs.</em> not guilty, say). Indeed, optimizing with respect to <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime"> means that our predictions are designed to be optimal in a world in which the verdict could be <em>a priori</em> <img src="https://latex.codecogs.com/png.latex?Y=0"> or <img src="https://latex.codecogs.com/png.latex?Y=1"> with equal probability - which is what an unbiased trier-of-fact should ideally assume. Minimizing <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D">, we guard ourselves against any bias that may be implicit in the training dataset, extraneous to the <img src="https://latex.codecogs.com/png.latex?X">-<img src="https://latex.codecogs.com/png.latex?Y"> relation and not explicitly modeled, a feature that may be regarded as desirable from a legal standpoint.</p>
+</section>
+<section id="simulated-example" class="level2">
+<h2 class="anchored" data-anchor-id="simulated-example">Simulated example</h2>
+<p>In general, the posterior odd ratio and likelihood ratio differ only by a constant, so it is reasonable to try to fit the same functional form to both of them. Let us illustrate with a simulated example of this type the differences between cross-entropy and <img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7BLLR%7D%7D"> optimization mentioned in the previous Section.</p>
+<p>Suppose that <img src="https://latex.codecogs.com/png.latex?X%20%5Cin%20%5Cmathbb%20R"> has conditional density: <img src="https://latex.codecogs.com/png.latex?%0A%5Cphi(X%5Cvert%20Y)%20=%20(2%5Cpi%5Csigma%20_Y%5E2)%5E%7B-%5Cfrac%7B1%7D%7B2%7D%7D%20%5Cexp(-%5Cfrac%7B(X-%5Cmu_Y)%5E2%7D%7B2%5Csigma%20_Y%5E2%7D)%0A"> and <img src="https://latex.codecogs.com/png.latex?Y"> has marginal probability <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D(Y%20=%201)%20=%20%5Cpi">. The true likelihood-ratio and posterior odds ratio are respectively given by:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5CLambda%20(X)%20&amp;%0A%20%20%20%20%5Cequiv%20%5Cfrac%7B%5Cphi(X%5Cvert%20Y=1)%7D%7B%5Cphi(X%5Cvert%20Y=0)%7D%0A%20%20%20%20=%20e%20%5E%20%7Ba%20X%5E2%20+%20bX%20+c%7D,%5C%5C%0A%5Crho%20(X)%20&amp;%0A%20%20%20%20%5Cequiv%20%5Cfrac%7B%5Ctext%7BPr%7D(Y%20=%201%5Cvert%20X)%7D%7B%5Ctext%7BPr%7D(Y%20=%200%5Cvert%20X)%7D%0A%20%20%20%20=%20e%20%5E%20%7Ba%20X%20%5E%202%20+%20bX%20+c+d%7D,%0A%5Cend%7Bsplit%7D%0A"> where we have defined:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Aa%20%20%5Cequiv%20%5Cdfrac%7B%5Csigma%20_1%20%5E2%20-%5Csigma_0%20%5E2%7D%7B2%5Csigma%20_0%20%5E2%5Csigma_1%20%5E2%7D,%5Cquad%0Ab%20%20%5Cequiv%20%5Cmu%20_1%20-%20%5Cmu%20_0,%20%5Cquad%0Ac%20%20%5Cequiv%20%5Cdfrac%7B%5Cmu_0%5E2%7D%7B2%5Csigma_0%5E2%7D%20-%5Cdfrac%7B%5Cmu_1%20%5E2%7D%7B2%5Csigma%20_1%5E2%7D+%5Cln(%5Cfrac%7B%5Csigma%20_0%20%7D%7B%5Csigma%20_1%20%7D),%5Cquad%0Ad%20%20%5Cequiv%20%5Cln%20(%5Cfrac%20%7B%5Cpi%7D%7B1-%5Cpi%7D)%20.%0A"></p>
+<p>Suppose that we fit an exponential function <img src="https://latex.codecogs.com/png.latex?r(X)=e%5E%7BmX%20+q%7D"> to <img src="https://latex.codecogs.com/png.latex?%5CLambda(X)"> by likelihood-ratio cost minimization, and similarly <img src="https://latex.codecogs.com/png.latex?r'(X)=e%5E%7Bm'X+q'%7D"> to <img src="https://latex.codecogs.com/png.latex?%5Crho(X)"> by cross-entropy minimization<sup>11</sup>. Due to the previous discussion, one could reasonably expect the results of the two procedure to differ in some way, which is demonstrated below by simulation.</p>
+<p>The chunk of R code below defines the function and data used for the simulation. In particular, I’m considering a heavily unbalanced case (<img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D(Y%20=%201)%20=%200.1%5C%25">) in which negative cases give rise to a sharply localized <img src="https://latex.codecogs.com/png.latex?X"> peak around <img src="https://latex.codecogs.com/png.latex?X=0"> (<img src="https://latex.codecogs.com/png.latex?%5Cmu%20_0%20=%200">, <img src="https://latex.codecogs.com/png.latex?%5Csigma_0%20=%20.25">), while the few positive cases give rise to a broader signal centered at <img src="https://latex.codecogs.com/png.latex?X=1"> (<img src="https://latex.codecogs.com/png.latex?%5Cmu%20_1%20=%201">, <img src="https://latex.codecogs.com/png.latex?%5Csigma%20_1%20=%201">).</p>
+<div class="cell" data-code_folding="true">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Tidyverse facilities for plotting</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(dplyr)</span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(ggplot2) </span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Loss functions</span></span>
+<span id="cb1-6">weighted_loss <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(par, data, w) {</span>
+<span id="cb1-7">    m <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> par[[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]]</span>
+<span id="cb1-8">    q <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> par[[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>]]</span>
+<span id="cb1-9">    x <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> data<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>x</span>
+<span id="cb1-10">    y <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> data<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>y</span>
+<span id="cb1-11">    </span>
+<span id="cb1-12">    z <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> m <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> x <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> q</span>
+<span id="cb1-13">    p <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>(<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>z))</span>
+<span id="cb1-14">    </span>
+<span id="cb1-15">    <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(y <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">w</span>(y) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(p) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>y) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">w</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>y) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>p))</span>
+<span id="cb1-16">}</span>
+<span id="cb1-17"></span>
+<span id="cb1-18">cross_entropy <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(par, data) </span>
+<span id="cb1-19">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weighted_loss</span>(par, data, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">w =</span> \(y) <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb1-20"></span>
+<span id="cb1-21">cllr <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(par, data) </span>
+<span id="cb1-22">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weighted_loss</span>(par, data, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">w =</span> \(y) <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>y))</span>
+<span id="cb1-23"></span>
+<span id="cb1-24"></span>
+<span id="cb1-25"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Data generating process</span></span>
+<span id="cb1-26">rxy <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(n, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pi =</span> .<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">001</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">mu1 =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">mu0 =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sd1 =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sd0 =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span>) { </span>
+<span id="cb1-27">    y <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">runif</span>(n) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span> pi</span>
+<span id="cb1-28">    x <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rnorm</span>(n, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">mean =</span> y <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> mu1 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>y) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> mu0, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sd =</span> y <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> sd1 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>y) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> sd0)</span>
+<span id="cb1-29">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x =</span> x, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y =</span> y)</span>
+<span id="cb1-30">}</span>
+<span id="cb1-31">pi <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">formals</span>(rxy)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>pi</span>
+<span id="cb1-32"></span>
+<span id="cb1-33"></span>
+<span id="cb1-34"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Simulation</span></span>
+<span id="cb1-35"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">set.seed</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">840</span>)</span>
+<span id="cb1-36">data <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rxy</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>)</span>
+<span id="cb1-37">par_cllr <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">optim</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), cllr, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> data)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>par</span>
+<span id="cb1-38">par_cross_entropy <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">optim</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), cross_entropy, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> data)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>par</span>
+<span id="cb1-39">par_cross_entropy[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> par_cross_entropy[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>] <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(pi <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>pi))</span>
+<span id="cb1-40"></span>
+<span id="cb1-41"></span>
+<span id="cb1-42"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Helpers to extract LLRs from models</span></span>
+<span id="cb1-43">llr <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(x, par)</span>
+<span id="cb1-44">    par[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> x <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> par[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>] </span>
+<span id="cb1-45"></span>
+<span id="cb1-46">llr_true <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(x) {</span>
+<span id="cb1-47">    mu1 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">formals</span>(rxy)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>mu1 </span>
+<span id="cb1-48">    mu0 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">formals</span>(rxy)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>mu0 </span>
+<span id="cb1-49">    sd1 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">formals</span>(rxy)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>sd1</span>
+<span id="cb1-50">    sd0 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">formals</span>(rxy)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>sd0</span>
+<span id="cb1-51">        </span>
+<span id="cb1-52">    a <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (sd1 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> sd0 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (sd1 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> sd0 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)</span>
+<span id="cb1-53">    b <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> mu1 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (sd1<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> mu0 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (sd0<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)</span>
+<span id="cb1-54">    c <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (mu0<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (sd0<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> mu1<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (sd1<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">^</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(sd0 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> sd1)</span>
+<span id="cb1-55">    a <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> x <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> x <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> b <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> x <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> c</span>
+<span id="cb1-56">}</span></code></pre></div>
+</div>
+<p>So, what do our best estimates look like? The plot below shows the best fit lines for the log-likelihood ratio from <img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7BLLR%7D%7D"> minimization (in solid red) and cross-entropy minimization (in solid blue). The true log-likelihood ratio parabola is the black line. Also shown are the <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BLLR%7D=0"> line (in dashed red) and the <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BLLR%7D=%5Cln(%5Cfrac%7B1-%5Cpi%7D%7B%5Cpi%7D)"> (in dashed blue), which are the appropriate Bayes thresholds for classifying a data point as positive (<img src="https://latex.codecogs.com/png.latex?Y=1">), assuming data comes from a balanced and unbalanced distribution, respectively.</p>
+<div class="cell" data-code_folding="true">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>() <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> </span>
+<span id="cb2-2">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_function</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fun =</span> \(x) <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">llr</span>(x, par_cllr), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"red"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> </span>
+<span id="cb2-3">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_function</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fun =</span> \(x) <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">llr</span>(x, par_cross_entropy), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"blue"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-4">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_function</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fun =</span> \(x) <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">llr_true</span>(x), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"black"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-5">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_hline</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">yintercept =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linetype =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"dashed"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"red"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-6">        <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_hline</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">yintercept =</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(pi <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>pi))), </span>
+<span id="cb2-7">                             <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linetype =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"dashed"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"blue"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-8">        <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ylim</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">xlim</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-9">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">xlab</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"X"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ylab</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Log-Likelihood Ratio"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The reason why the lines differ is that they are designed to solve a different predictive problem: as we’ve argued above, minimizing <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> looks for the best <img src="https://latex.codecogs.com/png.latex?Y%5Cvert%20X"> conditional probability estimate according to the balanced measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D'">, whereas cross-entropy minimization does the same for the original measure <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D">. This is how data looks like under the two measures (the histograms are stacked - in the unbalanced case, positive examples are invisible on the linear scale of the plot):</p>
+<div class="cell" data-code_folding="true">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">test_data <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">bind_rows</span>(</span>
+<span id="cb3-2">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rxy</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pi =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">type =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Balanced"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">llr_thresh =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>),</span>
+<span id="cb3-3">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rxy</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e6</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">type =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Unbalanced"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">llr_thresh =</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(pi <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>pi)))</span>
+<span id="cb3-4">    )</span>
+<span id="cb3-5"></span>
+<span id="cb3-6">test_data <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span id="cb3-7">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x =</span> x, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fill =</span> y)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> </span>
+<span id="cb3-8">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_histogram</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">bins =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb3-9">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">facet_grid</span>(type <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span> ., <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">scales =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"free_y"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb3-10">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">xlim</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>These differences are reflected in the misclassification rates of the resulting classifiers defined by <img src="https://latex.codecogs.com/png.latex?%5Chat%20Y(X)=I(%5Ctext%7BLLR%7D(X)%3E%5Ctext%7Bthreshold%7D)">, where the appropriate threshold is zero in the balanced case, and <img src="https://latex.codecogs.com/png.latex?%5Cln(%5Cfrac%7B1-%5Cpi%7D%7B%5Cpi%7D)"> in the unbalanced case. According to intuition, we see that the <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> optimizer beats the cross-entropy optimizer on the balanced sample, while performing significantly worse on the unbalanced one.</p>
+<div class="cell" data-code_folding="true">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">test_data <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb4-2">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(</span>
+<span id="cb4-3">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">llr_cllr =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">llr</span>(x, par_cllr),</span>
+<span id="cb4-4">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">llr_cross_entropy =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">llr</span>(x, par_cross_entropy),</span>
+<span id="cb4-5">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">llr_true =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">llr_true</span>(x)</span>
+<span id="cb4-6">        ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb4-7">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">group_by</span>(type) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb4-8">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">summarise</span>(</span>
+<span id="cb4-9">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">cllr =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>((llr_cllr <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> llr_thresh) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> y),</span>
+<span id="cb4-10">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">cross_entropy =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>((llr_cross_entropy <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> llr_thresh) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> y),</span>
+<span id="cb4-11">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">true_llr =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>((llr_true <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> llr_thresh) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> y)</span>
+<span id="cb4-12">        )</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  type           cllr cross_entropy true_llr
+  &lt;chr&gt;         &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+1 Balanced   0.166         0.185    0.140   
+2 Unbalanced 0.000994      0.000637 0.000518</code></pre>
+</div>
+</div>
+</section>
+<section id="final-remarks" class="level2">
+<h2 class="anchored" data-anchor-id="final-remarks">Final remarks</h2>
+<p>Our main conclusion in a nutshell is that <img src="https://latex.codecogs.com/png.latex?C_%5Ctext%7BLLR%7D"> minimization is equivalent, <em>in the infinite sample limit</em>, to cross-entropy minimization on a balanced version of the original distribution. We haven’t discussed what happens for finite samples where variance starts to play a role, affecting the <em>efficiency</em> of loss functions as model optimization and selection criteria. For instance, for a well specified model of likelihood ratio, how do the convergence properties of <img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7BLLR%7D%7D"> and cross-entropy estimators compare to each other? I expect that answering questions like this would require a much more in-depth study than the one performed here (likely, with simulation playing a central role).</p>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="ref-BRUMMER2006230" class="csl-entry">
+Brümmer, Niko, and Johan du Preez. 2006. <span>“Application-Independent Evaluation of Speaker Detection.”</span> <em>Computer Speech &amp; Language</em> 20 (2): 230–75. https://doi.org/<a href="https://doi.org/10.1016/j.csl.2005.08.001">https://doi.org/10.1016/j.csl.2005.08.001</a>.
+</div>
+<div id="ref-Cover2006" class="csl-entry">
+Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2nd Edition (Wiley Series in Telecommunications and Signal Processing)</em>. Hardcover; Wiley-Interscience.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>This is how I understood things should <em>theoretically</em> work, from discussions with friends who are actually working on this field. I have no idea on how much day-to-day practice comes close to this mathematical ideal, and whether there exist alternative frameworks to the one I have just described.↩︎</p></li>
+<li id="fn2"><p>The Likelihood Ratio Cost was introduced in <span class="citation" data-cites="BRUMMER2006230">(Brümmer and du Preez 2006)</span>. The reference looks very complete, but I find its notation and terminology so unfamiliar that I decided to do my own investigation and leave this reading for a second moment.↩︎</p></li>
+<li id="fn3"><p>That is to say, <img src="https://latex.codecogs.com/png.latex?w(Y_%7B%5Csigma(1)%7D,%5C,Y_%7B%5Csigma(2)%7D,%5Cdots,%5C,Y_%7B%5Csigma(N)%7D)=w(Y_1,%5C,Y_2,%5Cdots,%5C,Y_N)"> for any permutation <img src="https://latex.codecogs.com/png.latex?%5Csigma"> of the set <img src="https://latex.codecogs.com/png.latex?%5C%7B1,%5C,2,%5C,%5Cdots,%5C,N%5C%7D">.↩︎</p></li>
+<li id="fn4"><p><em>Nota bene:</em> the function <img src="https://latex.codecogs.com/png.latex?f"> is here assumed to be fixed, whereas the randomness in the quantity <img src="https://latex.codecogs.com/png.latex?L%20_N%20%5Ew%20%5Bf%5D"> only comes from the paired observations <img src="https://latex.codecogs.com/png.latex?%5C%7B(X_i,%5C,Y_i)%5C%7D_%7Bi=1,%5C,2,%5C,%5Cdots,N%7D">.↩︎</p></li>
+<li id="fn5"><p>Notice that, due to symmetry <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20E(w(%5Cboldsymbol%20Y)%5Cvert%20%5Csum%20_i%20Y_i%20%3E0)%20=%20%5Cmathbb%20E(w(%5Cboldsymbol%20Y)%5Cvert%20Y_1%20=%201)">, which might be easier to compute.↩︎</p></li>
+<li id="fn6"><p>Here and below I relax a bit the notation, as most details should be clear from context.↩︎</p></li>
+<li id="fn7"><p>The quantity <img src="https://latex.codecogs.com/png.latex?w(%5Cboldsymbol%20Y)"> is not defined when all <img src="https://latex.codecogs.com/png.latex?Y_i">’s are zero, as the right-hand side of Equation&nbsp;1 itself. In this case, we make the convention <img src="https://latex.codecogs.com/png.latex?w(%5Cboldsymbol%20Y)%20=%200">.↩︎</p></li>
+<li id="fn8"><p>For the original loss in Equation&nbsp;1, without the modification discussed above, the result would have been <img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7B%5Ctext%20%7BPr%7D%5E%5Cprime%20(Y=1)%7D%7B%5Ctext%7BPr%7D%5E%5Cprime%20(Y=0)%7D=%5Cdfrac%7B1-%5Ctext%20%7BPr%7D(Y=0)%5EN%7D%7B1-%5Ctext%20%7BPr%7D(Y=1)%5EN%7D.">↩︎</p></li>
+<li id="fn9"><p>Formally, given an i.i.d. stochastic process <img src="https://latex.codecogs.com/png.latex?Z_i%20=%20(X_i,%5C,Y_i)">, we can define a new stochastic process <img src="https://latex.codecogs.com/png.latex?Z_i%20%5E%5Cprime%20=%20(X_i%5E%5Cprime,%5C,Y_i%5E%5Cprime)"> such that <img src="https://latex.codecogs.com/png.latex?Z_i%20%5E%5Cprime%20=%20Z_%7B2i%20-%201%7D"> if <img src="https://latex.codecogs.com/png.latex?Y_%7B2i-1%7D%5Cneq%20Y_%7B2i%7D">, and <img src="https://latex.codecogs.com/png.latex?Z_i%20%5E%5Cprime%20=%20%5Cperp"> (not defined) otherwise. Discarding <img src="https://latex.codecogs.com/png.latex?%5Cperp"> values, we obtain an i.i.d. stochastic process whose individual observations are distributed according to <img src="https://latex.codecogs.com/png.latex?%5Ctext%7BPr%7D%5E%5Cprime">.↩︎</p></li>
+<li id="fn10"><p>There is another case in which <img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7BLLR%7D%7D"> and cross-entropy minimization converge to the same answer as <img src="https://latex.codecogs.com/png.latex?N%5Cto%20%5Cinfty">: when used for model selection among a class of models for the likelihood or posterior odds ratio that contains their correct functional form.↩︎</p></li>
+<li id="fn11"><p>This is just logistic regression. It could be a reasonable approximation if <img src="https://latex.codecogs.com/png.latex?%5Csigma_0%20%5E2%5Capprox%20%5Csigma_1%20%5E2">, which however I will assume below to be badly violated.↩︎</p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2023,
+  author = {Gherardi, Valerio},
+  title = {Interpreting the {Likelihood} {Ratio} Cost},
+  date = {2023-11-15},
+  url = {https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html},
+  langid = {en}
+}
+</code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
+Gherardi, Valerio. 2023. <span>“Interpreting the Likelihood Ratio
+Cost.”</span> November 15, 2023. <a href="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html">https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html</a>.
+</div></div></section></div> ]]></description>
+  <category>Forensic Science</category>
+  <category>Bayesian Methods</category>
+  <category>Information Theory</category>
+  <category>Probability Theory</category>
+  <category>R</category>
+  <guid>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html</guid>
+  <pubDate>Tue, 14 Nov 2023 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Conditional Probability</title>
+  <dc:creator>Valerio Gherardi</dc:creator>
+  <link>https://vgherard.github.io/posts/2023-11-03-conditional-probability/conditional-probability.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Let <img src="https://latex.codecogs.com/png.latex?(%5COmega,%20%5C,%5Cmathcal%20E,%5C,P)"> be a probability space, and let <img src="https://latex.codecogs.com/png.latex?X%5Ccolon%20%5COmega%20%5Cto%20%5COmega%20_X"> be a random variable with target space <img src="https://latex.codecogs.com/png.latex?(%5COmega%20_X,%20%5Cmathcal%20X)">. We denote the corresponding push-forward measure on <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20X"> by <img src="https://latex.codecogs.com/png.latex?X_*P">, so that:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A(X_*P)(B)=%20P(X%5E%7B-1%7D(B))%0A"> for all <img src="https://latex.codecogs.com/png.latex?B%5Cin%20%5Cmathcal%20X">. A measurable function <img src="https://latex.codecogs.com/png.latex?f%5Ccolon%20%5COmega%20_X%20%5Cto%20%5Cmathbb%20R"> is integrable with respect to <img src="https://latex.codecogs.com/png.latex?X_*P"> if and only if <img src="https://latex.codecogs.com/png.latex?f%5Ccirc%20X"> is integrable with respect to <img src="https://latex.codecogs.com/png.latex?P">, in which case<sup>1</sup>: <img src="https://latex.codecogs.com/png.latex?%0A%5Cintop%20_%5Cmathcal%20X%20f%5C,%5Ctext%20d(X_*P)%20=%20%5Cintop%20_%5Cmathcal%20%5COmega%20(f%20%5Ccirc%20X)%5C,%5Ctext%20dP.%0A"> Now, given an arbitrary event <img src="https://latex.codecogs.com/png.latex?E%5Cin%20%5Cmathcal%20E"> define <img src="https://latex.codecogs.com/png.latex?(X_*P)_E(A)=P(E%5Ccap%20X%5E%7B-1%7D(A))">. Then <img src="https://latex.codecogs.com/png.latex?(X_*P)_E"> is a measure on <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20X"> which is clearly dominated by <img src="https://latex.codecogs.com/png.latex?X_*P">, and there exists a Radon-Nikodym derivative <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Ctext%20d%20(X_*P)_E%7D%7B%5Ctext%20d%20(X_*P)%7D%20%5Cin%20L_1(X_*P)">. We define the conditional probability of event <img src="https://latex.codecogs.com/png.latex?E"> with respect to the random variable <img src="https://latex.codecogs.com/png.latex?X"> as the random variable:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(E%5Cvert%20X)%5Cequiv%20%5Cfrac%7B%5Ctext%20d%20(X_*P)_E%7D%7B%5Ctext%20d%20(X_*P)%7D.%0A"></p>
+<p>The intuition behind this definition comes from the tautology (given the definition in terms of Radon-Nikodym derivative):</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(E%20%5Ccap%20(X%5Cin%20A))%20=%20%5Cintop%20_%7BA%7D%20P(E%5Cvert%20X)%5C,%5Ctext%20d(X_*P).%0A"> On one hand, from elementary probability theory, one would expect any sensible definition of conditional probability to satisfy this theorem. On the other hand, the theorem univocally identifies <img src="https://latex.codecogs.com/png.latex?P(E%5Cvert%20X)"> as the Radon-Nikodym derivative <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Ctext%20d%20(X_*P)_E%7D%7B%5Ctext%20d%20(X_*P)%7D">, modulo a set of <img src="https://latex.codecogs.com/png.latex?X_*P"> measure zero.</p>
+<p>It is fairly easy to verify the following properties of conditional probability:</p>
+<ul>
+<li><p><em>Countable additivity</em>. For any finite or countable family <img src="https://latex.codecogs.com/png.latex?(E_i)_%7Bi%5Cin%20I%7D"> of disjoint events, <img src="https://latex.codecogs.com/png.latex?E_i%20%5Ccap%20E_j%20=%20%5Cemptyset">, we have: <img src="https://latex.codecogs.com/png.latex?%0AP(%5Ccup%20_%7Bi%5Cin%20I%7D%20E_i%20%5Cvert%20X%20=%20x)%20=%20%5Csum%20_%7Bi%20%5Cin%20I%7DP(E_i%20%5Cvert%20X%20=%20x)%0A"> for almost all <img src="https://latex.codecogs.com/png.latex?x%5Cin%20%5COmega_X">.</p></li>
+<li><p><em>Positivity</em>. For any event <img src="https://latex.codecogs.com/png.latex?E"> we have <img src="https://latex.codecogs.com/png.latex?P(E%20%5Cvert%20X=x)%20%5Cgeq%200"> for almost all <img src="https://latex.codecogs.com/png.latex?x%20%5Cin%20%5COmega">.</p></li>
+<li><p><em>Normalization</em>. <img src="https://latex.codecogs.com/png.latex?P(%5COmega%20%5Cvert%20X%20=%20x)%20=%201"> for almost all <img src="https://latex.codecogs.com/png.latex?x%20%5Cin%20%5COmega">.</p></li>
+</ul>
+<p>This, however, does not generally imply that <img src="https://latex.codecogs.com/png.latex?P(%5Ccdot%20%5Cvert%20X%20=%20x)"> is a probability measure for almost all <img src="https://latex.codecogs.com/png.latex?x%5Cin%20%5COmega_X"><sup>2</sup>. Functions <img src="https://latex.codecogs.com/png.latex?%5Cnu%20%5Ccolon%20%5Cmathcal%20E%20%5Ctimes%20%5COmega%20_X%20%5Cto%20%5Cmathbb%20R%5E+"> such that <img src="https://latex.codecogs.com/png.latex?%5Cnu(%5Ccdot,%20x)"> is a measure for all <img src="https://latex.codecogs.com/png.latex?x%5Cin%20%5COmega%20_X">, and <img src="https://latex.codecogs.com/png.latex?%5Cnu%20(E,%5Ccdot)"> is <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20X">-measurable for all <img src="https://latex.codecogs.com/png.latex?E%5Cin%20%5Cmathcal%20E"> are called <em>random measures</em>. If <img src="https://latex.codecogs.com/png.latex?%5Cnu"> satisfies <img src="https://latex.codecogs.com/png.latex?%0AP(E%20%5Ccap%20(X%5Cin%20A))%20=%20%5Cintop%20_%7BA%7D%20%5Cnu%20(E,%5Ccdot)%5C,%5Ctext%20d(X_*P)%0A"> (or, equivalently, if <img src="https://latex.codecogs.com/png.latex?%5Cnu%20(E,%5Ccdot)"> is a version of <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Ctext%20d%20(X_*P)_E%7D%7B%5Ctext%20d%20(X_*P)%7D">) for all <img src="https://latex.codecogs.com/png.latex?E%5Cin%20%5Cmathcal%20E">, <img src="https://latex.codecogs.com/png.latex?%5Cnu"> is called a <em>regular conditional probability</em> for the random variable <img src="https://latex.codecogs.com/png.latex?X">. If the space <img src="https://latex.codecogs.com/png.latex?(%5COmega,%5C,%20%5Cmathcal%20E)"> is regular enough (<em>e.g.</em> if it is a Borel space) one can prove that a regular conditional probability exists for any random variable <img src="https://latex.codecogs.com/png.latex?X">, see <em>e.g.</em> <span class="citation" data-cites="kallenberg1997foundations">(Kallenberg 1997)</span>.</p>
+<p>If <img src="https://latex.codecogs.com/png.latex?X%20=%20%5Cchi%20_A%20%5Ccolon%20%5COmega%20%5Cto%20%5C%7B0,1%5C%7D">, where <img src="https://latex.codecogs.com/png.latex?A%5Cin%20%5Cmathcal%20E"> has positive probability <img src="https://latex.codecogs.com/png.latex?0%3CP(A)%3C1">, we can easily compute:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(E%5Cvert%20%5Cchi%20_A)%20=%20%5Cchi%20_A%5Ccdot%20%5Cfrac%7BP(E%5Ccap%20A)%7D%7BP(A)%7D%20+%20(1-%5Cchi%20_A)%5Ccdot%20%5Cfrac%7BP(E%5Ccap%20A%5Ec)%7D%7BP(A%5Ec)%7D%0A"> In particular, <img src="https://latex.codecogs.com/png.latex?P(E%5Cvert%20A)%20%5Cequiv%20P(E%5Cvert%20%5Cchi%20_A%20=%201)"> agrees with the usual elementary definition of conditional probability.</p>
+<p>More generally, if <img src="https://latex.codecogs.com/png.latex?X%20=%20%5Ctext%20%7Bid%7D%20_%5COmega">, where the target space is equipped with a sub-<img src="https://latex.codecogs.com/png.latex?%5Csigma">-algebra <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20F%20%5Csubseteq%20%5Cmathcal%20E">, we have:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(E%5Cvert%20%5Cmathcal%20F)%5Cequiv%20%5Cfrac%7B%5Ctext%20d%20(P%5Cvert%20_%5Cmathcal%20F)_E%7D%7B%5Ctext%20d%20(P%5Cvert%20_%5Cmathcal%20F)%7D,%0A"> which is sometimes taken as the definition of conditional probability with respect to a sub-<img src="https://latex.codecogs.com/png.latex?%5Csigma">-algebra. When <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20F"> is the <img src="https://latex.codecogs.com/png.latex?%5Csigma">-algebra generated by a finite or countable partition <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20A%20=%20(A_i)_%7Bi%5Cin%20I%7D"> of <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20%5COmega"> such that <img src="https://latex.codecogs.com/png.latex?P(A_i)%3E0"> for all <img src="https://latex.codecogs.com/png.latex?i%5Cin%20I">, we find:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(E%5Cvert%20%5Cmathcal%20A)=%5Csum%20_%7Bi%5Cin%20I%7D%20%5Cfrac%7BP(E%5Ccap%20A_i)%7D%7BP(A_i)%7D%5Cchi%20_%7BA_i%7D,%0A"> again in agreement with elementary definitions.</p>
+<p>Finally, if <img src="https://latex.codecogs.com/png.latex?X%5Ccolon%20%5COmega%20%5Cto%20%5Cmathbb%20R"> is a real-valued random variable, where <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20R"> is equipped with the Borel <img src="https://latex.codecogs.com/png.latex?%5Csigma">-algebra, <img src="https://latex.codecogs.com/png.latex?X_*P"> coincides with the Stieltjes measure generated by the cumulative distribution function <img src="https://latex.codecogs.com/png.latex?P_X"> of <img src="https://latex.codecogs.com/png.latex?X">. Denoting <img src="https://latex.codecogs.com/png.latex?P(E%5Cvert%20X)(x)%20%5Cequiv%20P(E%5Cvert%20X%20=%20x)">, we may write:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(E%20%5Ccap%20(X%20%5Cin%20B))=%5Cintop%20_B%20P(E%5Cvert%20X=x)%20%5C,%5Ctext%20dP_X(x).%0A"> and, in particular:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(E)=%5Cintop%20_%5Cmathbb%20R%20P(E%5Cvert%20X=x)%20%5C,%5Ctext%20dP_X(x).%0A"></p>
+
+
+
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="ref-kallenberg1997foundations" class="csl-entry">
+Kallenberg, Olav. 1997. <em>Foundations of Modern Probability</em>. Vol. 2. Springer.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>These claims can be proved by a standard argument using approximations by simple functions.↩︎</p></li>
+<li id="fn2"><p>For instance, denoting by <img src="https://latex.codecogs.com/png.latex?N_E%20=%20%5C%7Bx%20%5Cin%20%5COmega_X%20%5Cvert%20P(E%5Cvert%20X%20=%20x)%20%5Cgeq%200%5C%7D">, positivity implies that <img src="https://latex.codecogs.com/png.latex?(X_*P)(N_E)=0">. However, there’s no guarantee that <img src="https://latex.codecogs.com/png.latex?%5Ccup%20_%7BE%5Cin%20%5Cmathcal%20E%7D%20N_E"> is also a measure zero set (and in fact it does not need to be measurable, since the union is generally uncountable).↩︎</p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2023,
+  author = {Gherardi, Valerio},
+  title = {Conditional {Probability}},
+  date = {2023-11-03},
+  url = {https://vgherard.github.io/posts/2023-11-03-conditional-probability/conditional-probability.html},
+  langid = {en}
+}
+</code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
+Gherardi, Valerio. 2023. <span>“Conditional Probability.”</span>
+November 3, 2023. <a href="https://vgherard.github.io/posts/2023-11-03-conditional-probability/conditional-probability.html">https://vgherard.github.io/posts/2023-11-03-conditional-probability/conditional-probability.html</a>.
+</div></div></section></div> ]]></description>
+  <category>Probability Theory</category>
+  <category>Measure Theory</category>
+  <guid>https://vgherard.github.io/posts/2023-11-03-conditional-probability/conditional-probability.html</guid>
+  <pubDate>Thu, 02 Nov 2023 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Prefix-free codes</title>
+  <dc:creator>Valerio Gherardi</dc:creator>
+  <link>https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Let <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X"> be a finite alphabet and denote by <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X%20%5E*%20=%20%5Ccoprod%20_%7Bk%20=%200%7D%20%5E%7B%5Cinfty%7D%20%5Cmathbb%20X%20%5Ek"> the set of strings of symbols from <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X">. A binary code on <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X"> is a function <img src="https://latex.codecogs.com/png.latex?f%20%5Ccolon%20%5Cmathbb%20X%20%5Cto%20%5C%7B0,%5C,1%5C%7D%5E*">. This is usually extended to a function <img src="https://latex.codecogs.com/png.latex?f%5E*%20%5Ccolon%20%5Cmathbb%20X%20%5E*%20%5Cto%20%5C%7B0,%5C,1%5C%7D%5E*"> as follows:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Af%5E*%20(x_1%20%5C,x_2%5C,%5Ccdots%20x_n)%20=%20f(x_1)%20f(x_2)%5Ccdots%20f(x_n)%0A"> A code is said to be:</p>
+<ul>
+<li><em>Non-singular</em> if <img src="https://latex.codecogs.com/png.latex?f"> is injective.</li>
+<li><em>Uniquely decodable</em> if <img src="https://latex.codecogs.com/png.latex?f%5E*"> is injective.</li>
+<li><em>Prefix-free</em> if <img src="https://latex.codecogs.com/png.latex?x'%20%5Cneq%20x"> implies that <img src="https://latex.codecogs.com/png.latex?f(x%5E%5Cprime)%20%5Cneq%20f(x)s"> for any <img src="https://latex.codecogs.com/png.latex?s"> in <img src="https://latex.codecogs.com/png.latex?%5C%7B0,1%5C%7D%5E*">.</li>
+</ul>
+<p>For example: <img src="https://latex.codecogs.com/png.latex?%0Aa%20%5Cmapsto%200,%5Cquad%20b%5Cmapsto%2000%0A"> is a non-singular but not uniquely decodable code for the alphabet <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X%20=%20%5C%7Ba,%5C,b%5C%7D">, while the code:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Aa%20%5Cmapsto%200,%5Cquad%20b%5Cmapsto%2001%0A"></p>
+<p>is uniquely decodable, but not prefix-free. Finally, the assignments:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0Aa%20%5Cmapsto%200,%20%5Cquad%20b%20%5Cmapsto%2010,%20%5Cquad%20c%20%5Cmapsto%20110,%20%5Cquad%20d%5Cmapsto1110,%5Cquad%5Ccdots%0A"> show that there exist prefix-free codes for any finite or countable alphabet.</p>
+<p>The importance of prefix-free codes lies in the fact that they allow for real-time decoding, as soon as the string corresponding to a symbol is received (which is why they are also called “instantaneous codes”) <sup>1</sup>. Binary prefix-free codes can also be interpreted as representing sequences of “Yes-No” questions that univocally identify the elements of <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X">.</p>
+<p>An important property satisfied by all uniquely decodable binary codes, and in particular by prefix-free codes, is the Kraft-McMillan inequality:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%202%20%5E%7B-L(x)%7D%20%5Cleq%201%0A"> where <img src="https://latex.codecogs.com/png.latex?L%20(x)"> is the length of the code for <img src="https://latex.codecogs.com/png.latex?x">. A converse is also true: for any set of positive integers <img src="https://latex.codecogs.com/png.latex?(%5Cell%20_%7Bi%7D)_%7B1%5Cleq%20i%5Cleq%20N%7D"> satisfying the Kraft-McMillan inequality, there exists a prefix-free code over <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X%20=%20%5C%7B1,%5C,2,%5C,%5Cdots,%5C,N%5C%7D"> such that <img src="https://latex.codecogs.com/png.latex?%5Cell%20_i%20=%20L(i)">.</p>
+<p>This allows to immediately prove the entropy bound for the expected length of uniquely decodable codes. Given a probability distribution <img src="https://latex.codecogs.com/png.latex?p"> over <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X">, we have:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5Cmathbb%20E(L(X))&amp;=%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20L(x)%20%5C%5C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20&amp;=-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(2%5E%7B-L(x)%7D)%20%5C%5C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20&amp;=-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(p(x))-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(%5Cfrac%7B2%5E%7B-L(x)%7D%7D%7Bp(x)%7D)%0A%5Cend%7Bsplit%7D%0A"> The first term is recognized as the entropy (in bits) of <img src="https://latex.codecogs.com/png.latex?X">, <img src="https://latex.codecogs.com/png.latex?H_2(X)">, whereas the second term can be bounded using the Jensen and Kraft-McMillan inequalities:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(%5Cfrac%7B2%5E%7B-L(x)%7D%7D%7Bp(x)%7D)%20%5Cgeq%20-%5Clog%20_2%5Cleft(%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%202%5E%7B-L(x)%7D%20%5Cright)%20%5Cgeq%200.%0A"> We obtain:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E%20(L(X))%20%5Cgeq%20H_2(X)%0A"></p>
+<p>Furthermore, noticing that the positive integers <img src="https://latex.codecogs.com/png.latex?%5Cell%20_i%20=%20%5Clceil%20%5Clog%20_2%5Cfrac%7B1%7D%7Bp(x_i)%7D%20%5Crceil"> satisfy the Kraft-McMillan inequality, we can immediately construct a prefix-free code (the Shannon-Fano code) for which <img src="https://latex.codecogs.com/png.latex?L(x_i)%20=%20%5Cell%20_i">. For this code:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E%20(L(X))%20%5Cleq%20H_2(X)%20+%201.%0A"></p>
+
+
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The decoding algorithm works as follows: given a binary string <img src="https://latex.codecogs.com/png.latex?y_1y_2%5Ccdots%20y_M%20=%20f%5E*(x_1%20x_2%20%5Ccdots%20x_N)"> we start reading the substrings <img src="https://latex.codecogs.com/png.latex?y_1y_2%20%5Ccdots%20y_k"> until we find a match with some code <img src="https://latex.codecogs.com/png.latex?s%20%5Cin%20%5Ctext%7BIm%7D(f)">, which is the code of the first symbol <img src="https://latex.codecogs.com/png.latex?x_1"> of the original sequence. We remove this substring and start reading again, to find the code of the second symbol <img src="https://latex.codecogs.com/png.latex?x_2">,and so on and so forth. This procedure can obviously be implemented in an online setting.↩︎</p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2023,
+  author = {Gherardi, Valerio},
+  title = {Prefix-Free Codes},
+  date = {2023-10-31},
+  url = {https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html},
+  langid = {en}
+}
+</code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
+Gherardi, Valerio. 2023. <span>“Prefix-Free Codes.”</span> October 31,
+2023. <a href="https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html">https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html</a>.
+</div></div></section></div> ]]></description>
+  <category>Information Theory</category>
+  <category>Entropy</category>
+  <category>Probability Theory</category>
+  <guid>https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html</guid>
+  <pubDate>Mon, 30 Oct 2023 23:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
