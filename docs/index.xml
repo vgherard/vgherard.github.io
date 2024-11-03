@@ -1605,6 +1605,18 @@ Theory and Simulation.”</span> May 17, 2024. <a href="https://vgherard.github.
   <pubDate>Thu, 16 May 2024 22:00:00 GMT</pubDate>
 </item>
 <item>
+  <title></title>
+  <dc:creator>Valerio Gherardi</dc:creator>
+  <link>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species/annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>Comment on...</category>
+  <category>Population Dynamics</category>
+  <category>Biology</category>
+  <category>Statistics</category>
+  <guid>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species/annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species.html</guid>
+  <pubDate>Wed, 24 Apr 2024 22:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Grammar as a biometric for Authorship Verification</title>
   <dc:creator>Valerio Gherardi</dc:creator>
   <link>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/grammar-as-a-biometric-for-authorship-verification.html</link>
@@ -3404,62 +3416,6 @@ November 3, 2023. <a href="https://vgherard.github.io/posts/2023-11-03-condition
   <category>Measure Theory</category>
   <guid>https://vgherard.github.io/posts/2023-11-03-conditional-probability/conditional-probability.html</guid>
   <pubDate>Thu, 02 Nov 2023 23:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Prefix-free codes</title>
-  <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>Let <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X"> be a finite alphabet and denote by <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X%20%5E*%20=%20%5Ccoprod%20_%7Bk%20=%200%7D%20%5E%7B%5Cinfty%7D%20%5Cmathbb%20X%20%5Ek"> the set of strings of symbols from <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X">. A binary code on <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X"> is a function <img src="https://latex.codecogs.com/png.latex?f%20%5Ccolon%20%5Cmathbb%20X%20%5Cto%20%5C%7B0,%5C,1%5C%7D%5E*">. This is usually extended to a function <img src="https://latex.codecogs.com/png.latex?f%5E*%20%5Ccolon%20%5Cmathbb%20X%20%5E*%20%5Cto%20%5C%7B0,%5C,1%5C%7D%5E*"> as follows:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0Af%5E*%20(x_1%20%5C,x_2%5C,%5Ccdots%20x_n)%20=%20f(x_1)%20f(x_2)%5Ccdots%20f(x_n)%0A"> A code is said to be:</p>
-<ul>
-<li><em>Non-singular</em> if <img src="https://latex.codecogs.com/png.latex?f"> is injective.</li>
-<li><em>Uniquely decodable</em> if <img src="https://latex.codecogs.com/png.latex?f%5E*"> is injective.</li>
-<li><em>Prefix-free</em> if <img src="https://latex.codecogs.com/png.latex?x'%20%5Cneq%20x"> implies that <img src="https://latex.codecogs.com/png.latex?f(x%5E%5Cprime)%20%5Cneq%20f(x)s"> for any <img src="https://latex.codecogs.com/png.latex?s"> in <img src="https://latex.codecogs.com/png.latex?%5C%7B0,1%5C%7D%5E*">.</li>
-</ul>
-<p>For example: <img src="https://latex.codecogs.com/png.latex?%0Aa%20%5Cmapsto%200,%5Cquad%20b%5Cmapsto%2000%0A"> is a non-singular but not uniquely decodable code for the alphabet <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X%20=%20%5C%7Ba,%5C,b%5C%7D">, while the code:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0Aa%20%5Cmapsto%200,%5Cquad%20b%5Cmapsto%2001%0A"></p>
-<p>is uniquely decodable, but not prefix-free. Finally, the assignments:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0Aa%20%5Cmapsto%200,%20%5Cquad%20b%20%5Cmapsto%2010,%20%5Cquad%20c%20%5Cmapsto%20110,%20%5Cquad%20d%5Cmapsto1110,%5Cquad%5Ccdots%0A"> show that there exist prefix-free codes for any finite or countable alphabet.</p>
-<p>The importance of prefix-free codes lies in the fact that they allow for real-time decoding, as soon as the string corresponding to a symbol is received (which is why they are also called “instantaneous codes”) <sup>1</sup>. Binary prefix-free codes can also be interpreted as representing sequences of “Yes-No” questions that univocally identify the elements of <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X">.</p>
-<p>An important property satisfied by all uniquely decodable binary codes, and in particular by prefix-free codes, is the Kraft-McMillan inequality:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%202%20%5E%7B-L(x)%7D%20%5Cleq%201%0A"> where <img src="https://latex.codecogs.com/png.latex?L%20(x)"> is the length of the code for <img src="https://latex.codecogs.com/png.latex?x">. A converse is also true: for any set of positive integers <img src="https://latex.codecogs.com/png.latex?(%5Cell%20_%7Bi%7D)_%7B1%5Cleq%20i%5Cleq%20N%7D"> satisfying the Kraft-McMillan inequality, there exists a prefix-free code over <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X%20=%20%5C%7B1,%5C,2,%5C,%5Cdots,%5C,N%5C%7D"> such that <img src="https://latex.codecogs.com/png.latex?%5Cell%20_i%20=%20L(i)">.</p>
-<p>This allows to immediately prove the entropy bound for the expected length of uniquely decodable codes. Given a probability distribution <img src="https://latex.codecogs.com/png.latex?p"> over <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20X">, we have:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5Cmathbb%20E(L(X))&amp;=%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20L(x)%20%5C%5C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20&amp;=-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(2%5E%7B-L(x)%7D)%20%5C%5C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20&amp;=-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(p(x))-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(%5Cfrac%7B2%5E%7B-L(x)%7D%7D%7Bp(x)%7D)%0A%5Cend%7Bsplit%7D%0A"> The first term is recognized as the entropy (in bits) of <img src="https://latex.codecogs.com/png.latex?X">, <img src="https://latex.codecogs.com/png.latex?H_2(X)">, whereas the second term can be bounded using the Jensen and Kraft-McMillan inequalities:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A-%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%20p(x)%20%5Clog%20_2(%5Cfrac%7B2%5E%7B-L(x)%7D%7D%7Bp(x)%7D)%20%5Cgeq%20-%5Clog%20_2%5Cleft(%5Csum%20_%7Bx%5Cin%20%5Cmathbb%20X%7D%202%5E%7B-L(x)%7D%20%5Cright)%20%5Cgeq%200.%0A"> We obtain:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E%20(L(X))%20%5Cgeq%20H_2(X)%0A"></p>
-<p>Furthermore, noticing that the positive integers <img src="https://latex.codecogs.com/png.latex?%5Cell%20_i%20=%20%5Clceil%20%5Clog%20_2%5Cfrac%7B1%7D%7Bp(x_i)%7D%20%5Crceil"> satisfy the Kraft-McMillan inequality, we can immediately construct a prefix-free code (the Shannon-Fano code) for which <img src="https://latex.codecogs.com/png.latex?L(x_i)%20=%20%5Cell%20_i">. For this code:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E%20(L(X))%20%5Cleq%20H_2(X)%20+%201.%0A"></p>
-
-
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>The decoding algorithm works as follows: given a binary string <img src="https://latex.codecogs.com/png.latex?y_1y_2%5Ccdots%20y_M%20=%20f%5E*(x_1%20x_2%20%5Ccdots%20x_N)"> we start reading the substrings <img src="https://latex.codecogs.com/png.latex?y_1y_2%20%5Ccdots%20y_k"> until we find a match with some code <img src="https://latex.codecogs.com/png.latex?s%20%5Cin%20%5Ctext%7BIm%7D(f)">, which is the code of the first symbol <img src="https://latex.codecogs.com/png.latex?x_1"> of the original sequence. We remove this substring and start reading again, to find the code of the second symbol <img src="https://latex.codecogs.com/png.latex?x_2">,and so on and so forth. This procedure can obviously be implemented in an online setting.↩︎</p></li>
-</ol>
-</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2023,
-  author = {Gherardi, Valerio},
-  title = {Prefix-Free Codes},
-  date = {2023-10-31},
-  url = {https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html},
-  langid = {en}
-}
-</code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
-Gherardi, Valerio. 2023. <span>“Prefix-Free Codes.”</span> October 31,
-2023. <a href="https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html">https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html</a>.
-</div></div></section></div> ]]></description>
-  <category>Information Theory</category>
-  <category>Entropy</category>
-  <category>Probability Theory</category>
-  <guid>https://vgherard.github.io/posts/2023-10-31-prefix-free-codes/prefix-free-codes.html</guid>
-  <pubDate>Mon, 30 Oct 2023 23:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
