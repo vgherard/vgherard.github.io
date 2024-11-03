@@ -1,0 +1,17 @@
+{
+  "hash": "a1d8df36d293d77be641679696e66cf8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Model checks and selective inference\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: vgherard\n    url: https://vgherard.github.io\ndate: 2023-05-2\noutput:\n  distill::distill_article:\n    self_contained: false\ncategories: \n  - Statistics\n  - Regression\n  - Linear Models\n  - Model Misspecification\n  - Selective Inference\n  - R\ndraft: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nq <- -0.04\nm <- 0.6\nar <- .5\nsigma0 <- 0.004\n\nrxy <- function(n) {\n\tx <- runif(n, 0.2, 0.3)\n\teta.gen <- \\(n)rnorm(n, sd = sigma0)\n\teta <- arima.sim(list(order = c(1,0,0), ar = .88), n = n, rand.gen = eta.gen)\n\ty <- q + m * x + eta\n\tdata.frame(x = x, y = y)\n}\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nwith(rxy(100), plot(x, y))\n```\n\n::: {.cell-output-display}\n![](model-checks-and-selective-inference_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nB <- 1e3\nar_selected <- logical(B)\nbeta_hat <- numeric(B)\nvar_beta_hat <- numeric(B)\nsigma0_sq_hat <- numeric(B)\nsigma0_sq_hat[] <- NA\nN <- 20\n\nfor (b in 1:B) {\n\tdd <- rxy(N)\n\tfit <- lm(y ~ x, data = dd)\n\tp <- forecast::checkresiduals(fit, test = \"BG\", plot = F)$p.value\n\tif (p < 0.05) {\n\t\tar_selected[b] <- TRUE\n\t\tfit <- forecast::Arima(dd$y, c(1,0,0), xreg = dd$x, method = \"CSS\")\n\t\tbeta_hat[b] <- coef(fit)[\"xreg\"]\n\t\tvar_beta_hat[b] <- vcov(fit)[\"xreg\", \"xreg\"]\n\t\tsigma0_sq_hat[b] <- fit$sigma2\n\t} else {\n\t\tar_selected[b] <- FALSE\n\t\tbeta_hat[b] <- coef(fit)[2]\n\t\tvar_beta_hat[b] <- vcov(fit)[2,2]\n\t}\n}\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nRegistered S3 method overwritten by 'quantmod':\n  method            from\n  as.zoo.data.frame zoo \n```\n\n\n:::\n\n```{.r .cell-code}\nmean(ar_selected)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.497\n```\n\n\n:::\n\n```{.r .cell-code}\nmean(beta_hat)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.5980108\n```\n\n\n:::\n\n```{.r .cell-code}\nmean(var_beta_hat[!ar_selected]) / (sd(beta_hat[!ar_selected]) ^2)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.6596533\n```\n\n\n:::\n\n```{.r .cell-code}\nmean(sigma0_sq_hat, na.rm = T) / (sigma0^2)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.9531128\n```\n\n\n:::\n:::\n",
+    "supporting": [
+      "model-checks-and-selective-inference_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

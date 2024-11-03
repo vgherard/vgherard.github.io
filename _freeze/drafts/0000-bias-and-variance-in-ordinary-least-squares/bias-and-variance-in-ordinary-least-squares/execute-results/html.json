@@ -1,0 +1,17 @@
+{
+  "hash": "77d65cba539e24ad172202df27e3e954",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Bias and variance in Ordinary Least Squares\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: Valerio Gherardi\n    url: https://vgherard.github.io\ndate: 2024-04-12\noutput:\n  distill::distill_article:\n    self_contained: false\ndraft: true\n---\n\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stderr}\n\n```\n\nCaricamento pacchetto: 'dplyr'\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nI seguenti oggetti sono mascherati da 'package:stats':\n\n    filter, lag\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nI seguenti oggetti sono mascherati da 'package:base':\n\n    intersect, setdiff, setequal, union\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n\n```\n\nCall:\nlm(formula = y ~ x, data = rxy(1e+06))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-2.3144 -0.8751 -0.4686  0.3644 26.8234 \n\nCoefficients:\n            Estimate Std. Error t value Pr(>|t|)    \n(Intercept) 2.000329   0.001447    1382   <2e-16 ***\nx           1.001417   0.001447     692   <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.447 on 999998 degrees of freedom\nMultiple R-squared:  0.3238,\tAdjusted R-squared:  0.3238 \nF-statistic: 4.789e+05 on 1 and 999998 DF,  p-value: < 2.2e-16\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n::: {.cell-output-display}\n![](bias-and-variance-in-ordinary-least-squares_files/figure-html/unnamed-chunk-5-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n::: {.cell-output-display}\n![](bias-and-variance-in-ordinary-least-squares_files/figure-html/unnamed-chunk-6-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "bias-and-variance-in-ordinary-least-squares_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

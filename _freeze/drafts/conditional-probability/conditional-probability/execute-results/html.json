@@ -1,0 +1,15 @@
+{
+  "hash": "232b921e257eddc6eb28e7b89313e441",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Conditional Probability\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: Valerio Gherardi\n    url: https://vgherard.github.io\ndate: 2024-02-11\noutput:\n  distill::distill_article:\n    self_contained: false\ndraft: true\n---\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
