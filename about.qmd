@@ -4,11 +4,13 @@ title: "About"
 
 ## This website
 
-This website serves as a repository for my thoughts, things I am studying or working on, and notes I have accumulated across the years. Central topics are Statistics, Mathematics and Physics^[*Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.* - V.I. Arnold, On Teaching Mathematics.].
+This website serves as a repository for my thoughts, things I am studying or working on, and notes I have accumulated across the years. Central topics are Statistics, Mathematics and Physics[^1].
+
+[^1]: *Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.* - V.I. Arnold, On Teaching Mathematics.
 
 ## Me
 
-I am Valerio, class 1992, Italian based in València (Spain). 
+I am Valerio, class 1992, Italian based in València (Spain).
 
 I am generally passionate about science, and mathematical sciences in particular. I studied Physics, specializing in Particle Phenomenology, on which I did my PhD. More recently, my interests have been gravitating more around Statistics, both theoretical and applied.
 
