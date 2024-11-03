@@ -1,0 +1,206 @@
+---
+title: "Bayes, Neyman and the Magic Piggy Bank"
+description: |
+  Compares frequentist properties of credible intervals and confidence 
+  intervals in a gambling game involving a magic piggy bank.
+date: 2023-05-01
+categories: 
+  - Statistics
+  - Confidence Intervals
+  - Frequentist Methods
+  - Bayesian Methods
+draft: false
+---
+
+# Intro
+
+Frequentist and Bayesian approaches to statistical inference are motivated by different interpretations of the concept of probability. These philosophical differences can, at times, shadow the comparably important *operational* differences between the two frameworks, whose methods proceed, at the end of the day, from the same mathematical theory.
+
+From the purely operational point of view, the question *"Bayesian or Frequentist?"* can (and should) be answered by objective criteria, rather than subjective opinions. As one could expect, the answer is in general neither "Frequentist" nor "Bayesian", but rather *"It depends"*.
+
+To illustrate this, I will discuss an hypothetical game that revolves around reporting measurements and correctly quantifying uncertainty. As we shall see, the winning strategies can be either Frequentist or Bayesian in spirit, depending on a variation of the actual rules of the game.
+
+# Reporting measurements
+
+All scientific measurements come with an associated uncertainty, which can be expressed in the form of an interval that is supposed to contain the object of measurement. In the Frequentist and Bayesian frameworks, these intervals are traditionally dubbed *Confidence* and *Credible* intervals, respectively. While, superficially, these can be both characterized as 
+*"covering the true value with a given probability"*, the word 
+*"probability"* has quite different connotations in the two cases, and confusing them can lead to irrational thought or, as in the imaginary game described below, financial ruin.
+
+# Magic Piggy Bank
+
+There are two players, called the Bookmaker and the Gambler, that compete against each other in a gambling game[^1]. The interactions between these two players are mediated by the *Magic Piggy Bank*, a magic creature that acts as a sort of referee. The Magic Piggy Bank contains infinite biased coins, and knows the probability $\Theta$ of giving "tails" for each one of them.
+
+[^1]: The introduction of bets as an expedient to operationally define subjective probabilities is historically due to the Italian mathematician [Bruno de Finetti](https://en.wikipedia.org/wiki/Bruno_de_Finetti). The statistical analysis of the game proposed below can be given a Frequentist interpretation.
+
+A single iteration of the game proceeds as follows:
+
+1.  The Magic Piggy Bank ejects [^2] a biased coin and gives it to the Bookmaker.
+
+2.  The Bookmaker can flip the coin an arbitrary number of times, to produce an estimate of $\Theta$, in the form of an interval $I$. This must be accompanied by a *payout*, that is a number $p\in \left(0,1\right)$, for bets on the event $\Theta \in I$. The resulting $I$ and $p$, together with the original data $X=(n_\text{tosses}, n_\text{tails})$ from the Bookmaker's experiments, are reported to the Magic Piggy Bank.
+
+3.  The Magic Piggy Bank communicates the payout $p$ to the Gambler, and reveals *some additional information*. What particular information is revealed depends on the variant of the game being played (see descriptions below).
+
+4.  Based on the information received, the Gambler can choose to bet either\
+    in favor or against $\Theta \in I$. When betting in favor, the Gambler pays $p$ to the Bookmaker, who returns back $1$ if $\Theta \in I$ obtains. When betting against, the Bookmaker pays $p$ to the Gambler, who returns back $1$ if $\Theta \in I$ obtains.
+
+5.  The Magic Piggy Bank reveals all data ($X$, $I$, $\Theta$) to both players and the scores are settled.
+
+[^2]: Readers are free to imagine this process in the way they find more convenient.
+
+As to the third step, we will consider three variants of the game:
+
+A)  The Magic Piggy Bank tells the Gambler the results of the Bookmaker's tosses $X=(n_\text{tosses}, n_\text{tails})$, as well as the actual interval $I$.
+B)  The Magic Piggy Bank tells the Gambler the true value of $\Theta$.
+C)  The Gambler is given no additional information beyond the established payout $p$.
+
+### Problem
+
+Suppose that the Bookmaker and Gambler are forced to play indefinitely. What are the best strategies for these two players, according to the three different variants A, B, and C described above[^3]?
+
+[^3]: We assume that both players know from the outset which variant of the game they are playing to.
+
+# Analysis
+
+One can readily verify that the Gambler's gain (or, equivalently, the Bookmaker's loss) in a single iteration of the game is given by:
+
+$$
+G=b\cdot (\chi_I (\Theta)-p)
+$$ {#eq-gain}
+
+where, $b$ is equal to $\pm 1$ if the Gambler bets in favor or against, respectively, and:
+
+$$
+\chi _I (\Theta) = \begin{cases}
+1 & \Theta \in I \\
+0 & \Theta \notin I
+\end{cases}
+$$  {#eq-characteristic-function}
+
+The expected gain is given by:
+
+$$
+\mathbb E (G) = \intop \text{d}P(\Theta,X) \,b\cdot (\chi_I (\Theta)-p), 
+$$ {#eq-expected-gain}
+
+where $\text{d} P(\Theta, X)$ denotes the joint probability measure of $\Theta$ and $X$.
+
+Let's now examine in detail the three different variants (A, B, C) of the game described above.
+
+### Variant A
+
+In the first variant of the game, the Gambler is given the same information as the Bookmaker. In particular, the choice to bet in favor or against, represented by the sign $b$, cannot depend on $\Theta$ (which the Gambler doesn't know), and we can rewrite the expected gain @eq-expected-gain as[^4]:
+
+[^4]:  We denote (with some abuse of notation) by $\text{d}P(\Theta \vert X)$ the conditional probability measure of $\Theta$ conditioned on $X$.
+
+$$
+\begin{split}
+\mathbb E (G) &= \intop \text{d}P(X) \,b\cdot \intop \text{d}P(\Theta \vert X) \,(\chi_I (\Theta)-p) \\
+ & = \intop \text{d}P(X) \,b \cdot \left(\text {Pr}(\Theta \in I \vert X)-p\right) 
+\end{split}
+$$ {#eq-expected-gain-A} 
+
+where we have used the fact that, for any random variable $Y$ and set $E$, the following relation holds:
+
+$$
+\mathbb E (\chi _E (Y)) = \text{Pr}(Y \in E).
+$$
+
+Now, since both $X$ and $I$ are known to the Gambler, the latter is (at least in principle) able to compute:
+
+$$
+b_A \equiv \text{sgn}\left(\text {Pr}(\Theta \in I \vert X)-p\right)
+$$ {#eq-optimal-bet-A}
+
+In practice, in order to compute @eq-optimal-bet-A, the Gambler would need to know the overall distribution $\pi (\Theta)$ of the coins $\Theta$ extracted from the Magic Piggy Bank, but this is something that can be accurately estimated in the long run, since the actual values of $\Theta$ are revealed at the end of each iteration [^5].
+
+[^5]: In the Bayesian spirit of @eq-optimal-bet-A, the Gambler could for instance estimate $\pi(\Theta)$ through Bayesian updates of a [Dirichlet prior](https://en.wikipedia.org/wiki/Dirichlet_process).
+
+Plugging @eq-optimal-bet-A into @eq-expected-gain-A, we find:
+
+$$
+\mathbb E (G) = \intop \text{d}P(X) \left|\text {Pr}(\Theta \in I \vert X)-p\right|\quad\text{(Variant A)}.
+$$ {#eq-optimal-expected-gain-A}
+
+Comparing with @eq-expected-gain-A, it is clear that @eq-optimal-expected-gain-A is the maximum expected gain, for *any* choice of $b$. In other words, the choice $b_A$ in @eq-optimal-bet-A is an optimal one.
+
+Finally, from the Bookmaker's point of view, Eq. @eq-optimal-expected-gain-A represents a sure loss in the long run, that can only be avoided by enforcing: 
+
+$$
+\text {Pr}(\Theta \in I \vert X)=p \quad \text{(Variant A)}
+$$ {#eq-optimal-book-A}
+
+In order to ensure this, the Bookmaker needs to know as well the overall coins' distribution $\pi (\Theta)$, and the same remarks made above for the Gambler apply here.
+
+Equation @eq-optimal-book-A defines what is known as a ***Bayesian credible interval***.
+
+### Variant B
+
+We now consider the second variant of the rules, where the Gambler is told the true value of $\Theta$, but does not know the details of the Bookmaker's measurement, except for the established payout $p$. Using a reasoning similar to the previous section we rewrite:
+
+$$
+\begin{split}
+\mathbb E (G) &= \intop \text{d}P(\Theta) \,b\cdot \intop \text{d}P(X \vert\Theta) \,(\chi_I (\Theta)-p) \\
+ & = \intop \text{d}P(\Theta) \,b \cdot \left(\text {Pr}(\Theta \in I \vert \Theta)-p\right) 
+\end{split} 
+$$ {#eq-expected-gain-B}
+
+and define[^6]: 
+
+$$
+b_B \equiv \text{sgn}\left(\text {Pr}(\Theta \in I \vert \Theta)-p\right)\quad(\text{Variant B})
+$$ {#eq-optimal-bet-B}
+which is easily shown to be the optimal betting strategy for the Gambler in the present setting. In the long run, this sign can be accurately estimated by modeling the conditional mean of $\chi _I (\Theta) - p$ (as a function of $\Theta$ and $p$).
+
+[^6]: Noteworthy, the random quantity in this equation is $I$, whereas $\Theta$ is regarded as fixed. This is in stark contrast with @eq-optimal-bet-A, where $X$ and $I$ were fixed, and $\Theta$ was random.
+
+If the Gambler bets according to @eq-optimal-bet-B, the Bookmaker is forced to set payouts according to:
+
+$$
+\text {Pr}(\Theta \in I \vert \Theta)=p\quad(\text{Variant B}), 
+$$ {#eq-optimal-book-B}
+
+in order to avoid a certain loss.
+
+Equation @eq-optimal-book-B defines what is known as a ***Frequentist confidence interval***.
+
+### Variant C
+
+In the last case, the Gambler has no extra information beyond the payout $p$, and the expected gain reduces to:
+
+$$
+\mathbb E (G)=b\cdot \left(\text{Pr}(\Theta \in I)-p\right),
+$$ {#eq-expected-gain-C}
+
+where $\text{Pr}(\Theta \in I)$ is the unconditional probability that $I$ covers $\Theta$. The optimal betting choice is: 
+
+$$
+b_C \equiv \text{sgn}\left(\text {Pr}(\Theta \in I)-p\right)\quad(\text{Variant C})
+$$ {#eq-optimal-bet-C}
+
+which forces the Bookmaker to set payouts according to: 
+
+$$
+\text {Pr}(\Theta \in I)=p\quad(\text{Variant C}).
+$$  {#eq-optimal-book-C}
+
+This is, by the way, satisfied by both the Bayesian and Frequentist intervals, due to @eq-optimal-book-A and @eq-optimal-book-B, respectively.
+
+### Summary of results
+
+Provided access to the same data used by the Bookmaker to produce the interval $I$ (Variant A), a rational Gambler would bet in favor of $\Theta \in I$ if the probability of this event *conditional to the observed the data* is greater than the payout $p$ (@eq-optimal-bet-A).
+
+On the other hand, given true value of $\Theta$ (Variant B), the optimal choice for a Gambler is to bet on $\Theta \in I$ if the probability of this event *conditional to the ground truth* is greater than $p$ (@eq-optimal-bet-B).
+
+Finally, in the lack of any of this information (Variant C), the most rational choice is simply to bet on $\Theta \in I$ if this event occurs more frequently than $p$ (@eq-optimal-bet-C).
+
+When playing against the first two types of players, in order to avoid a certain loss, the Bookmaker must produce Bayesian credible intervals (Variant A) or Frequentist confidence intervals (Variant B). In the remaining case (Variant C), the Bookmaker can either produce Bayesian or Frequentist intervals[^7].
+
+[^7]:  There are, in fact, infinitely many more ways to produce intervals with the unconditional coverage property @eq-optimal-book-C.
+
+# Conclusions
+
+When I first learned about Bayesian and Frequentist inference, I remember most discussions were focused on the philosophical differences between these two schools of thought. There was little to no mention about the actual mathematical properties of the constructs prescribed by the two formalisms, which made the choice between "Bayesian" or "Frequentist" look like a mere matter of committing to one particular view.
+
+Technically, what I did here was to compare the frequentist properties of credible intervals and confidence intervals. I'm sure the literature, including the pedagogical one, is full of examples like this, and better ones[^8]. With no pretense of originality, I believe that including more examples of this kind in the usual presentations can be beneficial to students and practitioners, and perhaps help them out of the ugly black-box of orthodoxy.
+
+[^8]:  I see that Jaynes (the father of the Maximum Entropy foundation of Statistical Mechanics, among other things) has a full essay paper on [Confidence Intervals vs. Bayesian Intervals](https://bayes.wustl.edu/etj/articles/confidence.pdf), which I haven't read - the abstract sounds a bit loaded to me, but it's probably definitely worth to read.

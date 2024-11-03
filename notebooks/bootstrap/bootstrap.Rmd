@@ -1,0 +1,107 @@
+---
+title: "Bootstrap"
+date: 2024-02-07
+bibliography: biblio.bib
+draft: false
+---
+
+## Introduction
+
+The Bootstrap [@EfronBootstrap79; @efron1994introduction] is a set of computational techniques for statistical inference that generally operate by approximating the distribution of a population of interest with an empirical estimate obtained from a finite sample. Such methods find practical use in all those situations when the true distribution is either unknown, due to limited knowledge of the data generating process, or impossible to compute in practice.
+
+In general, bootstrap algorithms consist of two ingredients:
+
+- A plugin principle, *i.e.* a substitution rule $P\to\hat P$ that replaces the true data distribution $P$ with an empirical estimate $\hat P$ obtained from a finite sample.
+- A calculation scheme for computing functionals of the plugin distribution $\hat P$, usually involving simulation.
+
+## The plugin principle
+
+The main theoretical idea behind the bootstrap can be sketched with a non-parametric example. Consider a functional $t=t(P)$ of a probability measure $P$ which admits a first order expansion :
+
+$$
+t(Q) \approx t(P) + L(P; Q - P),
+$$ {#eq-functional-approx}
+
+where $L(P;\nu)$ is assumed to be a *linear* functional of $\nu$. If $Q$ has finite support, linearity implies that:
+
+$$
+L(P,Q-P) = \intop \psi _P\,\text dQ,
+$$ {#eq-gateaux-integral-rep}
+
+and we shall further assume that such a representation is valid for any $Q$[^1]. Notice in particular, that from this definition we have:
+
+[^1]: The integral representation @eq-gateaux-integral-rep with bounded $\psi _P$ automatically follows if $L$ is (weak-star) continuous and Frechét differentiable [@huber2004robust]. In the most general case, the sense in which @eq-functional-approx is assumed to hold is that of a directional (Gateaux) derivative, and we assume @eq-gateaux-integral-rep to hold for some measurable (not necessarily bounded) function $\psi _P$, which is usually easy to verify in concrete cases.
+
+$$
+\mathbb E(\psi _P) = L(P,P-P) = 0
+$$ {#eq-psi-zero-exp}
+
+Suppose now that we have a sample of $N$ i.i.d. observations $\{X_1,\,X_2,\,\dots,\,X_N\}$ coming from $P$, and let $Q=\hat P _N$ in the previous expression, where $\hat P _N = \frac{1}{N}\sum _{i=1}^N\delta _{X_i}$ stands for the empirical distribution. Then:
+
+$$
+t(\hat P _N) \approx t(P) + L(P; \hat P _N - P) = t(P) + \frac{1}{N}\sum _{i = 1} ^N \psi(X_i).
+$$ {#eq-functional-approx-emp-dist}
+
+It follows that $t(\hat P _N)$, *i.e.* the so-called "plugin" estimate, is a consistent estimate of $t(P)$, with:
+
+$$
+\mathbb E(t(\hat P _N)) \approx t(P),\quad \mathbb V(t(\hat P_N)) \approx \frac{1}{N}\mathbb V(\psi(X)),
+$$ {#eq-plugin-principle}
+
+where the first equation follows from @eq-psi-zero-exp, while the second one follows from the i.i.d. nature of the sample.
+
+The main idea behind the non-parametric bootstrap is to estimate $t(P)$ with $t(\hat P _N)$, which is justified by @eq-plugin-principle whenever the $\mathcal O (N^{-1})$ variance can be considered negligible (as is often the case in concrete bootstrap applications). In a parametric setting, the role of $\hat P_N$ could be played by some parametric estimate of $P$. Similarly, sampling schemes other than i.i.d. (*e.g.* if dealing with time series data) require different empirical estimates of $P$, but the basic principle - estimating $t(P)$ with $t(\hat P_N)$ - remains the same.
+
+Estimates such as $t(\hat P_N)$ are usually referred to as *ideal bootstrap estimates*. As implied by the name, they can rarely be computed exactly in practice, because no analytic formula exists, and exact numerical calculations rapidly become prohibitive with growing $N$. This leads to $t(\hat P_N)$ being estimated through simulation from $\hat P _N$, as explained below.
+
+#### A technical refinement
+
+In many practical applications, the functional of interest $t(P)$ would itself depend on $N$, so that we should actually write $t_N(P)$. A relevant example would be the variance of a plugin estimate $v_N(P)\equiv\mathbb V (t(\hat P _N))$. In this and similar cases, in which $v_N=\mathcal O (N^{-\alpha})$ the argument can be repeated *mutatis mutandis* for the functional $V_N = N^\alpha \cdot v_N$, which has a finite limit $V_N \to V$, assumed to be different from zero. Specifically, if we let $V_N = V+\Delta _N$ we have: 
+
+$$
+V_N(\hat P_N) -V_N(P) = V(\hat P_N)-V(P)+\Delta _N (\hat P_N)-\Delta_N(P).
+$$ 
+
+Since both terms in the right hand side have vanishing (to first order) expectation and $\mathcal O (N^{-1})$ variance, this shows that we can use $V_N(\hat P _N)$ to approximate the target quantity $V_N(P)$, or equivalently $v_N(\hat P _N)$ to approximate $v_N(P)$, since $\frac{\mathbb E(v_N(\hat P_N))}{v_N(P)}\approx 1$ and $\frac{\sqrt {\mathbb V(v_N(\hat P_N))}}{v_N(P)}=\mathcal O (N^{-1/2})$.
+
+## The role of simulation
+
+The second, more case specific, ingredient of a practical bootstrap estimate is an approximation scheme for effectively computing $t(\hat P _N)$. These methods typically involve simulating from $\hat P_N$, the reason being that the functional $t(Q)$ usually involves expectations and/or quantiles of random variables of samples from $Q$. When $Q = \hat P_N$, simulation allows to obtain $t(\hat P_N)$ by brute force.
+
+This is best clarified with an example. Given a functional $\theta(P)$, we let:
+
+$$
+v_N (P) = \mathbb V_P(\theta (\hat P_N))
+$$ {#eq-variance-plugin-estimate}
+
+denote the variance (with respect to the original measure $P$) of its plugin estimate from a dataset of $N$ i.i.d. observations. The ideal bootstrap estimate is given by:
+
+$$
+v_N(\hat P_N) = \mathbb V_{\hat P _N}(\theta(\hat P_N^*)),
+$$ {#eq-ideal-bootstrap-variance}
+
+where $\hat P _N ^*$ denotes the empirical distribution of an i.i.d. sample of $N$ elements from $\hat P_N$ - obviously, i.i.d. sampling from $\hat P _N$ is the same as sampling with replacement from the original dataset. Suppose now we generate $B$ synthetic datasets of size $N$ by sampling with replacement, and let $\hat P_N ^{(b)*}$ denote the corresponding empirical distributions. We can then estimate @eq-ideal-bootstrap-variance by:
+
+$$
+\widetilde {v_N(\hat P_N)} = \dfrac{1}{B-1}\sum_{b=1}^{B}(\theta(\hat P_N ^{(b)*})- \overline \theta^*)^2,
+$$ {#eq-practical-bootstrap-variance}
+
+where $\overline \theta^* = \frac{1}{B}\sum_{b=1}^{B}\theta(\hat P_N ^{(b)*})$. This would be our *practical* (as opposed to ideal) bootstrap estimate of $v_N(P)$.
+
+Strictly speaking, the practical bootstrap estimate involves again an application of the plugin principle mentioned in the previous section, in which however the role of the true distribution $P$ is played by the empirical estimate $\hat P_N$, from which we can sample without any limits. This means that (re)sampling variability associated with @eq-practical-bootstrap-variance can be always made arbitrarily small, at least in principle, simply by increasing $B$.
+
+<!--
+## [TODO] Standard bootstrap estimates
+
+### Variance of an estimator
+
+### Confidence intervals
+
+### $p$-values
+
+### Prediction error
+
+## [TODO] Bootstrap for time series data
+
+## [TODO] Bootstrap for text data
+-->

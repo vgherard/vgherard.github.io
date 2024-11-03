@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Valerio Gherardi">
+<meta name="dcterms.date" content="2024-03-14">
+
+<title>Maximum Likelihood – vgherard</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BM2Y0430QE"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BM2Y0430QE', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">vgherard</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notebooks.html"> 
+<span class="menu-text">Notebooks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software.html"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../scientific_publications.html"> 
+<span class="menu-text">Scientific Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../files.html"> 
+<span class="menu-text">Files</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/vgherard"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/vgherard/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ValerioGherardi"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:vgherard840@gmail.com"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-links" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other links</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-links">    
+        <li>
+    <a class="dropdown-item" href="https://www.r-bloggers.com/author/vgherard/">
+ <span class="dropdown-text">vgherard @ r-bloggers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://stackexchange.com/users/2261006/pppqqq">
+ <span class="dropdown-text">vgherard @ StackExchange</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">
+ <span class="dropdown-text">vgherard @ iNSPIRE HEP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://lichess.org/@/vgherard">
+ <span class="dropdown-text">vgherard @ lichess.org</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ratings.fide.com/profile/94715360">
+ <span class="dropdown-text">vgherard @ FIDE</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Maximum Likelihood</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://vgherard.github.io">Valerio Gherardi</a> <a href="https://orcid.org/0000-0002-8215-3013" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 14, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<form method="post" action="https://blogtrottr.com">
+        <p> Enjoy my blog? Get notified of new posts via email: </p>
+    <input type="text" name="btr_email" placeholder="your@email.here"><br>
+    <input type="hidden" name="btr_url" value="https://vgherard.github.io/index.xml">
+    <input type="hidden" name="schedule_type" value="0">
+    <input type="submit" value="Subscribe">
+</form>
+or
+<a href="https://vgherard.github.io/index.xml"> subscribe to its RSS feed</a>.
+<br>
+<br>
+R-related posts also available at
+<a href="https://www.r-bloggers.com">r-bloggers</a> and <a href="https://rweekly.org/">RWeekly</a>.
+
+</div></div>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p><strong>Disclaimer.</strong> These are wild notes on Maximum Likelihood that require some deep <em>labor limae</em> session. Use at your own risk!</p>
+<p>Let <span class="math inline">\(\mathcal Q \equiv\{\text d Q_{\theta} = q_\theta \,\text d \mu\}_{\theta \in \Theta}\)</span> be a parametric family of probability measures dominated by some common measure <span class="math inline">\(\mu\)</span>. Consider the functional<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<p><span class="math display">\[
+\theta ^* (P) = \arg \min_{\theta \in \Theta} \intop \text dP\,\ln \left(\frac{1}{q_\theta}\right).
+\]</span> {#eq-functional-theta-star}.</p>
+<p>This is the parameter of the best (in the cross-entropy sense) approximation of <span class="math inline">\(P\)</span> within <span class="math inline">\(\mathcal Q\)</span>, which we assume to be unique.</p>
+<p>If <span class="math inline">\(P\)</span> represents the true probability distribution of the data under study, <span class="math inline">\(\theta ^*(P)\)</span> is the target of ML estimation, in the general case in which <span class="math inline">\(P\)</span> is not necessarily in <span class="math inline">\(\mathcal Q\)</span>. The ML estimate <span class="math inline">\(\hat \theta _N\)</span> of <span class="math inline">\(\theta^*\)</span> from an i.i.d. sample of <span class="math inline">\(N\)</span> observations is<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<p><span id="eq-theta-mle"><span class="math display">\[
+\hat \theta _N \equiv \theta ^*(\hat P _N)=\arg \max_{\theta \in \Theta} \sum_{i=1}^N \ln ({q_\theta(Y_i)}),
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(\hat P _N\)</span> is the empirical distribution of the sample.</p>
+<p>Denoting:</p>
+<p><span id="eq-cross-ent-integral"><span class="math display">\[
+c_{P}(\theta) = \intop \text dP\,\ln \left(\frac{1}{q_\theta}\right),
+\tag{2}\]</span></span></p>
+<p>we see that <span class="math inline">\(\theta^*\)</span> is determined by the condition <span class="math inline">\(c_{P}'(\theta^*)=0\)</span>. From this, we can easily derive the first order variation of <span class="math inline">\(\theta ^*\)</span> under a variation <span class="math inline">\(P \to P + \delta P\)</span>:</p>
+<p><span id="eq-differential-theta-star"><span class="math display">\[
+\delta \theta ^* =\left(\intop \text dP\,I_{\theta ^*} \right)^{-1}\left(\intop \text d(\delta P)u_{\theta ^*}\right)
+\tag{3}\]</span></span></p>
+<p>where we have defined:</p>
+<p><span id="eq-score-fisher-info"><span class="math display">\[
+u_\theta = \frac{\partial }{\partial \theta} \ln q_\theta,\quad I_\theta = -\frac{\partial^2 }{\partial \theta ^2}  \ln q_\theta.
+\tag{4}\]</span></span></p>
+<p>From <a href="#eq-differential-theta-star" class="quarto-xref">Equation&nbsp;3</a> we can identify the influence function of the <span class="math inline">\(\theta ^*\)</span> functional:</p>
+<p><span id="eq-influence-function"><span class="math display">\[
+\psi_P(y)=\left(\intop \text dP\,I_{\theta ^*} \right)^{-1}u_{\theta ^*}(y)
+\tag{5}\]</span></span></p>
+<p>Then, from the standard theory of influence functions, we have:</p>
+<p><span id="eq-theta-N-first-order"><span class="math display">\[
+\hat \theta _N \approx \theta ^*+J ^{-1} U
+\tag{6}\]</span></span></p>
+<p>where we have defined:</p>
+<p><span id="eq-score-fisher-info-2"><span class="math display">\[
+J\equiv \intop \text dP\,I_{\theta ^*},\quad U\equiv\frac{1}{N}\sum _{i=1}^Nu_{\theta ^*}(Y_i).
+\tag{7}\]</span></span> In particular, we obtain the Central Limit Theorem (CLT)</p>
+<p><span id="eq-theta-clt"><span class="math display">\[
+\sqrt N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0, J^{-1}KJ^{-1}),
+\tag{8}\]</span></span></p>
+<p>with:</p>
+<p><span id="eq-score-variance"><span class="math display">\[
+K = \mathbb V(u_{\theta ^*}(Y)).
+\tag{9}\]</span></span></p>
+<p>The matrices <span class="math inline">\(K\)</span> and <span class="math inline">\(J\)</span> depend on the unknown value <span class="math inline">\(\theta ^*\)</span>, but we can readily construct plugin estimators:</p>
+<p><span id="eq-plugin-jk"><span class="math display">\[
+\hat J_N = -\frac{1}{N}\sum _{i=1}^NI_{\hat \theta _N}(Y_i),\quad\hat K_N = \frac{1}{N}\sum _{i=1}^Nu_{\hat \theta _N}(Y_i)u_{\hat \theta _N}(Y_i)^T,
+\tag{10}\]</span></span></p>
+<p>and estimate the variance of <span class="math inline">\(\hat \theta _N\)</span> as:</p>
+<p><span id="eq-sandwich-estimator"><span class="math display">\[
+\widehat {\mathbb V}(\hat \theta _N) = \frac{\hat J _N ^{-1}\hat K_N\hat J_N ^{-1}}{N},
+\tag{11}\]</span></span></p>
+<p>which is the usual Sandwich estimator. Finally, if <span class="math inline">\(P = Q_{\theta^*}\)</span>, then <span class="math inline">\(J = K\)</span>, and the CLT <a href="#eq-theta-clt" class="quarto-xref">Equation&nbsp;8</a> becomes simply</p>
+<p><span class="math display">\[
+\sqrt N(\hat \theta _N - \theta ^*) \overset{d}{\to} \mathcal N(0, J^{-1}).
+\]</span></p>
+<p>Let us now consider the following expansion of <span class="math inline">\(c_P(\hat \theta _N)\)</span> which, we recall, is the cross-entropy of the ML model on the true distribution <span class="math inline">\(P\)</span> (<em>cf.</em> <a href="#eq-cross-ent-integral" class="quarto-xref">Equation&nbsp;2</a>):</p>
+<p><span class="math display">\[
+\begin{split}
+c_P(\hat \theta _N)
+    &amp;= -\intop \text d P(y')\,\ln (q_{\hat \theta}(y'))\\
+    &amp; \approx -\mathbb E'(\ln q_{\theta^*})+\frac{1}{2}(\hat \theta-\theta ^*)^TJ (\hat \theta-\theta ^*)\\
+    &amp; \approx -\mathbb E'(\ln q_{\theta^*})+\frac{1}{2}U^TJ^{-1}U
+\end{split}
+\]</span></p>
+<p>Taking the expectation with respect to the training dataset, noting that <span class="math inline">\(\mathbb E(U_{\theta ^*}U_{\theta ^*}^T)=K_{\theta ^*}\)</span>, we get:</p>
+<p><span id="eq-cross-ent-exp"><span class="math display">\[
+\mathbb E (c_P(\hat \theta _N))\approx -\mathbb E'(\ln q_{\theta^*})+\frac{1}{2N}\text {Tr}(J^{-1}K)
+\tag{12}\]</span></span></p>
+<p>Now consider the in-sample estimate:</p>
+<p><span class="math display">\[
+\begin{split}
+c_{\hat P _N}(\hat \theta _N) &amp;= -\frac{1}{N}\sum _{i=1}^N\ln q_{\hat \theta}(Y_i)\\
+&amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Y_i)- U^T(\hat \theta _N-\theta^*)+ \frac{1}{2}(\hat \theta _N-\theta^*)^TJ(\hat \theta _N-\theta^*)\\
+&amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Y_i)- U^TJ ^{-1} U+ \frac{1}{2}U^TJ ^{-1}\hat J_N J^{-1}U\\
+&amp; \approx - \frac{1}{N}\sum _{i=1} ^N \ln q_{\theta^*}(Y_i)- \frac{1}{2}U^TJ ^{-1} U.
+\end{split}
+\]</span></p>
+<p>Taking the expectation:</p>
+<p><span id="eq-in-sample-cross-ent-exp"><span class="math display">\[
+\mathbb E (c_{\hat P _N}(\hat \theta _N)) = -\mathbb E'(\ln q_{\theta^*})-\frac{1}{2N}\text{Tr}(J^{-1}K)
+\tag{13}\]</span></span></p>
+<p>Comparing <a href="#eq-in-sample-cross-ent-exp" class="quarto-xref">Equation&nbsp;13</a> and <a href="#eq-cross-ent-exp" class="quarto-xref">Equation&nbsp;12</a> we see that:</p>
+<p><span id="eq-tic"><span class="math display">\[
+\text{TIC}\equiv -\frac{1}{N}\sum _{i=1}^N\ln q_{\hat \theta}(Y_i)+\frac{1}{N}\text{Tr}(J^{-1}K)
+\tag{14}\]</span></span></p>
+<p>provides an asymptotically unbiased estimate of <span class="math inline">\(\mathbb E (c_P(\hat \theta _N))\)</span>, the expected cross-entropy of a model from family <span class="math inline">\(\mathcal Q\)</span> estimated on a sample of <span class="math inline">\(N\)</span> observations.</p>
+<p>The previous derivation assumed the <span class="math inline">\(Y_i\)</span> to be i.i.d. and does not apply, strictly speaking, to the case of regression, for which we need some more machinery. Assume that the pairs <span class="math inline">\((X_i,\,Y_i)\)</span> are drawn independently from a joint <span class="math inline">\(X-Y\)</span> distribution. Instead of <a href="#eq-cross-ent-integral" class="quarto-xref">Equation&nbsp;2</a>, we consider:</p>
+<p>We define, as in the i.i.d. case:</p>
+<p><span id="eq-theta-conditional"><span class="math display">\[
+\begin{split}
+\theta ^*(P;\mathbf X)&amp;=\arg\max _{\theta} \frac{1}{N}\sum_{i=1}^N\intop \text dP(y\vert X_i)\,\ln \left(\frac{1}{q_{\theta}(y\vert X_i)}\right),\\
+\theta ^*(P)&amp;=\arg\max _{\theta} \intop \text dP(y,x)\,\ln \left(\frac{1}{q_{\theta}(y\vert X_i)}\right),\\
+\hat \theta _N&amp;=\arg\max _{\theta} \sum _{i=1}^N\ln \left(\frac{1}{q_{\theta}(Y_i\vert X_i)}\right)
+\end{split}
+\tag{15}\]</span></span></p>
+<p>Noticing that <span class="math inline">\(\hat \theta _N\)</span> is a plugin estimate of <span class="math inline">\(\theta ^*\)</span>, we can repeat <em>mutatis mutandis</em> the steps leading to the CLT <a href="#eq-theta-clt" class="quarto-xref">Equation&nbsp;8</a>, which is also valid in this case.</p>
+<p>Rather than doing so, let us consider <span class="math inline">\(\hat \theta _N\)</span> as the <span class="math inline">\(\mathbf X\)</span>-conditional plugin estimate of <span class="math inline">\(\theta ^*(P;\mathbf X)\)</span>, and the latter as a plugin estimate of <span class="math inline">\(\theta ^*(P)\)</span> interpreted as a functional of the <span class="math inline">\(X\)</span> marginal distribution. Then, a parallel derivation to the one provided above for the i.i.d. case shows the conditional convergence in distribution:</p>
+<p><span id="eq-clt-conditional"><span class="math display">\[
+\sqrt N(\hat \theta _N - \theta ^*(P;\mathbf X))\overset{d \vert \mathbf X}{\to} \mathcal N(0, J_{N}^{-1}(\mathbf X)K_{N}(\mathbf X)J_{N}^{-1}(\mathbf X)).
+\tag{16}\]</span></span></p>
+<p>as well as the unconditional convergence:</p>
+<p><span id="eq-clt-unconditional"><span class="math display">\[
+\sqrt N(\theta ^*(P;\mathbf X) - \theta ^*(P))\overset{d }{\to} \mathcal N(0, J^{-1}\tilde K J^{-1}).
+\tag{17}\]</span></span></p>
+<p>where the various matrices are defined as:</p>
+<p><span id="eq-jk-conditional"><span class="math display">\[
+\begin{split}
+J_N(\mathbf X)&amp;\equiv \frac{1}{N}\sum _{i=1}^N\mathbb E\left[I _{\theta} \bigg\vert X=X_i\right]\bigg\vert_{\theta = \theta ^*(\mathbf X)},\\
+\quad K_N(\mathbf X)&amp;\equiv\frac{1}{N}\sum _{i=1}^N\mathbb V\left[u _{\theta }\bigg\vert X=X_i\right]\bigg\vert_{\theta = \theta ^*(\mathbf X)}
+\end{split}
+\tag{18}\]</span></span></p>
+<p>and:</p>
+<p><span id="eq-jk-unconditional"><span class="math display">\[
+\begin{split}
+J&amp;\equiv \mathbb E\left[I_{\theta^*} \right],\\
+\quad \tilde K&amp;\equiv\mathbb V\left[\mathbb E\left(u_{\theta ^*} \vert X\right)\right]
+\end{split}
+\tag{19}\]</span></span></p>
+<p>Here <span class="math inline">\(I_\theta\)</span> and <span class="math inline">\(u_\theta\)</span> are again defined as in <a href="#eq-score-fisher-info" class="quarto-xref">Equation&nbsp;4</a>, but regarded as functions of the random pair <span class="math inline">\(\{(X,\,Y)\}\)</span>, rather than <span class="math inline">\(Y\)</span> alone. Although <a href="#eq-jk-conditional" class="quarto-xref">Equation&nbsp;18</a> is written for <span class="math inline">\(\theta = \theta ^*(\mathbf X)\)</span>, to the order of the present approximation we may as well substitute <span class="math inline">\(\theta ^*(\mathbf X) \approx \theta ^*\)</span>. Doing this, we can easily see that <span class="math inline">\(J_N(\mathbf X) \to J\)</span>, and <span class="math inline">\(K_N(\mathbf X) \to \mathbb E\left[\mathbb V\left(u_{\theta } \vert X\right)\right]\bigg\vert_{\theta = \theta ^*}\)</span>. This can be used to find the unconditional variance of <span class="math inline">\(\hat \theta _N\)</span>:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbb V(\hat \theta _N)
+    &amp;=\mathbb E (\mathbb V(\hat \theta _N \vert \mathbf X))+\mathbb V (\mathbb E(\hat \theta _N \vert \mathbf X))\\
+    &amp;=\mathbb E (\mathbb V(\hat \theta _N \vert \mathbf X))+\mathbb V (\theta ^*(\mathbf X))\\
+    &amp;=J^{-1}\left(\mathbb V\left[\mathbb E\left(u_{\theta ^*} \vert X\right)\right]+\mathbb E\left[\mathbb V\left(u_{\theta ^*} \vert X\right)\right]\right)J^{-1}\\
+    &amp;= J^{-1} KJ^{-1}
+\end{split}
+\]</span> with <span class="math inline">\(K = \mathbb V(u_{\theta^*})\)</span> as in the i.i.d. case, in agreement with the CLT <a href="#eq-theta-clt" class="quarto-xref">Equation&nbsp;8</a>. Our derivation here shows how the variance of <span class="math inline">\(\hat \theta _N\)</span> decomposes into a component due to the variability of <span class="math inline">\(X\)</span>, and a component due to the residual variability of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span>.</p>
+<p>The corresponding result for the TIC <a href="#eq-tic" class="quarto-xref">Equation&nbsp;14</a> is slightly less straightforward. Repeating the steps leading to this equation for a fixed sample of regressors <span class="math inline">\(\mathbf X\)</span>, we find that:</p>
+<p><span id="eq-conditional-tic-regressors"><span class="math display">\[
+\mathbb E (\text{TIC}\vert \mathbf X)=\intop \prod_{i=1}^N\text dP(y_i\vert X_i)\,\,\frac{1}{N}\sum_{j=1}^N\intop \text dP(y^\prime\vert X_j)\ln \left(\frac{1}{q_{\hat \theta_N}(y^\prime \vert X_j)}\right),
+\tag{20}\]</span></span></p>
+<p>where the outer integral is a conditional expectation on the sample responses, while the inner integrals are expectations with respect to a new response associated to a sample regressor <span class="math inline">\(X_i\)</span>. If we now average over <span class="math inline">\(\mathbf X\)</span>, we<br>
+find:</p>
+<p><span id="eq-unconditional-tic-regressors"><span class="math display">\[
+\mathbb E (\text{TIC})=\intop \prod_{i=1}^N\text dP(x_i,y_i)\,\,\frac{1}{N}\sum_{j=1}^N\intop \text dP(y^\prime\vert x_j)\ln \left(\frac{1}{q_{\hat \theta_N}(y^\prime \vert x_i)}\right)=\mathbb E(\text{CE}_\text{in}).
+\tag{21}\]</span></span></p>
+<p>The right-hand side is the expected in-sample cross-entropy, which is in general different from the extra-sample cross-entropy:</p>
+<p><span id="eq-extra-sample-ce"><span class="math display">\[
+\mathbb E(\text{CE}) =\intop \prod_{i=1}^N\text dP(x_i,y_i)\intop \text dP(x^\prime,y^\prime)\ln \left(\frac{1}{q_{\hat \theta_N}(y^\prime \vert x^\prime)}\right).
+\tag{22}\]</span></span></p>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><span class="citation" data-cites="shaliziADA">(<a href="#ref-shaliziADA" role="doc-biblioref">Shalizi 2024</a>)</span></li>
+<li><span class="citation" data-cites="claeskens2008model">(<a href="#ref-claeskens2008model" role="doc-biblioref">Claeskens and Hjort 2008</a>)</span></li>
+<li><span class="citation" data-cites="freedman2006so">(<a href="#ref-freedman2006so" role="doc-biblioref">Freedman 2006</a>)</span></li>
+<li><span class="citation" data-cites="white1982maximum">(<a href="#ref-white1982maximum" role="doc-biblioref">White 1982</a>)</span></li>
+</ul>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-claeskens2008model" class="csl-entry" role="listitem">
+Claeskens, Gerda, and Nils Lid Hjort. 2008. <span>“Model Selection and Model Averaging.”</span> <em>Cambridge Books</em>.
+</div>
+<div id="ref-freedman2006so" class="csl-entry" role="listitem">
+Freedman, David A. 2006. <span>“On the so-Called <span>‘Huber Sandwich Estimator’</span> and <span>‘Robust Standard Errors’</span>.”</span> <em>The American Statistician</em> 60 (4): 299–302.
+</div>
+<div id="ref-shaliziADA" class="csl-entry" role="listitem">
+Shalizi, Cosma. 2024. <em>Advanced Data Analysis from an Elementary Point of View</em>. <a href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/">https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/</a>.
+</div>
+<div id="ref-white1982maximum" class="csl-entry" role="listitem">
+White, Halbert. 1982. <span>“Maximum Likelihood Estimation of Misspecified Models.”</span> <em>Econometrica: Journal of the Econometric Society</em>, 1–25.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The definition does not depend on the representations <span class="math inline">\(q_\theta = \frac{\text d Q_\theta}{\text d \mu}\)</span> chosen for the <span class="math inline">\(\mu\)</span>-density of <span class="math inline">\(Q_\theta\)</span> if <span class="math inline">\(P\)</span> is also absolutely continuous with respect to <span class="math inline">\(\mu\)</span>, which we tacitly assume. Typically <span class="math inline">\(\mu\)</span> would be some relative of Lebesgue or counting measures, in continuous and discrete settings respectively.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>As a random variable, <span class="math inline">\(\hat \theta _N\)</span> is also independent (modulo a measure zero set) of the specific <span class="math inline">\(L_1\)</span> representation <span class="math inline">\(q_\theta\)</span> if <span class="math inline">\(P\)</span> is absolutely continuous with respect to <span class="math inline">\(\mu\)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2024,
+  author = {Gherardi, Valerio},
+  title = {Maximum {Likelihood}},
+  date = {2024-03-14},
+  url = {https://vgherard.github.io/notebooks/maximum-likelihood/maximum-likelihood.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+Gherardi, Valerio. 2024. <span>“Maximum Likelihood.”</span> March 14,
+2024. <a href="https://vgherard.github.io/notebooks/maximum-likelihood/maximum-likelihood.html">https://vgherard.github.io/notebooks/maximum-likelihood/maximum-likelihood.html</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/vgherard\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="vgherard/vgherard.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzODI2MzU4NTQ=" data-category="Comments" data-category-id="DIC_kwDOFs6PTs4CbwOw" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

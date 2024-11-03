@@ -1,0 +1,134 @@
+---
+title: "On the first and second laws of thermodynamics for open systems"
+description: |
+  Matter transfer in open systems changes the relationship between heat and entropy, and work and volume.
+date: 2024-03-04
+bibliography: biblio.bib
+categories: 
+  - Open Systems
+  - Thermodynamics
+  - Physics
+draft: false
+---
+
+The first and second laws of thermodynamics for closed systems are commonly expressed as:
+
+$$
+\text{d}U -\delta W= \delta Q \leq T'\,\text dS \qquad\text{[closed system]},
+$$ {#eq-12-law-closed-gen}
+
+where $U$, and $S$ denote the internal energy and entropy of the system, $T'$ is the temperature of the heat source, and $\delta W$ and $\delta Q$ are the amounts of energy transferred to the system in the form of heat and work, respectively. For concreteness, I will focus on volume work $\delta W = -p\,\text d V$ and reversible processes, so that the equal sign in @eq-12-law-closed-gen holds with the temperature of the source $T'$ being equal to $T$, the temperature of the system. @eq-12-law-closed-gen then implies:
+
+$$
+\text d U = T\,\text d S - p \,\text d V\qquad\text{[closed system]},
+$$ {#eq-12-law-closed-pv}
+
+from which we can identify:
+
+$$
+\left(\frac{\partial U}{\partial S}\right)_{V,N} = T, \quad \left(\frac{\partial U}{\partial V}\right)_{S,N} = -p
+$$ {#eq-partial-derivatives}
+
+In the previous equation, $N$ represents the quantity of matter (say number of moles) in the system. The suffixes indicate that the partial derivatives are taken at constant $N$, which may look trivial for closed systems. In open systems, however, $N$ can vary due to matter exchanges with the surrounding, so that the internal energy $U = U(S,V,N)$ is also a function of $N$, and this dependence defines the *chemical potential*:
+
+$$
+\mu \equiv \left(\frac{\partial U}{\partial N}\right)_{S,V}.
+$$ {#eq-chemical-potential}
+
+Putting this together with @eq-partial-derivatives, we obtain a generalization of @eq-12-law-closed-pv for an open system:
+
+$$
+\text d U = T\text d S - p \text d V + \mu \text dN.
+$$ {#eq-12-law-open-pv}
+
+One should realize that this equation represents, at the present stage, no more than a *mathematical definition* of the partial derivatives of $U$. In order to attach some physical content to it, we should connect the various terms appearing in @eq-12-law-open-pv with *operatively defined* quantities.
+
+To appreciate this point, let us make a step back to the closed system case, and examine the physical content of the first two laws of thermodynamics. For a closed system we have the relations $\delta W = - p\,\text dV$ and $\delta Q = T\,\text d S$. It is important to realize that $\delta W$ and $\delta Q$ have independent operative definitions: $\delta W$ is defined as the work performed by external forces during the process considered, whereas $\delta Q$ is defined as the difference $\delta Q=\text d U - \delta W$. It is in light of these operative definitions that the laws of thermodynamics acquire physical content[^1].
+
+[^1]: The first law, in its essence, postulates the existence of certain experimental conditions (thermal insulation) under which the work required by any transformation of a thermodynamic system depends only on the initial and final states - allowing the definition of a state function $U$, the internal energy. Similarly, the second law postulates the existence of a state function $S$ that bounds the heat exchange with a source at temperature $T'$ by $\delta Q \leq T' \,\text d S$.
+
+In order to establish a similar physical interpretation for the open system case, let us decompose the change in internal energy as follows:
+
+$$
+\text d U = \delta Q + \delta W + \delta X.
+$$ {#eq-du-open-system}
+
+Here the first two terms correspond to heat and work, as before, while the new term $\delta X$ accounts for energy exchange due to matter transfer. Comparing @eq-du-open-system and @eq-12-law-open-pv, and given the expressions of $\delta Q$ and $\delta W$ in the closed system case, it is tempting to conclude that:
+
+$$
+\delta Q \overset{?}{=} T \text d S,\quad \delta W \overset{?}{=}-p\text d V,\quad
+\delta X \overset{?}{=} \mu \text d N,
+$$ {#eq-wrong-dq-dw-dx}
+
+but these identifications are easily seen to be *wrong*.
+
+Before discussing the correct version of @eq-wrong-dq-dw-dx, let us comment why these identifications can be dangerously misleading. Consider a gas enclosed by rigid and thermally insulating walls, so that no energy exchange with the exterior in the form of heat is possible and, since volume is constant, also no work is possible (according to @eq-wrong-dq-dw-dx). Suppose now that we have some mechanism to inject a number $\delta N$ of additional particles into the system. Due to what was said above, we would be lead to conclude that the corresponding variation of internal energy should be $\text{d}U  \overset{?}{=} \mu \text d N$, which is incorrect (the correct answer is discussed below).
+
+The physical reason why @eq-wrong-dq-dw-dx are wrong is that exchanged matter also carries an amount $\text{d}S^{\text{(e)}} = s\,\text dN$ of entropy and has a volume $\text{d}V^{\text{(e)}} = v\,\text dN$, where $s$ and $v$ are the entropy and volume per particle of the external source of matter ($s = \frac{S}{N}$ and $v = \frac{V}{N}$ if the exchanged particles are in thermal equilibrium with the open system). This additional entropy and volume flows must be kept into account in the corresponding variations for opens system, that become:
+
+$$
+\text{d} S = \frac{\delta Q}{T}+s\,\text dN,\quad -p\text dV= \delta W-p\text dV^{\text{(e)}},
+$$ {#eq-correct-ds-dv}
+
+Plugging this into @eq-12-law-open-pv and comparing with @eq-du-open-system, we obtain:
+
+$$
+\delta Q =T \text d S-Ts\,\text dN,\quad \delta W =-p\text d V+p v\text dN,\quad
+\delta X = u\text d N,
+$$ {#eq-correct-dq-dw-dx}
+
+where $u \equiv \mu + Ts-pv$ is the internal energy per particle (the chemical potential can be shown to be equal to the Gibbs energy per particle).
+
+The meaning of @eq-correct-dq-dw-dx is best clarified with a few examples. Consider first a process which simply consists in bringing together two quantities $N$ and $\text d N$ of gas molecules kept at the same temperature $T$ and pressure $p$. This amounts to a mere rescaling of the original system by a factor $\lambda = (1+\frac{\text d N}{N})$, so that all extensive quantities are simply scaled by this same factor:
+
+$$
+\text d S = s\text dN=(\lambda -1)S,\quad \text d V = v\text dN= (\lambda -1)V.
+$$ Clearly, this process involves no energy exchange in the form of heat or work, and we see indeed from @eq-correct-dq-dw-dx that:
+
+$$
+\delta Q = \delta W = 0,\quad \text d U = \delta X = u \text d N=(\lambda - 1)U
+$$ Had we neglected the extra terms $-T\text d S ^{\text{(e)}}$ and $+p\text d V ^{\text{(e)}}$ in the equations for $\delta Q$ and $\delta W$, we would have concluded that the system has exchanged heat or performed work during such a null process.
+
+As our second example, we consider a vapor-liquid phase transition. The vapor-liquid system, assumed to be in equilibrium, is enclosed in a cylinder with thermal conducting walls and surrounded by a medium at constant temperature $T$. A piston on one extremity of the cylinder allows to condense vapor by compression.
+
+If we consider either the vapor or liquid phases as open systems, in an isobaric and isothermal transformation in which a quantity $\text d N$ of vapor molecules is condensed, we have as in @eq-correct-dq-dw-dx:
+
+$$
+\begin{split}
+\text d U _i &= \delta Q_i + \delta W_i + \delta X_i,\\
+\delta Q_i &= T\,\text dS_i-T\,s_i \,\text dN_i,\\
+\delta W_i &=-p\,\text d V_i+p\,v_i\,\text dN_i,\\
+\delta X_i &= u_i\,\text dN_i,
+\end{split}
+$$ where $i = \text {l or v}$ (denoting liquid or vapor), and $\text dN_{\text{l}} = -\text dN_{\text{v}} \equiv \text d N$. But, since specific quantities at the phase transition only depend on temperature, which is held constant, the overall changes in entropy and volume are simply equal to the amounts due to matter transfer $\text d S_i = s_i\,\text d N_i$ and $\text d V_i = v_i\,\text d N_i$, which implies:
+
+$$
+\delta Q_i = \delta W_i = 0,\quad \delta X_i =u_i\,\text dN_i.
+$$ This is not unreasonable since, from the point of view of the open system, what is happening is simply that a quantity $\text d N$ of vapor or liquid (that was produced before, somehow), is getting transferred to the system. This is entirely analogous to the previous example, in which two chunks of identical substance were simply joined together.
+
+On the other hand, the conventional approach to the same problem treats the vapor-liquid system as a closed system. For this system, we can directly relate the changes in entropy and volume to heat and work:
+
+$$
+\delta Q = T(s_\text l-s_\text v )\text dN,\quad\delta W = -p(v_\text l-v_\text v )\text dN, \quad \delta X=0,
+$$ which looks superficially different from the open system point of view.
+
+There is no contradiction in the fact that $\delta Q \neq \delta Q_1+\delta Q _2$ and $\delta W \neq \delta W_1 + \delta W_2$, since the open and closed system points of view are describing the condensation process from a very different angle. In order to see this, let's imagine breaking down the process as follows. Starting with our system with internal energy $U_0$:
+
+1.  We separate an amount $\text d N$ of vapor from the rest of the system, leaving the system with energy $U_1 = U_0 - u_\text{v}\text dN$.
+2.  We heat and compress the small portion $\text{dN}$ while keeping it at constant temperature and pressure, until it condenses completely. The energy transferred to the small mass is $(u_\text{l}-u_\text{v})\text d N$, while the vapor-liquid system's energy of course does not change, $U_2 = U_1$.
+3.  We add the condensed liquid $\text d N$ back to the vapor-liquid system, whose energy becomes $U_3 = U_2 + u_\text{l}\text d N=U_0 + (u_\text{l}-u_\text{v})\text dN$
+
+The crucial observation is that the open system point of view is only describing steps 1 and 3, while the closed system only describes step 2. The fact that $U_3 - U_0 = (u_\text{l}-u_\text{v})\text d N$, implies that the two points of view lead to the same energy balance, as it should be. This can be easily verified:
+
+$$
+\begin{split}
+\text d U &= \delta Q + \delta W\\
+&=[T\text(s_\text l-s_\text v)-p(v_\text l-v_\text v)]\text dN\\
+&=\delta X_\text l+ \delta X_\text v\\
+&= \text dU_\text l+ \text d U_\text v
+\end{split}
+$$
+
+where in the third equality we used the fact that $\mu_\text l = \mu_\text v$ at the phase transition, so that $u_\text l - u_\text v = T\text(s_\text l-s_\text v)-p(v_\text l-v_\text v)$.
+
+As a final note, let me mention that some references (especially from the engineering field) include the work required to transfer matter across the open system boundary in the definition of $\delta X$, which thus becomes proportional to the molar *enthalpy* $h = u + pv$ (see *e.g.* [@knuiman2012relation]). As a consequence, the external work performed on an open system simply reads $\delta W = - p \text d V$, as in the closed system case. The reason why this could make sense is that if the "open system" is defined in terms of a (physical or imaginary) spatial boundary surface, which allows the flow of matter through some injection mechanism, one could be interested in the work resulting from the expansion of the boundary only - sometimes called *shaft work*, in contrast with the *flow work* $-p \,\text d V^{\text{(e)}}$ included in the enthalpy. In the way I see it, this leads to a cumbersome physical description in the context of the examples mentioned above.

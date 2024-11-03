@@ -1,0 +1,15 @@
+{
+  "hash": "01edb9cdae51e13fc0e6d100063a572c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Laplace's Method\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: Valerio Gherardi\n    url: https://vgherard.github.io\ndate: 2024-04-16\noutput:\n  distill::distill_article:\n    self_contained: false\nbibliography: biblio.bib\ndraft: true\n---\n\n\n\n\n\nDistill is a publication format for scientific and technical writing, native to the web.\n\nLearn more about using Distill at <https://rstudio.github.io/distill>.\n\n\n## References\n\n[Notes](http://bactra.org/notebooks/laplace-approximation.html)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

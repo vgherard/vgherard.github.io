@@ -1,0 +1,342 @@
+---
+title: "Exponential Dispersion Models"
+date: 2024-03-07
+bibliography: biblio.bib
+draft: false
+---
+
+## Intro
+
+Exponential Dispersion Models (EDMs) provide a natural generalization of the normal distribution, in which the modeled variable $Y$ is assumed to follow a probability density:
+
+$$
+\text d P _{\lambda,\,\mu}(y)=e^{-\frac{\lambda}{2}d(y,\,\mu)}\text d \nu _{\lambda}(y)
+$$ 
+
+with respect to a certain dominating measure $\nu _{\lambda}$. Here $\mu = \intop y\,\text d P_{\lambda,\,\mu}(y)$ and $d(y,\,\mu) \geq 0$, with equality only for $y = \mu$. The function $d(y,\,\mu)$ is called the *unit deviance*, and plays for EDMs the same role of squared distance $(y-\mu)^2$ for the normal model. Not surprisingly, EDMs provide a sound framework for the maximum-likelihood based formulation of generalized linear models, additive models, and similar beasts.
+
+## Exponential Dispersion Models
+
+We start with a probability measure on $\mathbb R ^n$ in the form of an *additive EDM*:
+
+$$
+\text d P ^* _{\lambda, \theta} (z) = e^{\theta ^T z-\lambda\kappa(\theta)}\text dQ^*_\lambda (z)
+$$ {#eq-edstar}
+
+where $\lambda > 0$, $\text Q^*_\lambda$ is a Borelian probability measure on $\mathbb R$, and $\kappa(\theta)$ is a differentiable strictly convex function, with $\kappa''(\theta) > 0$ and $\kappa(0) =0$. For a random variable $Z$ distributed according to @eq-ed we write $Z\sim \text{ED}^*(\lambda, \,\theta,\,\kappa)$.
+
+For any given $\lambda$, normalization of @eq-edstar requires: 
+
+$$
+e^{\lambda \kappa(\theta)}=\intop e^{\theta ^Ty}\text dQ^*_\lambda(z)
+$$ {#eq-norm-cond}
+
+to hold for all $\theta$ and $\lambda$. In other words, $M_\lambda(\theta) \equiv e^{\lambda \kappa(\theta)}$ must be the moment generating function of the measure $Q^* _\lambda(y)$ for a given $\theta$, which we assume to be uniquely determined by its moments[^1], so that we can omit the mention of the measure $Q^*_\lambda$ in the notation $\text{ED}^*(\lambda, \,\theta,\,\kappa)$\^. This requires, in particular $\kappa (0) = 0$.
+
+[^1]: Whether a set of moments determines a unique probability measure is called the [Hamburger moment problem](https://en.wikipedia.org/wiki/Hamburger_moment_problem).
+
+A closely related parametrization is the so-called *reproductive EDM*:
+
+$$
+\text d P _{\lambda, \theta} (y) = e^{\lambda(\theta ^T y-\kappa(\theta))}\text dQ_\lambda (y)
+$$ {#eq-ed}
+
+For a random variable $Y$ distributed according to @eq-ed we write $Y\sim \text{ED}(\lambda, \,\theta,\,\kappa)$. The link between @eq-ed and @eq-edstar is that $Y\sim \text{ED}(\lambda, \,\theta,\,\kappa)$ if and only if $Z=\lambda Y\sim \text{ED}^*(\lambda, \,\theta,\,\kappa)$, so that reproductive and additive EDMs can be interchanged whenever convenient, at least for theoretical considerations. The probability measures $\text d Q_\lambda$ and $\text d Q ^*_\lambda$, which are uniquely determined by normalization, are related by push-forward:
+
+$$
+Q_\lambda ^* = (m_\lambda )_*(Q_\lambda),
+$$ {#eq-push-forward}
+
+where $m_\lambda$ denotes multiplication by $\lambda$, *i.e.* $m_\lambda(y)=\lambda y$.
+
+In cases of practical interest (see the examples below), $Q_\lambda$ and $Q_\lambda^*$ are absolutely continuous either with respect to the Lebesgue measure, or with respect some measure concentrated on $c \cdot \mathbb N$ for some $c>0$. The two cases are referred to as the "continuous" and "discrete" case, respectively, for obvious reasons.
+
+## General Properties
+
+### Moment generating function
+
+Consider first the reproductive EDM @eq-ed. If $Y\sim \text {ED}(\lambda,\,\theta,\,\kappa)$, its moment generating function is:
+
+$$
+M_Y(s)=\mathbb E(e^{sY})=\exp\left[\lambda\left(\kappa(\theta +\frac{s}{\lambda})-\kappa(\theta)\right)\right],
+$$ {#eq-mgf}
+
+from which we can derive, in particular:
+
+$$
+\begin{split}
+\mathbb E(Y) &= \frac{\text d}{\text ds}\vert_{s=0}\log M(s) =\kappa'(\theta),\\
+\mathbb V(Y) &= \frac{\text d^2}{\text ds ^2}\vert_{s=0}\log M(s) =\frac{\kappa''(\theta)}{\lambda}.\\
+\end{split}
+$$ {#eq-exp-var}
+
+For the additive EDM @eq-edstar, the corresponding results for $Z\sim \text{ED}^*(\lambda,\,\theta,\,\kappa)$ are:
+
+$$
+\begin{split}
+M_Z(s)&=\exp\left[\lambda\left(\kappa(\theta + s)-\kappa(\theta)\right)\right],\\
+\mathbb E(Z) &= \lambda\kappa'(\theta),\\
+\mathbb V(Z) &= \lambda \kappa''(\theta).
+\end{split}
+$$ {#eq-mgf-results-edstar}
+
+### Legendre Transform of $\kappa (\theta)$
+
+Since $\kappa$ is strictly convex, the mapping:
+
+$$
+\mu = \frac{\partial\kappa}{\partial\theta}
+$$ {#eq-mu-theta-mapping}
+
+is invertible, and we may equivalently parametrize the reproductive EDM in terms of $\mu$ and $\lambda$ as follows:
+
+$$
+\text d P _{\lambda, \mu} (y) = e^{\lambda(\theta(\mu) ^T (y-\mu)+\tau(\mu))}\text dQ_\lambda (y).
+$$ {#eq-ed-mu}
+
+where:
+
+$$
+\tau(\mu) = \theta(\mu)^T\mu - \kappa(\theta(\mu)).
+$$ {#eq-legendre-transform}
+
+is the Legendre transform of $\kappa$.
+
+## Deviance
+
+Consider two reproductive EDMs $P _{\lambda,\mu _1}$ and $P _{\lambda,\mu _2}$ with the same dispersion parameter $\lambda$ (the function $\kappa$ is assumed to be fixed throughout). The likelihood ratio at a given $Y=y$ is:
+
+$$
+\ln (\frac{\text d P_{\lambda,\mu_1}}{\text d P_{\lambda,\mu_2}}(y))=\lambda\cdot\left[(\theta_1-\theta_2)y-(\kappa_1-\kappa_2)\right],
+$$ {#eq-log-likelihood}
+
+where $\theta _1 = \theta(\mu_1)$, $\kappa_1= \kappa(\theta(\mu _1))$, *etc.*. Setting $\mu _1 = y$ and $\mu _2 = \mu$ in this expression and multiplying by a convenient factor, we obtain the so called *unit scaled deviance*:
+
+$$
+\begin{split}
+d_\lambda(y,\mu) &\equiv 2\left.\ln (\frac{\text d P_{\lambda,\mu_0}}{\text d P_{\lambda,\mu}}(y)) \right \vert _{\mu_0=y}\\&=2\lambda\cdot\left[(\theta(y)-\theta(\mu))y-\kappa(\theta(y))+\kappa(\theta(\mu))\right].
+\end{split}
+$$ {#eq-unit-scaled-deviance}
+
+The *unit deviance* is defined as:
+
+$$
+\begin{split}
+d(y,\mu) &\equiv d_1(y,\mu)\\&=2\cdot\left[(\theta(y)-\theta(\mu))y-\kappa(\theta(y))+\kappa(\theta(\mu))\right]
+\end{split}
+$$ {#eq-unit-deviance}
+
+It is also useful to express $d_\lambda$ in terms of the Legendre transform $\tau$ of $\kappa$, as defined in @eq-legendre-transform:
+
+$$
+d_\lambda(y,\mu) =2\lambda\cdot\left[-\theta(\mu)^T(y-\mu)+\tau(y)-\tau(\mu)\right]
+$$ {#eq-unit-deviance-legendre}
+
+Using the convexity of $\kappa$, it is easy to show that $d_\lambda(y,\mu) \geq 0$ for all $y$ and $\mu$, and that $d_\lambda(y,\mu) = 0$ requires $\mu = y$. The probability measure can be expressed in terms of the unit deviance as:
+
+$$
+\text d P _{\lambda, \mu} (y) = e^{-\frac{\lambda}{2}d(y,\,\mu)}e^{\lambda \tau(y)}\text dQ_\lambda (y).
+$$ {#eq-ed-vs-deviance}
+
+## Maximum Likelihood Estimation
+
+Let $Y_i\sim \text{ED}(\lambda,\,\mu^{(0)}_ i ,\,\kappa)$ be independent for $i=1,\,2,\,\dots,\,N$ and let $M\subseteq \mathbb R ^N$ be a family of models for the mean $\boldsymbol \mu ^{(0)} = (\mu _1^{(0)},\,\mu_2^{(0)},\dots,\,\mu_N^{(0)})^T$ (in a GLM context, $M$ would be the linear subspace spanned by the covariates, $\boldsymbol \mu _\beta = \mathbf X \beta$). From @eq-ed-vs-deviance, we see that the likelihood of a model $\boldsymbol \mu \in M$ is, modulo a $\boldsymbol \mu$-independent term, equal to its total deviance:
+
+$$
+\log \mathcal L (\boldsymbol \mu,\,\lambda;\mathbf Y) = -\frac{\lambda}{2}\mathcal D(\mathbf Y,\boldsymbol \mu)+g_\lambda(\mathbf Y),
+$$ {#eq-likelihood-vs-deviance}
+with:
+
+$$
+\mathcal D (\mathbf Y,\boldsymbol \mu)\equiv\sum_{i=1}^Nd(Y_i,\mu_i) 
+$$ {#eq-total-deviance}
+
+Hence, the Maximum Likelihood Estimate (MLE) of $\boldsymbol \mu$ corresponds to the minimum deviance estimate:
+
+$$
+\hat {\boldsymbol \mu}\equiv \arg \max _{\boldsymbol \mu \in M} \mathcal L (\boldsymbol \mu,\,\lambda;\,\mathbf Y)=\arg \min _{\boldsymbol \mu \in M} \mathcal D (\mathbf Y;\boldsymbol \mu).
+$$ {#eq-mle-is-mde}
+
+In particular, the MLE $\hat {\boldsymbol \mu}$ is obtained by minimizing a function of $\boldsymbol \mu$ only, and is independent on whether the dispersion parameter $\lambda$ is being estimated itself or not.
+
+These results are sometimes formulated in terms of a "saturated" model $\boldsymbol \mu _\text{s} = \mathbf Y$. From @eq-likelihood-vs-deviance we see that such a model has likelihood equal to $g_{\lambda}(\boldsymbol \mu)$, implying that:
+
+$$
+\lambda\mathcal D(\mathbf Y,\boldsymbol \mu) = -2\log \left(\frac{\mathcal L (\boldsymbol \mu,\lambda;\mathbf Y)}{\mathcal L (\mathbf Y,\lambda;\mathbf Y)}\right)
+$$ {#eq-deviance-log-lik}.
+
+We note the asymptotic results [@jorgensen1992theory, §3.6]:
+
+$$
+\lambda \mathcal D(\mathbf Y,\,\hat {\boldsymbol \mu})\overset{d}{\to}  \chi ^2 _{N-p} \qquad (\lambda \to \infty),\\
+$$ {#eq-deviance-asymptotics}
+
+for a correctly specified model family $M$ with $\dim (M) = p$, and:
+
+$$
+\lambda \mathcal D(\mathbf Y,\,\hat {\boldsymbol \mu}_1)-\lambda D(\mathbf Y,\,\hat {\boldsymbol \mu}_2)\overset{d}{\to} \chi ^2 _{p_2-p_1} \qquad (\lambda \to \infty \text { or } N\to \infty),
+$$ {#eq-deviance-diff-asymptotics}
+
+for a correctly specified model family $M_1$ and $M_2 \supseteq M_1$, with $p_i =\dim (M_i)$. @eq-deviance-asymptotics can be seen as the limiting case of @eq-deviance-diff-asymptotics when $M_2 = \mathbb R ^N$, as in the saturated model. The manifolds $M$ and $M_i$ are not strictly required to be linear subspaces of $\mathbb R^N$, because in the limits and under the null hypotheses implied by Eqs. @eq-deviance-asymptotics and @eq-deviance-diff-asymptotics the distributions of MLEs are concentrated around the true value $\boldsymbol \mu ^{(0)}$, so that the manifolds $M$ and $M_i$ can be effectivley approximated by their tangent spaces.
+
+Noteworthy, limit @eq-deviance-asymptotics holds in the small dispersion limit $\lambda \to \infty$ only, whereas limit @eq-deviance-diff-asymptotics is also valid in the large sample limit, essentially due to Wilks' theorem.
+
+## Examples of EDMs
+
+#### Univariate Gaussian
+
+The univariate gaussian family $N (\mu, \sigma^2)$, with probability density function (PDF):
+
+$$
+f_{\mu,\sigma}(y)=\frac{1}{\sqrt {2 \pi \sigma ^2}}\exp\left[-\frac{(y-\mu)^2}{2\sigma ^2}\right] 
+$$ {#eq-gaussian-pdf}
+
+corresponds to the reproductive EDM $\text{ED}(\lambda, \,\theta,\,\kappa)$ with:
+
+$$
+\kappa (\theta) = \frac{\theta ^2}{2},\quad \theta \in \mathbb R,\quad \lambda \in \mathbb R^+.
+$$ {#eq-gaussian-edm} 
+
+The correspondence is given by:
+
+$$
+\theta = \mu,\quad \lambda = \frac{1}{\sigma^2}.
+$$ {#eq-gaussian-identification}
+
+The base probability measure is given by:
+
+$$
+\text d Q_\lambda (y)=\sqrt{\frac \lambda {2\pi}}e^{-\lambda y^2/2} \text dy
+$$ {#eq-gaussian-base-measure}
+
+The Legendre transform of $\kappa$ is:
+
+$$
+\tau(\mu) = \frac{\mu ^2}{2} 
+$$ {#eq-gaussian-tau}
+
+and the unit deviance reads:
+
+$$
+d(y, \hat \mu) =(y-\hat \mu)^2.
+$$ {#eq-gaussian-deviance}
+
+#### Binomial
+
+The binomial family $\mathcal B(p,N)$ with probability mass function (PMF):
+
+$$
+f_{p,N}(z) = \binom{N}{z} p^z(1-p)^{N-z}
+$$ {#eq-binomial-pmf}
+
+corresponds to the additive EDM $\text{ED}^*(\lambda, \,\theta;\,\kappa)$ with:
+
+$$
+\kappa(\theta) = \ln (\dfrac{1+e^\theta}{2}),\quad \theta\in \mathbb R ,\quad \lambda \in \mathbb N.
+$$ {#eq-binomial-edm}
+
+The correspondence is given by:
+
+$$
+\theta = \ln\frac{p}{1-p},\quad\lambda =N.
+$$ {#eq-binomial-identification}
+
+The base probability measure reads:
+
+$$
+\frac{\text d Q_\lambda^*(z)}{\text d z} =2^{-\lambda}\sum_{i=0} ^\lambda \binom{\lambda}{i} \delta (z-i).
+$$ {#eq-binomial-base-measure}
+
+The Legendre transform of $\kappa$ (using $p$ for the mean parameter) is:
+
+$$
+\tau(p)= \ln2+p\ln p+(1-p)\ln(1-p)
+$$ {#eq-binomial-tau}
+
+and the unit deviance for the *reproductive* EDM:
+
+$$
+d(y,\hat p)=-2y\ln (\dfrac{\hat p}{y})-2(1-y)\ln (\dfrac{1-\hat p}{1-y}).
+$$ {#eq-binomial-deviance}
+
+For the additive EDM, appropriate to an integer valued binomial variable, this is given by:
+
+$$
+d(z,\hat p)=-2\frac{z}{N}\ln (\dfrac{N\hat p}{z})-2(1-\frac{z}{N})\ln (\dfrac{N-N\hat p}{N-z}).
+$$ {#eq-binomial-deviance-bis}
+
+#### Multinomial
+
+The multinomial family $\text{Mult} _{K+1}(p_1,\,p_2,\dots ,p_{K+1},\,N)$ for $K+1$ categories is given by the PMF:
+
+$$
+f_{\boldsymbol p ,N}(z) = \binom{N}{z_1,\,z_2,\,\dots,\,z_{K+1}}\prod _{k=1}^{K+1}p_k^{z_k},
+$$ {#eq-mult-pmf}
+
+In order to identify this with an EDM, we use the constraints $\sum _{i=1}^{M+1}z_i =1$ and $\sum _{i=1}^{M+1}p_i =1$ to eliminate one dependent variable and parameter, say $z_{M+1}$ and $p_{M+1}$, respectively. The family of densities for the resulting $M$-dimensional vector $\boldsymbol z=(z_1\,z_2\,\dots\,z_M)^T$ corresponds to the additive EDM $\text{ED}^*(\lambda, \,\theta;\,\kappa)$ with:
+
+$$
+\quad \kappa(\theta) = \ln(\dfrac{1+\sum_{i=1}^K e^{\theta _k}}{K+1}), \quad \theta \in \mathbb R^K,\quad \lambda \in \mathbb N,
+$$ {#eq-mult-edm}
+
+the correspondence being given by:
+
+$$
+\theta _i = \ln \frac{p_i}{p_{K+1}},\quad \lambda = N.
+$$ {#eq-mult-identification}
+
+The base measure:
+
+$$
+\frac{\text d Q_\lambda^*(z)}{\text d \boldsymbol z} =(K+1)^{-\lambda}\sum_{\boldsymbol i\in \mathbb N ^{K}\,\colon \,\sum _{k=1}^{K}i_k\leq\lambda} \binom{\lambda}{i_1,\,i_2,\dots,i_{K+1}} \delta (\boldsymbol z-\boldsymbol i), 
+$$ {#eq-mult-base-measure}
+
+where $i_{K+1} = N - \sum _{k=1} ^{K} i_k$. The Legendre transform of $\kappa$ is:
+
+$$
+\tau(\boldsymbol p)= \ln (K+1)+\sum _{k=1}^{K+1}p_k\ln p_k
+$$ {#eq-mult-tau}
+
+and the deviance is:
+
+$$
+d(y,\hat {\boldsymbol p}) = -2\sum _{k=1}^{K+1}y_k\ln (\frac{\hat p_k}{y_k}).
+$$ {#eq-mult-deviance}
+
+For the additive EDM, appropriate to an integer valued multinomial variable, this is given by:
+
+$$
+d(z,\hat p)=-2\sum _{k=1}^{K+1}\frac{z_k}{N}\ln (\dfrac{N\hat p}{z_k}).
+$$ {#eq-mult-deviance-bis}
+
+#### Poisson
+
+The Poisson PMF is:
+
+$$
+f(y) = \frac {\nu ^z} {z!} e^{-\nu}
+$$ {#eq-poisson-pmf}
+
+This can be interpreted as coming from an additive EDM with:
+
+$$
+\kappa(\theta)=e^\theta-1,\quad \theta \in \mathbb R,\quad \lambda \in \mathbb R^+.
+$$ {#eq-poisson-edm}
+
+However, the correspondence is not unique, being given by the single relation:
+
+$$
+\lambda e^\theta = \nu 
+$$ {#eq-poisson-identification}
+
+which describes a curve in the $\Theta \times \Lambda$ space. The corresponding base measure is:
+
+$$
+\dfrac{\text d Q _\lambda (z)}{\text d z} = e^{-\lambda}\sum _{k=0}^{\infty}\frac{\lambda ^k\delta(z-k)}{k!}
+$$ {#eq-poisson-base-measure}
+
+which is nothing but the Poisson measure itself.
+
+## References
+
+I have mostly followed [@jorgensen1987exponential]. References [@jorgensen1992theory] [@jorgensen1997theory] from the same author provide more extensive expositions. A good reference for GLMs is [@mccullagh2019generalized].

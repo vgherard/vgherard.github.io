@@ -1,0 +1,73 @@
+---
+title: "Prefix-free codes"
+description: |
+  Generalities about prefix-free (a.k.a. instantaneous) codes
+date: 2023-10-31
+categories: 
+  - Information Theory
+  - Entropy
+  - Probability Theory
+draft: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Let $\mathbb X$ be a finite alphabet and denote by $\mathbb X ^* = \coprod _{k = 0} ^{\infty} \mathbb X ^k$ the set of strings of symbols from $\mathbb X$. A binary code on $\mathbb X$ is a function $f \colon \mathbb X \to \{0,\,1\}^*$. This is usually extended to a function $f^* \colon \mathbb X ^* \to \{0,\,1\}^*$ as follows:
+
+$$
+f^* (x_1 \,x_2\,\cdots x_n) = f(x_1) f(x_2)\cdots f(x_n)
+$$ A code is said to be:
+
+-   *Non-singular* if $f$ is injective.
+-   *Uniquely decodable* if $f^*$ is injective.
+-   *Prefix-free* if $x' \neq x$ implies that $f(x^\prime) \neq f(x)s$ for any $s$ in $\{0,1\}^*$.
+
+For example: $$
+a \mapsto 0,\quad b\mapsto 00
+$$ is a non-singular but not uniquely decodable code for the alphabet $\mathbb X = \{a,\,b\}$, while the code:
+
+$$
+a \mapsto 0,\quad b\mapsto 01
+$$
+
+is uniquely decodable, but not prefix-free. Finally, the assignments:
+
+$$
+a \mapsto 0, \quad b \mapsto 10, \quad c \mapsto 110, \quad d\mapsto1110,\quad\cdots
+$$ show that there exist prefix-free codes for any finite or countable alphabet.
+
+The importance of prefix-free codes lies in the fact that they allow for real-time decoding, as soon as the string corresponding to a symbol is received (which is why they are also called "instantaneous codes") [^1]. Binary prefix-free codes can also be interpreted as representing sequences of "Yes-No" questions that univocally identify the elements of $\mathbb X$.
+
+[^1]: The decoding algorithm works as follows: given a binary string $y_1y_2\cdots y_M = f^*(x_1 x_2 \cdots x_N)$ we start reading the substrings $y_1y_2 \cdots y_k$ until we find a match with some code $s \in \text{Im}(f)$, which is the code of the first symbol $x_1$ of the original sequence. We remove this substring and start reading again, to find the code of the second symbol $x_2$,and so on and so forth. This procedure can obviously be implemented in an online setting.
+
+An important property satisfied by all uniquely decodable binary codes, and in particular by prefix-free codes, is the Kraft-McMillan inequality:
+
+$$
+\sum _{x\in \mathbb X} 2 ^{-L(x)} \leq 1
+$$ where $L (x)$ is the length of the code for $x$. A converse is also true: for any set of positive integers $(\ell _{i})_{1\leq i\leq N}$ satisfying the Kraft-McMillan inequality, there exists a prefix-free code over $\mathbb X = \{1,\,2,\,\dots,\,N\}$ such that $\ell _i = L(i)$.
+
+This allows to immediately prove the entropy bound for the expected length of uniquely decodable codes. Given a probability distribution $p$ over $\mathbb X$, we have:
+
+$$
+\begin{split}
+\mathbb E(L(X))&=\sum _{x\in \mathbb X} p(x) L(x) \\
+                             &=-\sum _{x\in \mathbb X} p(x) \log _2(2^{-L(x)}) \\
+                             &=-\sum _{x\in \mathbb X} p(x) \log _2(p(x))-\sum _{x\in \mathbb X} p(x) \log _2(\frac{2^{-L(x)}}{p(x)})
+\end{split}
+$$ The first term is recognized as the entropy (in bits) of $X$, $H_2(X)$, whereas the second term can be bounded using the Jensen and Kraft-McMillan inequalities:
+
+$$
+-\sum _{x\in \mathbb X} p(x) \log _2(\frac{2^{-L(x)}}{p(x)}) \geq -\log _2\left(\sum _{x\in \mathbb X} 2^{-L(x)} \right) \geq 0.
+$$ We obtain:
+
+$$
+\mathbb E (L(X)) \geq H_2(X) 
+$$
+
+Furthermore, noticing that the positive integers $\ell _i = \lceil \log _2\frac{1}{p(x_i)} \rceil$ satisfy the Kraft-McMillan inequality, we can immediately construct a prefix-free code (the Shannon-Fano code) for which $L(x_i) = \ell _i$. For this code:
+
+$$
+\mathbb E (L(X)) \leq H_2(X) + 1.
+$$

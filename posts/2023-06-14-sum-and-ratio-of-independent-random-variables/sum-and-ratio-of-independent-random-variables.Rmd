@@ -1,0 +1,39 @@
+---
+title: "Sum and ratio of independent random variables"
+description: |
+  Sufficient conditions for independence of sum and ratio.
+date: 2023-06-14
+categories: 
+  - Mathematics
+  - Probability Theory
+draft: false
+---
+
+Let $X$ and $Y$ be two continuous independent random variables, with joint density $f_{XY}(x,y)=f_X(x)f_Y(y)$. Define: $$
+s = x+y, \qquad r = x/y,
+$$ with inverse transformation given by:
+
+$$
+y = \frac{s}{1+r},\qquad x = \frac{rs}{1+r}.
+$$ The Jacobian of the $(x,y) \mapsto (s,r)$ transformation is:
+
+$$
+\left|\dfrac{\partial (s,r)}{\partial(x,y)}\right|= \dfrac{(1+r)^2}{s}.
+$$ Hence the joint density of $S = X+Y$ and $R = X/Y$ is given by:
+
+$$
+f_{SR}(s,r) = f(x,y)\left|\dfrac{\partial (x,y)}{\partial(s,r)}\right|=f_X(\frac{rs}{1+r})f_Y(\frac{s}{1+r})\frac{s}{(1+r)^2}.
+$$
+
+The necessary and sufficient condition for this to factorize into a product, $f_{SR}(s,r)\equiv f_S(s)f_R(r)$, is that $f_X(x)f_Y(y) = g_S(s)g_R(r)$ for some functions $g_S$ and $g_R$.
+
+This is true for all functions $f_X$ and $f_Y$ from the family:
+
+$$
+\phi(t) = \text{const} \times  t^\alpha e^{-\beta t}.
+$$ This includes some important special cases:
+
+-   The $\chi ^2$ distribution ($\alpha = \frac{\nu}{2}-1,\,\beta = \frac{1}{2}$).\
+-   The exponential distribution: $\alpha = 0,\,\beta >0$.
+-   The "homogeneous" distribution: $\beta = 0$ (restricted to the appropriate domain).
+-   The uniform distribution: $\alpha = \beta = 0$.

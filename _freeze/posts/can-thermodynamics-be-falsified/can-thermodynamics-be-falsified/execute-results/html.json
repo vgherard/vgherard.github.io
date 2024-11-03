@@ -1,0 +1,17 @@
+{
+  "hash": "394e34841cd600d87db0ea2517dc7616",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Can thermodynamics be falsified?\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: Valerio Gherardi\n    url: https://vgherard.github.io\ndate: 2024-06-05\noutput:\n  distill::distill_article:\n    self_contained: false\ndraft: true\n---\n\n\nThermodynamics is not really a theory describing some concrete phenomenon, but\nrather a theoretical *framework*. In order to obtain quantitative predictions \noutof thermodynamics, we need some external input concerning the macroscopic \ndescription of some actual system, *i.e.* thermodynamic coordinates, state\nequation, expression for work...\n\nThis is similar to other branches of physics: Newton's laws, quantum mechanics.\nThese are not really theory, but rather formalisms. Is there any fundamental \ndifference between thermodynamics and the other formalisms? Do these formalisms\nlead to some quantitative prediction that are independent of the specific model\nfor the system under study?\n",
+    "supporting": [
+      "can-thermodynamics-be-falsified_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

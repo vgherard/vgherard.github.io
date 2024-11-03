@@ -1,0 +1,15 @@
+{
+  "hash": "a3344a602ad4f9e9f906e9b8d496332a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"The UV diagram for a pure substance\"\ndescription: |\n  Describing a pure substance at a phase transition in terms of internal energy and volume removes all degeneracies.\ndate: 2024-07-01\nbibliography: biblio.bib\ncategories: \n  - Thermodynamics\n  - Physics\ndraft: false\n---\n\n\n\n\nThe thermodynamic states of pure substances and their phase transitions are often represented in $PT$ (pressure-temperature) and $PV$ (pressure-volume) diagrams. While reading the classic paper from Lieb and Yngvason [@LY] ( see my commentary [here](https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason/)) I learned about a third possible description, in terms of the extensive volume $V$ and internal energy $U$.\n\nBeside the important role that the $(U,V)$ parametrization plays in the axiomatic formulation of thermodynamics given in [@LY], which makes $UV$ diagrams interesting *per se*, there's a practical advantage in these two variables, in the fact that they uniquely characterize pure substances everywhere in the phase diagram. In particular, a triple \"point\" becomes a triangle in the UV diagram, as can be seen by the parametrization:\n\n$$\nU = m_gu_g+ m_\\ell u_\\ell+m_su_s,\\quad V = m_gv_g+m_\\ell v_\\ell+m_sv_s,\n$$ where $m_i$, $u_i$ and $v_i$ are the masses, specific internal energy and volumes of the gaseous, liquid and solid phases, respectively (the total mass $m = m_g + m_\\ell + m_s$ is assumed to be fixed). This triangle is projected into a line in the $PV$ diagram, and into a single point in the $PT$ diagram.\n\nThe subsets of the $UV$ plane representing the fusion, sublimation and vaporization curves (or any other curve on the $PT$ diagram representing the coexistence of two distinct phases) are still two dimensional submanifolds, but the parametrization is more involved:\n\n$$\nU = m_A u_A(T) + m_B u_B(T),\\quad V=m_A v_A(T) + m_B v_B(T),\n$$ where $A$ and $B$ are the two coexisting phases, and the specific energies and volumes vary with temperature. These sets are obtained by joining for each value of $T$ the two corresponding points on the curves $\\gamma _A(T) = m\\cdot(u_A(T),v_A(T))$ and $\\gamma _B(T) = m\\cdot(u_B(T), v_B(T))$ in the $UV$ plane.\n\nBy pure coincidence, an example of the diagrams I am referring to is shown in [@LYErratum], the erratum to the original reference [@LY].\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

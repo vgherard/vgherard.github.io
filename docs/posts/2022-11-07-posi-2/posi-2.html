@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Valerio Gherardi">
+<meta name="dcterms.date" content="2022-11-25">
+<meta name="description" content="Mathematicals details on Selective Inference, model misspecification and coverage guarantees.">
+
+<title>How to get away with selection. Part II: Mathematical Framework – vgherard</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BM2Y0430QE"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BM2Y0430QE', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">vgherard</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notebooks.html"> 
+<span class="menu-text">Notebooks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software.html"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../scientific_publications.html"> 
+<span class="menu-text">Scientific Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../files.html"> 
+<span class="menu-text">Files</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/vgherard"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/vgherard/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ValerioGherardi"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:vgherard840@gmail.com"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-links" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other links</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-links">    
+        <li>
+    <a class="dropdown-item" href="https://www.r-bloggers.com/author/vgherard/">
+ <span class="dropdown-text">vgherard @ r-bloggers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://stackexchange.com/users/2261006/pppqqq">
+ <span class="dropdown-text">vgherard @ StackExchange</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">
+ <span class="dropdown-text">vgherard @ iNSPIRE HEP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://lichess.org/@/vgherard">
+ <span class="dropdown-text">vgherard @ lichess.org</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ratings.fide.com/profile/94715360">
+ <span class="dropdown-text">vgherard @ FIDE</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">How to get away with selection. Part II: Mathematical Framework</h1>
+                  <div>
+        <div class="description">
+          <p>Mathematicals details on Selective Inference, model misspecification and coverage guarantees.</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Statistics</div>
+                <div class="quarto-category">Selective Inference</div>
+                <div class="quarto-category">Model Misspecification</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://vgherard.github.io">Valerio Gherardi</a> <a href="https://orcid.org/0000-0002-8215-3013" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 25, 2022</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#mathematical-framework" id="toc-mathematical-framework" class="nav-link" data-scroll-target="#mathematical-framework">Mathematical Framework</a>
+  <ul class="collapse">
+  <li><a href="#regression-and-parameter-estimation" id="toc-regression-and-parameter-estimation" class="nav-link" data-scroll-target="#regression-and-parameter-estimation">Regression and parameter estimation</a></li>
+  <li><a href="#enter-selection" id="toc-enter-selection" class="nav-link" data-scroll-target="#enter-selection">Enter selection</a></li>
+  <li><a href="#inferential-target" id="toc-inferential-target" class="nav-link" data-scroll-target="#inferential-target">Inferential target</a></li>
+  <li><a href="#notions-of-coverage" id="toc-notions-of-coverage" class="nav-link" data-scroll-target="#notions-of-coverage">Notions of coverage</a></li>
+  <li><a href="#selective-vs.-simultaneous-inference" id="toc-selective-vs.-simultaneous-inference" class="nav-link" data-scroll-target="#selective-vs.-simultaneous-inference">Selective vs.&nbsp;Simultaneous Inference</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<form method="post" action="https://blogtrottr.com">
+        <p> Enjoy my blog? Get notified of new posts via email: </p>
+    <input type="text" name="btr_email" placeholder="your@email.here"><br>
+    <input type="hidden" name="btr_url" value="https://vgherard.github.io/index.xml">
+    <input type="hidden" name="schedule_type" value="0">
+    <input type="submit" value="Subscribe">
+</form>
+or
+<a href="https://vgherard.github.io/index.xml"> subscribe to its RSS feed</a>.
+<br>
+<br>
+R-related posts also available at
+<a href="https://www.r-bloggers.com">r-bloggers</a> and <a href="https://rweekly.org/">RWeekly</a>.
+
+</div></div>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In a <a href="posts/2022-10-18-posi/">previous post</a> I introduced the problem of Selective Inference and illustrated, in a simplified setting, how selection generally affects the coverage of confidence intervals - when they are both <em>selected</em> and <em>constructed</em> using the same data. While the example was (hopefully) helpful to build some intuition, in order to discuss <em>“How to get away with selection”</em> in a comprehensive manner we need to make a few clarifications. In particular, we need to answer the following questions:</p>
+<ul>
+<li>What is the target of our Selective Inference?</li>
+<li>What statistical properties would we like our inferences to have?</li>
+</ul>
+<p>Searching through the literature, I realized there exist a bunch of variations on these two themes, which give rise to different mathematical formalisms. Specifying these points is mandatory for any further discussion, so my main goal here is to present these different points of view and explain some of their pros and cons.</p>
+</section>
+<section id="mathematical-framework" class="level1">
+<h1>Mathematical Framework</h1>
+<section id="regression-and-parameter-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="regression-and-parameter-estimation">Regression and parameter estimation</h3>
+<p>In order to avoid getting carried away with too much abstraction, I will focus on a specific type of problem, that is <em>parameter estimation in regression</em>. As far as I can tell, this represents no serious loss in generality, and most of the notions I’m going to outline would carry over to more general problems in a straightforward manner.</p>
+<p>Broadly speaking, the goal of regression is to understand the dependence of a set of random variables <span class="math inline">\(Y\)</span> from another set of random variables <span class="math inline">\(X\)</span>. More precisely, we’re interested in the conditional probability distribution of <span class="math inline">\(Y\)</span>, conditioned on the observation of <span class="math inline">\(X\)</span>, which can always be represented as:</p>
+<p><span id="eq-y-regression"><span class="math display">\[
+Y = f(X)+\varepsilon,\qquad \mathbb E(\varepsilon|X)\equiv 0.
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(f(X) = \mathbb E(Y|X)\)</span> is the conditional mean of <span class="math inline">\(Y|X\)</span>, and <span class="math inline">\(\varepsilon\)</span> is a random variable with vanishing conditional mean, sometimes called the “error term”. <em>Parameter estimation</em> means that we have (somehow) chosen functional forms for the conditional mean and for the probability distribution of the error term, and we want to provide estimates for the parameters defining these two functions.</p>
+</section>
+<section id="enter-selection" class="level3">
+<h3 class="anchored" data-anchor-id="enter-selection">Enter selection</h3>
+<p>Now, in many applications we actually don’t have much insight about the correct functional form <span class="math inline">\(f\)</span>, nor of the distribution of the error term <span class="math inline">\(\varepsilon\)</span>. Given a dataset of experimental observations of <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>, we are thus faced with two tasks:</p>
+<ol type="1">
+<li><p><em>Selection.</em> Choose an adequate model <span class="math inline">\(\hat M = (\hat f,\,\hat \varepsilon)\)</span> for the true <span class="math inline">\(f\)</span> and <span class="math inline">\(\varepsilon\)</span>, usually from a (more or less) pre-specified family of initial guesses <span class="math inline">\(\mathcal M =\{(f_i,\varepsilon_i)\}_i\)</span>, using a (more or less) pre-specified criterion.</p></li>
+<li><p><em>Post-Selection Inference.</em> Perform inference with the chosen model. In the study case we’re considering, this amounts to provide confidence intervals for model parameters.</p></li>
+</ol>
+<p>It is, of course, the need to use the same data for both tasks which gives rise to complications.</p>
+</section>
+<section id="inferential-target" class="level3">
+<h3 class="anchored" data-anchor-id="inferential-target">Inferential target</h3>
+<p>We now come to the first question raised in the Introduction, regarding the nature of the inferential target. And now more concretely: <em>what are the true values of the parameters we’re trying to estimate?</em> One can appreciate that the answer necessarily depends on how we consider the final output of the modeling procedure:</p>
+<ol type="a">
+<li><em>(Model Trusting)</em> As the <em>true</em> data generating process, or</li>
+<li><em>(Assumption Lean)</em> As an <em>approximation</em> of the (partially or totally unknown) data generating process, chosen in a data-driven fashion within a family of initial guesses <span class="math inline">\(\mathcal M\)</span>.</li>
+</ol>
+<p>According to the first interpretation, there’s no room for ambiguity: the targets of our estimates should clearly be the true parameter values, whose definition does not depend on any modeling choice. The second interpretation, on the other hand, leaves a certain amount of freedom in this respect. Here, I will follow the point of view advocated by <span class="citation" data-cites="berk2013valid">(<a href="#ref-berk2013valid" role="doc-biblioref">Berk et al. 2013</a>)</span>, according to which the target parameters are those providing the <em>best approximation</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to the true data generating process, according to the functional form chosen in the selection stage.</p>
+<p>I believe both positions have their merits and flaws, and which one is more appropriate largely depends on context. In a reductionist field like High Energy Physics, whose eventual goal is to explain the fundamental laws of Nature, the <em>Model Trusting</em> point of view is usually taken, and with good reason. When studying more emergent phenomena, on the other hand, the quest for fundamental laws is often meaningless (or at best wishful thinking), and the <em>Assumption Lean</em> standpoint looks more reasonable. In any case, here the differences are not merely philosophical ones, as the two interpretations give rise to different mathematical formalisms.</p>
+<p>In the following posts, I will be mostly focusing on the <em>Assumption Lean</em> point of view. In my opinion, this has two big advantages<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<ol type="1">
+<li><em>Conceptual:</em> Inferences have a well-defined meaning even when the model is misspecified<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> - which, apart from quite particular cases (see above), accounts for the great majority of cases encountered by data analysts in the practice.</li>
+<li><em>Mathematical:</em> It allows to reduce the problem of <em>selective</em> inference to that of <em>simultaneous</em> inference (more on this below). For the latter type of problems, the theory of <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">multiple testing</a> readily provides at least conservative bounds.</li>
+</ol>
+</section>
+<section id="notions-of-coverage" class="level3">
+<h3 class="anchored" data-anchor-id="notions-of-coverage">Notions of coverage</h3>
+<p>In addition to the conceptual distinction about the interpretation of the selected model, there is also a technical distinction regarding the type of coverage guarantees that selective confidence intervals should be endowed with (this is the concrete version of the second question posed in the Introduction).</p>
+<p>Here are some of the notions of coverage I’ve come across:</p>
+<ul>
+<li><em>Marginal coverage over the selected parameters.</em> We bound at level <span class="math inline">\(\alpha\)</span> the probability that our procedure constructs any non-covering confidence interval for model parameters <span class="math inline">\(\beta_i\)</span>. Denote by <span class="math inline">\(\widehat M\)</span> the selected model and, with abuse of notation, the corresponding set of selected parameters. If <span class="math inline">\(\widehat{\text{CI}}_i\)</span> are the confidence intervals for parameters <span class="math inline">\(\beta _i\)</span>, we require:</li>
+</ul>
+<p><span id="eq-marginal-coverage"><span class="math display">\[
+    \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \geq 1-\alpha
+\tag{2}\]</span></span></p>
+<ul>
+<li><em>Conditional coverage over the selected parameters</em>. We bound at level <span class="math inline">\(\alpha\)</span> the <em>conditional</em> probability of constructing a non-covering confidence interval, conditioned on the outcome of selection <span class="math inline">\(\widehat M\)</span>. If <span class="math inline">\(m\)</span> is the selected model, we require:</li>
+</ul>
+<p><span id="eq-conditional-coverage"><span class="math display">\[
+    \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in m|\,\widehat M=m) \geq 1-\alpha
+\tag{3}\]</span></span></p>
+<ul>
+<li><em>False Coverage Rate</em>. We bound at level <span class="math inline">\(q\)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> the expected fraction of non-covering confidence intervals out of all intervals constructed:</li>
+</ul>
+<p><span id="eq-fcr"><span class="math display">\[
+    \mathbb E \left( \dfrac{|i \in \widehat M \colon \ \beta_i \in \widehat{\text{CI}}_i|}{|\widehat M|} \right)
+    \geq1-q
+\tag{4}\]</span></span></p>
+<p>where <span class="math inline">\(|S|\)</span> denotes the cardinality of a set <span class="math inline">\(S\)</span>.</p>
+<p>Notice that the random variables in the previous equations are <span class="math inline">\(\widehat M\)</span> and <span class="math inline">\(\widehat{\text{CI}}_i\)</span> (denoted by a hat), whereas the true coefficients <span class="math inline">\(\beta_i\)</span> and the selected set <span class="math inline">\(m\)</span> in the case of conditional coverage (<a href="#eq-conditional-coverage" class="quarto-xref">Equation&nbsp;3</a>) are fixed quantities. Variations of these measures focusing on single coefficients are also possible.</p>
+<p>In practice, in the <em>Assumption Lean</em> framework I just introduced, all these coverage measures would <em>not</em> be computed under the selected model’s probability distribution, but rather under a pre-fixed, more general model for the true probability distribution of <span class="math inline">\(Y\)</span> conditional on <span class="math inline">\(X\)</span>. We may, for instance, assume that the true error term <span class="math inline">\(\varepsilon\)</span> in <a href="#eq-y-regression" class="quarto-xref">Equation&nbsp;1</a> is gaussian with constant (<span class="math inline">\(X\)</span>-independent) variance, without making any further assumption on <span class="math inline">\(f(X)\)</span>. With enough data, we may even be able to bypass any assumption at all, and compute all relevant quantiles using a bootstrap <span class="citation" data-cites="kuchibhotla2020valid">(<a href="#ref-kuchibhotla2020valid" role="doc-biblioref">Kuchibhotla et al. 2020</a>)</span>.</p>
+<p>In the <em>Model Trusting</em> framework, on the other hand, the conditional coverage measure would be computed <em>under the selected model</em>… and I’m honestly not sure whether it’s possible to make sense of the other two measures in this framework.</p>
+</section>
+<section id="selective-vs.-simultaneous-inference" class="level3">
+<h3 class="anchored" data-anchor-id="selective-vs.-simultaneous-inference">Selective vs.&nbsp;Simultaneous Inference</h3>
+<p>The connection between selective and simultaneous inference can now be understood, through the notion of marginal coverage. In fact, suppose that we were able to provide simultaneous coverage for <em>all</em> parameters (selected or not):</p>
+<p><span id="eq-simultaneous-marginal-coverage"><span class="math display">\[
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha
+\tag{5}\]</span></span></p>
+<p>Then, it’s easy to see that the same confidence interval would also provide marginal coverage over the selected parameters. In order to see that, simply observe that the simultaneous coverage event can be decomposed as:</p>
+<p><span class="math display">\[
+(\beta _i \in \widehat {\text{CI}}_i\,\,\forall i) = (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \cap (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \notin \widehat M)
+\]</span></p>
+<p>which implies that:</p>
+<p><span class="math display">\[
+\text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \geq \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha,
+\]</span> {#eq:simultaneous-implies-marginal-coverage}</p>
+<p>that is simultaneous coverage implies marginal coverage over the selected parameters. In fact, with a few more set-theory manipulations, one can arrive to a powerful Lemma <span class="citation" data-cites="kuchibhotla2020valid">(see <a href="#ref-kuchibhotla2020valid" role="doc-biblioref">Kuchibhotla et al. 2020</a> for details)</span>: controlling the marginal coverage <a href="#eq-marginal-coverage" class="quarto-xref">Equation&nbsp;2</a> at level <span class="math inline">\(\alpha\)</span> for <em>any</em> model selection procedure<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> is equivalent to controlling simultaneous coverage for all possible model selections.</p>
+<p>This provides us a first, very simple recipe for selective inference, which can be applied whenever one is able to construct confidence intervals for parameters in the absence of selection: use any procedure (e.g.&nbsp;<a href="https://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni corrections</a>) which controls simultaneous coverage for <em>all</em> parameters we may select a priori.</p>
+</section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<p>This was a long and somewhat abstract post, so perhaps the best way to conclude is with some bottom lines:</p>
+<ol type="1">
+<li>When performing model-based inference, nothing forces us to make working hypotheses about the correctness of the model we arrive at. Not making such assumptions corresponds to what I called an <em>Assumption Lean</em> framework.</li>
+<li>In an <em>Assumption Lean</em> framework, the inferential targets are, in general, the best approximations to the truth allowed by the selected model.</li>
+<li>There exist many type of coverage guarantees for selective confidence intervals.</li>
+<li>Bounding the probability of any false coverage statement (“marginal coverage over the selected parameters”) allows to turn a problem of selective inference into one of <em>simultaneous</em> inference.</li>
+</ol>
+<p>In particular, it is worth to mention that the last observation lead us to a simple recipe for constructing (somewhat conservative, but valid) selective confidence intervals with marginal coverage. In the posts which follow, I will discuss some more advanced methods which produce confidence intervals satisfying the requirements discussed here.</p>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-benjamini2005false" class="csl-entry" role="listitem">
+Benjamini, Yoav, and Daniel Yekutieli. 2005. <span>“False Discovery Rate–Adjusted Multiple Confidence Intervals for Selected Parameters.”</span> <em>Journal of the American Statistical Association</em> 100 (469): 71–81.
+</div>
+<div id="ref-berk2013valid" class="csl-entry" role="listitem">
+Berk, Richard, Lawrence Brown, Andreas Buja, Kai Zhang, and Linda Zhao. 2013. <span>“Valid Post-Selection Inference.”</span> <em>The Annals of Statistics</em>, 802–37.
+</div>
+<div id="ref-kuchibhotla2020valid" class="csl-entry" role="listitem">
+Kuchibhotla, Arun K, Lawrence D Brown, Andreas Buja, Junhui Cai, Edward I George, and Linda H Zhao. 2020. <span>“Valid Post-Selection Inference in Model-Free Linear Regression.”</span> <em>The Annals of Statistics</em> 48 (5): 2953–81.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Where what’s to be considered <em>best</em> is defined in terms of some reasonable metric. For instance, for the conditional mean <span class="math inline">\(f(X)\)</span> of a continuous response <span class="math inline">\(Y\)</span>, a convenient target <span class="math inline">\(f^*(X)\)</span> within a prescribed family of functions <span class="math inline">\(\mathcal F\)</span> can be defined by <span class="math inline">\(f^* =\arg\min _{\phi \in \mathcal F} \mathbb E (\vert f(X) - \phi (X)\vert^2)\)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>There’s also a third advantage, which is that I find much harder to think about selective inference from the Model Trusting point of view, hence to write blog posts about it - but that’s likely a limitation of my imagination, rather than of the point of view itself.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A cool word for “wrong”.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Why <span class="math inline">\(q\)</span> and not <span class="math inline">\(\alpha\)</span>? Ask <span class="citation" data-cites="benjamini2005false">(<a href="#ref-benjamini2005false" role="doc-biblioref">Benjamini and Yekutieli 2005</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>It is assumed that the selection is performed from a from a <em>fixed</em> family of models <span class="math inline">\(\mathcal M\)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2022,
+  author = {Gherardi, Valerio},
+  title = {How to Get Away with Selection. {Part} {II:} {Mathematical}
+    {Framework}},
+  date = {2022-11-25},
+  url = {https://vgherard.github.io/posts/2022-11-07-posi-2/posi-2.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2022" class="csl-entry quarto-appendix-citeas" role="listitem">
+Gherardi, Valerio. 2022. <span>“How to Get Away with Selection. Part II:
+Mathematical Framework.”</span> November 25, 2022. <a href="https://vgherard.github.io/posts/2022-11-07-posi-2/posi-2.html">https://vgherard.github.io/posts/2022-11-07-posi-2/posi-2.html</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/vgherard\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="vgherard/vgherard.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzODI2MzU4NTQ=" data-category="Comments" data-category-id="DIC_kwDOFs6PTs4CbwOw" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

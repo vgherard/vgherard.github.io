@@ -1,0 +1,17 @@
+---
+title: "About"
+---
+
+## This website
+
+This website serves as a repository for my thoughts, things I am studying or working on, and notes I have accumulated across the years. Central topics are Statistics, Mathematics and Physics^[*Physics is an experimental science, a part of natural science. Mathematics is the part of physics where experiments are cheap.* - V.I. Arnold, On Teaching Mathematics.].
+
+## Me
+
+I am Valerio, class 1992, Italian based in València (Spain). 
+
+I am generally passionate about science, and mathematical sciences in particular. I studied Physics, specializing in Particle Phenomenology, on which I did my PhD. More recently, my interests have been gravitating more around Statistics, both theoretical and applied.
+
+I worked as data scientist for a few years, finally concluding that it is not my thing. As of today (Feb. 2024), I still have to figure out what comes next.
+
+If you want to get in touch with me, you can follow the contact links in the navigation bar above. My CV can be downloaded [here](https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf).

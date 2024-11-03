@@ -1,0 +1,28 @@
+# Freeze computed outputs
+freeze: true
+
+# Enable banner style title blocks
+title-block-banner: true
+
+# Enable CC licence appendix
+license: "CC BY"
+
+# Default for table of contents
+toc: true
+toc-title: Table of contents
+toc-location: left
+
+# Default knitr options
+execute:
+  echo: true
+  message: true
+  warning: true
+
+# Default author
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+    orcid: 0000-0002-8215-3013
+
+# Default fields for citation
+citation: true

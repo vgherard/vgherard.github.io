@@ -1,0 +1,15 @@
+{
+  "hash": "375c861d937faa120b7a088484667ffd",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Entropy\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: Valerio Gherardi\n    url: https://vgherard.github.io\ndate: 2024-02-11\noutput:\n  distill::distill_article:\n    self_contained: false\ndraft: true\n---\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

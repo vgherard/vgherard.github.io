@@ -1,0 +1,17 @@
+{
+  "hash": "909f3f0c03de200c787f90cf3c96f97a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Test post\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: Valerio Gherardi\n    url: https://vgherard.github.io\ndate: 07-06-2021\noutput:\n  distill::distill_article:\n    self_contained: false\ncategories: Other\ndraft: false\n---\n\n\n",
+    "supporting": [
+      "test-post_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

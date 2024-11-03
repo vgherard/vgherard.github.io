@@ -1,0 +1,15 @@
+{
+  "hash": "43a5af4261b94b8d00a3e439f3dfd6f4",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Sum and ratio of independent random variables\"\ndescription: |\n  Sufficient conditions for independence of sum and ratio.\ndate: 2023-06-14\ncategories: \n  - Mathematics\n  - Probability Theory\ndraft: false\n---\n\n\n\nLet $X$ and $Y$ be two continuous independent random variables, with joint density $f_{XY}(x,y)=f_X(x)f_Y(y)$. Define: $$\ns = x+y, \\qquad r = x/y,\n$$ with inverse transformation given by:\n\n$$\ny = \\frac{s}{1+r},\\qquad x = \\frac{rs}{1+r}.\n$$ The Jacobian of the $(x,y) \\mapsto (s,r)$ transformation is:\n\n$$\n\\left|\\dfrac{\\partial (s,r)}{\\partial(x,y)}\\right|= \\dfrac{(1+r)^2}{s}.\n$$ Hence the joint density of $S = X+Y$ and $R = X/Y$ is given by:\n\n$$\nf_{SR}(s,r) = f(x,y)\\left|\\dfrac{\\partial (x,y)}{\\partial(s,r)}\\right|=f_X(\\frac{rs}{1+r})f_Y(\\frac{s}{1+r})\\frac{s}{(1+r)^2}.\n$$\n\nThe necessary and sufficient condition for this to factorize into a product, $f_{SR}(s,r)\\equiv f_S(s)f_R(r)$, is that $f_X(x)f_Y(y) = g_S(s)g_R(r)$ for some functions $g_S$ and $g_R$.\n\nThis is true for all functions $f_X$ and $f_Y$ from the family:\n\n$$\n\\phi(t) = \\text{const} \\times  t^\\alpha e^{-\\beta t}.\n$$ This includes some important special cases:\n\n-   The $\\chi ^2$ distribution ($\\alpha = \\frac{\\nu}{2}-1,\\,\\beta = \\frac{1}{2}$).\\\n-   The exponential distribution: $\\alpha = 0,\\,\\beta >0$.\n-   The \"homogeneous\" distribution: $\\beta = 0$ (restricted to the appropriate domain).\n-   The uniform distribution: $\\alpha = \\beta = 0$.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

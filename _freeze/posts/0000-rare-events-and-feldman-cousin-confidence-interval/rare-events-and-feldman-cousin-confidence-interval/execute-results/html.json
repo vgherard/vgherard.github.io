@@ -1,0 +1,15 @@
+{
+  "hash": "08befa5638f7eed468bd572f2669d7d8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Rare events and Feldman-Cousin Confidence Interval\"\ndescription: |\n  A short description of the post.\nauthor:\n  - name: vgherard\n    url: https://vgherard.github.io\ndate: 2023-05-17\noutput:\n  distill::distill_article:\n    self_contained: false\ncategories: \n  - Statistics\n  - Physics\n  - Confidence Intervals\n  - Frequentist Methods\n  - R\ndraft: true\n---\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,97 @@
+---
+title: "Grammar as a biometric for Authorship Verification"
+description: |
+  Notes on preprint 2403.08462 by A. Nini, O. Halvani, L. Graner, S. Ishihara 
+  and myself.
+date: 2024-04-25
+date-modified: 2024-08-15
+bibliography: biblio.bib
+categories: 
+  - Authorship Verification
+  - Natural Language Processing
+  - Forensic Science
+  - Machine Learning
+  - Statistics
+  - R
+draft: false
+---
+
+About a month ago we finally managed to drop [@nini2024authorship], *"Authorship Verification based on the Likelihood Ratio of Grammar Models"*, on the arXiv. Delving into topics such as authorship verification, grammar and forensics, was quite a detour for me, and I'd like to summarize here some of the ideas and learnings I got from working with all this new and interesting material.
+
+The main qualitative idea put forward by Ref. [@nini2024authorship] is that *grammar is a fundamentally personal and unique trait of an individual*, therefore providing a sort of "behavioural biometric". One first goal of this work was to put this general principle under test, by applying it to the problem of Authorship Verification (AV): the process of validating whether a certain document was written by a claimed author. Concretely, we built an algorithm for AV that relies entirely on the grammatical features of the examined textual data, and compared it with the state-of-the-art methods for AV.
+
+The results were very encouraging. In fact, our method actually turned out to be generally superior to the previous state-of-the-art on the benchmarks we examined. This is a notable result, keeping also into account that our method uses *less* textual information (only the grammar part) than other methods to perform its inferences.
+
+## The algorithm
+
+I sketch here a pseudo-implementation of our method in R. For the fit of $k$-gram models and perplexity computations, I use my package [`{kgrams}`](https://vgherard.github.io/kgrams/), which can be installed from CRAN. Model (hyper)parameters such as number of impostors, order of the $k$-gram models, etc. are hardcoded, see [@nini2024authorship] for details.
+
+This is just for illustrating the essence of the method. For practical reasons, in the code chunk below I'm not reproducing the definition of the function `extract_grammar()`, which in our work is embodied by the POS-noise algorithm. This function should transform a regular sentence, such as "He wrote a sentence", to its underlying grammatical structure, say "[Pronoun] [verb] a [noun]".
+
+```{r}
+#' @param q_doc character. Text document whose authorship is questioned.
+#' @param auth_corpus character. Text corpus of claimed author.
+#' @param imp_corpus character. Text corpus of impostors.
+#' @param n_imp a positive number. Number of "impostor" simulations.
+
+score <- function(q_doc, auth_corpus, imp_corpus, n_imp = 100) 
+{
+	q_doc <- extract_grammar(q_doc)
+	auth_corpus <- extract_grammar(auth_corpus)
+	imp_corpus <- extract_grammar(imp_corpus)
+
+	# Compute perplexity based on claimed author's language model.
+	auth_mod <- train_language_model(auth_corpus)
+  auth_perp <- kgrams::perplexity(q_doc, model = auth_mod)
+  
+  # Compute perplexity based on impostor language models.
+  #
+  # Each impostor is trained on a synthetic corpus obtained by sampling from
+  # the impostor corpus the same number of sentences as the corpus of the 
+  # claimed author.
+  n_sents_auth <- length(kgrams::tknz_sent(auth_corpus))
+  imp_corpus_sentences <- kgrams::tknz_sent(imp_corpus)
+  imp_mod <- replicate(n_imp, {
+    sample(imp_corpus_sentences, n_sents_auth) |> train_language_model()
+  })
+  imp_perp <- sapply(imp_mod, \(m) kgrams::perplexity(q_doc, model = m))
+  
+  # Score is the fraction of impostor models that perform worse (higher 
+  # perplexity) than the proposed authors language model
+  score <- mean(auth_perp < imp_perp)
+  
+  return(score)
+}
+
+train_language_model <- function(text)
+{
+  text |> 
+    kgrams::kgram_freqs(N = 10, .tknz_sent = kgrams::tknz_sent) |>
+    kgrams::language_model(smoother = "kn", D = 0.75)
+}
+
+extract_grammar <- identity  # Just a placeholder - see above.
+```
+
+To be used as follows:
+
+```{r}
+q_doc <- "a a b a. b a. c b a. b a b. a." 
+auth_corpus <- "a a b a b. b c b. a b c a. b a. b c a." 
+imp_corpus <- "a a. b. a. b a. b a. c. a b a. d. a b. a d. a b a b c b a."
+
+set.seed(840)
+score(q_doc, auth_corpus, imp_corpus)
+```
+
+The "score" computed by this algorithm turns out to be a good truthfulness predictor for the claimed authorship, higher scores being correlated with true attributions. *If* the impostor corpus is fixed once and for all, and *if* the pairs `q_doc` and `auth_corpus` are randomly sampled from a fixed joint distribution, we can set a threshold for score in such a way that the attribution criterion `score > threshold` maximizes some objective such as accuracy. This is, more or less, what we studied quantitatively in our paper.
+
+## Reflections on *in silico* Authorship Verification
+
+The various *ifs* at the end of the previous sections led me to reflexionate on the applicability of machine-learning approaches, such as the one we discussed in our work, to real-life contexts.
+
+As implied above, in order for a metric such as accuracy to represent a sensible measure of predictive performance, we should be able to regard the AV problems encountered in our favorite practical use case as random samples from some *fixed* population. In other words, we consider a stationary source of random authorship claims, and assume that our trained model is routinely used to verify claims from this source.
+
+Now, while there are many circumstances in which the above assumptions make total sense, I think there are also interesting AV applications in which one is not interested in the long-run properties of the method but, rather, in a single inference. The real case of the poem "Shall I die?", controversially attributed to Shakespeare in 1985, is an example of this kind. An approach to this case based on empirical Bayes is discussed in [@efron2021computer, §6.2]. Although we may be able to build a reasonable impostor corpus to be used with this problem, it is not clear how one should come up with a relevant testing dataset of AV problems to empirically quantify uncertainty.
+
+For cases such as the "Shall I die?" controversy, the machine-learning setting considered in our study is just an *in silico* model of real AV. As such, I believe it still provides useful indications on what could be good authorship indicators and work in general, but we must acknowledge the practical limitations in our way to quantify uncertainty. Other approaches, such as classical null hypothesis testing, may be more suited to this specific kind of AV problems.

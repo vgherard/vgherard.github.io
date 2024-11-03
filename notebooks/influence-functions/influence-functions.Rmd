@@ -1,0 +1,79 @@
+---
+title: "Influence Functions"
+description: |
+  A short description of the post.
+author:
+  - name: Valerio Gherardi
+    url: https://vgherard.github.io
+date: 2024-04-29
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+Let $(\Omega,\,\mathcal E)$ be a measurable space, and let $t\colon \mathbb P (\mathcal E)\to\mathbb R$ be a functional defined on the space $\mathbb P (\mathcal E)$ of probability measures on $\mathcal E$.
+
+Given $P\in \mathbb P (\mathcal E)$, we assume that $t$ is differentiable at $P$, that is to say, the limit:
+
+$$
+Dt(P;Q)\equiv\lim _{\varepsilon \to 0} \dfrac{t(P + \varepsilon \cdot (Q-P))-t(P)}{\varepsilon}
+$$ exists for all $Q\in \mathbb P (\mathcal E)$, and that the differential is linear and continuous as a function of $Q$. Moreover, denoting by $\delta _\omega$ the measure $\delta _\omega(A) = I(\omega\in A)$, we define the *influence function*:
+
+$$
+\Phi _t(P;\omega)=Dt(P;\delta_\omega)
+$$
+
+Under some regularity assumptions, it can be proved that:
+
+$$
+\intop _\Omega \Phi _t(P;\omega) \text d P(\omega) = 0
+$$
+
+To see this in the simplest case, assume that $P$ is a discrete measure:
+
+$$
+P = \sum _{i = 1} p_i \delta _{\omega _i},
+$$
+
+for some $\omega _i \in \Omega$, and $p_i>0$ such that $\sum _{i=1}^n p_i = 1$. Using the fact that $Dt$ is linear[^1] $Dt(P;P)=0$:
+
+[^1]: In the sense that if $Q = (1-s)Q_0+sQ_1$ for some $s \in [0,\,1]$, we have $Dt(P;Q)=(1-s)Dt(P;Q_0)+sDt(P;Q_1)$.
+
+$$
+0 = Dt(P;P) = \sum _{i = 1}^n p_i\cdot Dt(P;\delta_{\omega_i})= \intop _\Omega \Phi _t(P;\omega) \text d P(\omega).
+$$
+
+------------------------------------------------------------------------
+
+Let us compute the influence function for a maximum-likelihood estimator $\hat \theta$ of a parameter $\theta \in \mathbb R ^p$. First of all, let us notice that $\hat \theta$ is indeed a functional statistic (that is, it depends only on the empirical distribution $\hat P$), since we can write:
+
+$$
+\hat \theta = \arg \min _\theta \mathcal L (\theta; X) = \arg \min _\theta \mathbb E _{\hat P}(\ell (\theta ;X)),
+$$ where we assume $\mathcal L(\theta;x_i) = \sum _i \ell (\theta;x_i)$.
+
+Now, for a general functional $T_\theta$ of $P\in \mathbb P (\mathcal E)$ depending on a parameter $\theta \in \mathbb R ^p$, suppose that $\theta ^* = \arg \min _\theta T_\theta(P)$ and $\theta ^* +  \delta \theta ^*= \arg \min _\theta T_\theta(P + \delta P)$. By definition we must have:
+
+$$
+0 = \dfrac{\partial }{\partial \theta} \vert _{\theta = \theta ^* + \delta \theta ^*}T_\theta(P+\delta P)= \dfrac{\partial }{\partial \theta} \vert _{\theta = \theta ^* }DT_\theta(P;\delta P)+\delta \theta ^* \cdot\dfrac{\partial ^2 }{\partial \theta ^2} \vert _{\theta = \theta ^* }T_\theta(P)
+$$ This implies that the differential of $\theta ^*$ is given by:
+
+$$
+D\theta ^*(P;\delta P) = (\dfrac{\partial ^2 T_\theta(P)}{\partial \theta ^2})^{-1} \dfrac{\partial (DT_\theta(P;\delta P))}{\partial \theta} \vert _{\theta = \theta ^* }.
+$$ The functional:
+
+$$
+T_\theta(P)=\mathbb E _{P}(\ell (\theta ;X))
+$$
+
+is linear in $P$, so that its differential is simply given by:
+
+$$
+DT_\theta (P;\delta P) = \intop _\Omega \ell (\theta; x) \delta P(x),
+$$
+
+if $\delta P = \delta _{x} - P$ we get:
+
+$$
+DT_\theta (P;\delta _{x} ) = \ell (\theta;x) - \mathbb E_P(\ell(\theta;X))
+$$
