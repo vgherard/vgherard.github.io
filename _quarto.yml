@@ -10,6 +10,7 @@ website:
   #announcement	https://quarto.org/docs/reference/projects/websites.html#announcement
   site-url: "https://vgherard.github.io"
   repo-url: "https://github.com/vgherard/vgherard.github.io/"
+  repo-actions: [source, issue]
   #favicon:
   #image: Default site thumbnail image for twitter /open-graph
 	#image-alt: Default site thumbnail image alt text for twitter /open-graph
@@ -80,5 +81,7 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+    toc-location: left
+    toc-title: "Contents"
 
 editor: visual
