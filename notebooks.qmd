@@ -10,4 +10,10 @@ listing:
   fields: [title, date, file-modified, description]
 page-layout: full
 title-block-banner: true
+format:
+  html:
+    toc: false
+    grid:
+      margin-width: 0px
 ---
+

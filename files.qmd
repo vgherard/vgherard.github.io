@@ -4,6 +4,8 @@ page-layout: full
 format:
   html:
     toc: false
+    grid:
+      margin-width: 0px
 ---
 
 Documents which, for various reasons (including laziness), cannot be converted to the main website's format.
@@ -12,3 +14,4 @@ Documents which, for various reasons (including laziness), cannot be converted t
 -   [**Solving the homogeneous Bethe-Salpeter equation for a fermion-scalar system in Minkowski space**](https://raw.githubusercontent.com/vgherard/bse-thesis/master/Thesis.pdf). My Master thesis.
 -   [**Teoria della Decoerenza Quantistica**](https://raw.githubusercontent.com/vgherard/teoria-della-decoerenza-quantistica/master/Valerio%20Gherardi%20-%20Bachelor%20Thesis.pdf). My Bachelor thesis (in Italian).
 -   [**Teoria della Misura e Analisi Funzionale**](https://raw.githubusercontent.com/vgherard/teoria-della-misura-analisi-funzionale/master/teoria-della-misura-analisi-funzionale.pdf). Lecture notes on measure theory (in Italian).
+
