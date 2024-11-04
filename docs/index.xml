@@ -10,7 +10,51 @@
 <atom:link href="https://vgherard.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>Valerio Gherardi&#39;s Personal Website</description>
 <generator>quarto-1.5.57</generator>
-<lastBuildDate>Sun, 11 Aug 2024 22:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 03 Nov 2024 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>Exponential of a 2x2 real matrix</title>
+  <dc:creator>Valerio Gherardi</dc:creator>
+  <link>https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/exponential-of-a-2x2-real-matrix.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Let <img src="https://latex.codecogs.com/png.latex?A"> be a 2x2 real matrix, with eigenvalues:</p>
+<p><span id="eq-eigenvalues"><img src="https://latex.codecogs.com/png.latex?%0A%5Clambda%20_%7B%5Cpm%7D%20=%20%5Cfrac%7B%5Ctext%20%7BTr%7DA%7D%7B2%7D%5Cpm%20%5Csqrt%7B%5CDelta%7D,%20%5Cqquad%20%5CDelta%20%5Cequiv%20%5Cleft(%20%5Cfrac%7B%5Ctext%20%7BTr%7DA%7D%7B2%7D%20%5Cright%20)%5E2-%5Cdet%20A%0A%5Ctag%7B1%7D"></span></p>
+<p>If <img src="https://latex.codecogs.com/png.latex?%5CDelta%20%5Cneq%200">, <img src="https://latex.codecogs.com/png.latex?A"> has two distinct eigenvalues, and we can decompose <img src="https://latex.codecogs.com/png.latex?A"> as follows:</p>
+<p><span id="eq-decomposition"><img src="https://latex.codecogs.com/png.latex?%0AA%20=%20%5Clambda%20_+%20P_++%5Clambda%20_-P_-,%0A%5Ctag%7B2%7D"></span></p>
+<p>with:</p>
+<p><span id="eq-projectors"><img src="https://latex.codecogs.com/png.latex?%0AP_%5Cpm%20=%5Cpm%5Cdfrac%7B1%7D%7B%5Clambda%20_+%20-%20%5Clambda%20_-%7D(A-%5Clambda%20_%5Cmp),%0A%5Ctag%7B3%7D"></span></p>
+<p>that satisfy:</p>
+<p><span id="eq-projectors-properties"><img src="https://latex.codecogs.com/png.latex?%0A(P_%5Cpm)%5E2%20=%201,%20%5Cquad%20P_+%20P_-%20=%20P_-%20P_+%20=%200.%0A%5Ctag%7B4%7D"></span></p>
+<p>Using Equations 3 and 4, one can immediately compute the exponential:</p>
+<p><span id="eq-exponential-distinct-eig"><img src="https://latex.codecogs.com/png.latex?%0Ae%5EA%20=%20e%5E%7B%5Clambda%20_+%7D%20P_+%20+%20e%5E%7B%5Clambda%20_-%7D%20P_-%20%5Cqquad%20(%5CDelta%20%5Cneq%200)%0A%5Ctag%7B5%7D"></span></p>
+<p>We can obtain the case <img src="https://latex.codecogs.com/png.latex?%5CDelta%20=%200"> from the <img src="https://latex.codecogs.com/png.latex?%5CDelta%20%5Cto%200"> limit of Equation&nbsp;5. Observing that:</p>
+<p><span id="eq-projectors-further-properties"><img src="https://latex.codecogs.com/png.latex?%0AP_+%20+%20P_-%20=%201,%20%5Cqquad%20P_+-P_-%20=%20%5Cfrac%7B1%7D%7B%5Csqrt%7B%5CDelta%7D%7D(A-%5Cfrac%7B%5Ctext%20%7BTr%7DA%7D%7B2%7D),%0A%5Ctag%7B6%7D"></span></p>
+<p>from Equation&nbsp;5 we find:</p>
+<p><span id="eq-exponential-limit"><img src="https://latex.codecogs.com/png.latex?%0Ae%5E%7B-%5Cfrac%7B%5Ctext%7BTr%7DA%7D%7B2%7D%7De%5EA%20=%20%20A%20+%201-%5Cfrac%7B%5Ctext%20%7BTr%7DA%7D%7B2%7D+O(%5Csqrt%20%5CDelta)%20%5Cquad(%5CDelta%20%5Cto%200),%0A%5Ctag%7B7%7D"></span></p>
+<p>that yields:</p>
+<p><span id="eq-exponential-single-eig"><img src="https://latex.codecogs.com/png.latex?%0Ae%5EA%20=%20%20e%5E%7B%5Cfrac%7B%5Ctext%7BTr%7DA%7D%7B2%7D%7D%5Cleft(A%20+%201-%5Cfrac%7B%5Ctext%20%7BTr%7DA%7D%7B2%7D%5Cright)%20%5Cquad(%5CDelta%20=%200).%0A%5Ctag%7B8%7D"></span></p>
+
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2024,
+  author = {Gherardi, Valerio},
+  title = {Exponential of a 2x2 Real Matrix},
+  date = {2024-11-04},
+  url = {https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/exponential-of-a-2x2-real-matrix.html},
+  langid = {en}
+}
+</code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
+Gherardi, Valerio. 2024. <span>“Exponential of a 2x2 Real
+Matrix.”</span> November 4, 2024. <a href="https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/exponential-of-a-2x2-real-matrix.html">https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/exponential-of-a-2x2-real-matrix.html</a>.
+</div></div></section></div> ]]></description>
+  <category>Mathematics</category>
+  <guid>https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/exponential-of-a-2x2-real-matrix.html</guid>
+  <pubDate>Sun, 03 Nov 2024 23:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Dutch book arguments</title>
   <dc:creator>Valerio Gherardi</dc:creator>
@@ -1603,18 +1647,6 @@ Theory and Simulation.”</span> May 17, 2024. <a href="https://vgherard.github.
   <category>R</category>
   <guid>https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation.html</guid>
   <pubDate>Thu, 16 May 2024 22:00:00 GMT</pubDate>
-</item>
-<item>
-  <title></title>
-  <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species/annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species.html</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>Comment on...</category>
-  <category>Population Dynamics</category>
-  <category>Biology</category>
-  <category>Statistics</category>
-  <guid>https://vgherard.github.io/posts/2024-04-25-annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species/annual-adult-survival-rates-for-four-sympatric-breeding-swallow-species.html</guid>
-  <pubDate>Wed, 24 Apr 2024 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Grammar as a biometric for Authorship Verification</title>

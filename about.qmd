@@ -4,8 +4,6 @@ page-layout: full
 format:
   html:
     toc: false
-    grid:
-      margin-width: 0px
 ---
 
 ## This website

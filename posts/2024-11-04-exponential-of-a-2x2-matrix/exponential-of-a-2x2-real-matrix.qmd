@@ -1,0 +1,57 @@
+---
+title: "Exponential of a 2x2 real matrix"
+description: |
+  Explicit formulae
+date: 2024-11-04
+categories: 
+  - Mathematics
+draft: false
+---
+
+Let $A$ be a 2x2 real matrix, with eigenvalues:
+
+$$ 
+\lambda _{\pm} = \frac{\text {Tr}A}{2}\pm \sqrt{\Delta}, \qquad \Delta \equiv \left( \frac{\text {Tr}A}{2} \right )^2-\det A
+$$ {#eq-eigenvalues}
+
+If $\Delta \neq 0$, $A$ has two distinct eigenvalues, and we can decompose $A$ as follows:
+
+$$
+A = \lambda _+ P_++\lambda _-P_-, 
+$$ {#eq-decomposition}
+
+with:
+
+$$
+P_\pm =\pm\dfrac{1}{\lambda _+ - \lambda _-}(A-\lambda _\mp),
+$$ {#eq-projectors}
+
+that satisfy:
+
+$$
+(P_\pm)^2 = 1, \quad P_+ P_- = P_- P_+ = 0. 
+$$ {#eq-projectors-properties}
+
+Using Equations [-@eq-projectors] and [-@eq-projectors-properties], one can immediately compute the exponential:
+
+$$
+e^A = e^{\lambda _+} P_+ + e^{\lambda _-} P_- \qquad (\Delta \neq 0)
+$$ {#eq-exponential-distinct-eig}
+
+We can obtain the case $\Delta = 0$ from the $\Delta \to 0$ limit of @eq-exponential-distinct-eig. Observing that:
+
+$$
+P_+ + P_- = 1, \qquad P_+-P_- = \frac{1}{\sqrt{\Delta}}(A-\frac{\text {Tr}A}{2}),
+$$ {#eq-projectors-further-properties}
+
+from @eq-exponential-distinct-eig we find:
+
+$$
+e^{-\frac{\text{Tr}A}{2}}e^A =  A + 1-\frac{\text {Tr}A}{2}+O(\sqrt \Delta) \quad(\Delta \to 0),
+$$ {#eq-exponential-limit}
+
+that yields:
+
+$$
+e^A =  e^{\frac{\text{Tr}A}{2}}\left(A + 1-\frac{\text {Tr}A}{2}\right) \quad(\Delta = 0).
+$$ {#eq-exponential-single-eig}
