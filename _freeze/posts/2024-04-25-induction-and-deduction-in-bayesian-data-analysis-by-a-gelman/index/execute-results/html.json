@@ -1,0 +1,15 @@
+{
+  "hash": "c1071c20787614b16a2a66e83ab21dc2",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"\\\"Induction and Deduction in Bayesian Data Analysis\\\" by A. Gelman\"\ndescription: |\n  On the importance of model checks in Bayesian data analysis.\ndate: 2024-04-25\nbibliography: biblio.bib\ncategories: \n  - Comment on...\n  - Bayesian Methods\n  - Statistics\ndraft: false\n---\n\n\n\n\n[@gelman2011induction]. From the paper's abstract:\n\n> The classical or frequentist approach to statistics (in which inference is centered on significance testing), is associated with a philosophy in which science is deductive and follows Popper’s doctrine of falsification. In contrast, Bayesian inference is commonly associated with inductive reasoning and the idea that a model can be dethroned by a competing model but can never be directly falsified by a significance test. The purpose of this article is to break these associations, which I think are incorrect and have been detrimental to statistical practice, in that they have steered falsificationists away from the very useful tools of Bayesian inference and have discouraged Bayesians from checking the fit of their models. From my experience using and developing Bayesian methods in social and environmental science, I have found model checking and falsification to be central in the modeling process.\n\nComments:\n\n-   I don't know nothing about applied Bayesian analysis, but I'm a bit surprised by the fact that the recommendation to check model's fit requires a whole paper in the 21st century. What is the supposed argument why Bayesians should not worry about model fit?\n\n-   I'm a bit confused about how one would actually interpret the model posterior checks discussed in the paper. If I understand correctly, the $p$-value is the posterior probability of observing a statistic as extreme as in the original data. Should I interpret this as a strength of evidence against the model - similar to Fisherian significance testing? What is the philosophical basis for rejecting models with small $p$-values? I guess these questions are answered in the technical references by the same author.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

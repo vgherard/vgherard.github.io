@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Valerio Gherardi">
+<meta name="dcterms.date" content="2023-05-01">
+<meta name="description" content="Compares frequentist properties of credible intervals and confidence intervals in a gambling game involving a magic piggy bank.">
+
+<title>Bayes, Neyman and the Magic Piggy Bank – vgherard</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BM2Y0430QE"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BM2Y0430QE', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">vgherard</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notebooks"> 
+<span class="menu-text">Notebooks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/software"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/scientific_publications"> 
+<span class="menu-text">Scientific Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/files"> 
+<span class="menu-text">Files</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/about"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/vgherard"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/vgherard/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ValerioGherardi"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:vgherard840@gmail.com"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-links" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other links</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-links">    
+        <li>
+    <a class="dropdown-item" href="https://www.r-bloggers.com/author/vgherard/">
+ <span class="dropdown-text">vgherard @ r-bloggers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://stackexchange.com/users/2261006/pppqqq">
+ <span class="dropdown-text">vgherard @ StackExchange</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">
+ <span class="dropdown-text">vgherard @ iNSPIRE HEP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://lichess.org/@/vgherard">
+ <span class="dropdown-text">vgherard @ lichess.org</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ratings.fide.com/profile/94715360">
+ <span class="dropdown-text">vgherard @ FIDE</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Bayes, Neyman and the Magic Piggy Bank</h1>
+                  <div>
+        <div class="description">
+          <p>Compares frequentist properties of credible intervals and confidence intervals in a gambling game involving a magic piggy bank.</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Statistics</div>
+                <div class="quarto-category">Confidence Intervals</div>
+                <div class="quarto-category">Frequentist Methods</div>
+                <div class="quarto-category">Bayesian Methods</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://vgherard.github.io">Valerio Gherardi</a> <a href="https://orcid.org/0000-0002-8215-3013" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 1, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro">Intro</a></li>
+  <li><a href="#reporting-measurements" id="toc-reporting-measurements" class="nav-link" data-scroll-target="#reporting-measurements">Reporting measurements</a></li>
+  <li><a href="#magic-piggy-bank" id="toc-magic-piggy-bank" class="nav-link" data-scroll-target="#magic-piggy-bank">Magic Piggy Bank</a>
+  <ul class="collapse">
+  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem">Problem</a></li>
+  </ul></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <ul class="collapse">
+  <li><a href="#variant-a" id="toc-variant-a" class="nav-link" data-scroll-target="#variant-a">Variant A</a></li>
+  <li><a href="#variant-b" id="toc-variant-b" class="nav-link" data-scroll-target="#variant-b">Variant B</a></li>
+  <li><a href="#variant-c" id="toc-variant-c" class="nav-link" data-scroll-target="#variant-c">Variant C</a></li>
+  <li><a href="#summary-of-results" id="toc-summary-of-results" class="nav-link" data-scroll-target="#summary-of-results">Summary of results</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/vgherard/vgherard.github.io/blob/main/posts/2023-05-01-magic-piggy-bank/index.Rmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/vgherard/vgherard.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<h5 class="quarto-listing-category-title">Subscribe</h5>
+<form method="post" action="https://blogtrottr.com">
+        <p> Enjoy my blog? Get notified of new posts via email: </p>
+    <input type="text" name="btr_email" placeholder="your@email.here"><br>
+    <input type="hidden" name="btr_url" value="https://vgherard.github.io/index.xml">
+    <input type="hidden" name="schedule_type" value="0">
+    <input type="submit" value="Subscribe" id="mc-embedded-subscribe" class="button">
+</form>
+or
+<a href="https://vgherard.github.io/index.xml"> subscribe to its RSS feed</a>.
+<br>
+<br>
+R-related posts also available at
+<a href="https://www.r-bloggers.com">r-bloggers</a> and <a href="https://rweekly.org/">RWeekly</a>.
+<br>
+<br>
+
+
+</div></div>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Frequentist and Bayesian approaches to statistical inference are motivated by different interpretations of the concept of probability. These philosophical differences can, at times, shadow the comparably important <em>operational</em> differences between the two frameworks, whose methods proceed, at the end of the day, from the same mathematical theory.</p>
+<p>From the purely operational point of view, the question <em>“Bayesian or Frequentist?”</em> can (and should) be answered by objective criteria, rather than subjective opinions. As one could expect, the answer is in general neither “Frequentist” nor “Bayesian”, but rather <em>“It depends”</em>.</p>
+<p>To illustrate this, I will discuss an hypothetical game that revolves around reporting measurements and correctly quantifying uncertainty. As we shall see, the winning strategies can be either Frequentist or Bayesian in spirit, depending on a variation of the actual rules of the game.</p>
+</section>
+<section id="reporting-measurements" class="level1">
+<h1>Reporting measurements</h1>
+<p>All scientific measurements come with an associated uncertainty, which can be expressed in the form of an interval that is supposed to contain the object of measurement. In the Frequentist and Bayesian frameworks, these intervals are traditionally dubbed <em>Confidence</em> and <em>Credible</em> intervals, respectively. While, superficially, these can be both characterized as <em>“covering the true value with a given probability”</em>, the word <em>“probability”</em> has quite different connotations in the two cases, and confusing them can lead to irrational thought or, as in the imaginary game described below, financial ruin.</p>
+</section>
+<section id="magic-piggy-bank" class="level1">
+<h1>Magic Piggy Bank</h1>
+<p>There are two players, called the Bookmaker and the Gambler, that compete against each other in a gambling game<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The interactions between these two players are mediated by the <em>Magic Piggy Bank</em>, a magic creature that acts as a sort of referee. The Magic Piggy Bank contains infinite biased coins, and knows the probability <span class="math inline">\(\Theta\)</span> of giving “tails” for each one of them.</p>
+<p>A single iteration of the game proceeds as follows:</p>
+<ol type="1">
+<li><p>The Magic Piggy Bank ejects <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> a biased coin and gives it to the Bookmaker.</p></li>
+<li><p>The Bookmaker can flip the coin an arbitrary number of times, to produce an estimate of <span class="math inline">\(\Theta\)</span>, in the form of an interval <span class="math inline">\(I\)</span>. This must be accompanied by a <em>payout</em>, that is a number <span class="math inline">\(p\in \left(0,1\right)\)</span>, for bets on the event <span class="math inline">\(\Theta \in I\)</span>. The resulting <span class="math inline">\(I\)</span> and <span class="math inline">\(p\)</span>, together with the original data <span class="math inline">\(X=(n_\text{tosses}, n_\text{tails})\)</span> from the Bookmaker’s experiments, are reported to the Magic Piggy Bank.</p></li>
+<li><p>The Magic Piggy Bank communicates the payout <span class="math inline">\(p\)</span> to the Gambler, and reveals <em>some additional information</em>. What particular information is revealed depends on the variant of the game being played (see descriptions below).</p></li>
+<li><p>Based on the information received, the Gambler can choose to bet either<br>
+in favor or against <span class="math inline">\(\Theta \in I\)</span>. When betting in favor, the Gambler pays <span class="math inline">\(p\)</span> to the Bookmaker, who returns back <span class="math inline">\(1\)</span> if <span class="math inline">\(\Theta \in I\)</span> obtains. When betting against, the Bookmaker pays <span class="math inline">\(p\)</span> to the Gambler, who returns back <span class="math inline">\(1\)</span> if <span class="math inline">\(\Theta \in I\)</span> obtains.</p></li>
+<li><p>The Magic Piggy Bank reveals all data (<span class="math inline">\(X\)</span>, <span class="math inline">\(I\)</span>, <span class="math inline">\(\Theta\)</span>) to both players and the scores are settled.</p></li>
+</ol>
+<p>As to the third step, we will consider three variants of the game:</p>
+<ol type="A">
+<li>The Magic Piggy Bank tells the Gambler the results of the Bookmaker’s tosses <span class="math inline">\(X=(n_\text{tosses}, n_\text{tails})\)</span>, as well as the actual interval <span class="math inline">\(I\)</span>.</li>
+<li>The Magic Piggy Bank tells the Gambler the true value of <span class="math inline">\(\Theta\)</span>.</li>
+<li>The Gambler is given no additional information beyond the established payout <span class="math inline">\(p\)</span>.</li>
+</ol>
+<section id="problem" class="level3">
+<h3 class="anchored" data-anchor-id="problem">Problem</h3>
+<p>Suppose that the Bookmaker and Gambler are forced to play indefinitely. What are the best strategies for these two players, according to the three different variants A, B, and C described above<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>?</p>
+</section>
+</section>
+<section id="analysis" class="level1">
+<h1>Analysis</h1>
+<p>One can readily verify that the Gambler’s gain (or, equivalently, the Bookmaker’s loss) in a single iteration of the game is given by:</p>
+<p><span id="eq-gain"><span class="math display">\[
+G=b\cdot (\chi_I (\Theta)-p)
+\tag{1}\]</span></span></p>
+<p>where, <span class="math inline">\(b\)</span> is equal to <span class="math inline">\(\pm 1\)</span> if the Gambler bets in favor or against, respectively, and:</p>
+<p><span id="eq-characteristic-function"><span class="math display">\[
+\chi _I (\Theta) = \begin{cases}
+1 &amp; \Theta \in I \\
+0 &amp; \Theta \notin I
+\end{cases}
+\tag{2}\]</span></span></p>
+<p>The expected gain is given by:</p>
+<p><span id="eq-expected-gain"><span class="math display">\[
+\mathbb E (G) = \intop \text{d}P(\Theta,X) \,b\cdot (\chi_I (\Theta)-p),
+\tag{3}\]</span></span></p>
+<p>where <span class="math inline">\(\text{d} P(\Theta, X)\)</span> denotes the joint probability measure of <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(X\)</span>.</p>
+<p>Let’s now examine in detail the three different variants (A, B, C) of the game described above.</p>
+<section id="variant-a" class="level3">
+<h3 class="anchored" data-anchor-id="variant-a">Variant A</h3>
+<p>In the first variant of the game, the Gambler is given the same information as the Bookmaker. In particular, the choice to bet in favor or against, represented by the sign <span class="math inline">\(b\)</span>, cannot depend on <span class="math inline">\(\Theta\)</span> (which the Gambler doesn’t know), and we can rewrite the expected gain <a href="#eq-expected-gain" class="quarto-xref">Equation&nbsp;3</a> as<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</p>
+<p><span id="eq-expected-gain-A"><span class="math display">\[
+\begin{split}
+\mathbb E (G) &amp;= \intop \text{d}P(X) \,b\cdot \intop \text{d}P(\Theta \vert X) \,(\chi_I (\Theta)-p) \\
+&amp; = \intop \text{d}P(X) \,b \cdot \left(\text {Pr}(\Theta \in I \vert X)-p\right)
+\end{split}
+\tag{4}\]</span></span></p>
+<p>where we have used the fact that, for any random variable <span class="math inline">\(Y\)</span> and set <span class="math inline">\(E\)</span>, the following relation holds:</p>
+<p><span class="math display">\[
+\mathbb E (\chi _E (Y)) = \text{Pr}(Y \in E).
+\]</span></p>
+<p>Now, since both <span class="math inline">\(X\)</span> and <span class="math inline">\(I\)</span> are known to the Gambler, the latter is (at least in principle) able to compute:</p>
+<p><span id="eq-optimal-bet-A"><span class="math display">\[
+b_A \equiv \text{sgn}\left(\text {Pr}(\Theta \in I \vert X)-p\right)
+\tag{5}\]</span></span></p>
+<p>In practice, in order to compute <a href="#eq-optimal-bet-A" class="quarto-xref">Equation&nbsp;5</a>, the Gambler would need to know the overall distribution <span class="math inline">\(\pi (\Theta)\)</span> of the coins <span class="math inline">\(\Theta\)</span> extracted from the Magic Piggy Bank, but this is something that can be accurately estimated in the long run, since the actual values of <span class="math inline">\(\Theta\)</span> are revealed at the end of each iteration <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>Plugging <a href="#eq-optimal-bet-A" class="quarto-xref">Equation&nbsp;5</a> into <a href="#eq-expected-gain-A" class="quarto-xref">Equation&nbsp;4</a>, we find:</p>
+<p><span id="eq-optimal-expected-gain-A"><span class="math display">\[
+\mathbb E (G) = \intop \text{d}P(X) \left|\text {Pr}(\Theta \in I \vert X)-p\right|\quad\text{(Variant A)}.
+\tag{6}\]</span></span></p>
+<p>Comparing with <a href="#eq-expected-gain-A" class="quarto-xref">Equation&nbsp;4</a>, it is clear that <a href="#eq-optimal-expected-gain-A" class="quarto-xref">Equation&nbsp;6</a> is the maximum expected gain, for <em>any</em> choice of <span class="math inline">\(b\)</span>. In other words, the choice <span class="math inline">\(b_A\)</span> in <a href="#eq-optimal-bet-A" class="quarto-xref">Equation&nbsp;5</a> is an optimal one.</p>
+<p>Finally, from the Bookmaker’s point of view, Eq. <a href="#eq-optimal-expected-gain-A" class="quarto-xref">Equation&nbsp;6</a> represents a sure loss in the long run, that can only be avoided by enforcing:</p>
+<p><span id="eq-optimal-book-A"><span class="math display">\[
+\text {Pr}(\Theta \in I \vert X)=p \quad \text{(Variant A)}
+\tag{7}\]</span></span></p>
+<p>In order to ensure this, the Bookmaker needs to know as well the overall coins’ distribution <span class="math inline">\(\pi (\Theta)\)</span>, and the same remarks made above for the Gambler apply here.</p>
+<p>Equation <a href="#eq-optimal-book-A" class="quarto-xref">Equation&nbsp;7</a> defines what is known as a <strong><em>Bayesian credible interval</em></strong>.</p>
+</section>
+<section id="variant-b" class="level3">
+<h3 class="anchored" data-anchor-id="variant-b">Variant B</h3>
+<p>We now consider the second variant of the rules, where the Gambler is told the true value of <span class="math inline">\(\Theta\)</span>, but does not know the details of the Bookmaker’s measurement, except for the established payout <span class="math inline">\(p\)</span>. Using a reasoning similar to the previous section we rewrite:</p>
+<p><span id="eq-expected-gain-B"><span class="math display">\[
+\begin{split}
+\mathbb E (G) &amp;= \intop \text{d}P(\Theta) \,b\cdot \intop \text{d}P(X \vert\Theta) \,(\chi_I (\Theta)-p) \\
+&amp; = \intop \text{d}P(\Theta) \,b \cdot \left(\text {Pr}(\Theta \in I \vert \Theta)-p\right)
+\end{split}
+\tag{8}\]</span></span></p>
+<p>and define<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>:</p>
+<p><span id="eq-optimal-bet-B"><span class="math display">\[
+b_B \equiv \text{sgn}\left(\text {Pr}(\Theta \in I \vert \Theta)-p\right)\quad(\text{Variant B})
+\tag{9}\]</span></span> which is easily shown to be the optimal betting strategy for the Gambler in the present setting. In the long run, this sign can be accurately estimated by modeling the conditional mean of <span class="math inline">\(\chi _I (\Theta) - p\)</span> (as a function of <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(p\)</span>).</p>
+<p>If the Gambler bets according to <a href="#eq-optimal-bet-B" class="quarto-xref">Equation&nbsp;9</a>, the Bookmaker is forced to set payouts according to:</p>
+<p><span id="eq-optimal-book-B"><span class="math display">\[
+\text {Pr}(\Theta \in I \vert \Theta)=p\quad(\text{Variant B}),
+\tag{10}\]</span></span></p>
+<p>in order to avoid a certain loss.</p>
+<p>Equation <a href="#eq-optimal-book-B" class="quarto-xref">Equation&nbsp;10</a> defines what is known as a <strong><em>Frequentist confidence interval</em></strong>.</p>
+</section>
+<section id="variant-c" class="level3">
+<h3 class="anchored" data-anchor-id="variant-c">Variant C</h3>
+<p>In the last case, the Gambler has no extra information beyond the payout <span class="math inline">\(p\)</span>, and the expected gain reduces to:</p>
+<p><span id="eq-expected-gain-C"><span class="math display">\[
+\mathbb E (G)=b\cdot \left(\text{Pr}(\Theta \in I)-p\right),
+\tag{11}\]</span></span></p>
+<p>where <span class="math inline">\(\text{Pr}(\Theta \in I)\)</span> is the unconditional probability that <span class="math inline">\(I\)</span> covers <span class="math inline">\(\Theta\)</span>. The optimal betting choice is:</p>
+<p><span id="eq-optimal-bet-C"><span class="math display">\[
+b_C \equiv \text{sgn}\left(\text {Pr}(\Theta \in I)-p\right)\quad(\text{Variant C})
+\tag{12}\]</span></span></p>
+<p>which forces the Bookmaker to set payouts according to:</p>
+<p><span id="eq-optimal-book-C"><span class="math display">\[
+\text {Pr}(\Theta \in I)=p\quad(\text{Variant C}).
+\tag{13}\]</span></span></p>
+<p>This is, by the way, satisfied by both the Bayesian and Frequentist intervals, due to <a href="#eq-optimal-book-A" class="quarto-xref">Equation&nbsp;7</a> and <a href="#eq-optimal-book-B" class="quarto-xref">Equation&nbsp;10</a>, respectively.</p>
+</section>
+<section id="summary-of-results" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-results">Summary of results</h3>
+<p>Provided access to the same data used by the Bookmaker to produce the interval <span class="math inline">\(I\)</span> (Variant A), a rational Gambler would bet in favor of <span class="math inline">\(\Theta \in I\)</span> if the probability of this event <em>conditional to the observed the data</em> is greater than the payout <span class="math inline">\(p\)</span> (<a href="#eq-optimal-bet-A" class="quarto-xref">Equation&nbsp;5</a>).</p>
+<p>On the other hand, given true value of <span class="math inline">\(\Theta\)</span> (Variant B), the optimal choice for a Gambler is to bet on <span class="math inline">\(\Theta \in I\)</span> if the probability of this event <em>conditional to the ground truth</em> is greater than <span class="math inline">\(p\)</span> (<a href="#eq-optimal-bet-B" class="quarto-xref">Equation&nbsp;9</a>).</p>
+<p>Finally, in the lack of any of this information (Variant C), the most rational choice is simply to bet on <span class="math inline">\(\Theta \in I\)</span> if this event occurs more frequently than <span class="math inline">\(p\)</span> (<a href="#eq-optimal-bet-C" class="quarto-xref">Equation&nbsp;12</a>).</p>
+<p>When playing against the first two types of players, in order to avoid a certain loss, the Bookmaker must produce Bayesian credible intervals (Variant A) or Frequentist confidence intervals (Variant B). In the remaining case (Variant C), the Bookmaker can either produce Bayesian or Frequentist intervals<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
+</section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<p>When I first learned about Bayesian and Frequentist inference, I remember most discussions were focused on the philosophical differences between these two schools of thought. There was little to no mention about the actual mathematical properties of the constructs prescribed by the two formalisms, which made the choice between “Bayesian” or “Frequentist” look like a mere matter of committing to one particular view.</p>
+<p>Technically, what I did here was to compare the frequentist properties of credible intervals and confidence intervals. I’m sure the literature, including the pedagogical one, is full of examples like this, and better ones<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. With no pretense of originality, I believe that including more examples of this kind in the usual presentations can be beneficial to students and practitioners, and perhaps help them out of the ugly black-box of orthodoxy.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The introduction of bets as an expedient to operationally define subjective probabilities is historically due to the Italian mathematician <a href="https://en.wikipedia.org/wiki/Bruno_de_Finetti">Bruno de Finetti</a>. The statistical analysis of the game proposed below can be given a Frequentist interpretation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Readers are free to imagine this process in the way they find more convenient.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>We assume that both players know from the outset which variant of the game they are playing to.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>We denote (with some abuse of notation) by <span class="math inline">\(\text{d}P(\Theta \vert X)\)</span> the conditional probability measure of <span class="math inline">\(\Theta\)</span> conditioned on <span class="math inline">\(X\)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>In the Bayesian spirit of <a href="#eq-optimal-bet-A" class="quarto-xref">Equation&nbsp;5</a>, the Gambler could for instance estimate <span class="math inline">\(\pi(\Theta)\)</span> through Bayesian updates of a <a href="https://en.wikipedia.org/wiki/Dirichlet_process">Dirichlet prior</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Noteworthy, the random quantity in this equation is <span class="math inline">\(I\)</span>, whereas <span class="math inline">\(\Theta\)</span> is regarded as fixed. This is in stark contrast with <a href="#eq-optimal-bet-A" class="quarto-xref">Equation&nbsp;5</a>, where <span class="math inline">\(X\)</span> and <span class="math inline">\(I\)</span> were fixed, and <span class="math inline">\(\Theta\)</span> was random.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>There are, in fact, infinitely many more ways to produce intervals with the unconditional coverage property <a href="#eq-optimal-book-C" class="quarto-xref">Equation&nbsp;13</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>I see that Jaynes (the father of the Maximum Entropy foundation of Statistical Mechanics, among other things) has a full essay paper on <a href="https://bayes.wustl.edu/etj/articles/confidence.pdf">Confidence Intervals vs.&nbsp;Bayesian Intervals</a>, which I haven’t read - the abstract sounds a bit loaded to me, but it’s probably definitely worth to read.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2023,
+  author = {Gherardi, Valerio},
+  title = {Bayes, {Neyman} and the {Magic} {Piggy} {Bank}},
+  date = {2023-05-01},
+  url = {https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Gherardi, Valerio. 2023. <span>“Bayes, Neyman and the Magic Piggy
+Bank.”</span> May 1, 2023. <a href="https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank/">https://vgherard.github.io/posts/2023-05-01-magic-piggy-bank/</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/vgherard\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="vgherard/vgherard.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzODI2MzU4NTQ=" data-category="Comments" data-category-id="DIC_kwDOFs6PTs4CbwOw" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/vgherard/vgherard.github.io/blob/main/posts/2023-05-01-magic-piggy-bank/index.Rmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/vgherard/vgherard.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

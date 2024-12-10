@@ -14,7 +14,7 @@
 <item>
   <title>AIC in the well-specified linear model: theory and simulation</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation.html</link>
+  <link>https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/</link>
   <description><![CDATA[ 
 
 
@@ -698,7 +698,7 @@ font-style: inherit;">NULL</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation_files/figure-html/aic_exp-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/index_files/figure-html/aic_exp-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -782,7 +782,7 @@ font-style: inherit;">"AIC model selection frequencies"</span>)</span></code></p
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation_files/figure-html/aic_freq-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/index_files/figure-html/aic_freq-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -919,7 +919,7 @@ font-style: inherit;">"ΔAIC probability density"</span>)</span></code></pre></d
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation_files/figure-html/aic_density-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/index_files/figure-html/aic_density-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1051,7 +1051,7 @@ font-style: inherit;">NULL</span></span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation_files/figure-html/aic_vs_ce_2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/index_files/figure-html/aic_vs_ce_2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1073,25 +1073,25 @@ font-style: inherit;">NULL</span></span></code></pre></div>
   title = {AIC in the Well-Specified Linear Model: Theory and
     Simulation},
   date = {2024-05-17},
-  url = {https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation.html},
+  url = {https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“AIC in the Well-Specified Linear Model:
-Theory and Simulation.”</span> May 17, 2024. <a href="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation.html">https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation.html</a>.
+Theory and Simulation.”</span> May 17, 2024. <a href="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/">https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/</a>.
 </div></div></section></div> ]]></description>
   <category>Model Selection</category>
   <category>Linear Models</category>
   <category>Regression</category>
   <category>Statistics</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/aic-in-the-well-specified-linear-model-theory-and-simulation.html</guid>
+  <guid>https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/</guid>
   <pubDate>Thu, 16 May 2024 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Grammar as a biometric for Authorship Verification</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/grammar-as-a-biometric-for-authorship-verification.html</link>
+  <link>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/</link>
   <description><![CDATA[ 
 
 
@@ -1339,12 +1339,12 @@ Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi Ishihar
   author = {Gherardi, Valerio},
   title = {Grammar as a Biometric for {Authorship} {Verification}},
   date = {2024-04-25},
-  url = {https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/grammar-as-a-biometric-for-authorship-verification.html},
+  url = {https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Grammar as a Biometric for Authorship
-Verification.”</span> April 25, 2024. <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/grammar-as-a-biometric-for-authorship-verification.html">https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/grammar-as-a-biometric-for-authorship-verification.html</a>.
+Verification.”</span> April 25, 2024. <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/">https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/</a>.
 </div></div></section></div> ]]></description>
   <category>Authorship Verification</category>
   <category>Natural Language Processing</category>
@@ -1352,13 +1352,13 @@ Verification.”</span> April 25, 2024. <a href="https://vgherard.github.io/post
   <category>Machine Learning</category>
   <category>Statistics</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/grammar-as-a-biometric-for-authorship-verification.html</guid>
+  <guid>https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/</guid>
   <pubDate>Wed, 24 Apr 2024 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Interpreting the Likelihood Ratio cost</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html</link>
+  <link>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/</link>
   <description><![CDATA[ 
 
 
@@ -2055,7 +2055,7 @@ font-style: inherit;">"Log-Likelihood Ratio"</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2167,7 +2167,7 @@ font-style: inherit;">4</span>))</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2290,25 +2290,25 @@ Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2n
   author = {Gherardi, Valerio},
   title = {Interpreting the {Likelihood} {Ratio} Cost},
   date = {2023-11-15},
-  url = {https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html},
+  url = {https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Interpreting the Likelihood Ratio
-Cost.”</span> November 15, 2023. <a href="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html">https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html</a>.
+Cost.”</span> November 15, 2023. <a href="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/">https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/</a>.
 </div></div></section></div> ]]></description>
   <category>Forensic Science</category>
   <category>Bayesian Methods</category>
   <category>Information Theory</category>
   <category>Probability Theory</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/interpreting-the-likelihood-ratio-cost.html</guid>
+  <guid>https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/</guid>
   <pubDate>Tue, 14 Nov 2023 23:00:00 GMT</pubDate>
 </item>
 <item>
   <title>AB tests and repeated checks</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks.html</link>
+  <link>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/</link>
   <description><![CDATA[ 
 
 
@@ -2611,7 +2611,7 @@ font-style: inherit;">"dashed"</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2766,7 +2766,7 @@ font-style: inherit;">2</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2913,7 +2913,7 @@ font-style: inherit;">2</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2944,25 +2944,25 @@ font-style: inherit;">2</span>)</span></code></pre></div>
   author = {Gherardi, Valerio},
   title = {AB Tests and Repeated Checks},
   date = {2023-07-27},
-  url = {https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks.html},
+  url = {https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“AB Tests and Repeated Checks.”</span>
-July 27, 2023. <a href="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks.html">https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks.html</a>.
+July 27, 2023. <a href="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/">https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/</a>.
 </div></div></section></div> ]]></description>
   <category>AB testing</category>
   <category>Sequential Hypothesis Testing</category>
   <category>Frequentist Methods</category>
   <category>Statistics</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/ab-tests-and-repeated-checks.html</guid>
+  <guid>https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/</guid>
   <pubDate>Wed, 26 Jul 2023 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Testing functional specification in linear regression</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression.html</link>
+  <link>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/</link>
   <description><![CDATA[ 
 
 
@@ -3024,7 +3024,7 @@ font-style: inherit;">~</span> x))</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -3061,7 +3061,7 @@ font-style: inherit;">abline</span>(fit_cars)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html/fit_cars-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/index_files/figure-html/fit_cars-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -3142,7 +3142,7 @@ font-style: inherit;">"blue"</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html/fit_cars_sq-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/index_files/figure-html/fit_cars_sq-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -3540,7 +3540,7 @@ font-style: inherit;">~</span> dgp)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -3988,7 +3988,7 @@ font-style: inherit;">" = "</span>)</span>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -4024,25 +4024,25 @@ font-style: inherit;">" = "</span>)</span>
   author = {Gherardi, Valerio},
   title = {Testing Functional Specification in Linear Regression},
   date = {2023-07-11},
-  url = {https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression.html},
+  url = {https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Testing Functional Specification in
-Linear Regression.”</span> July 11, 2023. <a href="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression.html">https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression.html</a>.
+Linear Regression.”</span> July 11, 2023. <a href="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/">https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Model Misspecification</category>
   <category>Regression</category>
   <category>Linear Models</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/testing-functional-misspecification-in-linear-regression.html</guid>
+  <guid>https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/</guid>
   <pubDate>Mon, 10 Jul 2023 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Linear regression with autocorrelated noise</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise.html</link>
+  <link>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/</link>
   <description><![CDATA[ 
 
 
@@ -4512,7 +4512,7 @@ font-style: inherit;">plot</span>(rxy_01)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -4666,12 +4666,12 @@ x             0.9742566 0.9977471</code></pre>
   author = {Gherardi, Valerio},
   title = {Linear Regression with Autocorrelated Noise},
   date = {2023-05-25},
-  url = {https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise.html},
+  url = {https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Linear Regression with Autocorrelated
-Noise.”</span> May 25, 2023. <a href="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise.html">https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise.html</a>.
+Noise.”</span> May 25, 2023. <a href="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/">https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Regression</category>
@@ -4679,13 +4679,13 @@ Noise.”</span> May 25, 2023. <a href="https://vgherard.github.io/posts/2023-05
   <category>Linear Models</category>
   <category>Model Misspecification</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/linear-regression-with-autocorrelated-noise.html</guid>
+  <guid>https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/</guid>
   <pubDate>Wed, 24 May 2023 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Model Misspecification and Linear Sandwiches</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches.html</link>
+  <link>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/</link>
   <description><![CDATA[ 
 
 
@@ -5146,7 +5146,7 @@ font-style: inherit;">300</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -5240,7 +5240,7 @@ font-style: inherit;">300</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -5378,7 +5378,7 @@ font-style: inherit;">plot</span>(rxy_04a)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -5423,7 +5423,7 @@ font-style: inherit;">plot</span>(rxy_04b)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -5575,25 +5575,25 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
   author = {Gherardi, Valerio},
   title = {Model {Misspecification} and {Linear} {Sandwiches}},
   date = {2023-05-14},
-  url = {https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches.html},
+  url = {https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Model Misspecification and Linear
-Sandwiches.”</span> May 14, 2023. <a href="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches.html">https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches.html</a>.
+Sandwiches.”</span> May 14, 2023. <a href="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/">https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Regression</category>
   <category>Linear Models</category>
   <category>Model Misspecification</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/misspecification-and-linear-sandwiches.html</guid>
+  <guid>https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/</guid>
   <pubDate>Sat, 13 May 2023 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>How to get away with selection. Part I: Introduction</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2022-10-18-posi/posi.html</link>
+  <link>https://vgherard.github.io/posts/2022-10-18-posi/</link>
   <description><![CDATA[ 
 
 
@@ -5717,7 +5717,7 @@ font-style: inherit;">"Y"</span>)</span></code></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://vgherard.github.io/posts/2022-10-18-posi/posi_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="https://vgherard.github.io/posts/2022-10-18-posi/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -5901,7 +5901,7 @@ font-style: inherit;">-</span> time_start), <span class="st" style="color: #2079
 background-color: null;
 font-style: inherit;">" seconds."</span>)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Done :) Took  10.90042  seconds.</code></pre>
+<pre><code>Done :) Took  13.97569  seconds.</code></pre>
 </div>
 </div>
 <p>The variable <code>m_covered[[b]]</code> is <code>TRUE</code> if the slope <img src="https://latex.codecogs.com/png.latex?m"> fell in the naive CI <img src="https://latex.codecogs.com/png.latex?(m_-,%20m_+)"> defined by Equation&nbsp;2 in the <code>b</code>-th replica of the simulation. Hence, the actual coverage fraction of the CI is given by:</p>
@@ -6014,23 +6014,23 @@ Vrbik, Jan. 2020. <span>“Regression Analysis (Lecture Notes).”</span> 2020. 
   author = {Gherardi, Valerio},
   title = {How to Get Away with Selection. {Part} {I:} {Introduction}},
   date = {2022-11-14},
-  url = {https://vgherard.github.io/posts/2022-10-18-posi/posi.html},
+  url = {https://vgherard.github.io/posts/2022-10-18-posi/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2022" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2022. <span>“How to Get Away with Selection. Part I:
-Introduction.”</span> November 14, 2022. <a href="https://vgherard.github.io/posts/2022-10-18-posi/posi.html">https://vgherard.github.io/posts/2022-10-18-posi/posi.html</a>.
+Introduction.”</span> November 14, 2022. <a href="https://vgherard.github.io/posts/2022-10-18-posi/">https://vgherard.github.io/posts/2022-10-18-posi/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Selective Inference</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2022-10-18-posi/posi.html</guid>
+  <guid>https://vgherard.github.io/posts/2022-10-18-posi/</guid>
   <pubDate>Sun, 13 Nov 2022 23:00:00 GMT</pubDate>
 </item>
 <item>
   <title>kgrams v0.1.2 on CRAN</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/kgrams-v012-released.html</link>
+  <link>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/</link>
   <description><![CDATA[ 
 
 
@@ -6209,22 +6209,22 @@ font-style: inherit;">10</span>)</span></code></pre></div>
   author = {Gherardi, Valerio},
   title = {Kgrams V0.1.2 on {CRAN}},
   date = {2021-11-13},
-  url = {https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/kgrams-v012-released.html},
+  url = {https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2021" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2021. <span>“Kgrams V0.1.2 on CRAN.”</span> November
-13, 2021. <a href="https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/kgrams-v012-released.html">https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/kgrams-v012-released.html</a>.
+13, 2021. <a href="https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/">https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/</a>.
 </div></div></section></div> ]]></description>
   <category>Natural Language Processing</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/kgrams-v012-released.html</guid>
+  <guid>https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/</guid>
   <pubDate>Fri, 12 Nov 2021 23:00:00 GMT</pubDate>
 </item>
 <item>
   <title>{r2r} now on CRAN</title>
   <dc:creator>Valerio Gherardi</dc:creator>
-  <link>https://vgherard.github.io/posts/2021-07-06-r2r/r2r.html</link>
+  <link>https://vgherard.github.io/posts/2021-07-06-r2r/</link>
   <description><![CDATA[ 
 
 
@@ -6456,16 +6456,16 @@ font-style: inherit;">~</span> wt, mtcars) ]]</span></code></pre></div>
   author = {Gherardi, Valerio},
   title = {\{R2r\} Now on {CRAN}},
   date = {2021-07-06},
-  url = {https://vgherard.github.io/posts/2021-07-06-r2r/r2r.html},
+  url = {https://vgherard.github.io/posts/2021-07-06-r2r/},
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2021" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2021. <span>“{R2r} Now on CRAN.”</span> July 6, 2021.
-<a href="https://vgherard.github.io/posts/2021-07-06-r2r/r2r.html">https://vgherard.github.io/posts/2021-07-06-r2r/r2r.html</a>.
+<a href="https://vgherard.github.io/posts/2021-07-06-r2r/">https://vgherard.github.io/posts/2021-07-06-r2r/</a>.
 </div></div></section></div> ]]></description>
   <category>Data Structures</category>
   <category>R</category>
-  <guid>https://vgherard.github.io/posts/2021-07-06-r2r/r2r.html</guid>
+  <guid>https://vgherard.github.io/posts/2021-07-06-r2r/</guid>
   <pubDate>Mon, 05 Jul 2021 22:00:00 GMT</pubDate>
 </item>
 </channel>

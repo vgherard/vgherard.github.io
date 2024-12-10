@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Valerio Gherardi">
+<meta name="dcterms.date" content="2024-02-22">
+<meta name="description" content="Compares the “parcel” method with standard linearization of fluid dynamics equations.">
+
+<title>Gravity waves in an ideal fluid – vgherard</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BM2Y0430QE"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BM2Y0430QE', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">vgherard</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notebooks"> 
+<span class="menu-text">Notebooks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/software"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/scientific_publications"> 
+<span class="menu-text">Scientific Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/files"> 
+<span class="menu-text">Files</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sections/about"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/vgherard"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/vgherard/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/ValerioGherardi"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:vgherard840@gmail.com"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-links" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other links</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-links">    
+        <li>
+    <a class="dropdown-item" href="https://www.r-bloggers.com/author/vgherard/">
+ <span class="dropdown-text">vgherard @ r-bloggers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://stackexchange.com/users/2261006/pppqqq">
+ <span class="dropdown-text">vgherard @ StackExchange</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://inspirehep.net/authors/1728353?ui-citation-summary=true">
+ <span class="dropdown-text">vgherard @ iNSPIRE HEP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://lichess.org/@/vgherard">
+ <span class="dropdown-text">vgherard @ lichess.org</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://ratings.fide.com/profile/94715360">
+ <span class="dropdown-text">vgherard @ FIDE</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Gravity waves in an ideal fluid</h1>
+                  <div>
+        <div class="description">
+          <p>Compares the “parcel” method with standard linearization of fluid dynamics equations.</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Atmospheric Physics</div>
+                <div class="quarto-category">Fluid Dynamics</div>
+                <div class="quarto-category">Waves</div>
+                <div class="quarto-category">Physics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://vgherard.github.io">Valerio Gherardi</a> <a href="https://orcid.org/0000-0002-8215-3013" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 22, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro">Intro</a></li>
+  <li><a href="#the-parcel-method" id="toc-the-parcel-method" class="nav-link" data-scroll-target="#the-parcel-method">The parcel method</a></li>
+  <li><a href="#linearization-of-the-ideal-fluid-equations" id="toc-linearization-of-the-ideal-fluid-equations" class="nav-link" data-scroll-target="#linearization-of-the-ideal-fluid-equations">Linearization of the ideal fluid equations</a></li>
+  <li><a href="#physical-interpretation" id="toc-physical-interpretation" class="nav-link" data-scroll-target="#physical-interpretation">Physical interpretation</a></li>
+  <li><a href="#further-problems" id="toc-further-problems" class="nav-link" data-scroll-target="#further-problems">Further problems</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/vgherard/vgherard.github.io/blob/main/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/index.Rmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/vgherard/vgherard.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<h5 class="quarto-listing-category-title">Subscribe</h5>
+<form method="post" action="https://blogtrottr.com">
+        <p> Enjoy my blog? Get notified of new posts via email: </p>
+    <input type="text" name="btr_email" placeholder="your@email.here"><br>
+    <input type="hidden" name="btr_url" value="https://vgherard.github.io/index.xml">
+    <input type="hidden" name="schedule_type" value="0">
+    <input type="submit" value="Subscribe" id="mc-embedded-subscribe" class="button">
+</form>
+or
+<a href="https://vgherard.github.io/index.xml"> subscribe to its RSS feed</a>.
+<br>
+<br>
+R-related posts also available at
+<a href="https://www.r-bloggers.com">r-bloggers</a> and <a href="https://rweekly.org/">RWeekly</a>.
+<br>
+<br>
+
+
+</div></div>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro">Intro</h2>
+<p>We compare two derivations of the stability conditions for hydrostatic equilibrium of an ideal fluid:</p>
+<ul>
+<li>A “parcel” argument, that follows the motion of a small particle of fluid, ignoring the dynamics of the surroundings.</li>
+<li>Standard linearization of the ideal fluid equations.</li>
+</ul>
+<p>The two derivations turn out to give the same answer, but the intermediate steps in the parcel argument contain some hidden assumptions, which are clarified in the second approach.</p>
+</section>
+<section id="the-parcel-method" class="level2">
+<h2 class="anchored" data-anchor-id="the-parcel-method">The parcel method</h2>
+<p>We start with a fluid at rest in a constant gravitational field <span class="math inline">\(\mathbf g = -g\hat {\mathbf z}\)</span>, and consider a small portion of fluid initially located at height <span class="math inline">\(z_0\)</span>. We imagine that this parcel is now vertically displaced to height <span class="math inline">\(z_1 = z_0 + \delta z\)</span>, and that no heat is transferred between the parcel and the surroundings during this process. We further assume that the pressure inside the parcel rapidly equalizes with the pressure outside of it (on a time scale much shorter than the one involved in the displacement). Finally, <em>we assume that the whole process does not appreciably alter the pressure field</em> <span class="math inline">\(p\)</span> with respect to its equilibrium configuration, satisfying <span class="math inline">\(\frac{\text d p}{\text d z}= -\rho g\)</span>, where <span class="math inline">\(\rho\)</span> is the fluid’s density at rest. To anticipate, in the second derivation below, we will see that the last assumption may actually fail, giving rise to different dynamics than the one discussed in these Section.</p>
+<p>The derivation below follows <span class="citation" data-cites="landau2013fluid">(<a href="#ref-landau2013fluid" role="doc-biblioref">Landau and Lifshitz 2013</a>)</span>. The parcel’s acceleration in the vertical direction is given by Newton’s second law:</p>
+<p><span id="eq-newton-2"><span class="math display">\[
+\rho _\text{p}\ddot {\delta z}=-\rho _\text{p}g-\frac{\text{d}p}{\text{d}z}=-(\rho _\text{p}-\rho)g,
+\tag{1}\]</span></span></p>
+<p>where the equilibrium assumption was used in the second equality, where <span class="math inline">\(\rho _\text{p}\)</span> is the parcel’s density, while <span class="math inline">\(\rho\)</span> is the density of the surroundings evaluated at the parcel’s height <span class="math inline">\(z_1=z_0 + \delta z\)</span>.</p>
+<p>Using the thermodynamic state equation of the fluid, we can express densities in terms of pressure <span class="math inline">\(p\)</span> and specific entropy <span class="math inline">\(s\)</span>. For the fluid density, this means:</p>
+<p><span class="math display">\[
+\rho = \rho(p(z_1),\,s(z_1)),
+\]</span> while for the parcel we have:</p>
+<p><span class="math display">\[
+\rho _\text{p} = \rho (p(z_1), s(z_0)),
+\]</span> due to the fact that the process is adiabatic. Hence, expanding the right hand side of <a href="#eq-newton-2" class="quarto-xref">Equation&nbsp;1</a> to first order in <span class="math inline">\(\delta z\)</span>, we obtain:</p>
+<p><span id="eq-osc-arm"><span class="math display">\[
+\ddot {\delta z} = -\Omega  ^2 \delta z,
+\tag{2}\]</span></span></p>
+<p>where:</p>
+<p><span id="eq-bv-freq"><span class="math display">\[
+\Omega  ^2 \equiv -\dfrac{g}{\rho}\left(\frac{\partial \rho }{\partial s}\right)_p\frac{\text d s}{\text d z}=-\dfrac{g}{\rho}\left(\frac{\partial \rho }{\partial s}\right)_p\frac{\text d s}{\text d z},
+\tag{3}\]</span></span></p>
+<p>is called the <em>Brunt–Väisälä frequency</em>, or <em>buoyancy frequency</em> (all quantities in this equation can be evaluated at <span class="math inline">\(z = z_0\)</span> in the linear approximation we are considering). Equations <a href="#eq-osc-arm" class="quarto-xref">Equation&nbsp;2</a> imply that, in order for hydrostatic equilibrium to be stable, we must have <span class="math inline">\(\Omega ^2 &gt; 0\)</span>, that is:</p>
+<p><span id="eq-equilibrium-cond"><span class="math display">\[
+-\left(\frac{\partial \rho }{\partial s}\right)_p\frac{\text d s}{\text d z} &gt; 0
+\tag{4}\]</span></span></p>
+<p>There are a few alternative ways to express <a href="#eq-equilibrium-cond" class="quarto-xref">Equation&nbsp;4</a>. First of all, using the Maxwell relation <span class="math inline">\(\left(\frac{\partial \rho }{\partial s}\right)_p=\frac{T}{c_p}\left(\frac{\partial \rho }{\partial T}\right)_p\)</span>, we see that equilibrium requires:</p>
+<p><span id="eq-equilibrium-cond-1"><span class="math display">\[
+-\left(\frac{\partial \rho }{\partial T}\right)_p\frac{\text d s}{\text d z}&gt;0.
+\tag{5}\]</span></span></p>
+<p>Moreover, assuming <span class="math inline">\(\left(\frac{\partial \rho }{\partial T}\right)_p&lt;0\)</span>, this simplifies to:</p>
+<p><span id="eq-equilibrium-cond-2"><span class="math display">\[
+\frac{\text d s}{\text d z} &gt;0
+\tag{6}\]</span></span></p>
+<p>Considering <span class="math inline">\(s\)</span> as a function of <span class="math inline">\(p\)</span> and <span class="math inline">\(T\)</span>, we have:</p>
+<p><span id="eq-equilibrium-cond-3"><span class="math display">\[
+\frac{\text d s}{\text d z} = \left(\frac{\partial s}{\partial T}\right)_p \frac{\text d T}{\text d z}+\left(\frac{\partial s}{\partial p}\right)_T \frac{\text d p}{\text d z}=c_p \frac{\text d T}{\text d z}+\left(\frac{\partial V}{\partial T}\right)_p\frac{\text d p}{\text d z}&gt;0,
+\tag{7}\]</span></span></p>
+<p>where the Maxwell relation <span class="math inline">\(\left(\frac{\partial s}{\partial p}\right)_T=\left(\frac{\partial V}{\partial T}\right)_p\)</span> and the definition of the specific heat at constant pressure <span class="math inline">\(c_p \equiv \left(\frac{\partial s}{\partial p}\right)_T\)</span> were used. Finally, using again the equilibrium condition <span class="math inline">\(\frac{\text d p}{\text d z} = -g /V\)</span>, we obtain</p>
+<p><span id="eq-equilibrium-cond-4"><span class="math display">\[
+-\frac{\text d T}{\text d z} &lt; -\frac{\beta Tg}{\rho c_p},
+\tag{8}\]</span></span></p>
+<p>where <span class="math inline">\(\beta \equiv -\frac{1}{\rho}\left(\frac{\partial \rho}{\partial T}\right)_p\)</span> is the thermal expansion coefficient. For an ideal gas, the right hand side is just <span class="math inline">\(\frac{g}{c_p}\)</span>.</p>
+<p>The Brunt–Väisälä oscillation frequency (<a href="#eq-bv-freq" class="quarto-xref">Equation&nbsp;3</a>) is actually correct only in a certain limit, which is best clarified in the more careful approach, that proceeds from the ideal fluid equations. Nonetheless, the equilibrium condition <span class="math inline">\(\Omega ^2 &gt;0\)</span> turns out to be correct.</p>
+</section>
+<section id="linearization-of-the-ideal-fluid-equations" class="level2">
+<h2 class="anchored" data-anchor-id="linearization-of-the-ideal-fluid-equations">Linearization of the ideal fluid equations</h2>
+<p>In fluid dynamics, our system would be described by the ideal fluid equations:</p>
+<p><span id="eq-ideal-fluid-equations"><span class="math display">\[
+\begin{split}
+\frac {\text D \mathbf v}{\text D t}&amp;=-\frac{\nabla p}{\rho }+\mathbf g,
+\\
+\frac{\text D \rho }{\text D t} &amp;=-\rho (\nabla \cdot \mathbf v),
+\\
+\frac{\text D s}{\text D t}&amp;=0,
+\end{split}
+\tag{9}\]</span></span></p>
+<p>where <span class="math inline">\(\frac{\text D}{\text D t} = \frac{\partial}{\partial t}+\mathbf v \cdot \nabla\)</span> denotes the material derivative. The last equation can be exchanged for<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<p><span id="eq-pressure-mat-der"><span class="math display">\[
+\frac{\text{D}p}{\text Dt}=c_s^2\frac{\text D \rho}{\text D t}
+\tag{10}\]</span></span></p>
+<p>where <span class="math inline">\(c_s^2 \equiv (\frac{\partial p}{\partial \rho})_s\)</span> is the speed of sound. Denoting by <span class="math inline">\(p_0\)</span> and <span class="math inline">\(\rho_0\)</span> the pressure and density field of the hydrostatic solution, satisfying <span class="math inline">\(\nabla p _0 = \mathbf g \rho _0\)</span>, we consider a perturbation of the form:</p>
+<p><span id="eq-def-perturbation"><span class="math display">\[
+\mathbf v = \delta \mathbf v,\quad p=p_0+\delta p,\quad \rho=\rho_0+\delta \rho.
+\tag{11}\]</span></span></p>
+<p>To linear order in the small quantities <span class="math inline">\(\delta \mathbf v\)</span>, <span class="math inline">\(\delta p\)</span> and <span class="math inline">\(\delta \rho\)</span>, the equations of motion read:</p>
+<p><span id="eq-lin-system-1"><span class="math display">\[
+\begin{split}
+0 &amp;=-\frac {\partial  \delta \mathbf v}{\partial t}-\frac{\nabla (\delta p)}{\rho _0}+\mathbf g\frac{\delta \rho }{\rho _0},
+\\
+0 &amp;=\frac{\partial (\delta \rho) }{\partial t}+\delta\mathbf v \cdot \nabla \rho _0+\rho_0 (\nabla \cdot \delta \mathbf v) ,
+\\
+0&amp;=\frac{\partial (\delta p )}{\partial t}+\delta \mathbf v \cdot \nabla p_0-c_s^2\frac{\partial (\delta \rho )}{\partial t}-c_s^2\mathbf \delta \mathbf v \cdot \nabla \rho_0.
+\end{split}
+\tag{12}\]</span></span></p>
+<p>These equations take a rather simple form if we re-express them in terms of the mass flux density <span class="math inline">\(\mathbf j = \rho \mathbf v\)</span>, that is <span class="math inline">\(\delta \mathbf j = \rho _0 \delta \mathbf v\)</span> to linear order. Before doing so, we notice that:</p>
+<p><span id="eq-grad-rho"><span class="math display">\[
+\nabla \rho_0=(\frac {\partial \rho}{\partial p})_s\nabla p_0+(\frac {\partial \rho}{\partial s})_p\nabla s=-(\frac{g}{c_s^2} +\frac{\Omega ^2}{g}) \rho_0 \hat {\mathbf z},
+\tag{13}\]</span></span></p>
+<p>where <span class="math inline">\(\Omega ^2\)</span> is the buoyancy frequency defined above (<em>cf.</em> <a href="#eq-bv-freq" class="quarto-xref">Equation&nbsp;3</a>) and we assume, consistent with cylindrical symmetry, <span class="math inline">\(\nabla s\)</span> to lie in the <span class="math inline">\(\hat {\mathbf z}\)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Putting everything together, we obtain:</p>
+<p><span id="eq-lin-system-2"><span class="math display">\[
+\begin{split}
+0 &amp;=-\frac {\partial (\delta \mathbf j)}{\partial t}-\nabla (\delta p)+\mathbf g\delta \rho,
+\\
+0 &amp;=\frac{\partial (\delta \rho) }{\partial t}+\nabla \cdot (\delta\mathbf j) ,
+\\
+0&amp;=\frac{\partial (\delta p )}{\partial t}+c_s^2\nabla \cdot  (\delta \mathbf j)+\frac{c_s^2\Omega ^2}{g}(\delta \mathbf j) \cdot  \hat {\mathbf z}.
+\end{split}
+\tag{14}\]</span></span></p>
+<p>Strictly speaking, the quantities <span class="math inline">\(c_s^2\)</span> and <span class="math inline">\(\Omega ^2\)</span> appearing in this equation are scalar fields with a non-trivial spatial variation. However, assuming that the spatial scale of the perturbation is much smaller than the typical scale of variation of <span class="math inline">\(\Omega ^2\)</span> and <span class="math inline">\(c_s^2\)</span>, we can treat these two numbers as constants. For simplicity, we will work with units such that <span class="math inline">\(c_s = g = 1\)</span> (this is the same as using <span class="math inline">\(L=c_s^2g^{-1}\)</span> and <span class="math inline">\(T = c_sg^{-1}\)</span> as units of time and length, respectively; the dependence from <span class="math inline">\(c_s\)</span> and <span class="math inline">\(g\)</span> can be reintroduced in the final formulas through dimensional analysis).</p>
+<p>The system becomes then a linear system with constant coefficients, which suggests to search for simple solutions of the form:</p>
+<p><span class="math display">\[
+\mathbf j = \mathbf u e^{i(\omega t-\mathbf q  \cdot \mathbf r)},\quad \mathbf \delta \rho = \alpha e^{i(\omega t-\mathbf q  \cdot \mathbf r)},\quad\delta p = \beta e^{i(\omega t-\mathbf q  \cdot \mathbf r)}.
+\]</span></p>
+<p>Plugging these into the linearized system, we obtain:</p>
+<p><span id="eq-lin-system-2"><span class="math display">\[
+\begin{split}
+0 &amp;=-i\omega \mathbf u+i\mathbf q \beta -\hat {\mathbf z}\alpha,
+\\
+0 &amp;=i\omega \alpha-i\mathbf q \cdot \mathbf u ,
+\\
+0&amp;=i\omega \beta +\Omega ^2\mathbf u \cdot \hat{\mathbf z}-i\mathbf q \cdot \mathbf u,
+\end{split}
+\tag{15}\]</span></span></p>
+<p>In order to solve these equations, we write:</p>
+<p><span class="math display">\[
+\mathbf q = q_z \hat {\mathbf z}+q_\perp \hat {\mathbf x}.
+\]</span> From the first equation we obtain:</p>
+<p><span class="math display">\[
+\mathbf u \cdot \hat {\mathbf x} = \frac{\beta q_\perp}{\omega},\quad \mathbf u \cdot \hat{\mathbf y} = 0, \quad
+\mathbf u \cdot \hat {\mathbf z} = \frac{\beta q_z+i\alpha }{\omega}.
+\]</span></p>
+<p>The second equation then yields:</p>
+<p><span class="math display">\[
+\dfrac{\alpha}{\beta}=\dfrac {\mathbf q^2}{\omega ^2 -i q_z}
+\]</span></p>
+<p>Finally, from the third equation we obtain:</p>
+<p><span class="math display">\[
+0 =\omega ^4 -\omega ^2 [i(1+\Omega ^2) q_z+\mathbf q^2]+q_\perp ^2\Omega ^2
+\]</span></p>
+<p>We now require <span class="math inline">\(\mathbf q\)</span> to have an imaginary part <span class="math inline">\(\text {Im}(\mathbf q) = -\frac{1+\Omega ^2}{2}\hat {\mathbf z}\)</span>, as we rigorously justify below. Under this assumption, the equation for <span class="math inline">\(\omega ^2\)</span> has two real roots:</p>
+<p><span id="eq-iff-freq"><span class="math display">\[
+\omega ^2_\pm = \frac {c_s^2 (\mathbf k ^2+\lambda^{-2})}{2}\left(1\pm \sqrt {1-\dfrac{4\Omega ^2k_\perp^2}{c_s^2 (\mathbf k ^2+\lambda^{-2})^2}}\right),
+\tag{16}\]</span></span></p>
+<p>with:</p>
+<p><span id="eq-lambda"><span class="math display">\[
+\mathbf k = \text{Re}(\mathbf q),\qquad  \lambda^{-1}\equiv \frac{1}{2}( \frac{g}{c_s^2} +\frac{\Omega ^2}{g})
+\tag{17}\]</span></span></p>
+<p>(<span class="math inline">\(g\)</span> and <span class="math inline">\(c_s\)</span> have been reintroduced in these formulas as explained above).</p>
+<p>Before proceeding further, we notice that the frequencies <span class="math inline">\(\omega _-\)</span> (those from the minus sign branch in <a href="#eq-iff-freq" class="quarto-xref">Equation&nbsp;16</a>) are real if and only if <span class="math inline">\(\Omega ^2 &gt; 0\)</span>, which is the same as the equilibrium condition derived from the parcel argument. The actual frequencies of oscillation are not given by <span class="math inline">\(\Omega\)</span>, in general.</p>
+</section>
+<section id="physical-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="physical-interpretation">Physical interpretation</h2>
+<p>In order to understand the two branches of <a href="#eq-iff-freq" class="quarto-xref">Equation&nbsp;16</a>, we start by noticing that, for the whole linearization approach to be valid, we must have (in natural units <span class="math inline">\(g=c_s=1\)</span>):</p>
+<p><span id="eq-small-scale-approx"><span class="math display">\[
+\dfrac{4\Omega ^2k_\perp^2}{(\mathbf k ^2+\lambda^{-2})^2} \ll 1,
+\tag{18}\]</span></span></p>
+<p>This must be the case for the perturbation to be localized in the <span class="math inline">\(\hat {\mathbf z}\)</span> direction, which requires <span class="math inline">\(k_z \gg 1\)</span> (notice that <span class="math inline">\(\Omega, \lambda \sim \mathcal O(1)\)</span> in natural units).</p>
+<p>Assuming <a href="#eq-small-scale-approx" class="quarto-xref">Equation&nbsp;18</a>, we can approximate the two roots in Eq. <a href="#eq-iff-freq" class="quarto-xref">Equation&nbsp;16</a> as follows:</p>
+<p><span id="eq-iff-freq-approx"><span class="math display">\[
+\omega ^2_+ \approx\mathbf k ^2,\qquad\omega ^2_- \approx \frac{ k_\perp ^2}{k_z^2+k_\perp ^2}\Omega ^2.
+\tag{19}\]</span></span></p>
+<p>We also notice that the fluid velocity field satisfies (without any approximation):</p>
+<p><span class="math display">\[
+\frac{v_z}{v_\perp} = \frac{k_z}{k_\perp}\left(\dfrac{1+i\frac{k_\perp^2}{k_z\omega^2}-i\frac{1+\Omega ^2}{2k_z}}{1-i\frac{k_z}{\omega^2}-\frac{1+\Omega ^2}{2\omega^2}}\right)
+\]</span> Let us first consider waves associated with <span class="math inline">\(\omega _+\)</span>, which are essentially sound waves and for which gravity plays very little role. These have both phase and group velocity aligned with <span class="math inline">\(\mathbf k\)</span> and close to <span class="math inline">\(1\)</span> (the speed of sound), and the fluid velocity is also in the direction of <span class="math inline">\(\mathbf k\)</span> (the waves are longitudinal):</p>
+<p><span class="math display">\[
+\frac{v_z}{v_\perp}\approx \frac{k_z}{k_\perp },
+\]</span></p>
+<p>In contrast, waves associated with <span class="math inline">\(\omega _{-}\)</span>, called <em>gravity waves</em>, have vanishing phase and group velocity in the limit <span class="math inline">\(k_z \to \infty\)</span>, in general. The material velocity is perpendicular to <span class="math inline">\(\mathbf k\)</span>:</p>
+<p><span class="math display">\[
+\frac{v_z}{v_\perp}\approx -\frac{k_\perp}{k_z },
+\]</span> The wave frequency depends on the angle <span class="math inline">\(\theta\)</span> between <span class="math inline">\(k\)</span> and <span class="math inline">\(\mathbf g\)</span>, since <span class="math inline">\(\omega _{-}^2 = \sin^2 \theta \cdot \Omega ^2\)</span>. In particular, in the limit of plane waves in the <span class="math inline">\(\hat {\mathbf z}\)</span> direction, <em>i.e.</em> <span class="math inline">\(\theta \to 0\)</span>, we have <span class="math inline">\(\omega _{-}^2 \to 0\)</span>, while plane waves orthogonal to gravity <span class="math inline">\(\theta \to \frac{\pi}{2}\)</span> have frequency <span class="math inline">\(\omega _{-}^2 \approx \Omega ^2\)</span>. From the physical point of view, these two limits correspond to the cases in which the horizontal spatial scale of the perturbation is much larger/smaller than the vertical scale, respectively.</p>
+<p>We realize that the kind of perturbation analysed in the parcel argument implicitly refers to gravity waves of the second type (with small horizontal scales). From <a href="#eq-iff-freq-approx" class="quarto-xref">Equation&nbsp;19</a>, we see that the oscillation frequency coincides with the buoyancy frequency <a href="#eq-bv-freq" class="quarto-xref">Equation&nbsp;3</a> only if <span class="math inline">\(k _\perp \gg k_z\)</span>, that is, if the vertical spatial scale of the perturbation is much larger than its horizontal scale.</p>
+<section id="mathematical-details-on-the-wave-solution" class="level4">
+<h4 class="anchored" data-anchor-id="mathematical-details-on-the-wave-solution">Mathematical details on the wave solution</h4>
+<p>In order to justify the procedure used in the derivation of the plane waves solutions, consider a <em>localized</em> perturbation (say with compact support) at <span class="math inline">\(t = 0\)</span> and let <span class="math inline">\(\Psi(t=0)\)</span> denote the vector of quantities <span class="math inline">\(\delta \rho(t=0)\)</span>, <span class="math inline">\(\delta p (t=0)\)</span> and <span class="math inline">\(\delta \mathbf j (t=0)\)</span>. Since <span class="math inline">\(\Psi(t=0)\)</span> is localized, we can define:</p>
+<p><span id="eq-modified-fourier"><span class="math display">\[
+\widetilde \Psi(\mathbf k,t=0)=\intop \text d ^3 \mathbf r \,e^{i\mathbf k \cdot \mathbf r} e^{z/\lambda} \Psi(\mathbf r, t=0)
+\tag{20}\]</span></span> and the inverse of the Fourier transform gives:</p>
+<p><span id="eq-modified-fourier-inverse"><span class="math display">\[
+\Psi(\mathbf r, t=0) = e^{-z/\lambda}\intop  \frac{\text d ^3\mathbf k}{(2\pi)^3} e^{-i\mathbf k \cdot \mathbf r}\widetilde \Psi(\mathbf k,t=0).
+\tag{21}\]</span></span></p>
+<p>The Fourier components <span class="math inline">\(\widetilde \Psi (\mathbf k, t)\)</span> for a fixed <span class="math inline">\(\mathbf k\)</span> satisfy a linear system of ordinary differential equations, for which we already found four independent solutions (two for each frequency) in the previous Section. The fifth solution can be easily verified to correspond to a static, divergence-less velocity perturbation, with the velocity field orthogonal to the <span class="math inline">\(\hat {\mathbf z}\)</span> axis:</p>
+<p><span id="eq-last-solution"><span class="math display">\[
+\widetilde {\delta \mathbf j}(\mathbf k ,t) = f(\mathbf k) \,{\mathbf k} \times \mathbf g,\qquad \widetilde {\delta p}=0\qquad\widetilde {\delta \rho} = 0
+\tag{22}\]</span></span></p>
+<p>In momentum space, in the basis provided by the four eigenvectors with eigenvalues given by <a href="#eq-iff-freq" class="quarto-xref">Equation&nbsp;16</a>, plus this last (static) solution, time evolution is trivial.</p>
+<p>As a parenthetical remark, we notice that if we drop the requirement of a <em>localized</em> perturbation, we can have additional solutions that are not covered by the previous remarks. A trivial example is that of an hydrostatic equations - <span class="math inline">\(\nabla p = \mathbf g \rho\)</span>, with <span class="math inline">\(\delta \mathbf j = \mathbf 0\)</span>, all fields being independent of time. These solutions are clearly not localized, since the pressure field changes only in the <span class="math inline">\(\hat {\mathbf z }\)</span> direction. Another example is provided by Lamb waves, that satisfy the constraint:</p>
+<p><span class="math display">\[
+\delta \mathbf j \cdot \hat {\mathbf z} = 0
+\]</span></p>
+<p>and take the general form:</p>
+<p><span id="eq-lamb-waves"><span class="math display">\[
+\Psi(\mathbf r,t) = e^{-(\frac{\Omega ^2}{g}-\frac{g}{c_s^2})z}\intop \frac{\text d ^2 \mathbf k _\perp}{(2\pi)^2} e^{-i\mathbf k _\perp \cdot \mathbf r}  \left[a(\mathbf k _\perp)e^{i kc_st}+b(\mathbf k _\perp)e^{-i kc_st}\right].
+\tag{23}\]</span></span></p>
+<p>These waves are clearly not localized in the <span class="math inline">\(\hat {\mathbf z}\)</span> direction.</p>
+</section>
+</section>
+<section id="further-problems" class="level2">
+<h2 class="anchored" data-anchor-id="further-problems">Further problems</h2>
+<p>This is the point where I felt the algebra was getting a bit too involved and I left the problem. There are still a few things that it may be interesting to investigate. In particular, it would be nice to derive the explicit evolution of a wave packet, say:</p>
+<p><span class="math display">\[
+\delta \mathbf v (\mathbf r, 0) = \mathbf V \exp\left[{-\frac{x^2+y^2}{2\sigma _\perp^2}-\frac{z^2}{2\sigma _z^2}}\right].
+\]</span> with vanishing density and pressure perturbation (to simplify the algebra a little bit). One should compute the “modified” Fourier transform <a href="#eq-modified-fourier" class="quarto-xref">Equation&nbsp;20</a> and express the coefficients in terms of the five eigenvectors derived above. Perturbations like this will in general give rise to a combination of acoustic and longitudinal waves, depending on the direction of <span class="math inline">\(\mathbf V\)</span> and on the ratio of vertical and horizontal scales, <span class="math inline">\(\sigma _z\)</span> and <span class="math inline">\(\sigma _\perp\)</span>.</p>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-landau2013fluid" class="csl-entry" role="listitem">
+Landau, Lev Davidovich, and Evgenii Mikhailovich Lifshitz. 2013. <em>Fluid Mechanics: Landau and Lifshitz: Course of Theoretical Physics, Volume 6</em>. Vol. 6. Elsevier.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>In order to see this, we simply write <span class="math inline">\(p = p(\rho, s)\)</span> as a function of <span class="math inline">\(\rho\)</span> and <span class="math inline">\(s\)</span> and take the material derivative.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>From the pure mathematical point of view, this is not a strict consequence of <a href="#eq-ideal-fluid-equations" class="quarto-xref">Equation&nbsp;9</a>, which are in fact consistent with any static density configuration, as long as <span class="math inline">\(\nabla p = \mathbf g \rho\)</span> is satisfied. The physical reason is, of course, that we’re neglecting thermal conductivity, which allows for an arbitrary temperature gradient to persist forever in the absence of motion.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2024,
+  author = {Gherardi, Valerio},
+  title = {Gravity Waves in an Ideal Fluid},
+  date = {2024-02-22},
+  url = {https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+Gherardi, Valerio. 2024. <span>“Gravity Waves in an Ideal Fluid.”</span>
+February 22, 2024. <a href="https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/">https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/vgherard\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="vgherard/vgherard.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzODI2MzU4NTQ=" data-category="Comments" data-category-id="DIC_kwDOFs6PTs4CbwOw" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/vgherard/vgherard.github.io/blob/main/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/index.Rmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/vgherard/vgherard.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,15 @@
+{
+  "hash": "ac8cf03f7600f73647840a17c44e90c8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"\\\"A Closer Look at the Deviance\\\" by T. Hastie\"\ndescription: |\n  A nice review of properties of Deviance for one parameter exponential \n  families.\ndate: 2024-03-07\nbibliography: biblio.bib\ncategories: \n  - Comment on...\n  - Maximum Likelihood Estimation\n  - Linear Models\n  - Statistics\ndraft: false\n---\n\n\n\n\n[@CloserLookDeviance]. This short review provides a compendium of useful results on the *deviance* defined by $\\text -2 \\log \\mathcal L +2\\log\\mathcal L^*$, where $\\mathcal L^*$ denotes the likelihood of a \"saturated\" model, as explained in the paper. From the paper's abstract:\n\n> Prediction error and Kullback-Leibler distance provide a useful link between least squares and maximum likelihood estimation. This article is a summary of some existing results, with special reference to the deviance function popular in the GLIM literature.\n\nOf particular interest:\n\n-   Clarifies the definition of a \"saturated\" model for i.i.d. samples.\n-   Highlights the parallels between $L_2$ and Kullback-Leibler loss. In particular, the expectation is shown to be the optimal regression function for the general KL loss.\n-   Discusses optimism in the training error estimate of the in-sample (fixed predictors) error rate in terms of KL loss, within the context of Generalized Linear models.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

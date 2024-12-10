@@ -26,13 +26,18 @@ website:
 
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - notebooks.qmd
-      - software.qmd
-      - scientific_publications.qmd
-      - files.qmd
-      - about.qmd
+      - text: Home
+        href: index.qmd
+      - text: Notebooks
+        href: notebooks
+      - text: Software
+        href: sections/software
+      - text: Scientific Publications
+        href: sections/scientific_publications
+      - text: Files
+        href: sections/files
+      - text: About
+        href: sections/about
       - icon: rss
         href: index.xml
     right:
