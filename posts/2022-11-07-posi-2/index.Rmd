@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-In a [previous post](posts/2022-10-18-posi/) I introduced the problem of Selective Inference and illustrated, in a simplified setting, how selection generally affects the coverage of confidence intervals - when they are both *selected* and *constructed* using the same data. While the example was (hopefully) helpful to build some intuition, in order to discuss *"How to get away with selection"* in a comprehensive manner we need to make a few clarifications. In particular, we need to answer the following questions:
+In a [previous post](https://vgherard.github.io/posts/2022-10-18-posi/) I introduced the problem of Selective Inference and illustrated, in a simplified setting, how selection generally affects the coverage of confidence intervals - when they are both *selected* and *constructed* using the same data. While the example was (hopefully) helpful to build some intuition, in order to discuss *"How to get away with selection"* in a comprehensive manner we need to make a few clarifications. In particular, we need to answer the following questions:
 
 -   What is the target of our Selective Inference?
 -   What statistical properties would we like our inferences to have?
@@ -76,19 +76,21 @@ In addition to the conceptual distinction about the interpretation of the select
 
 Here are some of the notions of coverage I've come across:
 
--   *Marginal coverage over the selected parameters.* We bound at level $\alpha$ the probability that our procedure constructs any non-covering confidence interval for model parameters $\beta_i$. Denote by $\widehat M$ the selected model and, with abuse of notation, the corresponding set of selected parameters. If $\widehat{\text{CI}}_i$ are the confidence intervals for parameters $\beta _i$, we require: 
+-   *Marginal coverage over the selected parameters.* We bound at level $\alpha$ the probability that our procedure constructs any non-covering confidence interval for model parameters $\beta_i$. Denote by $\widehat M$ the selected model and, with abuse of notation, the corresponding set of selected parameters. If $\widehat{\text{CI}}_i$ are the confidence intervals for parameters $\beta _i$, we require:
 
 $$ 
     \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \geq 1-\alpha
 $$ {#eq-marginal-coverage}
 
--   *Conditional coverage over the selected parameters*. We bound at level $\alpha$ the *conditional* probability of constructing a non-covering confidence interval, conditioned on the outcome of selection $\widehat M$. If $m$ is the selected model, we require: 
+-   *Conditional coverage over the selected parameters*. We bound at level $\alpha$ the *conditional* probability of constructing a non-covering confidence interval, conditioned on the outcome of selection $\widehat M$. If $m$ is the selected model, we require:
 
 $$ 
     \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in m|\,\widehat M=m) \geq 1-\alpha
 $$ {#eq-conditional-coverage}
 
--   *False Coverage Rate*. We bound at level $q$[^4] the expected fraction of non-covering confidence intervals out of all intervals constructed: 
+-   *False Coverage Rate*. We bound at level $q$[^4] the expected fraction of non-covering confidence intervals out of all intervals constructed:
+
+[^4]: Why $q$ and not $\alpha$? Ask [@benjamini2005false].
 
 $$
     \mathbb E \left( \dfrac{|i \in \widehat M \colon \ \beta_i \in \widehat{\text{CI}}_i|}{|\widehat M|} \right) 
@@ -96,8 +98,6 @@ $$
 $$ {#eq-fcr}
 
 where $|S|$ denotes the cardinality of a set $S$.
-
-[^4]: Why $q$ and not $\alpha$? Ask [@benjamini2005false].
 
 Notice that the random variables in the previous equations are $\widehat M$ and $\widehat{\text{CI}}_i$ (denoted by a hat), whereas the true coefficients $\beta_i$ and the selected set $m$ in the case of conditional coverage (@eq-conditional-coverage) are fixed quantities. Variations of these measures focusing on single coefficients are also possible.
 
@@ -111,13 +111,13 @@ The connection between selective and simultaneous inference can now be understoo
 
 $$ 
 \text{Pr}(\beta _i \in \widehat{\text{CI}}_i\,\,\forall i) \geq 1-\alpha
-$$ {#eq-simultaneous-marginal-coverage} 
+$$ {#eq-simultaneous-marginal-coverage}
 
 Then, it's easy to see that the same confidence interval would also provide marginal coverage over the selected parameters. In order to see that, simply observe that the simultaneous coverage event can be decomposed as:
 
 $$ 
 (\beta _i \in \widehat {\text{CI}}_i\,\,\forall i) = (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \in \widehat M) \cap (\beta _i \in \widehat{\text{CI}}_i\,\,\forall i \notin \widehat M)
-$$ 
+$$
 
 which implies that:
 
