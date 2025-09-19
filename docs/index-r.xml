@@ -9,7 +9,7 @@
 <link>https://vgherard.github.io/#category=R</link>
 <atom:link href="https://vgherard.github.io/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>Valerio Gherardi&#39;s Personal Website</description>
-<generator>quarto-1.5.57</generator>
+<generator>quarto-1.7.32</generator>
 <lastBuildDate>Thu, 16 May 2024 22:00:00 GMT</lastBuildDate>
 <item>
   <title>AIC in the well-specified linear model: theory and simulation</title>
