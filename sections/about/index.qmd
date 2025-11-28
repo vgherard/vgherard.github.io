@@ -14,20 +14,14 @@ This website serves as a repository for my thoughts, things I am studying or wor
 
 ## Me
 
+👋 **Hi — I’m Valerio.**
+
 I’m an applied researcher and scientific software developer based in València, Spain. My work sits at the intersection of **science, modelling, and software**.
 
 My background is in **physics**, where I specialised in particle phenomenology during my PhD. Over time, my interests expanded toward **statistics, machine learning, and computational modelling**, leading me into **data-science roles in industry** and later back into research environments.
 
 Currently, I work within the **ERAHUMED project at the Universitat de València**, where I develop environmental simulation models and research software to support ecological risk assessment and evidence-based environmental policy.
 
-I enjoy projects that challenge me intellectually, especially when they combine:
+I enjoy projects that challenge me intellectually, especially when they combine scientific thinking, algorithmic problem-solving, reproducible computational methods and real-world impact.
 
--   scientific thinking
-
--    algorithmic problem-solving
-
--    reproducible computational methods
-
--   and real-world impact
-
-If you’d like to connect, you'll find contact links in the navigation bar. You can also [download my CV](https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf) from this page.
+If you’d like to connect, you'll find contact links and [my CV](https://raw.githubusercontent.com/vgherard/cv/master/cv/cv.pdf) in the navigation bar. I'm currently **open for consulting / project-based work** – feel free to reach out.
