@@ -7,6 +7,12 @@ project:
 website:
   title: "vgherard"
   description: "Valerio Gherardi's Personal Website"
+  announcement:
+    icon: briefcase
+    dismissable: true
+    content: "**Open for consulting.** I'm available for project-based work in data analysis, modelling, scientific software development, and related areas. Interested in working together? Get in touch."
+    type: success
+    position: below-navbar
   #announcement	https://quarto.org/docs/reference/projects/websites.html#announcement
   site-url: "https://vgherard.github.io"
   repo-url: "https://github.com/vgherard/vgherard.github.io/"
