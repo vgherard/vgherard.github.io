@@ -494,7 +494,7 @@
     "href": "notebooks/index.html",
     "title": "Notebooks",
     "section": "",
-    "text": "Title\n\n\n\nDate\n\n\n\nModified\n\n\n\nDescription\n\n\n\n\n\n\n\n\nOrdinary Least Squares\n\n\nFeb 7, 2024\n\n\n11/28/25, 11:28:18 AM\n\n\n\n\n\n\n\n\n\nThermodynamics\n\n\nJul 31, 2024\n\n\n11/28/25, 11:28:18 AM\n\n\n\n\n\n\n\n\n\nMaximum Likelihood\n\n\nMar 14, 2024\n\n\n11/28/25, 11:28:18 AM\n\n\n\n\n\n\n\n\n\nBootstrap\n\n\nFeb 7, 2024\n\n\n11/28/25, 11:28:18 AM\n\n\n\n\n\n\n\n\n\nExponential Dispersion Models\n\n\nMar 7, 2024\n\n\n11/28/25, 11:28:18 AM\n\n\n\n\n\n\n\n\n\nNo matching items\nReuseCC BY 4.0CitationBibTeX citation:@online{gherardi,\n  author = {Gherardi, Valerio},\n  title = {Notebooks},\n  url = {https://vgherard.github.io/notebooks/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nGherardi, Valerio. n.d. “Notebooks.” https://vgherard.github.io/notebooks/."
+    "text": "Title\n\n\n\nDate\n\n\n\nModified\n\n\n\nDescription\n\n\n\n\n\n\n\n\nThermodynamics\n\n\nJul 31, 2024\n\n\n3/4/26, 11:02:43 AM\n\n\n\n\n\n\n\n\n\nOrdinary Least Squares\n\n\nFeb 7, 2024\n\n\n3/4/26, 11:02:43 AM\n\n\n\n\n\n\n\n\n\nMaximum Likelihood\n\n\nMar 14, 2024\n\n\n3/4/26, 11:02:43 AM\n\n\n\n\n\n\n\n\n\nExponential Dispersion Models\n\n\nMar 7, 2024\n\n\n3/4/26, 11:02:43 AM\n\n\n\n\n\n\n\n\n\nBootstrap\n\n\nFeb 7, 2024\n\n\n3/4/26, 11:02:43 AM\n\n\n\n\n\n\n\n\n\nNo matching items\nReuseCC BY 4.0CitationBibTeX citation:@online{gherardi,\n  author = {Gherardi, Valerio},\n  title = {Notebooks},\n  url = {https://vgherard.github.io/notebooks/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nGherardi, Valerio. n.d. “Notebooks.” https://vgherard.github.io/notebooks/."
   },
   {
     "objectID": "notebooks/ordinary-least-squares/index.html",
@@ -949,6 +949,6 @@
     "href": "sections/scientific_publications/index.html#other-contributions",
     "title": "Scientific Publications",
     "section": "Other Contributions",
-    "text": "Other Contributions\nThis section highlights occasional research work beyond my core areas.\n\nSelected articles\n\nGrammar as a Behavioral Biometric: Using Cognitively Motivated Grammar Models for Authorship Verification (preprint; under review)."
+    "text": "Other Contributions\nThis section highlights occasional research work beyond my core areas.\n\nSelected articles\n\nGrammar as a Behavioral Biometric: Using Cognitively Motivated Grammar Models for Authorship Verification."
   }
 ]

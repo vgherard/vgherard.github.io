@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,14 +37,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -143,7 +144,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -169,6 +170,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">vgherard</span>
     </a>
@@ -356,23 +359,7 @@ Description
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-listing-date-sort="1707260400000" data-listing-file-modified-sort="1764325698024" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1636" data-listing-title-sort="Ordinary Least Squares" data-listing-filename-sort="index.Rmd">
-<td>
-<a href="../notebooks/ordinary-least-squares/index.html" class="title listing-title">Ordinary Least Squares</a>
-</td>
-<td>
-<span class="listing-date">Feb 7, 2024</span>
-</td>
-<td>
-<span class="listing-file-modified">11/28/25, 11:28:18 AM</span>
-</td>
-<td>
-<span class="listing-description">Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor (BLP) <span class="math inline">\(f^*(X) = X\beta\)</span> of a response <span class="math inline">\(Y \in \mathbb R\)</span> in terms of a…<span class="math inline"></span><span class="math inline"></span><span class="math inline"></span></span>
-</td>
-
-</tr>
-
-<tr data-index="1" data-listing-date-sort="1722376800000" data-listing-file-modified-sort="1764325698024" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="661" data-listing-title-sort="Thermodynamics" data-listing-filename-sort="index.Rmd">
+<tr data-index="0" data-listing-date-sort="1722376800000" data-listing-file-modified-sort="1772618563298" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="661" data-listing-title-sort="Thermodynamics" data-listing-filename-sort="index.Rmd">
 <td>
 <a href="../notebooks/thermodynamics/index.html" class="title listing-title">Thermodynamics</a>
 </td>
@@ -380,7 +367,7 @@ Description
 <span class="listing-date">Jul 31, 2024</span>
 </td>
 <td>
-<span class="listing-file-modified">11/28/25, 11:28:18 AM</span>
+<span class="listing-file-modified">3/4/26, 11:02:43 AM</span>
 </td>
 <td>
 <span class="listing-description">Miscellaneous notes about concepts of Thermodynamics.</span>
@@ -388,7 +375,23 @@ Description
 
 </tr>
 
-<tr data-index="2" data-listing-date-sort="1710370800000" data-listing-file-modified-sort="1764325698023" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1215" data-listing-title-sort="Maximum Likelihood" data-listing-filename-sort="index.Rmd">
+<tr data-index="1" data-listing-date-sort="1707260400000" data-listing-file-modified-sort="1772618563294" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1636" data-listing-title-sort="Ordinary Least Squares" data-listing-filename-sort="index.Rmd">
+<td>
+<a href="../notebooks/ordinary-least-squares/index.html" class="title listing-title">Ordinary Least Squares</a>
+</td>
+<td>
+<span class="listing-date">Feb 7, 2024</span>
+</td>
+<td>
+<span class="listing-file-modified">3/4/26, 11:02:43 AM</span>
+</td>
+<td>
+<span class="listing-description">Ordinary Least Squares (OLS) is a regression algorithm for estimating the best linear predictor (BLP) <span class="math inline">\(f^*(X) = X\beta\)</span> of a response <span class="math inline">\(Y \in \mathbb R\)</span> in terms of a…<span class="math inline"></span><span class="math inline"></span><span class="math inline"></span></span>
+</td>
+
+</tr>
+
+<tr data-index="2" data-listing-date-sort="1710370800000" data-listing-file-modified-sort="1772618563290" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1215" data-listing-title-sort="Maximum Likelihood" data-listing-filename-sort="index.Rmd">
 <td>
 <a href="../notebooks/maximum-likelihood/index.html" class="title listing-title">Maximum Likelihood</a>
 </td>
@@ -396,7 +399,7 @@ Description
 <span class="listing-date">Mar 14, 2024</span>
 </td>
 <td>
-<span class="listing-file-modified">11/28/25, 11:28:18 AM</span>
+<span class="listing-file-modified">3/4/26, 11:02:43 AM</span>
 </td>
 <td>
 <span class="listing-description"><strong>Disclaimer.</strong> These are wild notes on Maximum Likelihood that require some deep <em>labor limae</em> session. Use at your own risk!</span>
@@ -404,23 +407,7 @@ Description
 
 </tr>
 
-<tr data-index="3" data-listing-date-sort="1707260400000" data-listing-file-modified-sort="1764325698017" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="976" data-listing-title-sort="Bootstrap" data-listing-filename-sort="index.Rmd">
-<td>
-<a href="../notebooks/bootstrap/index.html" class="title listing-title">Bootstrap</a>
-</td>
-<td>
-<span class="listing-date">Feb 7, 2024</span>
-</td>
-<td>
-<span class="listing-file-modified">11/28/25, 11:28:18 AM</span>
-</td>
-<td>
-<span class="listing-description">The Bootstrap <span class="citation" data-cites="EfronBootstrap79 efron1994introduction">(B. Efron 1979; Bradley Efron and Tibshirani 1994)</span> is a set of computational techniques for statistical inference that generally operate by approximating the…</span>
-</td>
-
-</tr>
-
-<tr data-index="4" data-listing-date-sort="1709766000000" data-listing-file-modified-sort="1764325698017" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1550" data-listing-title-sort="Exponential Dispersion Models" data-listing-filename-sort="index.Rmd">
+<tr data-index="3" data-listing-date-sort="1709766000000" data-listing-file-modified-sort="1772618563285" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1550" data-listing-title-sort="Exponential Dispersion Models" data-listing-filename-sort="index.Rmd">
 <td>
 <a href="../notebooks/exponential-dispersion-models/index.html" class="title listing-title">Exponential Dispersion Models</a>
 </td>
@@ -428,10 +415,26 @@ Description
 <span class="listing-date">Mar 7, 2024</span>
 </td>
 <td>
-<span class="listing-file-modified">11/28/25, 11:28:18 AM</span>
+<span class="listing-file-modified">3/4/26, 11:02:43 AM</span>
 </td>
 <td>
 <span class="listing-description">Exponential Dispersion Models (EDMs) provide a natural generalization of the normal distribution, in which the modeled variable <span class="math inline">\(Y\)</span> is assumed to follow a probability…</span>
+</td>
+
+</tr>
+
+<tr data-index="4" data-listing-date-sort="1707260400000" data-listing-file-modified-sort="1772618563277" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="976" data-listing-title-sort="Bootstrap" data-listing-filename-sort="index.Rmd">
+<td>
+<a href="../notebooks/bootstrap/index.html" class="title listing-title">Bootstrap</a>
+</td>
+<td>
+<span class="listing-date">Feb 7, 2024</span>
+</td>
+<td>
+<span class="listing-file-modified">3/4/26, 11:02:43 AM</span>
+</td>
+<td>
+<span class="listing-description">The Bootstrap <span class="citation" data-cites="EfronBootstrap79 efron1994introduction">(B. Efron 1979; Bradley Efron and Tibshirani 1994)</span> is a set of computational techniques for statistical inference that generally operate by approximating the…</span>
 </td>
 
 </tr>
@@ -499,13 +502,14 @@ Gherardi, Valerio. n.d. <span>“Notebooks.”</span> <a href="https://vgherard.
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

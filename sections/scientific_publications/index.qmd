@@ -30,4 +30,4 @@ This section highlights occasional research work beyond my core areas.
 
 #### Selected articles
 
--   [Grammar as a Behavioral Biometric: Using Cognitively Motivated Grammar Models for Authorship Verification](https://arxiv.org/abs/2403.08462) (preprint; under review).
+-   [Grammar as a Behavioral Biometric: Using Cognitively Motivated Grammar Models for Authorship Verification](https://www.nature.com/articles/s41599-025-06340-3).

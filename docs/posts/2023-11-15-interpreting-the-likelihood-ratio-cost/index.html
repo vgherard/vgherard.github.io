@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -92,14 +92,15 @@ div.csl-indent {
 <link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -169,7 +170,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -195,6 +196,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">vgherard</span>
     </a>
@@ -601,7 +604,7 @@ d  \equiv \ln (\frac {\pi}{1-\pi}) .
 <p>Suppose that we fit an exponential function <span class="math inline">\(r(X)=e^{mX +q}\)</span> to <span class="math inline">\(\Lambda(X)\)</span> by likelihood-ratio cost minimization, and similarly <span class="math inline">\(r'(X)=e^{m'X+q'}\)</span> to <span class="math inline">\(\rho(X)\)</span> by cross-entropy minimization<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. Due to the previous discussion, one could reasonably expect the results of the two procedure to differ in some way, which is demonstrated below by simulation.</p>
 <p>The chunk of R code below defines the function and data used for the simulation. In particular, I’m considering a heavily unbalanced case (<span class="math inline">\(\text{Pr}(Y = 1) = 0.1\%\)</span>) in which negative cases give rise to a sharply localized <span class="math inline">\(X\)</span> peak around <span class="math inline">\(X=0\)</span> (<span class="math inline">\(\mu _0 = 0\)</span>, <span class="math inline">\(\sigma_0 = .25\)</span>), while the few positive cases give rise to a broader signal centered at <span class="math inline">\(X=1\)</span> (<span class="math inline">\(\mu _1 = 1\)</span>, <span class="math inline">\(\sigma _1 = 1\)</span>).</p>
 <div class="cell" data-code_folding="true">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidyverse facilities for plotting</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidyverse facilities for plotting</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -656,11 +659,11 @@ d  \equiv \ln (\frac {\pi}{1-\pi}) .
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> mu1 <span class="sc">/</span> (sd1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> mu0 <span class="sc">/</span> (sd0<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">*</span> (mu0<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (sd0<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> mu1<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (sd1<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">+</span> <span class="fu">log</span>(sd0 <span class="sc">/</span> sd1)</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">*</span> x <span class="sc">*</span> x <span class="sc">+</span> b <span class="sc">*</span> x <span class="sc">+</span> c</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>So, what do our best estimates look like? The plot below shows the best fit lines for the log-likelihood ratio from <span class="math inline">\(C_{\text{LLR}}\)</span> minimization (in solid red) and cross-entropy minimization (in solid blue). The true log-likelihood ratio parabola is the black line. Also shown are the <span class="math inline">\(\text{LLR}=0\)</span> line (in dashed red) and the <span class="math inline">\(\text{LLR}=\ln(\frac{1-\pi}{\pi})\)</span> (in dashed blue), which are the appropriate Bayes thresholds for classifying a data point as positive (<span class="math inline">\(Y=1\)</span>), assuming data comes from a balanced and unbalanced distribution, respectively.</p>
 <div class="cell" data-code_folding="true">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_function</span>(<span class="at">fun =</span> \(x) <span class="fu">llr</span>(x, par_cllr), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_function</span>(<span class="at">fun =</span> \(x) <span class="fu">llr</span>(x, par_cross_entropy), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_function</span>(<span class="at">fun =</span> \(x) <span class="fu">llr_true</span>(x), <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
@@ -668,7 +671,7 @@ d  \equiv \ln (\frac {\pi}{1-\pi}) .
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log</span>(pi <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span>pi))), </span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>)) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"X"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Log-Likelihood Ratio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"X"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Log-Likelihood Ratio"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -679,7 +682,7 @@ d  \equiv \ln (\frac {\pi}{1-\pi}) .
 </div>
 <p>The reason why the lines differ is that they are designed to solve a different predictive problem: as we’ve argued above, minimizing <span class="math inline">\(C_\text{LLR}\)</span> looks for the best <span class="math inline">\(Y\vert X\)</span> conditional probability estimate according to the balanced measure <span class="math inline">\(\text{Pr}'\)</span>, whereas cross-entropy minimization does the same for the original measure <span class="math inline">\(\text{Pr}\)</span>. This is how data looks like under the two measures (the histograms are stacked - in the unbalanced case, positive examples are invisible on the linear scale of the plot):</p>
 <div class="cell" data-code_folding="true">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rxy</span>(<span class="at">n =</span> <span class="fl">1e6</span>, <span class="at">pi =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">"Balanced"</span>, <span class="at">llr_thresh =</span> <span class="dv">0</span>),</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rxy</span>(<span class="at">n =</span> <span class="fl">1e6</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">"Unbalanced"</span>, <span class="at">llr_thresh =</span> <span class="sc">-</span><span class="fu">log</span>(pi <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span>pi)))</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -688,7 +691,7 @@ d  \equiv \ln (\frac {\pi}{1-\pi}) .
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">fill =</span> y)) <span class="sc">+</span> </span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>) <span class="sc">+</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(type <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -699,7 +702,7 @@ d  \equiv \ln (\frac {\pi}{1-\pi}) .
 </div>
 <p>These differences are reflected in the misclassification rates of the resulting classifiers defined by <span class="math inline">\(\hat Y(X)=I(\text{LLR}(X)&gt;\text{threshold})\)</span>, where the appropriate threshold is zero in the balanced case, and <span class="math inline">\(\ln(\frac{1-\pi}{\pi})\)</span> in the unbalanced case. According to intuition, we see that the <span class="math inline">\(C_\text{LLR}\)</span> optimizer beats the cross-entropy optimizer on the balanced sample, while performing significantly worse on the unbalanced one.</p>
 <div class="cell" data-code_folding="true">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">llr_cllr =</span> <span class="fu">llr</span>(x, par_cllr),</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">llr_cross_entropy =</span> <span class="fu">llr</span>(x, par_cross_entropy),</span>
@@ -710,7 +713,7 @@ d  \equiv \ln (\frac {\pi}{1-\pi}) .
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">cllr =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">mean</span>((llr_cllr <span class="sc">&gt;</span> llr_thresh) <span class="sc">==</span> y),</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cross_entropy =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">mean</span>((llr_cross_entropy <span class="sc">&gt;</span> llr_thresh) <span class="sc">==</span> y),</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">true_llr =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">mean</span>((llr_true <span class="sc">&gt;</span> llr_thresh) <span class="sc">==</span> y)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   type           cllr cross_entropy true_llr
@@ -813,13 +816,14 @@ Cost.”</span> November 15, 2023. <a href="https://vgherard.github.io/posts/202
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
