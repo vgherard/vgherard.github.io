@@ -9,7 +9,7 @@
 <link>https://vgherard.github.io/#category=R</link>
 <atom:link href="https://vgherard.github.io/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>Valerio Gherardi&#39;s Personal Website</description>
-<generator>quarto-1.8.25</generator>
+<generator>quarto-1.10.18</generator>
 <lastBuildDate>Thu, 16 May 2024 22:00:00 GMT</lastBuildDate>
 <item>
   <title>AIC in the well-specified linear model: theory and simulation</title>
@@ -1078,7 +1078,7 @@ font-style: inherit;">NULL</span></span></code></pre></div></div>
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“AIC in the Well-Specified Linear Model:
-Theory and Simulation.”</span> May 17, 2024. <a href="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/">https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/</a>.
+Theory and Simulation.”</span> May 17. <a href="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/">https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/</a>.
 </div></div></section></div> ]]></description>
   <category>Model Selection</category>
   <category>Linear Models</category>
@@ -1321,19 +1321,19 @@ font-style: inherit;">score</span>(q_doc, auth_corpus, imp_corpus)</span></code>
 <h2 class="anchored" data-anchor-id="reflections-on-in-silico-authorship-verification">Reflections on <em>in silico</em> Authorship Verification</h2>
 <p>The various <em>ifs</em> at the end of the previous sections led me to reflexionate on the applicability of machine-learning approaches, such as the one we discussed in our work, to real-life contexts.</p>
 <p>As implied above, in order for a metric such as accuracy to represent a sensible measure of predictive performance, we should be able to regard the AV problems encountered in our favorite practical use case as random samples from some <em>fixed</em> population. In other words, we consider a stationary source of random authorship claims, and assume that our trained model is routinely used to verify claims from this source.</p>
-<p>Now, while there are many circumstances in which the above assumptions make total sense, I think there are also interesting AV applications in which one is not interested in the long-run properties of the method but, rather, in a single inference. The real case of the poem “Shall I die?”, controversially attributed to Shakespeare in 1985, is an example of this kind. An approach to this case based on empirical Bayes is discussed in <span class="citation" data-cites="efron2021computer">(Efron and Hastie 2021, vol. 6, sec. 6.2)</span>. Although we may be able to build a reasonable impostor corpus to be used with this problem, it is not clear how one should come up with a relevant testing dataset of AV problems to empirically quantify uncertainty.</p>
+<p>Now, while there are many circumstances in which the above assumptions make total sense, I think there are also interesting AV applications in which one is not interested in the long-run properties of the method but, rather, in a single inference. The real case of the poem “Shall I die?”, controversially attributed to Shakespeare in 1985, is an example of this kind. An approach to this case based on empirical Bayes is discussed in <span class="citation" data-cites="efron2021computer">(Efron and Hastie 2021, sec. 6.2)</span>. Although we may be able to build a reasonable impostor corpus to be used with this problem, it is not clear how one should come up with a relevant testing dataset of AV problems to empirically quantify uncertainty.</p>
 <p>For cases such as the “Shall I die?” controversy, the machine-learning setting considered in our study is just an <em>in silico</em> model of real AV. As such, I believe it still provides useful indications on what could be good authorship indicators and work in general, but we must acknowledge the practical limitations in our way to quantify uncertainty. Other approaches, such as classical null hypothesis testing, may be more suited to this specific kind of AV problems.</p>
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-efron2021computer" class="csl-entry">
 Efron, Bradley, and Trevor Hastie. 2021. <em>Computer Age Statistical Inference, Student Edition: Algorithms, Evidence, and Data Science</em>. Vol. 6. Cambridge University Press.
 </div>
 <div id="ref-nini2024authorship" class="csl-entry">
-Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi Ishihara. 2024. <span>“Authorship Verification Based on the Likelihood Ratio of Grammar Models.”</span> <a href="https://arxiv.org/abs/2403.08462">https://arxiv.org/abs/2403.08462</a>.
+Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi Ishihara. 2024. <em>Authorship Verification Based on the Likelihood Ratio of Grammar Models</em>. <a href="https://arxiv.org/abs/2403.08462">https://arxiv.org/abs/2403.08462</a>.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2024,
   author = {Gherardi, Valerio},
@@ -1344,7 +1344,7 @@ Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi Ishihar
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Grammar as a Biometric for Authorship
-Verification.”</span> April 25, 2024. <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/">https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/</a>.
+Verification.”</span> April 25. <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/">https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/</a>.
 </div></div></section></div> ]]></description>
   <category>Authorship Verification</category>
   <category>Natural Language Processing</category>
@@ -2264,9 +2264,9 @@ font-style: inherit;">==</span> y)</span>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-BRUMMER2006230" class="csl-entry">
-Brümmer, Niko, and Johan du Preez. 2006. <span>“Application-Independent Evaluation of Speaker Detection.”</span> <em>Computer Speech &amp; Language</em> 20 (2): 230–75. https://doi.org/<a href="https://doi.org/10.1016/j.csl.2005.08.001">https://doi.org/10.1016/j.csl.2005.08.001</a>.
+<span class="nocase">Brümmer, Niko, and Johan du Preez</span>. 2006. <span>“Application-Independent Evaluation of Speaker Detection.”</span> <em>Computer Speech &amp; Language</em> 20 (2): 230–75. https://doi.org/<a href="https://doi.org/10.1016/j.csl.2005.08.001">https://doi.org/10.1016/j.csl.2005.08.001</a>.
 </div>
 <div id="ref-Cover2006" class="csl-entry">
 Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2nd Edition (Wiley Series in Telecommunications and Signal Processing)</em>. Hardcover; Wiley-Interscience.
@@ -2275,7 +2275,7 @@ Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2n
 
 <ol>
 <li id="fn1"><p>This is how I understood things should <em>theoretically</em> work, from discussions with friends who are actually working on this field. I have no idea on how much day-to-day practice comes close to this mathematical ideal, and whether there exist alternative frameworks to the one I have just described.↩︎</p></li>
-<li id="fn2"><p>The Likelihood Ratio Cost was introduced in <span class="citation" data-cites="BRUMMER2006230">(Brümmer and du Preez 2006)</span>. The reference looks very complete, but I find its notation and terminology so unfamiliar that I decided to do my own investigation and leave this reading for a second moment.↩︎</p></li>
+<li id="fn2"><p>The Likelihood Ratio Cost was introduced in <span class="citation" data-cites="BRUMMER2006230">(<span class="nocase">Brümmer and du Preez</span> 2006)</span>. The reference looks very complete, but I find its notation and terminology so unfamiliar that I decided to do my own investigation and leave this reading for a second moment.↩︎</p></li>
 <li id="fn3"><p>That is to say, <img src="https://latex.codecogs.com/png.latex?w(Y_%7B%5Csigma(1)%7D,%5C,Y_%7B%5Csigma(2)%7D,%5Cdots,%5C,Y_%7B%5Csigma(N)%7D)=w(Y_1,%5C,Y_2,%5Cdots,%5C,Y_N)"> for any permutation <img src="https://latex.codecogs.com/png.latex?%5Csigma"> of the set <img src="https://latex.codecogs.com/png.latex?%5C%7B1,%5C,2,%5C,%5Cdots,%5C,N%5C%7D">.↩︎</p></li>
 <li id="fn4"><p><em>Nota bene:</em> the function <img src="https://latex.codecogs.com/png.latex?f"> is here assumed to be fixed, whereas the randomness in the quantity <img src="https://latex.codecogs.com/png.latex?L%20_N%20%5Ew%20%5Bf%5D"> only comes from the paired observations <img src="https://latex.codecogs.com/png.latex?%5C%7B(X_i,%5C,Y_i)%5C%7D_%7Bi=1,%5C,2,%5C,%5Cdots,N%7D">.↩︎</p></li>
 <li id="fn5"><p>Notice that, due to symmetry <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20E(w(%5Cboldsymbol%20Y)%5Cvert%20%5Csum%20_i%20Y_i%20%3E0)%20=%20%5Cmathbb%20E(w(%5Cboldsymbol%20Y)%5Cvert%20Y_1%20=%201)">, which might be easier to compute.↩︎</p></li>
@@ -2295,7 +2295,7 @@ Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2n
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Interpreting the Likelihood Ratio
-Cost.”</span> November 15, 2023. <a href="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/">https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/</a>.
+Cost.”</span> November 15. <a href="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/">https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/</a>.
 </div></div></section></div> ]]></description>
   <category>Forensic Science</category>
   <category>Bayesian Methods</category>
@@ -2949,7 +2949,7 @@ font-style: inherit;">2</span>)</span></code></pre></div></div>
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“AB Tests and Repeated Checks.”</span>
-July 27, 2023. <a href="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/">https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/</a>.
+July 27. <a href="https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/">https://vgherard.github.io/posts/2023-07-24-ab-tests-and-repeated-checks/</a>.
 </div></div></section></div> ]]></description>
   <category>AB testing</category>
   <category>Sequential Hypothesis Testing</category>
@@ -4029,7 +4029,7 @@ font-style: inherit;">" = "</span>)</span>
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Testing Functional Specification in
-Linear Regression.”</span> July 11, 2023. <a href="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/">https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/</a>.
+Linear Regression.”</span> July 11. <a href="https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/">https://vgherard.github.io/posts/2023-07-11-testing-functional-specification-in-linear-regression/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Model Misspecification</category>
@@ -4671,7 +4671,7 @@ x             0.9742566 0.9977471</code></pre>
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Linear Regression with Autocorrelated
-Noise.”</span> May 25, 2023. <a href="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/">https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/</a>.
+Noise.”</span> May 25. <a href="https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/">https://vgherard.github.io/posts/2023-05-20-linear-regression-with-autocorrelated-noise/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Regression</category>
@@ -5555,9 +5555,9 @@ methods for more general <code>glm</code> objects).</p>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-buja2019models" class="csl-entry">
-Buja, Andreas, Lawrence Brown, Richard Berk, Edward George, Emil Pitkin, Mikhail Traskin, Kai Zhang, and Linda Zhao. 2019. <span>“Models as Approximations i.”</span> <em>Statistical Science</em> 34 (4): 523–44.
+Buja, Andreas, Lawrence Brown, Richard Berk, et al. 2019. <span>“Models as Approximations i.”</span> <em>Statistical Science</em> 34 (4): 523–44.
 </div>
 <div id="ref-white1980heteroskedasticity" class="csl-entry">
 White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.”</span> <em>Econometrica: Journal of the Econometric Society</em>, 817–38.
@@ -5580,7 +5580,7 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Model Misspecification and Linear
-Sandwiches.”</span> May 14, 2023. <a href="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/">https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/</a>.
+Sandwiches.”</span> May 14. <a href="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/">https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Regression</category>
@@ -5982,7 +5982,7 @@ font-style: inherit;"># Pr(m covered | q kept)</span></span></code></pre></div><
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-benjamini2005false" class="csl-entry">
 Benjamini, Yoav, and Daniel Yekutieli. 2005. <span>“False Discovery Rate–Adjusted Multiple Confidence Intervals for Selected Parameters.”</span> <em>Journal of the American Statistical Association</em> 100 (469): 71–81.
 </div>
@@ -5993,13 +5993,13 @@ Berk, Richard, Lawrence Brown, Andreas Buja, Kai Zhang, and Linda Zhao. 2013. <s
 Isidori, Gino, Davide Lancierini, Patrick Owen, and Nicola Serra. 2021. <span>“On the Significance of New Physics in b→ Sℓ+ ℓ- Decays.”</span> <em>Physics Letters B</em> 822: 136644.
 </div>
 <div id="ref-https://doi.org/10.48550/arxiv.2112.11079" class="csl-entry">
-Leiner, James, Boyan Duan, Larry Wasserman, and Aaditya Ramdas. 2021. <span>“Data Fission: Splitting a Single Data Point.”</span> arXiv. <a href="https://doi.org/10.48550/ARXIV.2112.11079">https://doi.org/10.48550/ARXIV.2112.11079</a>.
+Leiner, James, Boyan Duan, Larry Wasserman, and Aaditya Ramdas. 2021. <em>Data Fission: Splitting a Single Data Point</em>. arXiv. <a href="https://doi.org/10.48550/ARXIV.2112.11079">https://doi.org/10.48550/ARXIV.2112.11079</a>.
 </div>
 <div id="ref-Shalizi:2020pmsi" class="csl-entry">
-Shalizi, C. R. 2020. <span>“Post-Model-Selection Inference.”</span> 2020. <a href="http://bactra.org/notebooks/post-model-selection-inference.html">http://bactra.org/notebooks/post-model-selection-inference.html</a>.
+Shalizi, C. R. 2020. <span>“Post-Model-Selection Inference.”</span> <a href="http://bactra.org/notebooks/post-model-selection-inference.html">http://bactra.org/notebooks/post-model-selection-inference.html</a>.
 </div>
 <div id="ref-vrbik:2020ra" class="csl-entry">
-Vrbik, Jan. 2020. <span>“Regression Analysis (Lecture Notes).”</span> 2020. <a href="http://spartan.ac.brocku.ca/~jvrbik/MATH3P82/notes.pdf">http://spartan.ac.brocku.ca/~jvrbik/MATH3P82/notes.pdf</a>.
+Vrbik, Jan. 2020. <span>“Regression Analysis (Lecture Notes).”</span> <a href="http://spartan.ac.brocku.ca/~jvrbik/MATH3P82/notes.pdf">http://spartan.ac.brocku.ca/~jvrbik/MATH3P82/notes.pdf</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
@@ -6019,7 +6019,7 @@ Vrbik, Jan. 2020. <span>“Regression Analysis (Lecture Notes).”</span> 2020. 
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2022" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2022. <span>“How to Get Away with Selection. Part I:
-Introduction.”</span> November 14, 2022. <a href="https://vgherard.github.io/posts/2022-10-18-posi/">https://vgherard.github.io/posts/2022-10-18-posi/</a>.
+Introduction.”</span> November 14. <a href="https://vgherard.github.io/posts/2022-10-18-posi/">https://vgherard.github.io/posts/2022-10-18-posi/</a>.
 </div></div></section></div> ]]></description>
   <category>Statistics</category>
   <category>Selective Inference</category>
@@ -6214,7 +6214,7 @@ font-style: inherit;">10</span>)</span></code></pre></div></div>
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2021" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2021. <span>“Kgrams V0.1.2 on CRAN.”</span> November
-13, 2021. <a href="https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/">https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/</a>.
+13. <a href="https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/">https://vgherard.github.io/posts/2021-11-13-kgrams-v012-released/</a>.
 </div></div></section></div> ]]></description>
   <category>Natural Language Processing</category>
   <category>R</category>
@@ -6460,8 +6460,7 @@ font-style: inherit;">~</span> wt, mtcars) ]]</span></code></pre></div></div>
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2021" class="csl-entry quarto-appendix-citeas">
-Gherardi, Valerio. 2021. <span>“{R2r} Now on CRAN.”</span> July 6, 2021.
-<a href="https://vgherard.github.io/posts/2021-07-06-r2r/">https://vgherard.github.io/posts/2021-07-06-r2r/</a>.
+Gherardi, Valerio. 2021. <span>“{R2r} Now on CRAN.”</span> July 6. <a href="https://vgherard.github.io/posts/2021-07-06-r2r/">https://vgherard.github.io/posts/2021-07-06-r2r/</a>.
 </div></div></section></div> ]]></description>
   <category>Data Structures</category>
   <category>R</category>

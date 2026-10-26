@@ -8,15 +8,16 @@ format:
 
 ## Environmental Science (2024-present)
 
-Since 2024 I have worked in **Limnology** and **Ecotoxicology** through the [ERAHUMED project](https://www.erahumed.com/), where I co-developed the decision-support models and led software development. The work is currently ongoing.
+Since 2024, I have worked in Environmental Science, specializing in Limnology and Ecotoxicology. My work has involved developing decision-support models and scientific software, with a current focus on predictive modelling of toxicological effects.
 
 #### Selected articles
 
+-   [ERAHUMED: An integrated modeling platform for the landscape-level ecological risk assessment of pesticides used in rice-farming systems](https://doi.org/10.1093/inteam/vjag139)
 -   [Thinking big! Landscape-scale evaluation of pesticide pollution and ecological risks in a protected mediterranean wetland](https://doi.org/10.1016/j.envpol.2025.126918) - covered by national and international media, *e.g.* [EuropaPress](https://www.europapress.es/comunitat-valenciana/noticia-estudio-uv-revela-lago-lalbufera-recibe-15-toneladas-pesticidas-ano-20250916103148.html), [ElDiario](https://www.eldiario.es/sociedad/albufera-valencia-recibe-1-5-toneladas-pesticidas-ano-estudio_1_12606096.html).
 
 ## Particle Physics (2017-2022)
 
-My research in Particle Physics (2017-2022) overlapped with my PhD studies, focusing on **Non-perturbative methods in Quantum Field Theory** and **Beyond Standard Model phenomenology**. A full list of publications is available on [my iNSPIRE HEP author page](https://inspirehep.net/authors/1728353?ui-citation-summary=true). My PhD thesis can be accessed [on arXiv](https://arxiv.org/abs/2111.00285).
+My research in Particle Physics (2017-2022) overlapped with my PhD studies, focusing on Non-perturbative methods in Quantum Field Theory and Beyond Standard Model phenomenology. A full list of publications is available on [my iNSPIRE HEP author page](https://inspirehep.net/authors/1728353?ui-citation-summary=true). My PhD thesis can be accessed [on arXiv](https://arxiv.org/abs/2111.00285).
 
 #### Selected articles
 

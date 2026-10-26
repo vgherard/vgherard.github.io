@@ -9,7 +9,7 @@
 <link>https://vgherard.github.io/</link>
 <atom:link href="https://vgherard.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>Valerio Gherardi&#39;s Personal Website</description>
-<generator>quarto-1.8.25</generator>
+<generator>quarto-1.10.18</generator>
 <lastBuildDate>Sun, 03 Nov 2024 23:00:00 GMT</lastBuildDate>
 <item>
   <title>Exponential of a 2x2 real matrix</title>
@@ -49,7 +49,7 @@
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Exponential of a 2x2 Real
-Matrix.”</span> November 4, 2024. <a href="https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/">https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/</a>.
+Matrix.”</span> November 4. <a href="https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/">https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/</a>.
 </div></div></section></div> ]]></description>
   <category>Mathematics</category>
   <guid>https://vgherard.github.io/posts/2024-11-04-exponential-of-a-2x2-matrix/</guid>
@@ -111,8 +111,8 @@ Matrix.”</span> November 4, 2024. <a href="https://vgherard.github.io/posts/20
   langid = {en}
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
-Gherardi, Valerio. 2024. <span>“Dutch Book Arguments.”</span> August 12,
-2024. <a href="https://vgherard.github.io/posts/2024-08-12-dutch-book-arguments/">https://vgherard.github.io/posts/2024-08-12-dutch-book-arguments/</a>.
+Gherardi, Valerio. 2024. <span>“Dutch Book Arguments.”</span> August 12.
+<a href="https://vgherard.github.io/posts/2024-08-12-dutch-book-arguments/">https://vgherard.github.io/posts/2024-08-12-dutch-book-arguments/</a>.
 </div></div></section></div> ]]></description>
   <category>Bayesian Methods</category>
   <category>Statistics</category>
@@ -139,12 +139,12 @@ Gherardi, Valerio. 2024. <span>“Dutch Book Arguments.”</span> August 12,
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-LY" class="csl-entry">
 Lieb, Elliott H., and Jakob Yngvason. 1999a. <span>“The Physics and Mathematics of the Second Law of Thermodynamics.”</span> <em>Physics Reports</em> 310 (1): 1–96. https://doi.org/<a href="https://doi.org/10.1016/S0370-1573(98)00082-9">https://doi.org/10.1016/S0370-1573(98)00082-9</a>.
 </div>
 <div id="ref-LYErratum" class="csl-entry">
-———. 1999b. <span>“The Physics and Mathematics of the Second Law of Thermodynamics (Physics Reports 310 (1999) 1–96).”</span> <em>Physics Reports</em> 314 (6): 669. https://doi.org/<a href="https://doi.org/10.1016/S0370-1573(99)00029-0">https://doi.org/10.1016/S0370-1573(99)00029-0</a>.
+Lieb, Elliott H., and Jakob Yngvason. 1999b. <span>“The Physics and Mathematics of the Second Law of Thermodynamics (Physics Reports 310 (1999) 1–96).”</span> <em>Physics Reports</em> 314 (6): 669. https://doi.org/<a href="https://doi.org/10.1016/S0370-1573(99)00029-0">https://doi.org/10.1016/S0370-1573(99)00029-0</a>.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2024,
   author = {Gherardi, Valerio},
@@ -155,7 +155,7 @@ Lieb, Elliott H., and Jakob Yngvason. 1999a. <span>“The Physics and Mathematic
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“The UV Diagram for a Pure
-Substance.”</span> July 1, 2024. <a href="https://vgherard.github.io/posts/2024-07-01-the-uv-diagram-for-a-pure-substance/">https://vgherard.github.io/posts/2024-07-01-the-uv-diagram-for-a-pure-substance/</a>.
+Substance.”</span> July 1. <a href="https://vgherard.github.io/posts/2024-07-01-the-uv-diagram-for-a-pure-substance/">https://vgherard.github.io/posts/2024-07-01-the-uv-diagram-for-a-pure-substance/</a>.
 </div></div></section></div> ]]></description>
   <category>Thermodynamics</category>
   <category>Physics</category>
@@ -270,7 +270,7 @@ Substance.”</span> July 1, 2024. <a href="https://vgherard.github.io/posts/202
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-LY1" class="csl-entry">
 Lieb, Elliott H., and Jakob Yngvason. 1999. <span>“The Physics and Mathematics of the Second Law of Thermodynamics.”</span> <em>Physics Reports</em> 310 (1): 1–96. https://doi.org/<a href="https://doi.org/10.1016/S0370-1573(98)00082-9">https://doi.org/10.1016/S0370-1573(98)00082-9</a>.
 </div>
@@ -291,7 +291,7 @@ Lieb, Elliott H., and Jakob Yngvason. 1999. <span>“The Physics and Mathematics
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“<span>‘The Physics and Mathematics of
 the Second Law of Thermodynamics’</span> by E.H. Lieb and J.
-Yngvason.”</span> June 25, 2024. <a href="https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason/">https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason/</a>.
+Yngvason.”</span> June 25. <a href="https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason/">https://vgherard.github.io/posts/2024-06-25-the-physics-and-mathematics-of-the-second-law-of-thermodynamics-by-eh-lieb-and-j-yngvason/</a>.
 </div></div></section></div> ]]></description>
   <category>Comment on...</category>
   <category>Thermodynamics</category>
@@ -321,7 +321,7 @@ Yngvason.”</span> June 25, 2024. <a href="https://vgherard.github.io/posts/202
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-datafission" class="csl-entry">
 James Leiner, Larry Wasserman, Boyan Duan, and Aaditya Ramdas. 2023. <span>“Data Fission: Splitting a Single Data Point.”</span> <em>Journal of the American Statistical Association</em> 0 (0): 1–12. <a href="https://doi.org/10.1080/01621459.2023.2270748">https://doi.org/10.1080/01621459.2023.2270748</a>.
 </div>
@@ -338,7 +338,7 @@ Rasines, D García, and G A Young. 2022. <span>“<span class="nocase">Splitting
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“<span>‘Data Fission: Splitting a Single
-Data Point’</span> by Leiner Et Al.”</span> June 3, 2024. <a href="https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al/">https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al/</a>.
+Data Point’</span> by Leiner Et Al.”</span> June 3. <a href="https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al/">https://vgherard.github.io/posts/2024-06-03-data-fission-splitting-a-single-data-point-by-leiner-et-al/</a>.
 </div></div></section></div> ]]></description>
   <category>Comment on...</category>
   <category>Selective Inference</category>
@@ -397,9 +397,9 @@ Clausius’ Theorem, there is no <em>a priori</em> logical reason for a relation
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-dittman2021heat" class="csl-entry">
-Dittman, Richard H, and Mark W Zemansky. 2021. <span>“Heat and Thermodynamics SEVENTH EDITION.”</span>
+Dittman, Richard H, and Mark W Zemansky. 2021. <em>Heat and Thermodynamics SEVENTH EDITION</em>.
 </div>
 <div id="ref-fermi1956thermodynamics" class="csl-entry">
 Fermi, E. 1956. <em>Thermodynamics</em>. Dover Books in Physics and Mathematical Physics. Dover Publications. <a href="https://books.google.es/books?id=VEZ1ljsT3IwC">https://books.google.es/books?id=VEZ1ljsT3IwC</a>.
@@ -420,7 +420,7 @@ Fermi, E. 1956. <em>Thermodynamics</em>. Dover Books in Physics and Mathematical
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Statements of the Second Law of
-Thermodynamics.”</span> June 1, 2024. <a href="https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics/">https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics/</a>.
+Thermodynamics.”</span> June 1. <a href="https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics/">https://vgherard.github.io/posts/2024-06-01-statements-of-the-second-law-of-thermodynamics/</a>.
 </div></div></section></div> ]]></description>
   <category>Thermodynamics</category>
   <category>Physics</category>
@@ -437,7 +437,7 @@ Thermodynamics.”</span> June 1, 2024. <a href="https://vgherard.github.io/post
 
 
 
-<p><span class="citation" data-cites="Glickman2019Data">(Glickman, Brown, and Song 2019)</span>. An enjoyable read. The authors present a statistical analysis of the Beatles’ repertoire from the point of view of authorship (Lennon <em>vs.</em> McCartney), a <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/">topic with which I’ve been lately involved</a>. As a side-note, this also made me discover the <a href="https://hdsr.mitpress.mit.edu/">Harvard Data Science Review</a>.</p>
+<p><span class="citation" data-cites="Glickman2019Data">(Glickman et al. 2019)</span>. An enjoyable read. The authors present a statistical analysis of the Beatles’ repertoire from the point of view of authorship (Lennon <em>vs.</em> McCartney), a <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/">topic with which I’ve been lately involved</a>. As a side-note, this also made me discover the <a href="https://hdsr.mitpress.mit.edu/">Harvard Data Science Review</a>.</p>
 <p>From the paper’s abstract:</p>
 <blockquote class="blockquote">
 <p>The songwriting duo of John Lennon and Paul McCartney, the two founding members of the Beatles, composed some of the most popular and memorable songs of the last century. Despite having authored songs under the joint credit agreement of Lennon-McCartney, it is well-documented that most of their songs or portions of songs were primarily written by exactly one of the two. Furthermore, the authorship of some Lennon-McCartney songs is in dispute, with the recollections of authorship based on previous interviews with Lennon and McCartney in conflict. For Lennon-McCartney songs of known and unknown authorship written and recorded over the period 1962-66, we extracted musical features from each song or song portion. These features consist of the occurrence of melodic notes, chords, melodic note pairs, chord change pairs, and four-note melody contours. We developed a prediction model based on variable screening followed by logistic regression with elastic net regularization. Out-of-sample classification accuracy for songs with known authorship was 76%, with a c-statistic from an ROC analysis of 83.7%. We applied our model to the prediction of songs and song portions with unknown or disputed authorship.</p>
@@ -455,7 +455,7 @@ Thermodynamics.”</span> June 1, 2024. <a href="https://vgherard.github.io/post
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Glickman2019Data" class="csl-entry">
 Glickman, Mark, Jason Brown, and Ryan Song. 2019. <span>“(<span>A</span>) <span>Data</span> in the <span>Life</span>: Authorship <span>Attribution</span> in <span>Lennon</span>-<span>McCartney</span> <span>Songs</span>.”</span> <em>Harvard Data Science Review</em> 1 (1).
 </div>
@@ -471,7 +471,7 @@ Tibshirani, Robert J, and Bradley Efron. 1993. <span>“An Introduction to the B
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Authorship Attribution in
-Lennon-McCartney Songs.”</span> May 23, 2024. <a href="https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs/">https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs/</a>.
+Lennon-McCartney Songs.”</span> May 23. <a href="https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs/">https://vgherard.github.io/posts/2024-05-23-authorship-attribution-in-lennon-mccartney-songs/</a>.
 </div></div></section></div> ]]></description>
   <category>Comment on...</category>
   <category>Authorship Verification</category>
@@ -540,7 +540,7 @@ Lennon-McCartney Songs.”</span> May 23, 2024. <a href="https://vgherard.github
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-berk2013valid" class="csl-entry">
 Berk, Richard, Lawrence Brown, Andreas Buja, Kai Zhang, and Linda Zhao. 2013. <span>“Valid Post-Selection Inference.”</span> <em>The Annals of Statistics</em>, 802–37.
 </div>
@@ -562,7 +562,7 @@ Kerridge, D. 1963. <span>“Bounds for the Frequency of Misleading Bayes Inferen
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Frequentist Bounds for Bayesian
-Sequential Hypothesis Testing.”</span> May 22, 2024. <a href="https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing/">https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing/</a>.
+Sequential Hypothesis Testing.”</span> May 22. <a href="https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing/">https://vgherard.github.io/posts/2024-05-22-frequentist-bounds-for-bayesian-sequential-hypothesis-testing/</a>.
 </div></div></section></div> ]]></description>
   <category>Sequential Hypothesis Testing</category>
   <category>Bayesian Methods</category>
@@ -1638,7 +1638,7 @@ font-style: inherit;">NULL</span></span></code></pre></div></div>
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“AIC in the Well-Specified Linear Model:
-Theory and Simulation.”</span> May 17, 2024. <a href="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/">https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/</a>.
+Theory and Simulation.”</span> May 17. <a href="https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/">https://vgherard.github.io/posts/2024-05-09-aic-in-the-well-specified-linear-model-theory-and-simulation/</a>.
 </div></div></section></div> ]]></description>
   <category>Model Selection</category>
   <category>Linear Models</category>
@@ -1881,19 +1881,19 @@ font-style: inherit;">score</span>(q_doc, auth_corpus, imp_corpus)</span></code>
 <h2 class="anchored" data-anchor-id="reflections-on-in-silico-authorship-verification">Reflections on <em>in silico</em> Authorship Verification</h2>
 <p>The various <em>ifs</em> at the end of the previous sections led me to reflexionate on the applicability of machine-learning approaches, such as the one we discussed in our work, to real-life contexts.</p>
 <p>As implied above, in order for a metric such as accuracy to represent a sensible measure of predictive performance, we should be able to regard the AV problems encountered in our favorite practical use case as random samples from some <em>fixed</em> population. In other words, we consider a stationary source of random authorship claims, and assume that our trained model is routinely used to verify claims from this source.</p>
-<p>Now, while there are many circumstances in which the above assumptions make total sense, I think there are also interesting AV applications in which one is not interested in the long-run properties of the method but, rather, in a single inference. The real case of the poem “Shall I die?”, controversially attributed to Shakespeare in 1985, is an example of this kind. An approach to this case based on empirical Bayes is discussed in <span class="citation" data-cites="efron2021computer">(Efron and Hastie 2021, vol. 6, sec. 6.2)</span>. Although we may be able to build a reasonable impostor corpus to be used with this problem, it is not clear how one should come up with a relevant testing dataset of AV problems to empirically quantify uncertainty.</p>
+<p>Now, while there are many circumstances in which the above assumptions make total sense, I think there are also interesting AV applications in which one is not interested in the long-run properties of the method but, rather, in a single inference. The real case of the poem “Shall I die?”, controversially attributed to Shakespeare in 1985, is an example of this kind. An approach to this case based on empirical Bayes is discussed in <span class="citation" data-cites="efron2021computer">(Efron and Hastie 2021, sec. 6.2)</span>. Although we may be able to build a reasonable impostor corpus to be used with this problem, it is not clear how one should come up with a relevant testing dataset of AV problems to empirically quantify uncertainty.</p>
 <p>For cases such as the “Shall I die?” controversy, the machine-learning setting considered in our study is just an <em>in silico</em> model of real AV. As such, I believe it still provides useful indications on what could be good authorship indicators and work in general, but we must acknowledge the practical limitations in our way to quantify uncertainty. Other approaches, such as classical null hypothesis testing, may be more suited to this specific kind of AV problems.</p>
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-efron2021computer" class="csl-entry">
 Efron, Bradley, and Trevor Hastie. 2021. <em>Computer Age Statistical Inference, Student Edition: Algorithms, Evidence, and Data Science</em>. Vol. 6. Cambridge University Press.
 </div>
 <div id="ref-nini2024authorship" class="csl-entry">
-Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi Ishihara. 2024. <span>“Authorship Verification Based on the Likelihood Ratio of Grammar Models.”</span> <a href="https://arxiv.org/abs/2403.08462">https://arxiv.org/abs/2403.08462</a>.
+Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi Ishihara. 2024. <em>Authorship Verification Based on the Likelihood Ratio of Grammar Models</em>. <a href="https://arxiv.org/abs/2403.08462">https://arxiv.org/abs/2403.08462</a>.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2024,
   author = {Gherardi, Valerio},
@@ -1904,7 +1904,7 @@ Nini, Andrea, Oren Halvani, Lukas Graner, Valerio Gherardi, and Shunichi Ishihar
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Grammar as a Biometric for Authorship
-Verification.”</span> April 25, 2024. <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/">https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/</a>.
+Verification.”</span> April 25. <a href="https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/">https://vgherard.github.io/posts/2024-04-25-grammar-as-a-biometric-for-authorship-verification/</a>.
 </div></div></section></div> ]]></description>
   <category>Authorship Verification</category>
   <category>Natural Language Processing</category>
@@ -1938,9 +1938,9 @@ Verification.”</span> April 25, 2024. <a href="https://vgherard.github.io/post
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-gelman2011induction" class="csl-entry">
-Gelman, Andrew. 2011. <span>“Induction and Deduction in Bayesian Data Analysis.”</span>
+Gelman, Andrew. 2011. <em>Induction and Deduction in Bayesian Data Analysis</em>.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{gherardi2024,
   author = {Gherardi, Valerio},
@@ -1952,7 +1952,7 @@ Gelman, Andrew. 2011. <span>“Induction and Deduction in Bayesian Data Analysis
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“<span>‘Induction and Deduction in
-Bayesian Data Analysis’</span> by A. Gelman.”</span> April 25, 2024. <a href="https://vgherard.github.io/posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman/">https://vgherard.github.io/posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman/</a>.
+Bayesian Data Analysis’</span> by A. Gelman.”</span> April 25. <a href="https://vgherard.github.io/posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman/">https://vgherard.github.io/posts/2024-04-25-induction-and-deduction-in-bayesian-data-analysis-by-a-gelman/</a>.
 </div></div></section></div> ]]></description>
   <category>Comment on...</category>
   <category>Bayesian Methods</category>
@@ -1985,7 +1985,7 @@ Bayesian Data Analysis’</span> by A. Gelman.”</span> April 25, 2024. <a href
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-hoenig2001abuse" class="csl-entry">
 Hoenig, John M, and Dennis M Heisey. 2001. <span>“The Abuse of Power: The Pervasive Fallacy of Power Calculations for Data Analysis.”</span> <em>The American Statistician</em> 55 (1): 19–24.
 </div>
@@ -2004,7 +2004,7 @@ Hoenig, John M, and Dennis M Heisey. 2001. <span>“The Abuse of Power: The Perv
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“<span>‘The Abuse of Power’</span> by J.
-M. Hoenig and D. M. Heisey.”</span> April 18, 2024. <a href="https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey/">https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey/</a>.
+M. Hoenig and D. M. Heisey.”</span> April 18. <a href="https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey/">https://vgherard.github.io/posts/2024-04-18-the-abuse-of-power-by-j-m-hoenig-and-d-m-heisey/</a>.
 </div></div></section></div> ]]></description>
   <category>Comment on...</category>
   <category>Hypothesis Testing</category>
@@ -2050,7 +2050,7 @@ M. Hoenig and D. M. Heisey.”</span> April 18, 2024. <a href="https://vgherard.
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“AIC for the Linear Model: Known Vs.
-Unknown Variance.”</span> March 13, 2024. <a href="https://vgherard.github.io/posts/2024-03-13-aic-for-the-linear-model-known-vs-unknown-variance/">https://vgherard.github.io/posts/2024-03-13-aic-for-the-linear-model-known-vs-unknown-variance/</a>.
+Unknown Variance.”</span> March 13. <a href="https://vgherard.github.io/posts/2024-03-13-aic-for-the-linear-model-known-vs-unknown-variance/">https://vgherard.github.io/posts/2024-03-13-aic-for-the-linear-model-known-vs-unknown-variance/</a>.
 </div></div></section></div> ]]></description>
   <category>Model Selection</category>
   <category>Linear Models</category>
@@ -2083,7 +2083,7 @@ Unknown Variance.”</span> March 13, 2024. <a href="https://vgherard.github.io/
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-CloserLookDeviance" class="csl-entry">
 Hastie, Trevor. 1987. <span>“A Closer Look at the Deviance.”</span> <em>The American Statistician</em> 41 (1): 16–20. <a href="https://doi.org/10.1080/00031305.1987.10475434">https://doi.org/10.1080/00031305.1987.10475434</a>.
 </div>
@@ -2096,7 +2096,7 @@ Hastie, Trevor. 1987. <span>“A Closer Look at the Deviance.”</span> <em>The 
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“<span>‘A Closer Look at the
-Deviance’</span> by T. Hastie.”</span> March 7, 2024. <a href="https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie/">https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie/</a>.
+Deviance’</span> by T. Hastie.”</span> March 7. <a href="https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie/">https://vgherard.github.io/posts/2024-03-07-a-closer-look-at-the-deviance-by-t-hastie/</a>.
 </div></div></section></div> ]]></description>
   <category>Comment on...</category>
   <category>Maximum Likelihood Estimation</category>
@@ -2144,7 +2144,7 @@ Deviance’</span> by T. Hastie.”</span> March 7, 2024. <a href="https://vgher
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-cox1989analysis" class="csl-entry">
 Cox, D. R., and E. J. Snell. 1989. <em>Analysis of Binary Data, Second Edition</em>. Chapman &amp; Hall/CRC Monographs on Statistics &amp; Applied Probability. Taylor &amp; Francis.
 </div>
@@ -2158,7 +2158,7 @@ Cox, D. R., and E. J. Snell. 1989. <em>Analysis of Binary Data, Second Edition</
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“No Binomial Overdispersion from
-Variations at the Individual Level.”</span> March 6, 2024. <a href="https://vgherard.github.io/posts/2024-03-06-no-binomial-overdispersion-from-variations-at-the-individual-level/">https://vgherard.github.io/posts/2024-03-06-no-binomial-overdispersion-from-variations-at-the-individual-level/</a>.
+Variations at the Individual Level.”</span> March 6. <a href="https://vgherard.github.io/posts/2024-03-06-no-binomial-overdispersion-from-variations-at-the-individual-level/">https://vgherard.github.io/posts/2024-03-06-no-binomial-overdispersion-from-variations-at-the-individual-level/</a>.
 </div></div></section></div> ]]></description>
   <category>Population Dynamics</category>
   <category>Biology</category>
@@ -2218,13 +2218,13 @@ Variations at the Individual Level.”</span> March 6, 2024. <a href="https://vg
 <p>The crucial observation is that the open system point of view is only describing steps 1 and 3, while the closed system only describes step 2. The fact that <img src="https://latex.codecogs.com/png.latex?U_3%20-%20U_0%20=%20(u_%5Ctext%7Bl%7D-u_%5Ctext%7Bv%7D)%5Ctext%20d%20N">, implies that the two points of view lead to the same energy balance, as it should be. This can be easily verified:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bsplit%7D%0A%5Ctext%20d%20U%20&amp;=%20%5Cdelta%20Q%20+%20%5Cdelta%20W%5C%5C%0A&amp;=%5BT%5Ctext(s_%5Ctext%20l-s_%5Ctext%20v)-p(v_%5Ctext%20l-v_%5Ctext%20v)%5D%5Ctext%20dN%5C%5C%0A&amp;=%5Cdelta%20X_%5Ctext%20l+%20%5Cdelta%20X_%5Ctext%20v%5C%5C%0A&amp;=%20%5Ctext%20dU_%5Ctext%20l+%20%5Ctext%20d%20U_%5Ctext%20v%0A%5Cend%7Bsplit%7D%0A"></p>
 <p>where in the third equality we used the fact that <img src="https://latex.codecogs.com/png.latex?%5Cmu_%5Ctext%20l%20=%20%5Cmu_%5Ctext%20v"> at the phase transition, so that <img src="https://latex.codecogs.com/png.latex?u_%5Ctext%20l%20-%20u_%5Ctext%20v%20=%20T%5Ctext(s_%5Ctext%20l-s_%5Ctext%20v)-p(v_%5Ctext%20l-v_%5Ctext%20v)">.</p>
-<p>As a final note, let me mention that some references (especially from the engineering field) include the work required to transfer matter across the open system boundary in the definition of <img src="https://latex.codecogs.com/png.latex?%5Cdelta%20X">, which thus becomes proportional to the molar <em>enthalpy</em> <img src="https://latex.codecogs.com/png.latex?h%20=%20u%20+%20pv"> (see <em>e.g.</em> <span class="citation" data-cites="knuiman2012relation">(Knuiman, Barneveld, and Besseling 2012)</span>). As a consequence, the external work performed on an open system simply reads <img src="https://latex.codecogs.com/png.latex?%5Cdelta%20W%20=%20-%20p%20%5Ctext%20d%20V">, as in the closed system case. The reason why this could make sense is that if the “open system” is defined in terms of a (physical or imaginary) spatial boundary surface, which allows the flow of matter through some injection mechanism, one could be interested in the work resulting from the expansion of the boundary only - sometimes called <em>shaft work</em>, in contrast with the <em>flow work</em> <img src="https://latex.codecogs.com/png.latex?-p%20%5C,%5Ctext%20d%20V%5E%7B%5Ctext%7B(e)%7D%7D"> included in the enthalpy. In the way I see it, this leads to a cumbersome physical description in the context of the examples mentioned above.</p>
+<p>As a final note, let me mention that some references (especially from the engineering field) include the work required to transfer matter across the open system boundary in the definition of <img src="https://latex.codecogs.com/png.latex?%5Cdelta%20X">, which thus becomes proportional to the molar <em>enthalpy</em> <img src="https://latex.codecogs.com/png.latex?h%20=%20u%20+%20pv"> (see <em>e.g.</em> <span class="citation" data-cites="knuiman2012relation">(Knuiman et al. 2012)</span>). As a consequence, the external work performed on an open system simply reads <img src="https://latex.codecogs.com/png.latex?%5Cdelta%20W%20=%20-%20p%20%5Ctext%20d%20V">, as in the closed system case. The reason why this could make sense is that if the “open system” is defined in terms of a (physical or imaginary) spatial boundary surface, which allows the flow of matter through some injection mechanism, one could be interested in the work resulting from the expansion of the boundary only - sometimes called <em>shaft work</em>, in contrast with the <em>flow work</em> <img src="https://latex.codecogs.com/png.latex?-p%20%5C,%5Ctext%20d%20V%5E%7B%5Ctext%7B(e)%7D%7D"> included in the enthalpy. In the way I see it, this leads to a cumbersome physical description in the context of the examples mentioned above.</p>
 
 
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-knuiman2012relation" class="csl-entry">
 Knuiman, Jan T, Peter A Barneveld, and Nicolaas AM Besseling. 2012. <span>“On the Relation Between the Fundamental Equation of Thermodynamics and the Energy Balance Equation in the Context of Closed and Open Systems.”</span> <em>Journal of Chemical Education</em> 89 (8): 968–72.
 </div>
@@ -2243,7 +2243,7 @@ Knuiman, Jan T, Peter A Barneveld, and Nicolaas AM Besseling. 2012. <span>“On 
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“On the First and Second Laws of
-Thermodynamics for Open Systems.”</span> March 4, 2024. <a href="https://vgherard.github.io/posts/2024-02-29-on-the-first-and-second-laws-of-thermodynamics-for-open-systems/">https://vgherard.github.io/posts/2024-02-29-on-the-first-and-second-laws-of-thermodynamics-for-open-systems/</a>.
+Thermodynamics for Open Systems.”</span> March 4. <a href="https://vgherard.github.io/posts/2024-02-29-on-the-first-and-second-laws-of-thermodynamics-for-open-systems/">https://vgherard.github.io/posts/2024-02-29-on-the-first-and-second-laws-of-thermodynamics-for-open-systems/</a>.
 </div></div></section></div> ]]></description>
   <category>Open Systems</category>
   <category>Thermodynamics</category>
@@ -2366,7 +2366,7 @@ Thermodynamics for Open Systems.”</span> March 4, 2024. <a href="https://vgher
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-landau2013fluid" class="csl-entry">
 Landau, Lev Davidovich, and Evgenii Mikhailovich Lifshitz. 2013. <em>Fluid Mechanics: Landau and Lifshitz: Course of Theoretical Physics, Volume 6</em>. Vol. 6. Elsevier.
 </div>
@@ -2385,7 +2385,7 @@ Landau, Lev Davidovich, and Evgenii Mikhailovich Lifshitz. 2013. <em>Fluid Mecha
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Gravity Waves in an Ideal Fluid.”</span>
-February 22, 2024. <a href="https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/">https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/</a>.
+February 22. <a href="https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/">https://vgherard.github.io/posts/2024-02-22-gravity-waves-in-an-ideal-fluid/</a>.
 </div></div></section></div> ]]></description>
   <category>Atmospheric Physics</category>
   <category>Fluid Dynamics</category>
@@ -2432,7 +2432,7 @@ February 22, 2024. <a href="https://vgherard.github.io/posts/2024-02-22-gravity-
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2024" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2024. <span>“Binary Digits of Uniform Random
-Variables.”</span> January 29, 2024. <a href="https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables/">https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables/</a>.
+Variables.”</span> January 29. <a href="https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables/">https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables/</a>.
 </div></div></section></div> ]]></description>
   <category>Probability Theory</category>
   <guid>https://vgherard.github.io/posts/2024-01-29-binary-digits-of-uniform-random-variables/</guid>
@@ -3347,9 +3347,9 @@ font-style: inherit;">==</span> y)</span>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-BRUMMER2006230" class="csl-entry">
-Brümmer, Niko, and Johan du Preez. 2006. <span>“Application-Independent Evaluation of Speaker Detection.”</span> <em>Computer Speech &amp; Language</em> 20 (2): 230–75. https://doi.org/<a href="https://doi.org/10.1016/j.csl.2005.08.001">https://doi.org/10.1016/j.csl.2005.08.001</a>.
+<span class="nocase">Brümmer, Niko, and Johan du Preez</span>. 2006. <span>“Application-Independent Evaluation of Speaker Detection.”</span> <em>Computer Speech &amp; Language</em> 20 (2): 230–75. https://doi.org/<a href="https://doi.org/10.1016/j.csl.2005.08.001">https://doi.org/10.1016/j.csl.2005.08.001</a>.
 </div>
 <div id="ref-Cover2006" class="csl-entry">
 Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2nd Edition (Wiley Series in Telecommunications and Signal Processing)</em>. Hardcover; Wiley-Interscience.
@@ -3358,7 +3358,7 @@ Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2n
 
 <ol>
 <li id="fn1"><p>This is how I understood things should <em>theoretically</em> work, from discussions with friends who are actually working on this field. I have no idea on how much day-to-day practice comes close to this mathematical ideal, and whether there exist alternative frameworks to the one I have just described.↩︎</p></li>
-<li id="fn2"><p>The Likelihood Ratio Cost was introduced in <span class="citation" data-cites="BRUMMER2006230">(Brümmer and du Preez 2006)</span>. The reference looks very complete, but I find its notation and terminology so unfamiliar that I decided to do my own investigation and leave this reading for a second moment.↩︎</p></li>
+<li id="fn2"><p>The Likelihood Ratio Cost was introduced in <span class="citation" data-cites="BRUMMER2006230">(<span class="nocase">Brümmer and du Preez</span> 2006)</span>. The reference looks very complete, but I find its notation and terminology so unfamiliar that I decided to do my own investigation and leave this reading for a second moment.↩︎</p></li>
 <li id="fn3"><p>That is to say, <img src="https://latex.codecogs.com/png.latex?w(Y_%7B%5Csigma(1)%7D,%5C,Y_%7B%5Csigma(2)%7D,%5Cdots,%5C,Y_%7B%5Csigma(N)%7D)=w(Y_1,%5C,Y_2,%5Cdots,%5C,Y_N)"> for any permutation <img src="https://latex.codecogs.com/png.latex?%5Csigma"> of the set <img src="https://latex.codecogs.com/png.latex?%5C%7B1,%5C,2,%5C,%5Cdots,%5C,N%5C%7D">.↩︎</p></li>
 <li id="fn4"><p><em>Nota bene:</em> the function <img src="https://latex.codecogs.com/png.latex?f"> is here assumed to be fixed, whereas the randomness in the quantity <img src="https://latex.codecogs.com/png.latex?L%20_N%20%5Ew%20%5Bf%5D"> only comes from the paired observations <img src="https://latex.codecogs.com/png.latex?%5C%7B(X_i,%5C,Y_i)%5C%7D_%7Bi=1,%5C,2,%5C,%5Cdots,N%7D">.↩︎</p></li>
 <li id="fn5"><p>Notice that, due to symmetry <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%20E(w(%5Cboldsymbol%20Y)%5Cvert%20%5Csum%20_i%20Y_i%20%3E0)%20=%20%5Cmathbb%20E(w(%5Cboldsymbol%20Y)%5Cvert%20Y_1%20=%201)">, which might be easier to compute.↩︎</p></li>
@@ -3378,7 +3378,7 @@ Cover, Thomas M., and Joy A. Thomas. 2006. <em>Elements of Information Theory 2n
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Interpreting the Likelihood Ratio
-Cost.”</span> November 15, 2023. <a href="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/">https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/</a>.
+Cost.”</span> November 15. <a href="https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/">https://vgherard.github.io/posts/2023-11-15-interpreting-the-likelihood-ratio-cost/</a>.
 </div></div></section></div> ]]></description>
   <category>Forensic Science</category>
   <category>Bayesian Methods</category>
@@ -3423,7 +3423,7 @@ Cost.”</span> November 15, 2023. <a href="https://vgherard.github.io/posts/202
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-kallenberg1997foundations" class="csl-entry">
 Kallenberg, Olav. 1997. <em>Foundations of Modern Probability</em>. Vol. 2. Springer.
 </div>
@@ -3442,7 +3442,7 @@ Kallenberg, Olav. 1997. <em>Foundations of Modern Probability</em>. Vol. 2. Spri
 }
 </code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-gherardi2023" class="csl-entry quarto-appendix-citeas">
 Gherardi, Valerio. 2023. <span>“Conditional Probability.”</span>
-November 3, 2023. <a href="https://vgherard.github.io/posts/2023-11-03-conditional-probability/">https://vgherard.github.io/posts/2023-11-03-conditional-probability/</a>.
+November 3. <a href="https://vgherard.github.io/posts/2023-11-03-conditional-probability/">https://vgherard.github.io/posts/2023-11-03-conditional-probability/</a>.
 </div></div></section></div> ]]></description>
   <category>Probability Theory</category>
   <category>Measure Theory</category>
